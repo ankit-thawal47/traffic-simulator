@@ -20,6 +20,9 @@ importers:
       '@traffic-simulator/engine':
         specifier: workspace:*
         version: link:../../packages/engine
+      '@traffic-simulator/scenario':
+        specifier: workspace:^
+        version: link:../../packages/scenario
       react:
         specifier: ^18.3.1
         version: 18.3.1
