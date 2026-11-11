@@ -1,6 +1,14 @@
 import { describe, expect, it } from "vitest";
-import type { Results } from "@traffic-simulator/engine";
+import type { Results, VehicleClassDelay } from "@traffic-simulator/engine";
 import { compareResults, formatChange, type Measure } from "../src/index";
+
+const noVehicles: VehicleClassDelay = { vehicles: 0, vehiclesThrough: 0, meanDelayS: null };
+const delays = (twoWheelerS: number, carS: number): Results["delayByVehicleClass"] => ({
+  "two-wheeler": { vehicles: 120, vehiclesThrough: 110, meanDelayS: twoWheelerS },
+  car: { vehicles: 90, vehiclesThrough: 80, meanDelayS: carS },
+  "auto-rickshaw": noVehicles,
+  bus: noVehicles,
+});
 
 const baseline: Results = {
   timeS: 600,
@@ -8,6 +16,7 @@ const baseline: Results = {
   vehiclesThrough: 200,
   vehiclesOnNetwork: 10,
   vehiclesWaitingToEnter: 0,
+  delayByVehicleClass: delays(4, 10),
 };
 const proposal: Results = {
   timeS: 600,
@@ -15,6 +24,7 @@ const proposal: Results = {
   vehiclesThrough: 150,
   vehiclesOnNetwork: 40,
   vehiclesWaitingToEnter: 20,
+  delayByVehicleClass: delays(5, 25),
 };
 
 describe("comparing a proposal's results against the baseline's", () => {
@@ -36,7 +46,16 @@ describe("comparing a proposal's results against the baseline's", () => {
   it("reports the same measures, in the same order, whatever the results are", () => {
     const ids = compareResults(baseline, proposal).map((row) => row.id);
 
-    expect(ids).toEqual(["vehicles-through", "vehicles-entered", "vehicles-on-network", "vehicles-waiting-to-enter"]);
+    expect(ids).toEqual([
+      "vehicles-through",
+      "vehicles-entered",
+      "vehicles-on-network",
+      "vehicles-waiting-to-enter",
+      "mean-delay-two-wheeler",
+      "mean-delay-car",
+      "mean-delay-auto-rickshaw",
+      "mean-delay-bus",
+    ]);
     expect(compareResults(baseline, baseline).map((row) => row.id)).toEqual(ids);
   });
 
@@ -48,6 +67,24 @@ describe("comparing a proposal's results against the baseline's", () => {
     const waiting = compareResults(baseline, proposal).find((row) => row.id === "vehicles-waiting-to-enter");
 
     expect(waiting).toMatchObject({ baseline: 0, proposal: 20, change: 20, changePercent: null });
+  });
+
+  it("gives the mean delay of each vehicle class, and nothing for a vehicle class with no vehicles", () => {
+    const rows = compareResults(baseline, proposal);
+
+    expect(rows.find((row) => row.id === "mean-delay-car")).toMatchObject({
+      name: "Mean delay of cars (s)",
+      baseline: 10,
+      proposal: 25,
+      change: 15,
+      changePercent: 150,
+    });
+    expect(rows.find((row) => row.id === "mean-delay-bus")).toMatchObject({
+      baseline: null,
+      proposal: null,
+      change: null,
+      changePercent: null,
+    });
   });
 
   it("a further measure slots in as one more entry in the list of measures", () => {

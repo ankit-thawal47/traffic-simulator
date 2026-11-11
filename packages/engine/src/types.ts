@@ -17,16 +17,30 @@ export interface Road {
   points: Point[];
   /** Usable width across the road, in metres. */
   widthM: number;
+  /**
+   * Number of marked lanes, sharing the width equally. Required from format
+   * version 2. A version 1 road has none; it is given as many lanes of the
+   * standard lane width as fit its width (at least one).
+   */
+  lanes?: number;
   speedLimitMps: number;
 }
 
-/** The roads a scenario runs on. Later versions add junctions and flyovers. */
+/**
+ * The roads a scenario runs on. Later versions add junctions and flyovers.
+ *
+ * Format versions: 1 is a road with a centreline, width and speed limit;
+ * 2 adds each road's lane count. The engine reads both.
+ */
 export interface Network {
-  formatVersion: 1;
+  formatVersion: 1 | 2;
   roads: Road[];
 }
 
-export type VehicleClass = "car";
+export type VehicleClass = "two-wheeler" | "car" | "auto-rickshaw" | "bus";
+
+/** The share of each vehicle class in a demand. Shares need not add up to 1; they are used in proportion. */
+export type VehicleMix = Partial<Record<VehicleClass, number>>;
 
 /** Traffic sent into the network from one entry road to one exit road. */
 export interface DemandFlow {
@@ -37,6 +51,8 @@ export interface DemandFlow {
 
 export interface Demand {
   flows: DemandFlow[];
+  /** Without a vehicle mix, every vehicle is a car. */
+  vehicleMix?: VehicleMix;
 }
 
 /** A vehicle already on the network when the run starts. */
@@ -46,6 +62,12 @@ export interface InitialVehicle {
   positionM: number;
   speedMps: number;
   vehicleClass?: VehicleClass;
+  /**
+   * Distance of the vehicle's centre from the left edge of the road, in metres.
+   * The vehicle is put at the nearest place the road's strips (or lanes) allow.
+   * Without it, the vehicle is put as near the middle of the road as they allow.
+   */
+  lateralM?: number;
   /** A stationary vehicle (for example a breakdown) never moves during the run. */
   stationary?: boolean;
 }
@@ -55,6 +77,11 @@ export interface RunInput {
   demand: Demand;
   /** Any integer. The same input and seed always give the same run. */
   seed: number;
+  /**
+   * Lane discipline. On: vehicles keep to the road's lanes. Off (the default):
+   * the road carries mixed traffic, with vehicles sharing its width strip by strip.
+   */
+  laneDiscipline?: boolean;
   initialVehicles?: InitialVehicle[];
 }
 
@@ -88,6 +115,30 @@ export interface Results {
   vehiclesOnNetwork: number;
   /** Vehicles the demand has produced that are still waiting for space to enter. */
   vehiclesWaitingToEnter: number;
+  /** Delay for each vehicle class. */
+  delayByVehicleClass: Record<VehicleClass, VehicleClassDelay>;
+}
+
+/**
+ * Delay of one vehicle class so far in a run.
+ *
+ * A vehicle's delay is the time it has taken since the demand produced it,
+ * minus the time the distance it has covered would take at its desired speed
+ * (its vehicle class's desired speed or the speed limit, whichever is lower).
+ * For a vehicle that has left the network that is its actual travel time minus
+ * its travel time at desired speed. Time spent waiting to enter counts.
+ *
+ * The mean is over every vehicle of the class the demand has produced: those
+ * through, and those still on the network or waiting to enter, with their delay
+ * so far. Stationary vehicles are left out.
+ */
+export interface VehicleClassDelay {
+  /** Vehicles the mean is over. */
+  vehicles: number;
+  /** How many of them have left the network. */
+  vehiclesThrough: number;
+  /** In seconds; null when there are no vehicles of this class. */
+  meanDelayS: number | null;
 }
 
 /** One execution of a scenario. Advance it with step(); read it with snapshot() and results(). */

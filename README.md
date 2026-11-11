@@ -2,7 +2,7 @@
 
 A what-if tool for Indian roads: a planner describes a road and a change to it, and compares how traffic behaves in each. Vocabulary is in `GLOSSARY.md`; decisions are in `docs/adr/`.
 
-So far: cars enter one straight road, follow one another, and leave. The planner changes the road's width in a proposal; baseline and proposal run together in two 3D views that share one camera and one clock, with results for both and the change from the baseline.
+So far: mixed traffic on one straight road. Two-wheelers, cars, auto-rickshaws and buses enter, share the road's width strip by strip, follow and pass one another, and leave, each drawn as a 3D box to its own size. Lane discipline is a setting of the engine's input: on, vehicles keep to lanes. The planner changes the road's width in a proposal; baseline and proposal run together in two 3D views that share one camera and one clock, with results for both (among them the mean delay per vehicle class) and the change from the baseline.
 
 ## Layout
 
@@ -43,9 +43,21 @@ pnpm engine                                   # the one-road example, one simula
 pnpm engine --duration 600 --seed 5           # ten minutes, another seed
 pnpm engine --check                           # also apply the consistency checks
 pnpm engine path/to/scenario.json --check     # your own { network, demand, seed }
+pnpm engine packages/engine/examples/mixed-traffic.json --lane-discipline on   # the mixed-traffic example, kept to lanes
 ```
 
-The example input is `packages/engine/examples/one-road.json`.
+The example inputs are in `packages/engine/examples/`: `one-road.json` (cars only) and `mixed-traffic.json` (four vehicle classes, which the app shows).
+
+## Engine input
+
+- `network`: roads, each with a centreline, width, lane count and speed limit. `formatVersion` is 2; version 1 (no lane counts) still loads, with lanes taken from the width at 3.5 m each.
+- `demand`: vehicles per hour for each entry-to-exit pair, and a `vehicleMix` giving the share of each vehicle class (cars only without one).
+- `laneDiscipline`: `true` keeps vehicles to lanes; `false` (the default) is mixed traffic.
+- `seed`: the same input and seed always give the same run.
+
+Results include, for each vehicle class, the mean delay: the time a vehicle has taken since the demand produced it, less the time the distance it has covered would take at its desired speed. Vehicles still on the network or waiting to enter count with their delay so far.
+
+Every value the engine takes as given (sizes, following gaps, side clearances, sideways speed caps, the thresholds for shifting sideways) is in `packages/engine/src/assumptions.ts` with its source. None has been confirmed against its source yet.
 
 ## Test and typecheck
 

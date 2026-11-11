@@ -1,4 +1,4 @@
-import { positionAlongRoad, type Network, type Road } from "@traffic-simulator/engine";
+import { positionAlongRoad, type Network, type Road, type VehicleClass } from "@traffic-simulator/engine";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
@@ -11,7 +11,16 @@ import { vehicleColour, type ColourBy } from "./vehicle-colours";
 /** The camera's vertical field of view, in degrees. */
 export const CAMERA_FOV_DEGREES = 45;
 
-const VEHICLE_HEIGHT_M = 1.5;
+/**
+ * How tall each vehicle class is drawn, in metres. Length and width come from the engine
+ * with each vehicle; height is for the drawing only, so it lives here.
+ */
+const VEHICLE_HEIGHT_M: Record<VehicleClass, number> = {
+  "two-wheeler": 1.3,
+  car: 1.5,
+  "auto-rickshaw": 1.7,
+  bus: 3.0,
+};
 const ROAD_THICKNESS_M = 0.2;
 const MAX_VEHICLES_DRAWN = 4000;
 
@@ -164,9 +173,10 @@ export function RoadScene({
         const toLeftM = road.widthM / 2 - vehicle.lateralM;
         const x = point.x - direction.y * toLeftM;
         const y = point.y + direction.x * toLeftM;
-        placement.position.set(x, VEHICLE_HEIGHT_M / 2, -y);
+        const heightM = VEHICLE_HEIGHT_M[vehicle.vehicleClass];
+        placement.position.set(x, heightM / 2, -y);
         placement.rotation.set(0, Math.atan2(direction.y, direction.x), 0);
-        placement.scale.set(vehicle.lengthM, VEHICLE_HEIGHT_M, vehicle.widthM);
+        placement.scale.set(vehicle.lengthM, heightM, vehicle.widthM);
         placement.updateMatrix();
         const hex = vehicleColour(colouring.current, vehicle);
         vehicles.setColorAt(count, colour.set(hex));

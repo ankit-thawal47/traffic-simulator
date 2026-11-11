@@ -1,5 +1,12 @@
-import { VEHICLE_CLASS_ASSUMPTIONS, type Network, type Results } from "@traffic-simulator/engine";
-import oneRoad from "@traffic-simulator/engine/examples/one-road.json";
+import {
+  STRIP_WIDTH_M,
+  stripsOccupied,
+  VEHICLE_CLASSES,
+  type Demand,
+  type Network,
+  type Results,
+} from "@traffic-simulator/engine";
+import mixedTraffic from "@traffic-simulator/engine/examples/mixed-traffic.json";
 import {
   ESTIMATE_LABEL,
   compareResults,
@@ -23,14 +30,14 @@ import { WATCH_SPEEDS, fasterSpeed, formatSpeed, slowerSpeed } from "./watch-clo
 
 const baseline = createBaseline({
   name: "One road today",
-  network: oneRoad.network as Network,
-  demand: oneRoad.demand,
-  seed: oneRoad.seed,
+  network: mixedTraffic.network as Network,
+  demand: mixedTraffic.demand as Demand,
+  seed: mixedTraffic.seed,
 });
 const baselineInput = resolveScenario(baseline);
 
-/** A road cannot be made narrower than the widest vehicle that uses it, or wider than this. */
-const NARROWEST_ROAD_M = Math.max(...Object.values(VEHICLE_CLASS_ASSUMPTIONS).map((assumptions) => assumptions.widthM));
+/** A road cannot be made narrower than the strips the widest vehicle class occupies, or wider than this. */
+const NARROWEST_ROAD_M = Math.max(...VEHICLE_CLASSES.map(stripsOccupied)) * STRIP_WIDTH_M;
 const WIDEST_ROAD_M = 30;
 
 function formatTime(seconds: number): string {
@@ -38,7 +45,8 @@ function formatTime(seconds: number): string {
   return `${Math.floor(whole / 60)}:${String(whole % 60).padStart(2, "0")}`;
 }
 
-function formatNumber(value: number): string {
+function formatNumber(value: number | null): string {
+  if (value === null) return "–";
   return String(Math.round(value * 10) / 10);
 }
 
@@ -51,7 +59,6 @@ function describeChange(change: Change, network: Network): string {
   }
 }
 
-const VEHICLE_CLASSES = Object.keys(VEHICLE_CLASS_ASSUMPTIONS);
 const SLOWEST_SPEED = Math.min(...WATCH_SPEEDS);
 const FASTEST_SPEED = Math.max(...WATCH_SPEEDS);
 
@@ -329,7 +336,7 @@ export function App() {
                   <td data-testid="baseline">{formatNumber(row.baseline)}</td>
                   <td data-testid="proposal">{formatNumber(row.proposal)}</td>
                   <td data-testid="change">
-                    {formatChange(row.change)}
+                    {row.change === null ? "–" : formatChange(row.change)}
                     {row.changePercent !== null && row.change !== 0 && (
                       <span className="percent"> ({formatChange(row.changePercent)}%)</span>
                     )}
