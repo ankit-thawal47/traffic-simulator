@@ -1,5 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { BENGALURU_VEHICLE_MIX, createRun, signalState, type Run, type SignalPlan, type VehicleState } from "../src/index";
+import {
+  BENGALURU_VEHICLE_MIX,
+  createNetworkLayout,
+  createRun,
+  signalState,
+  STEP_SECONDS,
+  vehiclePose,
+  type Run,
+  type SignalPlan,
+  type VehicleState,
+} from "../src/index";
 import { alwaysGreenFor, fourWay, oneApproachAtATime } from "./four-way";
 
 const noDemand = { flows: [] };
@@ -220,5 +230,99 @@ describe("a fixed-time signal plan", () => {
     );
     expect(withPlan({ ...plan, phases: plan.phases.map((phase) => ({ ...phase, greenS: 0 })) })).toThrow(/green/i);
     expect(withPlan({ ...plan, amberS: -1 })).toThrow(/amber/i);
+  });
+});
+
+describe("turning at a junction in left-hand traffic", () => {
+  /** Follow one vehicle from south-in until it has left the junction; returns where its middle was at each step. */
+  function drive(exitRoadId: string, lateralM = 3.5) {
+    const network = fourWay({ signalPlan: alwaysGreenFor("south-in") });
+    const layout = createNetworkLayout(network);
+    const run = createRun({
+      network,
+      demand: noDemand,
+      seed: 1,
+      initialVehicles: [{ roadId: "south-in", positionM: 120, speedMps: 13, exitRoadId, lateralM }],
+    });
+    const track: { x: number; y: number; speedMps: number; inJunction: boolean; roadId: string }[] = [];
+    for (;;) {
+      const vehicle = run.snapshot().vehicles[0];
+      if (!vehicle) break;
+      const pose = vehiclePose(layout, vehicle)!;
+      // The pose faces along a unit vector.
+      expect(Math.hypot(pose.direction.x, pose.direction.y)).toBeCloseTo(1, 6);
+      track.push({ ...pose.centre, speedMps: vehicle.speedMps, inJunction: vehicle.turn !== undefined, roadId: vehicle.roadId });
+      if (vehicle.roadId !== "south-in" && !vehicle.turn && vehicle.positionM > 30) break;
+      run.step();
+    }
+    return track;
+  }
+
+  it("a vehicle turning left keeps to the near side, and ends on the road to its left", () => {
+    const track = drive("west-out");
+    expect(track[track.length - 1]!.roadId).toBe("west-out");
+    const inJunction = track.filter((at) => at.inJunction);
+    expect(inJunction.length).toBeGreaterThan(5);
+    // Coming from the south on the west half of the arm, a left turn stays in the south-west quarter.
+    for (const at of inJunction) {
+      expect(at.x).toBeLessThan(0);
+      expect(at.y).toBeLessThan(0);
+    }
+    // It ends heading west on the south half of the western arm.
+    const last = track[track.length - 1]!;
+    expect(last.x).toBeLessThan(-15);
+    expect(last.y).toBeGreaterThan(-7);
+    expect(last.y).toBeLessThan(0);
+  });
+
+  it("a vehicle turning right crosses the junction to the far side, and ends on the road to its right", () => {
+    const track = drive("east-out");
+    const last = track[track.length - 1]!;
+    expect(last.roadId).toBe("east-out");
+    expect(last.x).toBeGreaterThan(15);
+    expect(last.y).toBeGreaterThan(0);
+    expect(last.y).toBeLessThan(7);
+    // The right turn is the long way round: further through the junction than the left turn.
+    const stepsInJunction = (exitRoadId: string) => drive(exitRoadId).filter((at) => at.inJunction).length;
+    expect(stepsInJunction("east-out")).toBeGreaterThan(stepsInJunction("west-out"));
+  });
+
+  it("a vehicle going straight on stays in line", () => {
+    const track = drive("north-out", 2.25);
+    expect(track[track.length - 1]!.roadId).toBe("north-out");
+    // 2.25 m from the left edge of a road whose left edge is at x = -7.
+    for (const at of track) expect(at.x).toBeCloseTo(-4.75, 6);
+  });
+
+  it("moves smoothly from the approach through the turn onto the next road", () => {
+    for (const exitRoadId of ["west-out", "north-out", "east-out"]) {
+      const track = drive(exitRoadId);
+      for (let i = 1; i < track.length; i++) {
+        const moved = Math.hypot(track[i]!.x - track[i - 1]!.x, track[i]!.y - track[i - 1]!.y);
+        const expected = ((track[i]!.speedMps + track[i - 1]!.speedMps) / 2) * STEP_SECONDS;
+        // The middle of a vehicle cuts the corner a little, so it moves no further than its front bumper does.
+        expect(moved).toBeLessThan(expected + 0.05);
+        expect(moved).toBeGreaterThan(expected * 0.8 - 0.05);
+      }
+    }
+  });
+
+  it("slows for a turn, more for the tight left turn than the wide right turn, and not when going straight on", () => {
+    const fastestInJunction = (exitRoadId: string) =>
+      Math.max(...drive(exitRoadId).filter((at) => at.inJunction).map((at) => at.speedMps));
+    const left = fastestInJunction("west-out");
+    const right = fastestInJunction("east-out");
+    const straight = fastestInJunction("north-out");
+    expect(left).toBeLessThan(6.5);
+    expect(left).toBeGreaterThan(3);
+    expect(right).toBeGreaterThan(left);
+    expect(right).toBeLessThan(9);
+    expect(straight).toBeGreaterThan(12.5);
+
+    // It slows down for the turn gently: never harder than 2 m/s2.
+    const track = drive("west-out");
+    for (let i = 1; i < track.length; i++) {
+      expect(track[i - 1]!.speedMps - track[i]!.speedMps).toBeLessThan(2 * STEP_SECONDS);
+    }
   });
 });

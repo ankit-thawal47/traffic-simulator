@@ -1,4 +1,5 @@
 import {
+  JUNCTION_ASSUMPTIONS,
   SIDEWAYS_ASSUMPTIONS,
   STANDARD_LANE_WIDTH_M,
   STEP_SECONDS,
@@ -156,6 +157,8 @@ interface Vehicle {
 
   // Working values of one step.
   index: number;
+  /** The speed the vehicle aims for this step: its desired speed, or less when slowing for a turn. */
+  speedCapMps: number;
   /** Acceleration the following rule gives from the state at the start of the step. */
   currentAcceleration: number;
   /** A sideways claim made this step: direction (0 for none) and the strips it would newly occupy. */
@@ -529,6 +532,7 @@ export function createRun(input: RunInput): Run {
       order: 0,
       curve: undefined,
       index: 0,
+      speedCapMps: Math.min(assumptions.desiredSpeedMps, road.road.speedLimitMps),
       currentAcceleration: 0,
       claimDirection: 0,
       claimLow: 0,
@@ -630,7 +634,7 @@ export function createRun(input: RunInput): Run {
   function acceleration(vehicle: Vehicle, gapM: number | undefined, leaderSpeedMps: number): number {
     const { maxAccelerationMps2: a, comfortableDecelerationMps2: b, timeGapS, standstillGapM } = vehicle.assumptions;
     const v = vehicle.speedMps;
-    const ratio = v / vehicle.desiredSpeedMps;
+    const ratio = v / vehicle.speedCapMps;
     let interaction = 0;
     if (gapM !== undefined) {
       const gap = Math.max(gapM, MIN_GAP_M);
@@ -840,6 +844,38 @@ export function createRun(input: RunInput): Run {
 
   let nextOrder = 1;
 
+  /**
+   * The speed a vehicle can hold on a line through a junction: the speed at
+   * which the turn's sideways acceleration is the assumed one. The radius is
+   * taken as the line's length over the angle it turns through.
+   */
+  function turnSpeedMps(curve: TurningCurve): number {
+    const turnRad = Math.abs(curve.path.turnRad);
+    if (turnRad < 0.1) return Infinity;
+    return Math.sqrt((JUNCTION_ASSUMPTIONS.turnAccelerationMps2.value * curve.lengthM) / turnRad);
+  }
+
+  /**
+   * Set the speed a vehicle aims for this step. Approaching a turn it is the
+   * speed from which the vehicle can still slow to the turn's speed by the stop
+   * line at half its comfortable deceleration, so the following rule, which
+   * aims for this speed, brings it down gently.
+   */
+  function setSpeedCap(vehicle: Vehicle): void {
+    let cap = vehicle.desiredSpeedMps;
+    const connection = vehicle.ahead;
+    if (connection && vehicle.place !== REAR_IN_JUNCTION && !vehicle.stationary) {
+      const curve = vehicle.curve ?? curveThrough(connection, vehicle.strip, vehicle.strips);
+      const turnMps = curve ? turnSpeedMps(curve) : Infinity;
+      if (turnMps < cap) {
+        const toStopLineM = Math.max(0, vehicle.road.lengthM - vehicle.positionM);
+        const slowing = vehicle.assumptions.comfortableDecelerationMps2 / 2;
+        cap = Math.min(cap, Math.sqrt(turnMps * turnMps + 2 * slowing * toStopLineM));
+      }
+    }
+    vehicle.speedCapMps = cap;
+  }
+
   /** For a road that starts at a junction: the rearmost vehicle in each strip. */
   function findLastInStrips(road: RoadState): void {
     const last = road.lastInStrip;
@@ -926,7 +962,7 @@ export function createRun(input: RunInput): Run {
         const toStopLineM = road.lengthM - vehicle.positionM;
         if (toStopLineM > askingDistanceM(vehicle)) continue;
         // It must be able to reach the stop line before the amber ends.
-        if (soonestS(vehicle, toStopLineM, vehicle.desiredSpeedMps) > road.aspect.remainingS + amberS) continue;
+        if (soonestS(vehicle, toStopLineM, vehicle.speedCapMps) > road.aspect.remainingS + amberS) continue;
         asking.push(vehicle);
       }
     }
@@ -1070,7 +1106,10 @@ export function createRun(input: RunInput): Run {
     for (const road of roads.values()) {
       const vehicles = road.vehicles;
       vehicles.sort(frontFirst);
-      for (let i = 0; i < vehicles.length; i++) vehicles[i]!.index = i;
+      for (let i = 0; i < vehicles.length; i++) {
+        vehicles[i]!.index = i;
+        setSpeedCap(vehicles[i]!);
+      }
       findNeighbours(road, true);
       if (road.startsAtJunction) findLastInStrips(road);
       if (road.endsAt) road.aspect = signalAspect(road.endsAt.junction.signalPlan, road.road.id, stepCount * STEP_SECONDS);

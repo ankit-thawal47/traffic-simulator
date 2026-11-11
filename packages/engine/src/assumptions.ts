@@ -161,6 +161,18 @@ export const SIDEWAYS_ASSUMPTIONS = {
   },
 } satisfies Record<string, Assumption>;
 
+/** Assumptions about how vehicles behave at junctions. All are our own choices; none comes from a measurement. */
+export const JUNCTION_ASSUMPTIONS = {
+  turnAccelerationMps2: {
+    value: 2.5,
+    unit: "m/s2",
+    source:
+      "Sideways acceleration a vehicle accepts in a turn; with the turn's radius it gives the speed of the turn " +
+      "(speed squared over radius). Our choice: about 18 km/h on a 10 m radius. Not from a measurement.",
+    confirmed: false,
+  },
+} satisfies Record<string, Assumption>;
+
 /** Width of a strip, in metres (spec: Engine behaviour, Strips). */
 export const STRIP_WIDTH_M = SIDEWAYS_ASSUMPTIONS.stripWidthM.value;
 
