@@ -4,7 +4,7 @@
 
 **Blocked by:** 01
 
-**Status:** partly done (5 of 7 criteria merged at 59fba95; the lanes change and "narrowing lowers throughput" wait on ticket 05)
+**Status:** done (5 criteria merged at 59fba95; the last 2 with ticket 13)
 
 - [x] A scenario is a versioned description: network, list of changes, demand, seed
 - [x] A proposal starts as a copy of the baseline and differs only by its changes

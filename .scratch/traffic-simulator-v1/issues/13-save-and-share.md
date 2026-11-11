@@ -4,7 +4,7 @@
 
 **Blocked by:** 10
 
-**Status:** ready-for-agent
+**Status:** done (merged to integration branch)
 
 - [x] A scenario encodes to a link; opening the link restores the same scenario
 - [x] A scenario saves to a file and loads from it
