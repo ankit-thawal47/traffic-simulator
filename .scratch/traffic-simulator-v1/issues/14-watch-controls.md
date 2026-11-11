@@ -4,7 +4,7 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done (merged to integration branch, commit 8040dea)
 
 - [x] Speed can be raised, lowered and paused without changing the results
 - [x] A straight-down preset and a free orbit, pan and zoom camera are both available
