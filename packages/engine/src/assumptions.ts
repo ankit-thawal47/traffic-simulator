@@ -179,6 +179,14 @@ export const JUNCTION_ASSUMPTIONS = {
       "when it asks to be let into a junction. Our choice. Not from a measurement.",
     confirmed: false,
   },
+  keepClearSlackM: {
+    value: 0.5,
+    unit: "m",
+    source:
+      "Room a vehicle wants on the road beyond a junction, over its own length and standstill gap, before it enters. " +
+      "Our choice. Not from a measurement.",
+    confirmed: false,
+  },
 } satisfies Record<string, Assumption>;
 
 /** Width of a strip, in metres (spec: Engine behaviour, Strips). */

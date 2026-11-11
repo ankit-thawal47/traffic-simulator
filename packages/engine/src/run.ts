@@ -795,8 +795,14 @@ export function createRun(input: RunInput): Run {
         if (road.endsAt && letInBehind(vehicle, entered, entered)) break;
 
         let there = accelerationBehind(vehicle, leaderIn(vehicle, strip, strip + vehicle.strips - 1));
-        // A stop line that holds the vehicle holds it in every strip.
-        if (held) there = Math.min(there, acceleration(vehicle, road.lengthM - vehicle.positionM, 0));
+        // A stop line that holds the vehicle holds it in every strip, except, on green,
+        // in strips from which the junction and the road beyond have room for it.
+        const couldGo =
+          held &&
+          road.aspect.state === "green" &&
+          curveThrough(vehicle.ahead!, strip, vehicle.strips) !== undefined &&
+          roomBeyond(vehicle, vehicle.ahead!, strip);
+        if (held && !couldGo) there = Math.min(there, acceleration(vehicle, road.lengthM - vehicle.positionM, 0));
         if (there < current - EPSILON) break;
 
         let braking = 0;
@@ -1005,6 +1011,7 @@ export function createRun(input: RunInput): Run {
       const curve = curveThrough(connection, vehicle.strip, vehicle.strips);
       if (!curve) continue;
       if (!leadersLetIn(vehicle)) continue;
+      if (!roomBeyond(vehicle, connection, vehicle.strip)) continue;
       vehicle.turning = connection;
       vehicle.curve = curve;
       if (!crossingsWillBeFree(vehicle)) {
@@ -1186,6 +1193,36 @@ export function createRun(input: RunInput): Run {
       if (arriveS < soonestS(other, toClearM, cruiseMps) + marginS) return false;
     }
     return true;
+  }
+
+  /**
+   * Keep clear: whether the road beyond the junction has room for a vehicle that
+   * enters from strip `strip` of its approach (spec: a vehicle does not enter
+   * unless it can clear the junction). The room is what is left behind the
+   * rearmost vehicle in its strips on that road, allowing for the distance that
+   * vehicle still covers if it brakes comfortably to a stop, less the room the
+   * vehicles already let in and heading for those strips will take up.
+   */
+  function roomBeyond(vehicle: Vehicle, connection: ConnectionState, strip: number): boolean {
+    const exitStrip = strip - connection.fromShift + connection.toShift;
+    const to = connection.to;
+    let roomM = Infinity;
+    for (let s = exitStrip; s < exitStrip + vehicle.strips; s++) {
+      const last = to.lastInStrip[s];
+      if (!last) continue;
+      const stopsAtM = rearM(last) + (last.speedMps * last.speedMps) / (2 * last.assumptions.comfortableDecelerationMps2);
+      if (stopsAtM < roomM) roomM = stopsAtM;
+    }
+    if (roomM === Infinity) return true;
+    for (const other of connection.junction.admitted) {
+      if (other === vehicle || other.place === REAR_IN_JUNCTION || other.turning!.to !== to) continue;
+      const otherExitStrip = other.strip - other.turning!.fromShift + other.turning!.toShift;
+      if (otherExitStrip < exitStrip + vehicle.strips && exitStrip < otherExitStrip + other.strips) {
+        roomM -= other.assumptions.lengthM + other.assumptions.standstillGapM;
+      }
+    }
+    const { lengthM, standstillGapM } = vehicle.assumptions;
+    return roomM >= lengthM + standstillGapM + JUNCTION_ASSUMPTIONS.keepClearSlackM.value;
   }
 
   /** Whether a vehicle that has been let into the junction is just behind the vehicle in any of the strips low..high. */

@@ -6,6 +6,7 @@ import {
   signalState,
   STEP_SECONDS,
   vehiclePose,
+  type InitialVehicle,
   type Run,
   type SignalPlan,
   type VehicleState,
@@ -237,6 +238,70 @@ describe("a fixed-time signal plan", () => {
     );
     expect(withPlan({ ...plan, phases: plan.phases.map((phase) => ({ ...phase, greenS: 0 })) })).toThrow(/green/i);
     expect(withPlan({ ...plan, amberS: -1 })).toThrow(/amber/i);
+  });
+});
+
+describe("keeping the junction clear", () => {
+  // Three stationary vehicles side by side fill the 7 m road out of the junction, their rear bumpers 7.6 m and 9.1 m along it.
+  const blockers: InitialVehicle[] = [
+    { roadId: "north-out", positionM: 12, speedMps: 0, stationary: true, vehicleClass: "car", lateralM: 1.25 },
+    { roadId: "north-out", positionM: 12, speedMps: 0, stationary: true, vehicleClass: "car", lateralM: 3.75 },
+    { roadId: "north-out", positionM: 12, speedMps: 0, stationary: true, vehicleClass: "auto-rickshaw", lateralM: 6 },
+  ];
+  const demand = {
+    flows: [{ entryRoadId: "south-in", exitRoadId: "north-out", vehiclesPerHour: 1500 }],
+    vehicleMix: BENGALURU_VEHICLE_MIX,
+  };
+
+  it("a vehicle does not enter the junction when the road beyond has no room for it, even on green", () => {
+    const run = createRun({
+      network: fourWay({ signalPlan: alwaysGreenFor("south-in") }),
+      demand,
+      seed: 6,
+      initialVehicles: blockers,
+    });
+
+    let longestStopInJunctionS = 0;
+    const stoppedFor = new Map<number, number>();
+    while (run.timeS < 180 - 1e-9) {
+      run.step();
+      for (const vehicle of run.snapshot().vehicles) {
+        if (vehicle.turn && vehicle.speedMps < 0.1) {
+          const stoppedS = (stoppedFor.get(vehicle.id) ?? 0) + STEP_SECONDS;
+          stoppedFor.set(vehicle.id, stoppedS);
+          longestStopInJunctionS = Math.max(longestStopInJunctionS, stoppedS);
+        } else {
+          stoppedFor.delete(vehicle.id);
+        }
+      }
+    }
+
+    const vehicles = run.snapshot().vehicles;
+    // Nobody is left standing in the junction.
+    expect(vehicles.filter((vehicle) => vehicle.turn)).toEqual([]);
+    expect(longestStopInJunctionS).toBeLessThan(2);
+    // A few vehicles fitted into the 7.6 m behind the stationary ones; they stand wholly on the road beyond.
+    const beyond = vehicles.filter((vehicle) => vehicle.roadId === "north-out" && vehicle.positionM < 12);
+    expect(beyond.length).toBeGreaterThanOrEqual(1);
+    for (const vehicle of beyond) expect(vehicle.positionM - vehicle.lengthM).toBeGreaterThanOrEqual(0);
+    // Everyone else waits at the stop line, on green.
+    const waiting = vehicles.filter((vehicle) => vehicle.roadId === "south-in");
+    expect(waiting.length).toBeGreaterThan(20);
+    expect(waiting.filter((vehicle) => vehicle.positionM > STOP_LINE_M - 4).length).toBeGreaterThanOrEqual(2);
+    expect(run.results().vehiclesThrough).toBe(0);
+  });
+
+  it("vehicles still go where the road beyond has room in their own strips", () => {
+    const run = createRun({
+      network: fourWay({ signalPlan: alwaysGreenFor("south-in") }),
+      demand,
+      seed: 6,
+      // Only the left 2.5 m of the road beyond is blocked.
+      initialVehicles: blockers.slice(0, 1),
+    });
+    advance(run, 180);
+    expect(run.results().vehiclesThrough).toBeGreaterThan(20);
+    expect(run.snapshot().vehicles.filter((vehicle) => vehicle.turn && vehicle.speedMps < 0.1)).toEqual([]);
   });
 });
 

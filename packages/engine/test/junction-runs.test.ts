@@ -22,6 +22,25 @@ describe("consistency checks on a signal junction where paths cross", () => {
     expectConsistent({ network: fourWay({ signalPlan: oneApproachAtATime() }), demand: everyMovement(500), seed: 22 }, 600, 180);
   });
 
+  it("pass where the roads out of the junction are half as wide as the approaches, so vehicles must move over before entering", () => {
+    const narrow = { widthM: 3.5, lanes: 1 };
+    const network = fourWay({
+      signalPlan: oneApproachAtATime(),
+      roads: { "north-out": narrow, "east-out": narrow, "south-out": narrow, "west-out": narrow },
+    });
+    const mixed = checkRunConsistency({ network, demand: everyMovement(300), seed: 24 }, { durationS: 600 });
+    expect(mixed.violations.slice(0, 5)).toEqual([]);
+    // About 200 vehicles arrive in 600 s; most must get through.
+    expect(mixed.results.vehiclesThrough).toBeGreaterThan(120);
+
+    const lanes = checkRunConsistency(
+      { network, demand: everyMovement(300, false), seed: 24, laneDiscipline: true },
+      { durationS: 600 },
+    );
+    expect(lanes.violations.slice(0, 5)).toEqual([]);
+    expect(lanes.results.vehiclesThrough).toBeGreaterThan(120);
+  });
+
   it("pass with lane discipline on, with cars only", () => {
     expectConsistent(
       {
