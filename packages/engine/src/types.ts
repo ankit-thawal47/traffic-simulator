@@ -26,15 +26,57 @@ export interface Road {
   speedLimitMps: number;
 }
 
+/** A way through a junction: from the end of one road to the start of another. */
+export interface Connection {
+  fromRoadId: string;
+  toRoadId: string;
+}
+
+/** One part of a signal plan: these approaches have green together, for this long. */
+export interface SignalPhase {
+  /** The approaches (roads arriving at the junction) that have green. Every movement from them may go. */
+  greenRoadIds: string[];
+  greenS: number;
+}
+
 /**
- * The roads a scenario runs on. Later versions add junctions and flyovers.
+ * A fixed-time signal plan. The phases run in order and repeat. After each
+ * phase's green its approaches have amber for `amberS`, then every approach
+ * has red for `allRedS` before the next phase's green.
+ */
+export interface SignalPlan {
+  phases: SignalPhase[];
+  amberS: number;
+  allRedS: number;
+  /** Seconds into the cycle at the start of the run. Without it the first phase's green starts at time 0. */
+  offsetS?: number;
+}
+
+/**
+ * A place where roads meet. The roads that end at it are its approaches; a
+ * vehicle can go from an approach to another road only along a connection.
+ * The path of each connection is worked out from where the two roads end and
+ * start. `control` says what decides who may go; later versions add other kinds.
+ */
+export interface Junction {
+  id: string;
+  control: "signal";
+  connections: Connection[];
+  signalPlan: SignalPlan;
+}
+
+/**
+ * The roads and junctions a scenario runs on. Later versions add flyovers.
  *
  * Format versions: 1 is a road with a centreline, width and speed limit;
- * 2 adds each road's lane count. The engine reads both.
+ * 2 adds each road's lane count; 3 adds junctions, with the connections
+ * through them and their signal plans. The engine reads all three.
  */
 export interface Network {
-  formatVersion: 1 | 2;
+  formatVersion: 1 | 2 | 3;
   roads: Road[];
+  /** From format version 3. */
+  junctions?: Junction[];
 }
 
 export type VehicleClass = "two-wheeler" | "car" | "auto-rickshaw" | "bus";
@@ -70,6 +112,12 @@ export interface InitialVehicle {
   lateralM?: number;
   /** A stationary vehicle (for example a breakdown) never moves during the run. */
   stationary?: boolean;
+  /**
+   * The road where the vehicle's route ends. Needed when its road ends at a
+   * junction (unless the vehicle is stationary); without it the route ends
+   * at the end of its own road.
+   */
+  exitRoadId?: string;
 }
 
 export interface RunInput {
@@ -97,6 +145,32 @@ export interface VehicleState {
   speedMps: number;
   lengthM: number;
   widthM: number;
+  /**
+   * Set while any part of the vehicle is inside a junction. See VehicleTurn
+   * for what roadId, positionM and lateralM mean then.
+   */
+  turn?: VehicleTurn;
+}
+
+/**
+ * The turning path a vehicle is taking through a junction: the path of one
+ * connection, at the vehicle's own place across it. Its shape comes from
+ * turningCurve() (junction-geometry.ts).
+ *
+ * While the front bumper is inside the junction, the vehicle's roadId is still
+ * the road it came from, positionM is that road's length plus the distance
+ * covered along the turning path, and lateralM is as on that road. Once the
+ * front bumper is on the road it is heading for, roadId, positionM and lateralM
+ * are that road's; the rear bumper is still on the turning path, so positionM
+ * is less than the vehicle's length.
+ */
+export interface VehicleTurn {
+  junctionId: string;
+  fromRoadId: string;
+  toRoadId: string;
+  /** The vehicle's centre across the road it came from and across the road it is heading for, each from that road's left edge. */
+  fromLateralM: number;
+  toLateralM: number;
 }
 
 /** Where every vehicle on the network is at one moment of a run. */

@@ -12,19 +12,32 @@ export {
 export type { Assumption, VehicleClassAssumptions } from "./assumptions";
 export { positionAlongRoad, roadLengthM } from "./geometry";
 export type { RoadPosition } from "./geometry";
+export {
+  createNetworkLayout,
+  footprintInJunction,
+  signalAspect,
+  signalState,
+  vehiclePose,
+} from "./junction-geometry";
+export type { NetworkLayout, SignalAspect, SignalState, TurnDirection, TurningPath, VehiclePose } from "./junction-geometry";
 export type {
+  Connection,
   Demand,
   DemandFlow,
   InitialVehicle,
+  Junction,
   Network,
   Point,
   Results,
   Road,
   Run,
   RunInput,
+  SignalPhase,
+  SignalPlan,
   Snapshot,
   VehicleClass,
   VehicleClassDelay,
   VehicleMix,
   VehicleState,
+  VehicleTurn,
 } from "./types";

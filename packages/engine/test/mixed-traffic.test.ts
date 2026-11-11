@@ -486,8 +486,11 @@ describe("lane discipline", () => {
 
     const versionTwo: Network = { ...versionOne, formatVersion: 2 };
     expect(() => createRun({ network: versionTwo, demand: noDemand, seed: 1 })).toThrow(/lane count/i);
-    const versionThree = { ...versionOne, formatVersion: 3 } as unknown as Network;
-    expect(() => createRun({ network: versionThree, demand: noDemand, seed: 1 })).toThrow(/version/i);
+    // Version 3 (junctions) still needs lane counts; a version this engine does not know is refused.
+    const versionThree: Network = { ...versionOne, formatVersion: 3 };
+    expect(() => createRun({ network: versionThree, demand: noDemand, seed: 1 })).toThrow(/lane count/i);
+    const versionFour = { ...versionOne, formatVersion: 4 } as unknown as Network;
+    expect(() => createRun({ network: versionFour, demand: noDemand, seed: 1 })).toThrow(/version/i);
   });
 });
 
