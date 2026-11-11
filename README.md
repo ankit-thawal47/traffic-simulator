@@ -42,6 +42,16 @@ pnpm test         # all tests (Vitest)
 pnpm typecheck    # engine and app
 ```
 
+## Measure performance
+
+```sh
+pnpm perf                   # everything: about 30 minutes, opens a Chrome window; leave the machine alone
+pnpm perf --only engine     # the engine alone, in Node: about a minute
+pnpm perf --quick           # a short pass, to check the measurement itself works
+```
+
+It writes `docs/performance/measurement-<date>.md` and `.json`. What the figures mean, and the state of the performance target, is in `docs/performance.md`. The measurement lives in `apps/web/perf`; repeat it whenever the engine's work per vehicle or the way snapshots reach the page changes.
+
 Engine tests go through its public interface only: `createRun({ network, demand, seed })`, then `step()`, `snapshot()` and `results()`.
 
 Every test scenario should also pass the consistency checks (no vehicle lost, no overlap, no negative speed, no vehicle outside its road, same seed gives the same run):
