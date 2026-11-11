@@ -61,6 +61,16 @@ importers:
         specifier: ^5.6.3
         version: 5.9.3
 
+  packages/scenario:
+    dependencies:
+      '@traffic-simulator/engine':
+        specifier: workspace:*
+        version: link:../engine
+    devDependencies:
+      typescript:
+        specifier: ^5.6.3
+        version: 5.9.3
+
 packages:
 
   '@babel/code-frame@7.29.7':
