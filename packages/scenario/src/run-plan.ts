@@ -72,3 +72,16 @@ export function createMeasuredRun(input: RunInput, plan: RunPlan = RUN_PLAN): Me
     results: () => (atEndOfWarmUp ? resultsExcludingWarmUp(atEndOfWarmUp, run.results()) : undefined),
   };
 }
+
+/**
+ * Run the engine's input with every seed of the run plan, one run after
+ * another, to the end. Gives the results of each seed, warm-up left out, in
+ * the order of seedsFor(input.seed). The same input always gives the same results.
+ */
+export function runEverySeed(input: RunInput, plan: RunPlan = RUN_PLAN): Results[] {
+  return seedsFor(input.seed, plan.seeds).map((seed) => {
+    const run = createMeasuredRun({ ...input, seed }, plan);
+    while (!run.finished) run.step();
+    return run.results()!;
+  });
+}
