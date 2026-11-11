@@ -4,17 +4,19 @@ import type { TogetherFrame } from "./run-together";
 
 /**
  * The run coordinator's logic (spec: Run coordinator). Each scenario runs with
- * the seeds of the run plan. The first seed is the run the planner watches, at
- * the speed they chose (watch.ts). The other seeds run unseen, as fast as the
- * engine goes (runUnseenSeeds), and the results of all of them are collected
- * here. Nothing in this file knows about workers or timers, so it is tested
- * from the command line; the workers only carry its messages.
+ * the seeds of the run plan. All of them run unseen, as fast as the engine
+ * goes (runUnseenSeeds), and their results are collected here: the figures
+ * come from these runs alone. The run the planner watches (watch.ts) is the
+ * first seed again, at the speed they chose: it is one of the runs behind the
+ * figures, shown, and nothing is taken from it. Nothing in this file knows
+ * about workers or timers, so it is tested from the command line; the workers
+ * only carry its messages.
  *
- * How the planner watches cannot change what is collected: the watched run is
- * the same run at any speed, and a seed's results are taken only at its end.
+ * So how the planner watches cannot change the figures, and the figures do
+ * not wait for the planner to watch a run to its end.
  */
 
-/** What the unseen seeds report, in the order it happens. `seedIndex` counts from 0, the watched seed; so these are 1 and up. */
+/** What the unseen seeds report, in the order it happens. `seedIndex` counts from 0, the seed the planner also watches. */
 export type UnseenSeedEvent =
   /** How far through one seed's runs the engine is, from 0 to 1. */
   | { type: "seed-progress"; seedIndex: number; fraction: number }
@@ -25,7 +27,7 @@ export type UnseenSeedEvent =
 const PROGRESS_REPORTS_PER_SEED = 20;
 
 /**
- * Run every seed but the first, one after another, to the end. For each seed
+ * Run every seed, one after another, to the end. For each seed
  * all the inputs (baseline, proposal) run together, each with that seed in
  * place of its own, so a seed's results arrive for both at once.
  *
@@ -36,7 +38,7 @@ export function* runUnseenSeeds(inputs: RunInput[], plan: RunPlan = RUN_PLAN): G
   const seeds = inputs.map((input) => seedsFor(input.seed, plan.seeds));
   const steps = Math.round((plan.warmUpS + plan.measuredS) / STEP_SECONDS);
   const stepsBetweenReports = Math.max(1, Math.round(steps / PROGRESS_REPORTS_PER_SEED));
-  for (let seedIndex = 1; seedIndex < plan.seeds; seedIndex++) {
+  for (let seedIndex = 0; seedIndex < plan.seeds; seedIndex++) {
     const runs = inputs.map((input, at) => createMeasuredRun({ ...input, seed: seeds[at]![seedIndex]! }, plan));
     let done = 0;
     while (runs.some((run) => !run.finished)) {
@@ -61,7 +63,7 @@ export interface FiveSeeds {
   plan: RunPlan;
   /** The run the planner is watching, once its first frame has arrived. */
   watched?: WatchedRun;
-  /** For each seed (0 is the watched one): its results per scenario once it has finished. */
+  /** For each seed: its results per scenario once it has finished. */
   results: (Results[] | undefined)[];
   /** For each seed: how far through it is, from 0 to 1. */
   fractions: number[];
@@ -89,19 +91,11 @@ export function withUnseenSeedEvent(collected: FiveSeeds, event: UnseenSeedEvent
 }
 
 /**
- * Take in a frame of the watched run. Its results count, as the first seed's,
- * only when it has reached its end. Once they are in they stand: watching
- * again shows the same seed from the beginning, which is the same run and
- * would end with the same results.
+ * Take in a frame of the watched run: only where it is, for the clock. Its
+ * results are not taken; the same seed runs unseen with the others.
  */
 export function withWatchedFrame(collected: FiveSeeds, frame: TogetherFrame): FiveSeeds {
-  const watched = { timeS: frame.timeS, warmingUp: frame.warmingUp, finished: frame.finished };
-  if (collected.results[0]) return { ...collected, watched };
-  if (frame.finished && frame.runs.every((run) => run.results)) {
-    return { ...withSeed(collected, 0, 1, frame.runs.map((run) => run.results!)), watched };
-  }
-  const { warmUpS, measuredS } = collected.plan;
-  return { ...withSeed(collected, 0, Math.min(1, frame.timeS / (warmUpS + measuredS))), watched };
+  return { ...collected, watched: { timeS: frame.timeS, warmingUp: frame.warmingUp, finished: frame.finished } };
 }
 
 /** The results in hand, ready to compare (compareAcrossSeeds), and how complete they are. */

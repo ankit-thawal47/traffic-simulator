@@ -282,28 +282,8 @@ h3 {
   vertical-align: middle;
 }
 
-.results .seeds ol {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2px 18px;
-  margin: 4px 0;
-  padding-left: 18px;
-  color: #55616a;
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
-}
-
-.results .seeds p {
-  margin: 4px 0 0;
-}
-
-.results .partial {
-  font-weight: 600;
+.results .seeds [data-testid="partial"] {
   color: #8a5a00;
-}
-
-.results .complete {
-  color: #2c6e49;
 }
 
 .results .note {

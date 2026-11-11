@@ -1,19 +1,11 @@
 import { ESTIMATE_LABEL, acrossSeeds, compareAcrossSeeds, formatChange } from "@traffic-simulator/scenario";
 import { collectedResults, type FiveSeeds } from "./five-seeds";
-import { completenessNote, formatAcrossSeeds, formatClock, formatTime } from "./results-text";
-
-/** What one seed is doing, in a few words. */
-function seedStatus(collected: FiveSeeds, seedIndex: number): string {
-  if (collected.results[seedIndex]) return "finished";
-  if (seedIndex === 0) return collected.watched ? formatClock(collected.watched, collected.plan) : "starting";
-  const fraction = collected.fractions[seedIndex] ?? 0;
-  return fraction > 0 ? `${Math.round(fraction * 100)}%` : "waiting its turn";
-}
+import { formatAcrossSeeds } from "./results-text";
 
 /**
- * The results area: progress across the seeds, how complete the figures are,
- * and the fixed result set (ADR 0005) for baseline and proposal as the average
- * and range across seeds, with the change from the baseline.
+ * The results area: progress across the seeds, and the fixed result set
+ * (ADR 0005) for baseline and proposal as the average and range across seeds,
+ * with the change from the baseline.
  */
 export function ResultsPanel({ collected }: { collected: FiveSeeds }) {
   const { plan } = collected;
@@ -29,32 +21,16 @@ export function ResultsPanel({ collected }: { collected: FiveSeeds }) {
     <section className="results" aria-label="Results">
       <h2>Results</h2>
 
-      <div className="seeds" data-testid="seeds" data-seeds-finished={results.seedsFinished}>
-        <label>
-          Seeds finished: <span data-testid="seeds-finished">{results.seedsFinished}</span> of {results.seeds}{" "}
-          <progress data-testid="seeds-progress" value={results.progress} max={1} />
-        </label>
-        <ol>
-          {collected.results.map((_, seedIndex) => (
-            <li key={seedIndex} data-testid={`seed-${seedIndex + 1}`}>
-              {seedIndex === 0 ? "The run you are watching" : "Unseen"}: {seedStatus(collected, seedIndex)}
-            </li>
-          ))}
-        </ol>
-        <p className={results.partial ? "partial" : "complete"} data-testid="completeness" role="status">
-          {completenessNote(
-            { ...results, firstSeedFinished: collected.results[0] !== undefined },
-            collected.watched,
-            plan,
-          )}
-        </p>
-      </div>
+      <p className="seeds" data-testid="seeds" data-seeds-finished={results.seedsFinished} role="status">
+        Seeds finished: <span data-testid="seeds-finished">{results.seedsFinished}</span> of {results.seeds}{" "}
+        <progress data-testid="seeds-progress" value={results.progress} max={1} />
+        {results.partial && <span data-testid="partial"> Figures are partial until all have finished.</span>}
+      </p>
 
       <table data-testid="results">
         <caption>
-          {ESTIMATE_LABEL}. Each figure is for one simulated hour ({formatTime(plan.measuredS)}) after a warm-up of{" "}
-          {formatTime(plan.warmUpS)} that is left out: the average across seeds, then the range from the lowest seed to
-          the highest. The change is between the averages.
+          {ESTIMATE_LABEL}. One hour after a {plan.warmUpS / 60} minute warm-up; average and range (lowest to highest)
+          over {results.seeds} seeds.
         </caption>
         <thead>
           <tr>
@@ -87,10 +63,9 @@ export function ResultsPanel({ collected }: { collected: FiveSeeds }) {
 
       {results.seedsFinished > 0 && (
         <p className="note" data-testid="waiting-to-enter">
-          Vehicles still waiting to enter when the hour ended: baseline {formatAcrossSeeds(waiting.baseline)}, proposal{" "}
-          {formatAcrossSeeds(waiting.proposal)}.
-          {someWaiting &&
-            " Vehicles are left waiting when more traffic arrives than the road can take in, so fewer vehicles got through than the demand sent."}
+          Still waiting to enter when the hour ended: baseline {formatAcrossSeeds(waiting.baseline)}, proposal{" "}
+          {formatAcrossSeeds(waiting.proposal)} vehicles.
+          {someWaiting && " More traffic arrived than the road could take in."}
         </p>
       )}
     </section>

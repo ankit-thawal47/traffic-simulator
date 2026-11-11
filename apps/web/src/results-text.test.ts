@@ -1,6 +1,6 @@
 import { RUN_PLAN } from "@traffic-simulator/scenario";
 import { describe, expect, it } from "vitest";
-import { completenessNote, formatAcrossSeeds, formatClock } from "./results-text";
+import { formatAcrossSeeds, formatClock } from "./results-text";
 
 describe("a figure across seeds, written out", () => {
   it("is the average, then the range from lowest to highest", () => {
@@ -25,46 +25,6 @@ describe("the watched run's clock", () => {
     expect(formatClock({ timeS: 1350.4, warmingUp: false, finished: false }, RUN_PLAN)).toBe("Run time 12:30 of 60:00");
     expect(formatClock({ timeS: 4200, warmingUp: false, finished: true }, RUN_PLAN)).toBe(
       "Run time 60:00 of 60:00, finished",
-    );
-  });
-});
-
-describe("saying how complete the figures are", () => {
-  const watching = { timeS: 1350, warmingUp: false, finished: false };
-
-  it("says so when no seed has finished", () => {
-    expect(completenessNote({ seedsFinished: 0, seeds: 5, firstSeedFinished: false }, watching, RUN_PLAN)).toBe(
-      "No figures yet: none of the 5 seeds has finished.",
-    );
-  });
-
-  it("says the figures are partial while the unseen seeds are still running", () => {
-    expect(completenessNote({ seedsFinished: 2, seeds: 5, firstSeedFinished: false }, watching, RUN_PLAN)).toBe(
-      "Partial: the figures are over the 2 seeds of 5 that have finished. The other seeds are still running.",
-    );
-    expect(completenessNote({ seedsFinished: 1, seeds: 5, firstSeedFinished: false }, watching, RUN_PLAN)).toBe(
-      "Partial: the figures are over the 1 seed of 5 that has finished. The other seeds are still running.",
-    );
-  });
-
-  it("says what is missing when only the watched run has not reached the end of its hour", () => {
-    expect(completenessNote({ seedsFinished: 4, seeds: 5, firstSeedFinished: false }, watching, RUN_PLAN)).toBe(
-      "Partial: the figures are over the 4 seeds of 5 that have finished. The run you are watching is the one still to come: it is at 12:30 of its hour and joins the figures when it reaches the end.",
-    );
-    expect(completenessNote({ seedsFinished: 4, seeds: 5, firstSeedFinished: false }, { timeS: 90, warmingUp: true, finished: false }, RUN_PLAN)).toBe(
-      "Partial: the figures are over the 4 seeds of 5 that have finished. The run you are watching is the one still to come: it is still in its warm-up and joins the figures when it reaches the end of its hour.",
-    );
-  });
-
-  it("does not blame the watched run when it has finished and an unseen seed has not", () => {
-    expect(completenessNote({ seedsFinished: 4, seeds: 5, firstSeedFinished: true }, watching, RUN_PLAN)).toBe(
-      "Partial: the figures are over the 4 seeds of 5 that have finished. The other seeds are still running.",
-    );
-  });
-
-  it("says when the figures are complete", () => {
-    expect(completenessNote({ seedsFinished: 5, seeds: 5, firstSeedFinished: true }, watching, RUN_PLAN)).toBe(
-      "Complete: the figures are over all 5 seeds.",
     );
   });
 });

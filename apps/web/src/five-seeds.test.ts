@@ -27,10 +27,10 @@ function watchUntil(watch: Watch, untilRunTimeS: number, fromMs: number, each: (
 }
 
 describe("the seeds that run unseen", () => {
-  it("are the four after the watched one, each run to its end for every scenario, in order", () => {
+  it("are all five, the watched seed among them, each run to its end for every scenario, in order", () => {
     const finished = [...runUnseenSeeds(inputs, plan)].filter((event) => event.type === "seed-finished");
 
-    expect(finished.map((event) => event.seedIndex)).toEqual([1, 2, 3, 4]);
+    expect(finished.map((event) => event.seedIndex)).toEqual([0, 1, 2, 3, 4]);
     for (const event of finished) {
       expect(event.results).toEqual([expected.baseline[event.seedIndex], expected.proposal[event.seedIndex]]);
     }
@@ -39,7 +39,7 @@ describe("the seeds that run unseen", () => {
   it("report progress through each seed on the way", () => {
     const events = [...runUnseenSeeds(inputs, plan)];
 
-    for (const seedIndex of [1, 2, 3, 4]) {
+    for (const seedIndex of [0, 1, 2, 3, 4]) {
       const fractions = events.flatMap((event) =>
         event.type === "seed-progress" && event.seedIndex === seedIndex ? [event.fraction] : [],
       );
@@ -60,30 +60,45 @@ describe("collecting results across the five seeds", () => {
     expect(collectedResults(start)).toEqual({ seedsFinished: 0, seeds: 5, partial: true, progress: 0, baseline: [], proposal: [] });
   });
 
-  it("takes in each unseen seed as it finishes, and its progress before that", () => {
+  it("takes in each seed as it finishes, and its progress before that", () => {
     let collected = newFiveSeeds(plan);
-    collected = withUnseenSeedEvent(collected, { type: "seed-progress", seedIndex: 1, fraction: 0.5 });
+    collected = withUnseenSeedEvent(collected, { type: "seed-progress", seedIndex: 0, fraction: 0.5 });
 
     expect(collectedResults(collected)).toMatchObject({ seedsFinished: 0, progress: 0.1, partial: true });
 
     collected = withUnseenSeedEvent(collected, {
       type: "seed-finished",
-      seedIndex: 1,
-      results: [expected.baseline[1]!, expected.proposal[1]!],
+      seedIndex: 0,
+      results: [expected.baseline[0]!, expected.proposal[0]!],
     });
-    collected = withUnseenSeedEvent(collected, { type: "seed-progress", seedIndex: 2, fraction: 0.25 });
+    collected = withUnseenSeedEvent(collected, { type: "seed-progress", seedIndex: 1, fraction: 0.25 });
 
     expect(collectedResults(collected)).toEqual({
       seedsFinished: 1,
       seeds: 5,
       partial: true,
       progress: 0.25,
-      baseline: [expected.baseline[1]],
-      proposal: [expected.proposal[1]],
+      baseline: [expected.baseline[0]],
+      proposal: [expected.proposal[0]],
     });
   });
 
-  it("counts the watched run as the first seed only once it has reached its end", () => {
+  it("is complete once all five have finished, without the planner watching at all", () => {
+    let collected = newFiveSeeds(plan);
+    for (const event of runUnseenSeeds(inputs, plan)) collected = withUnseenSeedEvent(collected, event);
+
+    expect(collected.watched).toBeUndefined();
+    expect(collectedResults(collected)).toEqual({
+      seedsFinished: 5,
+      seeds: 5,
+      partial: false,
+      progress: 1,
+      baseline: expected.baseline,
+      proposal: expected.proposal,
+    });
+  });
+
+  it("the watched run only shows where it is: it adds nothing to the figures or to the progress", () => {
     const watch = createWatch({ inputs, plan, speed: 16, nowMs: 0 });
     let collected = newFiveSeeds(plan);
     const take = (watching: Watch) => (collected = withWatchedFrame(collected, watching.frame()));
@@ -92,31 +107,34 @@ describe("collecting results across the five seeds", () => {
 
     expect(collected.watched).toMatchObject({ warmingUp: false, finished: false });
     expect(collected.watched!.timeS).toBeCloseTo(120, 6);
-    // 120 of 240 seconds of one seed of five.
-    expect(collectedResults(collected)).toMatchObject({ seedsFinished: 0, partial: true, baseline: [], proposal: [] });
-    expect(collectedResults(collected).progress).toBeCloseTo(0.1, 6);
+    expect(collectedResults(collected)).toEqual(collectedResults(newFiveSeeds(plan)));
 
     watchUntil(watch, 240, nowMs, take);
 
     expect(collected.watched).toMatchObject({ finished: true });
-    expect(collectedResults(collected)).toMatchObject({
-      seedsFinished: 1,
-      partial: true,
-      baseline: [expected.baseline[0]],
-      proposal: [expected.proposal[0]],
-    });
+    expect(collectedResults(collected)).toEqual(collectedResults(newFiveSeeds(plan)));
   });
 
-  /** Everything the page would receive: every unseen seed, and the watched run as the planner chose to watch it. */
+  it("what the planner watches is the first of the five runs behind the figures", () => {
+    const watch = createWatch({ inputs, plan, speed: 16, nowMs: 0 });
+    watchUntil(watch, 240, 0, () => undefined);
+
+    expect(watch.frame().runs.map((run) => run.results)).toEqual([expected.baseline[0], expected.proposal[0]]);
+  });
+
+  /** Everything the page would receive: every seed, and the watched run as the planner chose to watch it, interleaved. */
   function collectWhileWatching(watching: (watch: Watch, take: (watch: Watch) => void) => void): FiveSeeds {
     let collected = newFiveSeeds(plan);
-    for (const event of runUnseenSeeds(inputs, plan)) collected = withUnseenSeedEvent(collected, event);
+    const events = [...runUnseenSeeds(inputs, plan)];
+    const half = Math.floor(events.length / 2);
+    for (const event of events.slice(0, half)) collected = withUnseenSeedEvent(collected, event);
     const watch = createWatch({ inputs, plan, speed: 1, nowMs: 0 });
     watching(watch, (current) => (collected = withWatchedFrame(collected, current.frame())));
+    for (const event of events.slice(half)) collected = withUnseenSeedEvent(collected, event);
     return collected;
   }
 
-  it("gives the same averages and ranges whatever the speed, with pauses, and when watched again", () => {
+  it("gives the same averages and ranges whatever the speed, with pauses, when watched again, or left early", () => {
     const straightThrough = collectWhileWatching((watch, take) => {
       watchUntil(watch, 240, 0, take);
     });
@@ -138,26 +156,20 @@ describe("collecting results across the five seeds", () => {
       take(watch);
       watchUntil(watch, 30, nowMs, take);
     });
-
-    const plain = collectedResults(straightThrough);
-    const fussed = collectedResults(fussedWith);
-    expect(plain).toMatchObject({ seedsFinished: 5, partial: false, progress: 1 });
-    expect(fussed).toMatchObject({ seedsFinished: 5, partial: false, progress: 1 });
-    expect(plain.baseline).toEqual(expected.baseline);
-    expect(plain.proposal).toEqual(expected.proposal);
-    expect(compareAcrossSeeds(fussed.baseline, fussed.proposal)).toEqual(
-      compareAcrossSeeds(expected.baseline, expected.proposal),
-    );
-    // The run being watched again is back in its warm-up, and the first seed's results stand.
-    expect(fussedWith.watched).toMatchObject({ warmingUp: true, finished: false });
-  });
-
-  it("is not finished while the planner has not watched the first seed to its end", () => {
     const leftEarly = collectWhileWatching((watch, take) => {
-      watchUntil(watch, 200, 0, take);
+      watchUntil(watch, 20, 0, take);
     });
 
-    expect(collectedResults(leftEarly)).toMatchObject({ seedsFinished: 4, partial: true });
-    expect(collectedResults(leftEarly).baseline).toEqual(expected.baseline.slice(1));
+    for (const collected of [straightThrough, fussedWith, leftEarly]) {
+      const results = collectedResults(collected);
+      expect(results).toMatchObject({ seedsFinished: 5, partial: false, progress: 1 });
+      expect(results.baseline).toEqual(expected.baseline);
+      expect(results.proposal).toEqual(expected.proposal);
+      expect(compareAcrossSeeds(results.baseline, results.proposal)).toEqual(
+        compareAcrossSeeds(expected.baseline, expected.proposal),
+      );
+    }
+    // The run being watched again is back in its warm-up, and the figures stand.
+    expect(fussedWith.watched).toMatchObject({ warmingUp: true, finished: false });
   });
 });

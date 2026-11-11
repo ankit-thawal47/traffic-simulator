@@ -8,7 +8,7 @@ So far: mixed traffic on one straight road. Two-wheelers, cars, auto-rickshaws a
 
 - `packages/engine` — the engine. Plain TypeScript with no browser or Node dependencies. Given a network, a demand and a seed, it advances a run step by step and gives back snapshots and results as plain data.
 - `packages/scenario` — the scenario description (network, list of changes, demand, lane discipline, seed; versioned), `resolveScenario()` which applies the changes and gives the engine only its input, reading a scenario back from a link or a file (checked in full, older versions upgraded), and the comparison of results against the baseline. Plain TypeScript, no browser dependencies.
-- `apps/web` — the app (React, Vite, three.js). It resolves the baseline and the proposal, runs both in one background worker on one clock, and draws the two 3D views. A second worker runs the seeds the planner does not watch.
+- `apps/web` — the app (React, Vite, three.js). It resolves the baseline and the proposal, runs both in one background worker on one clock, and draws the two 3D views. A second worker runs the five seeds behind the figures.
 
 ## Install
 
@@ -41,13 +41,13 @@ The views open on a close-up of the first road, 50 m from where traffic enters i
 ### Runs, seeds and results
 
 - **A run** covers one simulated hour after a 10 minute warm-up. The warm-up fills the network and is left out of the results. The watched run stops at the end of its hour.
-- **Five seeds** per scenario: the scenario's own seed, then the four whole numbers after it (a scenario with seed 7 runs with 7, 8, 9, 10 and 11). The baseline and the proposal have the same seed, so they run with the same five. The first seed is the run the planner watches, at the speed they chose; the other four run unseen in a worker of their own, as fast as the engine goes.
-- **Results** are the fixed result set (ADR 0005; so far vehicles through and mean delay per vehicle class), each as the average across seeds with the range from the lowest seed to the highest, for baseline and proposal, and the change between the averages. Each carries the "Uncalibrated estimate" label. Above the table the app shows progress across the seeds and says whether the figures are partial: a seed counts only once it has run to its end, and the watched run joins the figures when the planner has watched it to the end of its hour.
+- **Five seeds** per scenario: the scenario's own seed, then the four whole numbers after it (a scenario with seed 7 runs with 7, 8, 9, 10 and 11). The baseline and the proposal have the same seed, so they run with the same five. All five run unseen in a worker of their own, as fast as the engine goes, and the figures come from them alone. The run the planner watches is the first seed again, at the speed they chose: one of the five runs behind the figures, shown.
+- **Results** are the fixed result set (ADR 0005; so far vehicles through and mean delay per vehicle class), each as the average across seeds with the range from the lowest seed to the highest, for baseline and proposal, and the change between the averages. Each carries the "Uncalibrated estimate" label. Above the table the app shows how many seeds have finished, and says the figures are partial until all have: a seed counts only once it has run to its end. The figures do not wait for the planner to watch anything.
 - **Excluding the warm-up**: vehicles through is the count of vehicles that left after the warm-up. The mean delay of a vehicle class is the delay added after the warm-up, divided by the vehicles of that class that were there after it (every vehicle the demand produced, less those that had already left when the warm-up ended). A vehicle produced during the warm-up counts with the delay it gained afterwards only.
 - Vehicles still waiting to enter when the hour ends are shown as a note under the table, not as a result.
 - Watching faster or slower, pausing and watching again change nothing in the results: the same scenario always gives the same averages and ranges.
 
-The logic is tested from the command line: `packages/engine/src/warm-up.ts` (results that exclude the warm-up), `packages/scenario/src/run-plan.ts` (the run plan, the seeds, a run over the plan), `packages/scenario/src/comparison.ts` (average, range, change) and `apps/web/src/five-seeds.ts` (the unseen seeds and collecting results across seeds).
+The logic is tested from the command line: `packages/engine/src/warm-up.ts` (results that exclude the warm-up), `packages/scenario/src/run-plan.ts` (the run plan, the seeds, a run over the plan), `packages/scenario/src/comparison.ts` (average, range, change) and `apps/web/src/five-seeds.ts` (running the seeds unseen and collecting their results).
 
 ### Save and share
 

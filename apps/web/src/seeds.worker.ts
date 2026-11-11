@@ -1,7 +1,7 @@
 /// <reference lib="webworker" />
 /**
- * Runs the seeds the planner does not watch, in a worker of its own, so that
- * neither the page nor the watched run (run.worker.ts) waits for them. It runs
+ * Runs every seed unseen, in a worker of its own, so that neither the page
+ * nor the watched run (run.worker.ts) waits for them. It runs
  * them flat out and only reports; to stop it, the page ends the worker.
  * What it runs and reports is decided in five-seeds.ts.
  */

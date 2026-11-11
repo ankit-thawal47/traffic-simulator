@@ -27,26 +27,3 @@ export function formatClock(watched: WatchedRun, plan: RunPlan): string {
   const clock = `Run time ${formatTime(watched.timeS - plan.warmUpS)} of ${formatTime(plan.measuredS)}`;
   return watched.finished ? `${clock}, finished` : clock;
 }
-
-/**
- * One plain sentence or two on how complete the figures are: how many seeds
- * they are over, and what is still to come.
- */
-export function completenessNote(
-  seeds: { seedsFinished: number; seeds: number; firstSeedFinished: boolean },
-  watched: WatchedRun | undefined,
-  plan: RunPlan,
-): string {
-  if (seeds.seedsFinished >= seeds.seeds) return `Complete: the figures are over all ${seeds.seeds} seeds.`;
-  if (seeds.seedsFinished === 0) return `No figures yet: none of the ${seeds.seeds} seeds has finished.`;
-  const partial =
-    seeds.seedsFinished === 1
-      ? `Partial: the figures are over the 1 seed of ${seeds.seeds} that has finished.`
-      : `Partial: the figures are over the ${seeds.seedsFinished} seeds of ${seeds.seeds} that have finished.`;
-  const onlyTheWatchedRunIsMissing = !seeds.firstSeedFinished && seeds.seedsFinished === seeds.seeds - 1;
-  if (!onlyTheWatchedRunIsMissing) return `${partial} The other seeds are still running.`;
-  if (!watched || watched.warmingUp) {
-    return `${partial} The run you are watching is the one still to come: it is still in its warm-up and joins the figures when it reaches the end of its hour.`;
-  }
-  return `${partial} The run you are watching is the one still to come: it is at ${formatTime(watched.timeS - plan.warmUpS)} of its hour and joins the figures when it reaches the end.`;
-}

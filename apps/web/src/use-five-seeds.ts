@@ -5,9 +5,9 @@ import type { TogetherFrame } from "./run-together";
 import type { StartUnseenSeeds } from "./seeds.worker";
 
 /**
- * The five seeds of a baseline and a proposal. Starts the unseen seeds in
- * their own worker, and collects their results together with the watched
- * run's, whose frames the caller passes to `takeWatchedFrame`. When either
+ * The five seeds of a baseline and a proposal. Runs them all unseen in their
+ * own worker and collects their results. The watched run's frames, which the
+ * caller passes to `takeWatchedFrame`, only say where that run is. When either
  * input changes, everything collected is dropped and the seeds start again.
  */
 export function useFiveSeeds(
