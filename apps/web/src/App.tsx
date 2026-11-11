@@ -7,9 +7,11 @@ import {
 } from "@traffic-simulator/engine";
 import mixedTraffic from "@traffic-simulator/engine/examples/mixed-traffic.json";
 import {
+  baselineOf,
   createBaseline,
-  createProposal,
+  lanesOf,
   resolveScenario,
+  whyRefused,
   withoutChange,
   withRoadWidth,
   type Change,
@@ -20,20 +22,23 @@ import { angledPose, closeUpPose, networkBounds, straightDownPose } from "./came
 import { clearSnapshots, newFrameStore, receiveSnapshot } from "./frame-store";
 import { ResultsPanel } from "./ResultsPanel";
 import { formatClock } from "./results-text";
+import { RoadLanesControl } from "./RoadLanesControl";
 import { CAMERA_FOV_DEGREES, RoadScene } from "./RoadScene";
 import type { RunCommand, RunFrame } from "./run-protocol";
+import { SaveAndShare } from "./SaveAndShare";
+import { createBrowserStorage } from "./scenario-storage";
 import { createSharedCamera } from "./shared-camera";
 import { useFiveSeeds } from "./use-five-seeds";
 import { legendFor, type ColourBy } from "./vehicle-colours";
 import { WATCH_SPEEDS, fasterSpeed, formatSpeed, slowerSpeed } from "./watch-clock";
 
-const baseline = createBaseline({
-  name: "One road today",
+/** The scenario the page opens with, until the planner opens one from a link or a file. */
+const exampleScenario = createBaseline({
+  name: "One road",
   network: mixedTraffic.network as Network,
   demand: mixedTraffic.demand as Demand,
   seed: mixedTraffic.seed,
 });
-const baselineInput = resolveScenario(baseline);
 
 /** A road cannot be made narrower than the strips the widest vehicle class occupies, or wider than this. */
 const NARROWEST_ROAD_M = Math.max(...VEHICLE_CLASSES.map(stripsOccupied)) * STRIP_WIDTH_M;
@@ -44,6 +49,10 @@ function describeChange(change: Change, network: Network): string {
     case "road-width": {
       const today = network.roads.find((road) => road.id === change.roadId)?.widthM;
       return `Road "${change.roadId}": width ${today ?? "?"} m → ${change.widthM} m`;
+    }
+    case "road-lanes": {
+      const today = network.roads.find((road) => road.id === change.roadId);
+      return `Road "${change.roadId}": lanes ${today ? lanesOf(today) : "?"} → ${change.lanes}`;
     }
   }
 }
@@ -113,8 +122,27 @@ function RoadWidthControl({ proposal, onChange }: { proposal: Scenario; onChange
 }
 
 export function App() {
-  const [proposal, setProposal] = useState(() => createProposal(baseline, "Proposal"));
+  // One scenario description holds the whole comparison: it is the proposal, and the baseline is the same
+  // description without its changes. It is what a link or a file saves.
+  const [proposal, setProposal] = useState(exampleScenario);
+  const { name, network, demand, laneDiscipline, seed } = proposal;
+  const baseline = useMemo(
+    () => baselineOf({ ...exampleScenario, name, network, demand, laneDiscipline, seed }),
+    [name, network, demand, laneDiscipline, seed],
+  );
+  const baselineInput = useMemo(() => resolveScenario(baseline), [baseline]);
   const proposalInput = useMemo(() => resolveScenario(proposal), [proposal]);
+
+  const storage = useMemo(createBrowserStorage, []);
+  // Counts the scenarios opened from a link or a file, so the change controls start afresh for each.
+  const [opened, setOpened] = useState(0);
+  // Why the last change was not made: the engine would refuse to run the proposal with it.
+  const [refusal, setRefusal] = useState<string>();
+  const propose = (next: Scenario) => {
+    const why = whyRefused(next);
+    setRefusal(why);
+    if (!why) setProposal(next);
+  };
 
   const sharedCamera = useMemo(() => createSharedCamera(), []);
   const baselineFrames = useMemo(newFrameStore, []);
@@ -157,7 +185,7 @@ export function App() {
       clearSnapshots(baselineFrames);
       clearSnapshots(proposalFrames);
     };
-  }, [proposalInput, baselineFrames, proposalFrames, takeWatchedFrame]);
+  }, [baselineInput, proposalInput, baselineFrames, proposalFrames, takeWatchedFrame]);
 
   const changeSpeed = (next: number) => {
     setSpeed(next);
@@ -294,7 +322,13 @@ export function App() {
       <section className="panels">
         <section className="proposal" aria-label="Proposal">
           <h2>Proposal</h2>
-          <RoadWidthControl proposal={proposal} onChange={setProposal} />
+          <RoadWidthControl key={`width-${opened}`} proposal={proposal} onChange={propose} />
+          <RoadLanesControl key={`lanes-${opened}`} proposal={proposal} onChange={propose} />
+          {refusal && (
+            <p className="refused" data-testid="change-refused" role="alert">
+              Not changed. {refusal}.
+            </p>
+          )}
           <h3>Changes from the baseline</h3>
           {proposal.changes.length === 0 ? (
             <p className="hint" data-testid="no-changes">
@@ -305,13 +339,23 @@ export function App() {
               {proposal.changes.map((change, index) => (
                 <li key={`${change.kind}:${change.roadId}`}>
                   {describeChange(change, proposal.network)}{" "}
-                  <button type="button" onClick={() => setProposal(withoutChange(proposal, index))}>
+                  <button type="button" onClick={() => propose(withoutChange(proposal, index))}>
                     Remove
                   </button>
                 </li>
               ))}
             </ol>
           )}
+          <h3>Save and share</h3>
+          <SaveAndShare
+            scenario={proposal}
+            storage={storage}
+            onOpen={(scenario) => {
+              setProposal(scenario);
+              setRefusal(undefined);
+              setOpened((count) => count + 1);
+            }}
+          />
         </section>
 
         <ResultsPanel collected={collected} />

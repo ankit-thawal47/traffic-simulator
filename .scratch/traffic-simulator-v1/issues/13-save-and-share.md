@@ -4,10 +4,10 @@
 
 **Blocked by:** 10
 
-**Status:** ready-for-agent
+**Status:** done (merged to integration branch)
 
-- [ ] A scenario encodes to a link; opening the link restores the same scenario
-- [ ] A scenario saves to a file and loads from it
-- [ ] All saving and loading goes through one storage module
-- [ ] A saved example of each older scenario version still loads
-- [ ] A damaged or unknown link or file produces a clear message and no crash
+- [x] A scenario encodes to a link; opening the link restores the same scenario
+- [x] A scenario saves to a file and loads from it
+- [x] All saving and loading goes through one storage module
+- [x] A saved example of each older scenario version still loads
+- [x] A damaged or unknown link or file produces a clear message and no crash
