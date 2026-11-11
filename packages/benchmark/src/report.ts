@@ -4,10 +4,11 @@
  * Every number in the document is read from packages/benchmark/results/raw.
  * The tolerances are those of docs/benchmark-standard.md and are applied here
  * exactly as written. The interpretation written by hand after a run lives in
- * packages/benchmark/findings.md and is included as it is.
+ * findings.ts and is included as it is.
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
+import { FINDINGS } from "./findings";
 import type { EngineCounts, OpenRoadResult, RingResult, SumoCounts, T11Result, T12PartialResult, T12Result, T15Result, Tier0Result } from "./jobs";
 import { LANE_DROP, LEADER_PROFILE, OPEN_ROAD, RING_DURATION_S, RING_MEASURE_FROM_S } from "./jobs";
 import type { Meta } from "./main";
@@ -77,8 +78,7 @@ export function writeReport(rawDir: string, reportFile: string): void {
   const open = load<OpenRoadResult>(rawDir, "open-road").map((entry) => entry.result);
   const metaFile = join(dirname(rawDir), "meta.json");
   const meta = existsSync(metaFile) ? (JSON.parse(readFileSync(metaFile, "utf8")) as Meta) : undefined;
-  const findingsFile = join(dirname(rawDir), "..", "findings.md");
-  const findings = existsSync(findingsFile) ? readFileSync(findingsFile, "utf8").trim() : "_No findings written yet._";
+  const findings = FINDINGS.trim();
   if (!t11 || !t12 || !t12p || ring.length === 0 || t15.length === 0 || tier0.length === 0) {
     console.log("Raw results are incomplete; the table is not written. Run the whole benchmark first.");
     return;
@@ -672,8 +672,8 @@ Not identical:
    \`departSpeed="max"\` SUMO lets in so few cars that the lane drop is never loaded above its capacity; that variant is
    shown beside the result.
 4. **The lane drop itself (T1.5).** SUMO has a real one, with a short junction (about 9 m of internal lanes); ours is a
-   lane filled with stationary cars. SUMO's cars know the lane ends and change early; ours find out when they reach the
-   stationary cars.
+   lane filled with stationary cars. SUMO's network says that the lane does not continue, and its lane-change model can
+   act on that; our cars meet the stationary cars as an obstacle and nothing tells them of it before.
 5. **Stuck vehicles.** SUMO teleports a vehicle after 300 s of waiting; ours has no forced release yet, so a stuck
    vehicle stays stuck. Both are counted.
 6. **The prescribed leader (T1.2)** exists only in SUMO, through libsumo, with the leader's own model switched off
