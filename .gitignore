@@ -6,3 +6,5 @@ dist/
 deep-research-skills/
 # Datasets with no stated licence are downloaded by script, never committed
 data/external/
+# Working copies used by implementer agents
+.claude/worktrees/

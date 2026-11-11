@@ -4,7 +4,7 @@
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** done (merged to integration branch, commit 5d5132b)
 
 - [x] The engine is a standalone package with no browser dependencies and runs from the command line
 - [x] Given a one-road network, a demand and a seed, cars enter, follow using the following rule, and leave
