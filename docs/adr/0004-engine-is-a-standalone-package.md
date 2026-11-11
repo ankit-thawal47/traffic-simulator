@@ -5,4 +5,4 @@ The engine lives in its own package and may not touch the page, the map, the net
 ## Consequences
 
 - Everything the engine needs (network, scenario, seed) is passed in; everything it produces (positions, metrics) is passed out as plain data.
-- The app, built with React, Vite and MapLibre, depends on the engine; the engine never depends on the app.
+- The app, built with React, Vite and three.js, depends on the engine; the engine never depends on the app.

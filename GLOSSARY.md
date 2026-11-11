@@ -91,3 +91,11 @@ _Avoid_: Volume, load, traffic input
 **Route**:
 The sequence of roads a vehicle follows from its entry to its exit.
 _Avoid_: Path, trip, journey
+
+**Lane discipline**:
+The setting that makes vehicles keep to marked lanes. With it off, the road carries mixed traffic.
+_Avoid_: Lane mode, lane-based mode, ordered traffic
+
+**Assumption**:
+A value the engine takes as given, such as a vehicle class's size or following gap, shown to the planner with its source.
+_Avoid_: Parameter, constant, default
