@@ -21,6 +21,7 @@ function seedResults(vehiclesThrough: number, carDelayS: number | null): Results
       "auto-rickshaw": noVehicles,
       bus: noVehicles,
     },
+    longestQueueByApproach: {},
   };
 }
 

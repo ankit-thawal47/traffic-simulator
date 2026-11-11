@@ -30,10 +30,14 @@ const VEHICLE_CLASS_PLURALS: Record<VehicleClass, string> = {
  * stuck vehicles. A measure is added here for every scenario, or not at all.
  *
  * Only what the engine reports so far is here. Mean travel time belongs after
- * vehicles through; longest queue per approach and stuck vehicles belong at
- * the end. Each joins as one more entry when the engine comes to report it.
- * The engine's other counts (entered, on the network, waiting to enter) are
- * not part of the set, so they are not results.
+ * vehicles through; stuck vehicles belong at the end. Each joins as one more
+ * entry when the engine comes to report it. The engine's other counts
+ * (entered, on the network, waiting to enter) are not part of the set, so they
+ * are not results.
+ *
+ * These are the measures every network has. The longest queue per approach is
+ * one measure for each approach of the network, so it cannot be listed here:
+ * measuresFor() adds those after these.
  */
 export const MEASURES: readonly Measure[] = [
   { id: "vehicles-through", name: "Vehicles through", unit: "vehicles", value: (results) => results.vehiclesThrough },
@@ -46,6 +50,33 @@ export const MEASURES: readonly Measure[] = [
     }),
   ),
 ];
+
+/**
+ * The fixed result set for the network these results came from: MEASURES, then
+ * the longest queue on each approach, in metres, in the order the results give
+ * the approaches. Pass every set of results that will be compared (each seed
+ * of baseline and proposal); an approach that only some of them have is still
+ * a measure, with nothing to measure in the others.
+ */
+export function measuresFor(results: readonly Results[]): Measure[] {
+  const approaches: string[] = [];
+  for (const one of results) {
+    for (const roadId of Object.keys(one.longestQueueByApproach)) {
+      if (!approaches.includes(roadId)) approaches.push(roadId);
+    }
+  }
+  return [
+    ...MEASURES,
+    ...approaches.map(
+      (roadId): Measure => ({
+        id: `longest-queue:${roadId}`,
+        name: `Longest queue on ${roadId} (m)`,
+        unit: "m",
+        value: (one) => one.longestQueueByApproach[roadId]?.lengthM ?? null,
+      }),
+    ),
+  ];
+}
 
 /** One measure for both scenarios. */
 export interface ComparedMeasure {

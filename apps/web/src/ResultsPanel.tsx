@@ -1,4 +1,4 @@
-import { ESTIMATE_LABEL, acrossSeeds, compareAcrossSeeds, formatChange } from "@traffic-simulator/scenario";
+import { ESTIMATE_LABEL, acrossSeeds, compareAcrossSeeds, formatChange, measuresFor } from "@traffic-simulator/scenario";
 import { collectedResults, type FiveSeeds } from "./five-seeds";
 import { formatAcrossSeeds } from "./results-text";
 
@@ -10,7 +10,9 @@ import { formatAcrossSeeds } from "./results-text";
 export function ResultsPanel({ collected }: { collected: FiveSeeds }) {
   const { plan } = collected;
   const results = collectedResults(collected);
-  const rows = compareAcrossSeeds(results.baseline, results.proposal);
+  // The longest queue per approach is one row for each approach the results have.
+  const measures = measuresFor([...results.baseline, ...results.proposal]);
+  const rows = compareAcrossSeeds(results.baseline, results.proposal, measures);
   const waiting = {
     baseline: acrossSeeds(results.baseline.map((seed) => seed.vehiclesWaitingToEnter)),
     proposal: acrossSeeds(results.proposal.map((seed) => seed.vehiclesWaitingToEnter)),

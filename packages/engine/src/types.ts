@@ -212,7 +212,18 @@ export interface Results {
  * A turn slowed for by a single vehicle is not a queue: a turning vehicle
  * stays above the queue speed.
  */
-export interface ApproachQueue {
+export interface ApproachQueue extends QueueLength {
+  /**
+   * The longest queue within each minute of the run so far, the first minute
+   * first. A longest queue cannot be had for part of a run from the longest
+   * queues of two longer parts, so results carry it minute by minute:
+   * resultsExcludingWarmUp() takes the longest of the minutes after the warm-up.
+   */
+  eachMinute: QueueLength[];
+}
+
+/** A queue at one moment: its length, and the number of vehicles in it. */
+export interface QueueLength {
   lengthM: number;
   vehicles: number;
 }

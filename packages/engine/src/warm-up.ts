@@ -1,5 +1,5 @@
 import { VEHICLE_CLASSES } from "./assumptions";
-import type { Results, VehicleClassDelay } from "./types";
+import type { QueueLength, Results, VehicleClassDelay } from "./types";
 
 /**
  * A run's results with its warm-up left out: what happened between the end of
@@ -31,7 +31,18 @@ export function resultsExcludingWarmUp(atEndOfWarmUp: Results, atEnd: Results): 
       totalDelayS,
     };
   }
+  // The longest queue on each approach: the longest of the minutes after the
+  // warm-up. A warm-up that ends part-way through a minute leaves that whole minute in.
+  const firstMinute = Math.floor(atEndOfWarmUp.timeS / 60 + 1e-6);
+  const longestQueueByApproach: Results["longestQueueByApproach"] = {};
+  for (const [roadId, queue] of Object.entries(atEnd.longestQueueByApproach)) {
+    const eachMinute = queue.eachMinute.slice(firstMinute).map((minute) => ({ ...minute }));
+    let longest: QueueLength = { lengthM: 0, vehicles: 0 };
+    for (const minute of eachMinute) if (minute.lengthM > longest.lengthM) longest = minute;
+    longestQueueByApproach[roadId] = { lengthM: longest.lengthM, vehicles: longest.vehicles, eachMinute };
+  }
   return {
+    longestQueueByApproach,
     timeS: atEnd.timeS - atEndOfWarmUp.timeS,
     vehiclesEntered: atEnd.vehiclesEntered - atEndOfWarmUp.vehiclesEntered,
     vehiclesThrough: atEnd.vehiclesThrough - atEndOfWarmUp.vehiclesThrough,

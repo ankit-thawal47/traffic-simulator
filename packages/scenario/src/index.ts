@@ -21,7 +21,15 @@ export {
   scenarioToLink,
   scenarioToText,
 } from "./codec";
-export { ESTIMATE_LABEL, MEASURES, acrossSeeds, compareAcrossSeeds, compareResults, formatChange } from "./comparison";
+export {
+  ESTIMATE_LABEL,
+  MEASURES,
+  acrossSeeds,
+  compareAcrossSeeds,
+  compareResults,
+  formatChange,
+  measuresFor,
+} from "./comparison";
 export type { AcrossSeeds, ComparedMeasure, ComparedMeasureAcrossSeeds, Measure } from "./comparison";
 export { RUN_PLAN, createMeasuredRun, runEverySeed, seedsFor } from "./run-plan";
 export type { MeasuredRun, RunPlan } from "./run-plan";

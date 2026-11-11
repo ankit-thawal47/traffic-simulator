@@ -3,6 +3,7 @@ import {
   BENGALURU_VEHICLE_MIX,
   createNetworkLayout,
   createRun,
+  resultsExcludingWarmUp,
   signalState,
   STEP_SECONDS,
   vehiclePose,
@@ -250,12 +251,52 @@ describe("the longest queue per approach", () => {
   it("is reported for every approach, and is nothing where no vehicle has queued", () => {
     const run = createRun({ network, demand: noDemand, seed: 1 });
     advance(run, 10);
+    const none = { lengthM: 0, vehicles: 0, eachMinute: [{ lengthM: 0, vehicles: 0 }] };
     expect(run.results().longestQueueByApproach).toEqual({
-      "south-in": { lengthM: 0, vehicles: 0 },
-      "north-in": { lengthM: 0, vehicles: 0 },
-      "west-in": { lengthM: 0, vehicles: 0 },
-      "east-in": { lengthM: 0, vehicles: 0 },
+      "south-in": none,
+      "north-in": none,
+      "west-in": none,
+      "east-in": none,
     });
+  });
+
+  it("is kept for each minute of the run, so that a warm-up can be left out", () => {
+    const run = createRun({
+      network,
+      demand: noDemand,
+      seed: 1,
+      laneDiscipline: true,
+      // Five cars queue at the red signal in the first minute, and leave on the green that starts at 50 s.
+      initialVehicles: [160, 140, 120, 100, 80].map((positionM) => ({
+        roadId: "south-in",
+        positionM,
+        speedMps: 8,
+        exitRoadId: "north-out",
+      })),
+    });
+    advance(run, 120);
+    const atEndOfWarmUp = run.results();
+    advance(run, 120);
+    const atEnd = run.results();
+
+    const whole = atEnd.longestQueueByApproach["south-in"]!;
+    expect(whole.vehicles).toBe(5);
+    expect(whole.eachMinute.map((minute) => minute.vehicles)).toEqual([5, 0, 0, 0]);
+    expect(whole.eachMinute[0]).toEqual({ lengthM: whole.lengthM, vehicles: 5 });
+
+    // With the first two minutes left out, no queue was seen.
+    const measured = resultsExcludingWarmUp(atEndOfWarmUp, atEnd);
+    expect(measured.longestQueueByApproach["south-in"]).toEqual({
+      lengthM: 0,
+      vehicles: 0,
+      eachMinute: [
+        { lengthM: 0, vehicles: 0 },
+        { lengthM: 0, vehicles: 0 },
+      ],
+    });
+    // With nothing left out, it is the queue of the first minute.
+    const all = resultsExcludingWarmUp(createRun({ network, demand: noDemand, seed: 1 }).results(), atEnd);
+    expect(all.longestQueueByApproach["south-in"]).toEqual(whole);
   });
 
   it("is measured from the stop line to the back of the last queued vehicle", () => {
@@ -279,12 +320,12 @@ describe("the longest queue per approach", () => {
     expect(queue.vehicles).toBe(5);
     expect(queue.lengthM).toBeGreaterThan(31);
     expect(queue.lengthM).toBeLessThan(33);
-    expect(run.results().longestQueueByApproach["north-in"]).toEqual({ lengthM: 0, vehicles: 0 });
+    expect(run.results().longestQueueByApproach["north-in"]).toMatchObject({ lengthM: 0, vehicles: 0 });
 
     // It is the longest over the run so far: it stays after the queue has gone.
     advance(run, 40);
     expect(run.snapshot().vehicles.filter((vehicle) => vehicle.roadId === "south-in")).toEqual([]);
-    expect(run.results().longestQueueByApproach["south-in"]).toEqual(queue);
+    expect(run.results().longestQueueByApproach["south-in"]).toMatchObject({ lengthM: queue.lengthM, vehicles: 5 });
   });
 
   it("does not count vehicles that drive through on green without queuing", () => {
@@ -295,7 +336,7 @@ describe("the longest queue per approach", () => {
     });
     advance(run, 120);
     expect(run.results().vehiclesThrough).toBeGreaterThan(5);
-    expect(run.results().longestQueueByApproach["south-in"]).toEqual({ lengthM: 0, vehicles: 0 });
+    expect(run.results().longestQueueByApproach["south-in"]).toMatchObject({ lengthM: 0, vehicles: 0 });
   });
 
   it("is empty for a network with no junction", () => {

@@ -111,6 +111,8 @@ interface JunctionState {
   crossings: (Int16Array | undefined)[];
 }
 
+const STEPS_PER_MINUTE = Math.round(60 / STEP_SECONDS);
+
 /** Where a vehicle is relative to a junction on its route. */
 const ON_ROAD = 0;
 /** Front bumper inside the junction. The vehicle's position is still measured on the approach, past its end. */
@@ -263,7 +265,7 @@ export function createRun(input: RunInput): Run {
       startsAtJunction: false,
       lastInStrip: [],
       aspect: { state: "green", remainingS: Infinity },
-      longestQueue: { lengthM: 0, vehicles: 0 },
+      longestQueue: { lengthM: 0, vehicles: 0, eachMinute: [] },
     });
   }
 
@@ -1299,7 +1301,19 @@ export function createRun(input: RunInput): Run {
       vehicles++;
     }
     const lengthM = approach.lengthM - backM;
-    if (lengthM > approach.longestQueue.lengthM) approach.longestQueue = { lengthM, vehicles };
+    const longest = approach.longestQueue;
+    if (lengthM > longest.lengthM) {
+      longest.lengthM = lengthM;
+      longest.vehicles = vehicles;
+    }
+    // Counted in steps, so a minute ends on the same step whatever the rounding of run time.
+    const minute = Math.floor((stepCount - 1) / STEPS_PER_MINUTE);
+    while (longest.eachMinute.length <= minute) longest.eachMinute.push({ lengthM: 0, vehicles: 0 });
+    const thisMinute = longest.eachMinute[minute]!;
+    if (lengthM > thisMinute.lengthM) {
+      thisMinute.lengthM = lengthM;
+      thisMinute.vehicles = vehicles;
+    }
   }
 
   /**
@@ -1501,7 +1515,9 @@ export function createRun(input: RunInput): Run {
     }
     const longestQueueByApproach: Record<string, ApproachQueue> = {};
     for (const road of roads.values()) {
-      if (road.endsAt) longestQueueByApproach[road.road.id] = { ...road.longestQueue };
+      if (!road.endsAt) continue;
+      const { lengthM, vehicles, eachMinute } = road.longestQueue;
+      longestQueueByApproach[road.road.id] = { lengthM, vehicles, eachMinute: eachMinute.map((minute) => ({ ...minute })) };
     }
     return {
       timeS,
