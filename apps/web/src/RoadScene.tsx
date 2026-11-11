@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { interpolateVehicles } from "./interpolate";
+import type { SharedCamera } from "./shared-camera";
 
 /** The two most recent snapshots of a run, and when the later one arrived. */
 export interface FrameStore {
@@ -36,8 +37,19 @@ function roadMeshes(road: Road, material: THREE.Material): THREE.Mesh[] {
   return meshes;
 }
 
-/** The 3D view: one three.js scene showing the network and each vehicle as a box. */
-export function RoadScene({ network, frames }: { network: Network; frames: FrameStore }) {
+/**
+ * The 3D view: one three.js scene showing the network and each vehicle as a box.
+ * Views given the same `sharedCamera` move as one.
+ */
+export function RoadScene({
+  network,
+  frames,
+  sharedCamera,
+}: {
+  network: Network;
+  frames: FrameStore;
+  sharedCamera?: SharedCamera;
+}) {
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -94,6 +106,31 @@ export function RoadScene({ network, frames }: { network: Network; frames: Frame
     controls.maxPolarAngle = Math.PI / 2 - 0.02;
     controls.update();
 
+    // Follow the shared camera, and report this view's own movements to it.
+    const view = {};
+    let following = false;
+    const showPose = () => {
+      // Written to the page so that what each view shows can be checked from outside.
+      host.dataset.camera = [...camera.position.toArray(), ...controls.target.toArray()]
+        .map((value) => value.toFixed(2))
+        .join(" ");
+    };
+    const leaveSharedCamera = sharedCamera?.join(view, (pose) => {
+      following = true;
+      camera.position.fromArray(pose.position);
+      controls.target.fromArray(pose.target);
+      controls.update();
+      following = false;
+      showPose();
+    });
+    const onCameraMoved = () => {
+      if (following) return;
+      showPose();
+      sharedCamera?.move(view, { position: camera.position.toArray(), target: controls.target.toArray() });
+    };
+    controls.addEventListener("change", onCameraMoved);
+    showPose();
+
     const resize = () => {
       const { clientWidth, clientHeight } = host;
       renderer.setSize(clientWidth, clientHeight);
@@ -141,11 +178,13 @@ export function RoadScene({ network, frames }: { network: Network; frames: Frame
     return () => {
       cancelAnimationFrame(animation);
       resizeObserver.disconnect();
+      leaveSharedCamera?.();
+      controls.removeEventListener("change", onCameraMoved);
       controls.dispose();
       renderer.dispose();
       host.removeChild(renderer.domElement);
     };
-  }, [network, frames]);
+  }, [network, frames, sharedCamera]);
 
   return <div ref={container} className="scene" />;
 }
