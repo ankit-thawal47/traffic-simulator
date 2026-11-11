@@ -2,10 +2,10 @@ import { describe, expect, it } from "vitest";
 import type { Results, VehicleClassDelay } from "@traffic-simulator/engine";
 import { compareResults, formatChange, type Measure } from "../src/index";
 
-const noVehicles: VehicleClassDelay = { vehicles: 0, vehiclesThrough: 0, meanDelayS: null };
+const noVehicles: VehicleClassDelay = { vehicles: 0, vehiclesThrough: 0, meanDelayS: null, totalDelayS: 0 };
 const delays = (twoWheelerS: number, carS: number): Results["delayByVehicleClass"] => ({
-  "two-wheeler": { vehicles: 120, vehiclesThrough: 110, meanDelayS: twoWheelerS },
-  car: { vehicles: 90, vehiclesThrough: 80, meanDelayS: carS },
+  "two-wheeler": { vehicles: 120, vehiclesThrough: 110, meanDelayS: twoWheelerS, totalDelayS: 120 * twoWheelerS },
+  car: { vehicles: 90, vehiclesThrough: 80, meanDelayS: carS, totalDelayS: 90 * carS },
   "auto-rickshaw": noVehicles,
   bus: noVehicles,
 });
