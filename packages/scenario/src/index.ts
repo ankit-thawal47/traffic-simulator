@@ -11,5 +11,7 @@ export {
 } from "./scenario";
 export type { Change, RoadLanesChange, RoadWidthChange, Scenario } from "./scenario";
 export { resolveScenario } from "./resolve";
+export { SCENARIO_LIMITS, readScenario, whyRefused } from "./read";
+export type { Outcome } from "./read";
 export { ESTIMATE_LABEL, MEASURES, compareResults, formatChange } from "./comparison";
 export type { ComparedMeasure, Measure } from "./comparison";
