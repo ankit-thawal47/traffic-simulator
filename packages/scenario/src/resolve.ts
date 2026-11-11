@@ -39,8 +39,9 @@ function applyChange(resolved: Resolved, change: Change, label: string): Resolve
 
 /**
  * Resolve a scenario into the engine's input: apply its changes, in order, to
- * its network and demand. The scenario itself is left untouched. The engine
- * receives only the result and knows nothing of baselines, proposals or changes.
+ * its network and demand, and pass on its lane discipline and seed. The scenario
+ * itself is left untouched. The engine receives only the result and knows
+ * nothing of baselines, proposals or changes.
  */
 export function resolveScenario(scenario: Scenario): RunInput {
   if (scenario.formatVersion !== SCENARIO_FORMAT_VERSION) {
@@ -50,5 +51,10 @@ export function resolveScenario(scenario: Scenario): RunInput {
   scenario.changes.forEach((change, index) => {
     resolved = applyChange(resolved, change, `Change ${index + 1}`);
   });
-  return { network: resolved.network, demand: resolved.demand, seed: scenario.seed };
+  return {
+    network: resolved.network,
+    demand: resolved.demand,
+    seed: scenario.seed,
+    laneDiscipline: scenario.laneDiscipline,
+  };
 }

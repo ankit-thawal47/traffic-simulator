@@ -10,7 +10,19 @@
 import type { Demand, Network } from "@traffic-simulator/engine";
 
 /** The current version of the scenario description. */
-export const SCENARIO_FORMAT_VERSION = 1;
+/**
+ * The current version of the scenario description. It counts changes to this
+ * description only, and is separate from the version of the engine's network
+ * format (`network.formatVersion`), which the network inside carries itself.
+ *
+ * Versions so far:
+ * 1. name, network, changes (road width), demand, seed.
+ * 2. adds lane discipline, and the road lanes change.
+ *
+ * A new version raises this number, adds one upgrade step (upgrade.ts) and
+ * one saved example (test/fixtures); older links and files keep loading.
+ */
+export const SCENARIO_FORMAT_VERSION = 2;
 
 /** Set the usable width of one road, named by its stable identifier. */
 export interface RoadWidthChange {
@@ -34,6 +46,11 @@ export interface Scenario {
   /** Applied in order when the scenario is resolved. Empty for a baseline. */
   changes: Change[];
   demand: Demand;
+  /**
+   * Lane discipline. On: vehicles keep to the road's lanes. Off: the road
+   * carries mixed traffic, with vehicles sharing its width strip by strip.
+   */
+  laneDiscipline: boolean;
   /** Any integer. The same scenario and seed always give the same run. */
   seed: number;
 }
@@ -72,13 +89,31 @@ export function withRoadWidth(scenario: Scenario, roadId: string, widthM: number
 }
 
 /** The baseline: the road as it is today, with no changes. */
-export function createBaseline(description: { name: string; network: Network; demand: Demand; seed: number }): Scenario {
+export function createBaseline(description: {
+  name: string;
+  network: Network;
+  demand: Demand;
+  seed: number;
+  /** Off (mixed traffic) unless given. */
+  laneDiscipline?: boolean;
+}): Scenario {
   return {
     formatVersion: SCENARIO_FORMAT_VERSION,
     name: description.name,
     network: description.network,
     changes: [],
     demand: description.demand,
+    laneDiscipline: description.laneDiscipline ?? false,
     seed: description.seed,
   };
+}
+
+/**
+ * The baseline a scenario is compared against: the same scenario with no
+ * changes. One scenario description therefore holds the planner's whole
+ * comparison, and the proposal cannot differ from the baseline by anything
+ * but its changes.
+ */
+export function baselineOf(scenario: Scenario): Scenario {
+  return { ...scenario, changes: [] };
 }

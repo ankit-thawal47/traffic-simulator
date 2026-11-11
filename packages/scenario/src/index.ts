@@ -1,5 +1,6 @@
 export {
   SCENARIO_FORMAT_VERSION,
+  baselineOf,
   createBaseline,
   createProposal,
   withChange,
