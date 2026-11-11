@@ -40,6 +40,56 @@ describe("cars on one road", () => {
     expect(results.vehiclesThrough).toBeLessThanOrEqual(results.vehiclesEntered);
   });
 
+  it("cars enter at about the rate the demand sets", () => {
+    const run = createRun({
+      network: oneRoad,
+      demand: { flows: [{ entryRoadId: "main", exitRoadId: "main", vehiclesPerHour: 600 }] },
+      seed: 7,
+    });
+
+    advance(run, 3600);
+
+    // 600 expected in an hour of random arrivals; 500 to 700 is about four standard deviations.
+    const results = run.results();
+    expect(results.vehiclesEntered).toBeGreaterThan(500);
+    expect(results.vehiclesEntered).toBeLessThan(700);
+    expect(results.vehiclesThrough).toBeGreaterThan(results.vehiclesEntered - 40);
+  });
+
+  it("the same seed gives an identical run; a different seed gives a different one", () => {
+    const input = (seed: number): RunInput => ({
+      network: oneRoad,
+      demand: { flows: [{ entryRoadId: "main", exitRoadId: "main", vehiclesPerHour: 900 }] },
+      seed,
+    });
+    const trace = (seed: number): string => {
+      const run = createRun(input(seed));
+      const frames: unknown[] = [];
+      for (let i = 0; i < 1500; i++) {
+        run.step();
+        frames.push(run.snapshot(), run.results());
+      }
+      return JSON.stringify(frames);
+    };
+
+    expect(trace(11)).toBe(trace(11));
+    expect(trace(11)).not.toBe(trace(12));
+  });
+
+  it("refuses a demand whose roads are not in the network or cannot be reached", () => {
+    const twoRoads: Network = {
+      formatVersion: 1,
+      roads: [oneRoad.roads[0]!, { ...oneRoad.roads[0]!, id: "other" }],
+    };
+    const demandFor = (entryRoadId: string, exitRoadId: string) => ({
+      flows: [{ entryRoadId, exitRoadId, vehiclesPerHour: 100 }],
+    });
+
+    expect(() => createRun({ network: oneRoad, demand: demandFor("nowhere", "main"), seed: 1 })).toThrow(/nowhere/);
+    expect(() => createRun({ network: oneRoad, demand: demandFor("main", "nowhere"), seed: 1 })).toThrow(/nowhere/);
+    expect(() => createRun({ network: twoRoads, demand: demandFor("main", "other"), seed: 1 })).toThrow(/no route/i);
+  });
+
   it("a lone car speeds up to the road's speed limit and holds it", () => {
     const run = createRun({
       network: oneRoad,

@@ -47,7 +47,14 @@ function gapTo(vehicle: Vehicle, leader: Vehicle): number {
 
 export function createRun(input: RunInput): Run {
   const roads = new Map<string, RoadState>();
+  if (input.network.formatVersion !== 1) {
+    throw new Error(`Unsupported network format version: ${String(input.network.formatVersion)}`);
+  }
   for (const road of input.network.roads) {
+    if (roads.has(road.id)) throw new Error(`The network has two roads with the id "${road.id}"`);
+    if (!(road.widthM > 0) || !(road.speedLimitMps > 0) || !(roadLengthM(road) > 0)) {
+      throw new Error(`Road "${road.id}" needs a positive length, width and speed limit`);
+    }
     roads.set(road.id, { road, lengthM: roadLengthM(road), vehicles: [] });
   }
 
@@ -55,7 +62,15 @@ export function createRun(input: RunInput): Run {
   input.demand.flows.forEach((flow, index) => {
     const entryRoad = roads.get(flow.entryRoadId);
     if (!entryRoad) throw new Error(`Demand names an entry road that is not in the network: "${flow.entryRoadId}"`);
-    if (flow.vehiclesPerHour <= 0) return;
+    if (!roads.has(flow.exitRoadId)) {
+      throw new Error(`Demand names an exit road that is not in the network: "${flow.exitRoadId}"`);
+    }
+    if (flow.exitRoadId !== flow.entryRoadId) {
+      // Routes across junctions arrive with the junction tickets; until then a route is one road.
+      throw new Error(`There is no route from road "${flow.entryRoadId}" to road "${flow.exitRoadId}"`);
+    }
+    if (!(flow.vehiclesPerHour >= 0)) throw new Error(`Demand for road "${flow.entryRoadId}" has an invalid rate`);
+    if (flow.vehiclesPerHour === 0) return;
     const meanHeadwayS = 3600 / flow.vehiclesPerHour;
     const random = createRandomStream(input.seed, `demand:${index}`);
     flows.push({ entryRoad, meanHeadwayS, random, nextArrivalS: exponential(random, meanHeadwayS), waiting: 0 });
