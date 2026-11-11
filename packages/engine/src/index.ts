@@ -21,6 +21,7 @@ export {
 } from "./junction-geometry";
 export type { NetworkLayout, SignalAspect, SignalState, TurnDirection, TurningPath, VehiclePose } from "./junction-geometry";
 export type {
+  ApproachQueue,
   Connection,
   Demand,
   DemandFlow,

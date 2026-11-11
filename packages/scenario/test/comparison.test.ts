@@ -17,6 +17,7 @@ const baseline: Results = {
   vehiclesOnNetwork: 10,
   vehiclesWaitingToEnter: 0,
   delayByVehicleClass: delays(4, 10),
+  longestQueueByApproach: {},
 };
 const proposal: Results = {
   timeS: 600,
@@ -25,6 +26,7 @@ const proposal: Results = {
   vehiclesOnNetwork: 40,
   vehiclesWaitingToEnter: 20,
   delayByVehicleClass: delays(5, 25),
+  longestQueueByApproach: {},
 };
 
 describe("comparing a proposal's results against the baseline's", () => {

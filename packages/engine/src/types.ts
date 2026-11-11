@@ -191,6 +191,30 @@ export interface Results {
   vehiclesWaitingToEnter: number;
   /** Delay for each vehicle class. */
   delayByVehicleClass: Record<VehicleClass, VehicleClassDelay>;
+  /**
+   * The longest queue so far on each approach, by the id of the approach's
+   * road, in the network's order of roads. Empty for a network with no junction.
+   */
+  longestQueueByApproach: Record<string, ApproachQueue>;
+}
+
+/**
+ * The longest queue an approach has had so far in a run.
+ *
+ * A vehicle is queued when it is on the approach, short of the stop line, and
+ * slower than the queue speed (5 km/h). The queue at a moment runs from the
+ * stop line back to the rear bumper of the last queued vehicle, counting back
+ * from the stop line and stopping at the first break of more than 10 m with no
+ * queued vehicle in it. Stationary vehicles (breakdowns) are not counted. The
+ * queue is measured after every step; this is the longest of those, with the
+ * number of vehicles that were in it. A queue cannot be longer than the
+ * approach: vehicles still waiting to enter the network are not in it.
+ * A turn slowed for by a single vehicle is not a queue: a turning vehicle
+ * stays above the queue speed.
+ */
+export interface ApproachQueue {
+  lengthM: number;
+  vehicles: number;
 }
 
 /**

@@ -23,6 +23,7 @@ import {
 } from "./junction-geometry";
 import { createRandomStream, exponential, type RandomStream } from "./random";
 import type {
+  ApproachQueue,
   Junction,
   Results,
   Road,
@@ -69,6 +70,8 @@ interface RoadState {
   lastInStrip: (Vehicle | undefined)[];
   /** For an approach: what its signal shows at the start of the step. */
   aspect: SignalAspect;
+  /** For an approach: the longest queue it has had so far. */
+  longestQueue: ApproachQueue;
 }
 
 /**
@@ -260,6 +263,7 @@ export function createRun(input: RunInput): Run {
       startsAtJunction: false,
       lastInStrip: [],
       aspect: { state: "green", remainingS: Infinity },
+      longestQueue: { lengthM: 0, vehicles: 0 },
     });
   }
 
@@ -1281,6 +1285,23 @@ export function createRun(input: RunInput): Run {
     return timeS - vehicle.arrivedAtS - freeTimeS;
   }
 
+  /** Measure the queue on an approach as it is now, and keep it if it is the longest so far (see ApproachQueue). */
+  function measureQueue(approach: RoadState): void {
+    const queueSpeedMps = JUNCTION_ASSUMPTIONS.queueSpeedMps.value;
+    const breakM = JUNCTION_ASSUMPTIONS.queueBreakM.value;
+    approach.vehicles.sort(frontFirst);
+    let backM = approach.lengthM;
+    let vehicles = 0;
+    for (const vehicle of approach.vehicles) {
+      if (vehicle.place !== ON_ROAD || vehicle.stationary || vehicle.speedMps >= queueSpeedMps) continue;
+      if (backM - vehicle.positionM > breakM) break;
+      backM = Math.min(backM, rearM(vehicle));
+      vehicles++;
+    }
+    const lengthM = approach.lengthM - backM;
+    if (lengthM > approach.longestQueue.lengthM) approach.longestQueue = { lengthM, vehicles };
+  }
+
   /**
    * One step. Every vehicle decides from the same state, in two rounds, and then all
    * moves are applied together, so results do not depend on processing order:
@@ -1395,6 +1416,9 @@ export function createRun(input: RunInput): Run {
     }
 
     stepCount++;
+    for (const junction of junctions) {
+      for (const approach of junction.approaches) measureQueue(approach);
+    }
 
     for (const flow of flows) {
       while (flow.nextArrivalS <= timeS) {
@@ -1473,7 +1497,19 @@ export function createRun(input: RunInput): Run {
         meanDelayS: vehicles > 0 ? (through.delayS + still.delayS) / vehicles : null,
       };
     }
-    return { timeS, vehiclesEntered, vehiclesThrough, vehiclesOnNetwork, vehiclesWaitingToEnter, delayByVehicleClass };
+    const longestQueueByApproach: Record<string, ApproachQueue> = {};
+    for (const road of roads.values()) {
+      if (road.endsAt) longestQueueByApproach[road.road.id] = { ...road.longestQueue };
+    }
+    return {
+      timeS,
+      vehiclesEntered,
+      vehiclesThrough,
+      vehiclesOnNetwork,
+      vehiclesWaitingToEnter,
+      delayByVehicleClass,
+      longestQueueByApproach,
+    };
   }
 
   return {

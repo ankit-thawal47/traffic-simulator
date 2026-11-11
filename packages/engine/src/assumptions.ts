@@ -179,6 +179,20 @@ export const JUNCTION_ASSUMPTIONS = {
       "when it asks to be let into a junction. Our choice. Not from a measurement.",
     confirmed: false,
   },
+  queueSpeedMps: {
+    value: 1.4,
+    unit: "m/s",
+    source: "A vehicle slower than this (5 km/h) on an approach is counted as queued. Our choice. Not from a measurement.",
+    confirmed: false,
+  },
+  queueBreakM: {
+    value: 10,
+    unit: "m",
+    source:
+      "A queue is counted back from the stop line as far as the first stretch longer than this with no queued vehicle in it. " +
+      "Our choice. Not from a measurement.",
+    confirmed: false,
+  },
   keepClearSlackM: {
     value: 0.5,
     unit: "m",
