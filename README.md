@@ -62,7 +62,7 @@ A link or a file that cannot be read gives a message saying why, and the scenari
 
 What is saved is one scenario description: a name, the network as it is today, the list of changes, the demand, lane discipline and the seed. It holds the whole comparison: the proposal is the description as saved, and the baseline is the same description without its changes.
 
-- **Versions.** `formatVersion` is 2. Version 1 had no lane discipline (it loads with lane discipline off) and only the road width change. This number is separate from the network's own `formatVersion` (the engine's network format, 1 or 2), which the network inside carries.
+- **Versions.** `formatVersion` is 2. Version 1 had no lane discipline (it loads with lane discipline off) and only the road width change. This number is separate from the network's own `formatVersion` (the engine's network format, 1 to 3), which the network inside carries.
 - **Older versions keep loading.** `packages/scenario/src/upgrade.ts` has one upgrade step per older version, and `packages/scenario/test/fixtures/` has a saved example of every version, as a file and as a link, which the tests open. A new version raises the number, adds one step and one example; existing steps and examples are never edited.
 - **Changes.** `road-width` sets a road's width; `road-lanes` sets its number of lanes. Lanes and width are independent: each change leaves the other as it is, and the lanes share the width equally. With lane discipline on, every lane must be wide enough for the widest vehicle class in the demand; with it off the road carries mixed traffic, which takes no notice of lanes, so a lanes change does not alter the estimate.
 - **Nothing the engine refuses is saved or opened.** A change that would leave a road too narrow for a vehicle class in the vehicle mix (or its lanes too narrow, with lane discipline on) is not made, and the planner is told why; the same check runs before a scenario is saved and after one is read.
@@ -80,18 +80,32 @@ pnpm engine path/to/scenario.json --check     # your own { network, demand, seed
 pnpm engine packages/engine/examples/mixed-traffic.json --lane-discipline on   # the mixed-traffic example, kept to lanes
 ```
 
-The example inputs are in `packages/engine/examples/`: `one-road.json` (cars only) and `mixed-traffic.json` (four vehicle classes, which the app shows).
+The example inputs are in `packages/engine/examples/`: `one-road.json` (cars only), `mixed-traffic.json` (four vehicle classes, which the app opens with) and `signal-junction.json` (a four-way signal junction, which the app offers under "Start from an example").
 
 ## Engine input
 
-- `network`: roads, each with a centreline, width, lane count and speed limit. `formatVersion` is 2; version 1 (no lane counts) still loads, with lanes taken from the width at 3.5 m each.
+- `network`: roads, each with a centreline, width, lane count and speed limit, and junctions. `formatVersion` is 3. Version 2 (no junctions) and version 1 (no lane counts either; lanes are taken from the width at 3.5 m each) still load.
+  - A road is one carriageway in one direction; a two-way street is two roads. This is left-hand traffic: facing the junction, the road towards it is on the left of the road away from it.
+  - A junction has an `id`, `control: "signal"`, its `connections` (`fromRoadId` to `toRoadId`: the only ways through) and a `signalPlan`: `phases` in order, each with the approaches that have green (`greenRoadIds`) and for how long (`greenS`), then `amberS` of amber for them and `allRedS` of red for everyone before the next phase. Signals are per approach, not per movement: when an approach has green, all its movements may go.
+  - The path of each connection is worked out from where its two roads end and start. A turn must be at least as long as the longest vehicle that takes it (10.1 m for a bus), so stop lines need setting back from the corner.
 - `demand`: vehicles per hour for each entry-to-exit pair, and a `vehicleMix` giving the share of each vehicle class (cars only without one).
 - `laneDiscipline`: `true` keeps vehicles to lanes; `false` (the default) is mixed traffic.
 - `seed`: the same input and seed always give the same run.
 
 Results include, for each vehicle class, the mean delay: the time a vehicle has taken since the demand produced it, less the time the distance it has covered would take at its desired speed. Vehicles still on the network or waiting to enter count with their delay so far. Beside each mean is the total delay it is the mean of (`totalDelayS`), which, unlike a mean, can be subtracted; `resultsExcludingWarmUp(atEndOfWarmUp, atEnd)` uses it to give the results of the period after a warm-up. The engine's own `results()` always count from the start of the run.
 
-Every value the engine takes as given (sizes, following gaps, side clearances, sideways speed caps, the thresholds for shifting sideways) is in `packages/engine/src/assumptions.ts` with its source. None has been confirmed against its source yet.
+Results also give the longest queue on each approach (`longestQueueByApproach`). A vehicle is queued when it is on the approach, short of the stop line, and slower than 5 km/h; the queue runs from the stop line back to the rear of the last queued vehicle, stopping at the first gap of more than 10 m with no queued vehicle in it. It is kept minute by minute, so that `resultsExcludingWarmUp` can give the longest queue of the hour after the warm-up.
+
+### How a signal junction works
+
+- **Signals.** A signal that is not green acts as a stopped vehicle at the stop line across the whole approach. A vehicle asks to be let in when it is as near the stop line as the gap the following rule wants to a stopped vehicle at its speed, so one that is refused can still stop comfortably. It is let in only on green, and only if it can reach the stop line before the amber ends. A vehicle let in late and then slowed by the vehicle ahead can cross a moment into the red.
+- **Order.** A vehicle is let in only after every vehicle ahead of it in its strips, and those let in go in the order they were let in: at every place where the paths of two of them cross, the one let in first goes first, and the other stops short of that place until the first one's rear bumper has passed it. Because the order is one order for the whole junction, vehicles inside it cannot end up waiting for each other in a ring.
+- **Crossing paths.** Each connection is a band of strips, as many as the narrower of its two roads has (lined up with the left of both roads for a left turn or straight on, with the right for a right turn). When the network loads, the engine finds where every strip of every connection crosses every strip of every other. A vehicle is let in only if each such place will be free when it gets there: the soonest it can reach it must be a second later than the time by which each vehicle let in before it should have cleared it.
+- **Keep clear.** A vehicle is let in only if the road beyond has room for it behind the last vehicle in its strips, after the vehicles already let in and heading for those strips have taken theirs.
+- **Inside the junction** a vehicle keeps the strips it entered in, all the way along its turning path; it does not shift sideways from being let in until its rear bumper has left the junction. It slows for a turn. Its footprint follows the turning path, which is how the consistency checks compare vehicles inside a junction.
+- **What it does not do.** Vehicles do not sort themselves by turn before the stop line, so a right-turning vehicle on the left of the approach waits for the through traffic beside it, which lowers the discharge of an approach with mixed turns. A later vehicle never goes before an earlier one, so a turn across oncoming traffic waits for a longer gap than a driver would take. There are no signals per movement, no turn bans, and no U-turns unless the roads are far enough apart. Where the road out is narrower than the approach, vehicles enter the network already in the strips that lead onto it; a vehicle that arrives in other strips (from an earlier junction) has to shift over and can be boxed in.
+
+Every value the engine takes as given (sizes, following gaps, side clearances, sideways speed caps, the thresholds for shifting sideways, and the junction values: turn speed, crossing margin, keep-clear room, what counts as queued) is in `packages/engine/src/assumptions.ts` with its source. None has been confirmed against its source yet.
 
 ## Test and typecheck
 
