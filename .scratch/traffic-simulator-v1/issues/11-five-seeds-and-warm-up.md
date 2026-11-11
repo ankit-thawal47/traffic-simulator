@@ -4,7 +4,7 @@
 
 **Blocked by:** 10
 
-**Status:** ready-for-agent
+**Status:** done (merged to integration branch)
 
 - [x] Results exclude the warm-up period
 - [x] Each scenario runs with five seeds; the first is shown, the others run unseen
