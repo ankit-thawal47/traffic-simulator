@@ -5,6 +5,7 @@ export {
   STANDARD_LANE_WIDTH_M,
   STEP_SECONDS,
   STRIP_WIDTH_M,
+  stripsOccupied,
   VEHICLE_CLASSES,
   VEHICLE_CLASS_ASSUMPTIONS,
 } from "./assumptions";

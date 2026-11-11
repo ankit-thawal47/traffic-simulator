@@ -1,0 +1,19 @@
+{
+  "name": "@traffic-simulator/scenario",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Scenario description (network, list of changes, demand, seed), resolving a scenario into the engine's input, and comparing results against the baseline. No browser dependencies.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@traffic-simulator/engine": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}

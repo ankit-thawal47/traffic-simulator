@@ -163,6 +163,15 @@ export const SIDEWAYS_ASSUMPTIONS = {
 
 /** Width of a strip, in metres (spec: Engine behaviour, Strips). */
 export const STRIP_WIDTH_M = SIDEWAYS_ASSUMPTIONS.stripWidthM.value;
+
+/**
+ * How many strips a vehicle class occupies in mixed traffic: as many as its width plus side clearance needs.
+ * A road must have at least this many strips to take the vehicle class.
+ */
+export function stripsOccupied(vehicleClass: VehicleClass): number {
+  const { widthM, sideClearanceM } = VEHICLE_CLASS_ASSUMPTIONS[vehicleClass];
+  return Math.ceil((widthM + sideClearanceM) / STRIP_WIDTH_M - 1e-9);
+}
 export const STANDARD_LANE_WIDTH_M = SIDEWAYS_ASSUMPTIONS.standardLaneWidthM.value;
 
 /**

@@ -3,6 +3,7 @@ import {
   STANDARD_LANE_WIDTH_M,
   STEP_SECONDS,
   STRIP_WIDTH_M,
+  stripsOccupied,
   VEHICLE_CLASSES,
   VEHICLE_CLASS_ASSUMPTIONS,
   type VehicleClassAssumptions,
@@ -167,7 +168,7 @@ export function createRun(input: RunInput): Run {
       }
       return 1;
     }
-    const strips = Math.ceil((assumptions.widthM + assumptions.sideClearanceM) / road.stripWidthM - EPSILON);
+    const strips = stripsOccupied(vehicleClass);
     if (strips > road.stripCount) throw new Error(`Road "${road.road.id}" is too narrow for a ${vehicleClass}`);
     return strips;
   }
