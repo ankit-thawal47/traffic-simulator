@@ -1,7 +1,8 @@
 import { createRun, STEP_SECONDS } from "@traffic-simulator/engine";
-import { buildMeasurementScenario } from "./scenario";
+import { buildMeasurementScenario, type MeasurementScenario } from "./scenario";
 
 export interface EngineBenchOptions {
+  scenario: MeasurementScenario;
   targetVehicles: number;
   seed: number;
   /** Steps run and thrown away before timing starts (lets the JavaScript engine optimise the code). */
@@ -22,12 +23,13 @@ export interface EngineBenchResult extends EngineBenchOptions {
   vehiclesOnNetwork: { min: number; mean: number; max: number };
   /** Reported so the work cannot be skipped by the optimiser, and to show which run it was. */
   vehiclesThrough: number;
+  vehiclesWaitingToEnterAtEnd: number;
   snapshotVehiclesSeen: number;
 }
 
 /** Time the engine alone. Uses only performance.now(), so it runs in Node and in a browser worker. */
 export function measureEngine(options: EngineBenchOptions): EngineBenchResult {
-  const run = createRun(buildMeasurementScenario(options.targetVehicles, options.seed));
+  const run = createRun(buildMeasurementScenario(options.scenario, options.targetVehicles, options.seed));
   let snapshotVehiclesSeen = 0;
   const advance = (steps: number) => {
     for (let i = 0; i < steps; i++) {
@@ -49,6 +51,7 @@ export function measureEngine(options: EngineBenchOptions): EngineBenchResult {
     counts.push(run.results().vehiclesOnNetwork);
   }
   const steps = options.blocks * options.stepsPerBlock;
+  const results = run.results();
   return {
     ...options,
     stepSeconds: STEP_SECONDS,
@@ -60,7 +63,9 @@ export function measureEngine(options: EngineBenchOptions): EngineBenchResult {
       mean: counts.reduce((a, b) => a + b, 0) / counts.length,
       max: Math.max(...counts),
     },
-    vehiclesThrough: run.results().vehiclesThrough,
+    vehiclesThrough: results.vehiclesThrough,
+    vehiclesWaitingToEnterAtEnd: results.vehiclesWaitingToEnter,
     snapshotVehiclesSeen,
   };
 }
+export { SCENARIOS } from "./scenario";

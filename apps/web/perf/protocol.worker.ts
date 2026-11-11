@@ -5,16 +5,18 @@
  *
  *   step          the engine alone
  *   snapshot      + build a snapshot object after every step
- *   post-object   + post { type, snapshot, results } after every step (today's protocol)
+ *   post-object   + post { type, timeS, runs: [{ snapshot, results }] } after every step
+ *                 (today's protocol, with one run in the message)
  *   post-typed    + pack the snapshot into a Float32Array and transfer it (a prototype, not in the product)
  *
  * The differences between the four are the costs of each part.
  */
-import { createRun, type Run } from "@traffic-simulator/engine";
+import { createRun, VEHICLE_CLASSES, type Run } from "@traffic-simulator/engine";
 import { measureEngine, type EngineBenchResult } from "./engine-bench";
-import { buildMeasurementScenario } from "./scenario";
+import { buildMeasurementScenario, type MeasurementScenario } from "./scenario";
 
 export interface ProtocolCommand {
+  scenario: MeasurementScenario;
   targetVehicles: number;
   seed: number;
   warmUpSteps: number;
@@ -26,7 +28,7 @@ export type ProtocolVariant = "step" | "snapshot" | "post-object" | "post-typed"
 export type ProtocolMessage =
   | { type: "begin"; variant: ProtocolVariant }
   | { type: "end"; variant: ProtocolVariant; workerMs: number; steps: number; vehiclesOnNetwork: number }
-  | { type: "frame"; snapshot: unknown; results: unknown }
+  | { type: "frame"; timeS: number; runs: { snapshot: unknown; results: unknown }[] }
   | { type: "typed-frame"; timeS: number; count: number; data: Float32Array }
   | { type: "engine"; result: EngineBenchResult }
   | { type: "done" };
@@ -46,7 +48,7 @@ function runVariant(run: Run, variant: ProtocolVariant, steps: number, roadIndex
     const snapshot = run.snapshot();
     if (variant === "snapshot") continue;
     if (variant === "post-object") {
-      post({ type: "frame", snapshot, results: run.results() });
+      post({ type: "frame", timeS: snapshot.timeS, runs: [{ snapshot, results: run.results() }] });
       continue;
     }
     const data = new Float32Array(snapshot.vehicles.length * FLOATS_PER_VEHICLE);
@@ -57,7 +59,7 @@ function runVariant(run: Run, variant: ProtocolVariant, steps: number, roadIndex
       data[at++] = vehicle.positionM;
       data[at++] = vehicle.lateralM;
       data[at++] = vehicle.speedMps;
-      data[at++] = 0; // vehicle class index
+      data[at++] = VEHICLE_CLASSES.indexOf(vehicle.vehicleClass);
     }
     post({ type: "typed-frame", timeS: snapshot.timeS, count: snapshot.vehicles.length, data }, [data.buffer]);
   }
@@ -66,15 +68,15 @@ function runVariant(run: Run, variant: ProtocolVariant, steps: number, roadIndex
 }
 
 self.onmessage = (event: MessageEvent<ProtocolCommand>) => {
-  const { targetVehicles, seed, warmUpSteps, steps } = event.data;
+  const { scenario, targetVehicles, seed, warmUpSteps, steps } = event.data;
 
   // The engine alone, inside a browser worker, with the same code as the command-line measurement.
   post({
     type: "engine",
-    result: measureEngine({ targetVehicles, seed, warmUpSteps, blocks: 5, stepsPerBlock: steps, snapshotEveryStep: false }),
+    result: measureEngine({ scenario, targetVehicles, seed, warmUpSteps, blocks: 5, stepsPerBlock: steps, snapshotEveryStep: false }),
   });
 
-  const input = buildMeasurementScenario(targetVehicles, seed);
+  const input = buildMeasurementScenario(scenario, targetVehicles, seed);
   const roadIndex = new Map(input.network.roads.map((road, index) => [road.id, index]));
   const run = createRun(input);
   for (let i = 0; i < warmUpSteps; i++) {

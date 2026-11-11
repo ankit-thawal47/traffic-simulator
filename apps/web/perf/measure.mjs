@@ -8,6 +8,10 @@
  *   pnpm perf --only browser       the browser parts only
  *   pnpm perf --browsers headed-gpu,headless-software
  *   pnpm perf --counts 1000,3000,5000 --reps 5 --date 2026-11-11
+ *   pnpm perf --scenarios mixed,cars-only --browser-scenarios mixed --speeds 5,16,80
+ *
+ * The scenarios are described in scenario.ts. By default the engine is measured on both
+ * and the browser parts on mixed traffic only.
  *
  * It writes docs/performance/measurement-<date>.json (everything observed) and
  * docs/performance/measurement-<date>.md (the same as tables). Nothing in either
@@ -17,7 +21,9 @@
  *   1. the engine alone, in Node: simulated seconds per real second;
  *   2. the cost of moving snapshots from a worker to the page, in Chrome;
  *   3. the app's own worker and 3D view, in Chrome: speed achieved and frames per second,
- *      with one and two runs, drawn and not drawn.
+ *      with one and two runs, drawn and not drawn, at each speed asked for. The app's worker
+ *      looks at the clock every 25 ms and does at most 10 steps each time, so 80 times real
+ *      time is the most it can give; 16 times is the fastest the app offers.
  *
  * Chrome is started in up to four ways (--browsers):
  *   headed-gpu            a visible window, real graphics card, frame rate capped by the display
@@ -31,7 +37,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync
 import { createServer } from "node:http";
 import os from "node:os";
 import { dirname, extname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import react from "@vitejs/plugin-react";
 import { build } from "vite";
 
@@ -50,7 +56,9 @@ const only = option("only", "all");
 const counts = option("counts", "1000,3000,5000").split(",").map(Number);
 const reps = Number(option("reps", quick ? 2 : 5));
 const protocolReps = quick ? 1 : 3;
-const speeds = option("speeds", quick ? "5" : "5,20,100").split(",").map(Number);
+const speeds = option("speeds", quick ? "5" : "5,16,80").split(",").map(Number);
+const engineScenarios = option("scenarios", "mixed,cars-only").split(",");
+const browserScenarios = option("browser-scenarios", "mixed").split(",");
 const warmS = quick ? 2 : 4;
 const measureS = quick ? 4 : 10;
 const date = option("date", new Date().toISOString().slice(0, 10));
@@ -119,7 +127,7 @@ function machine() {
 
 // ---------------------------------------------------------------- 1. engine alone, in Node
 
-async function measureEngineInNode() {
+async function buildNodeBundle() {
   const outDirNode = join(here, "dist", "node");
   await build({
     configFile: false,
@@ -128,24 +136,29 @@ async function measureEngineInNode() {
     ssr: { noExternal: true },
     build: { ssr: join(here, "engine-bench.ts"), outDir: outDirNode, emptyOutDir: true, minify: false },
   });
-  const bundle = join(outDirNode, "engine-bench.js");
+  return join(outDirNode, "engine-bench.js");
+}
+
+function measureEngineInNode(bundle) {
   const rows = [];
-  for (const targetVehicles of counts) {
+  for (const scenario of engineScenarios) for (const targetVehicles of counts) {
     for (const snapshotEveryStep of [false, true]) {
       const runs = [];
       for (let rep = 0; rep < reps; rep++) {
         // A new process each time, so every repetition warms up from cold and none inherits another's memory.
-        const options = { targetVehicles, seed: rep + 1, warmUpSteps: quick ? 500 : 1500, blocks: 5, stepsPerBlock: quick ? 200 : 600, snapshotEveryStep };
+        const options = { scenario, targetVehicles, seed: rep + 1, warmUpSteps: quick ? 500 : 1500, blocks: 5, stepsPerBlock: quick ? 200 : 600, snapshotEveryStep };
         const out = execFileSync(process.execPath, [join(here, "engine-bench-node.mjs"), bundle, JSON.stringify(options)], { encoding: "utf8" });
         runs.push(JSON.parse(out));
       }
       const row = {
+        scenario,
         targetVehicles,
         snapshotEveryStep,
         repetitions: reps,
         simSecondsPerRealSecond: summary(runs.map((run) => run.simSecondsPerRealSecond)),
         msPerStep: summary(runs.map((run) => run.msPerStep)),
         blockRates: summary(runs.flatMap((run) => run.blockRates)),
+        vehiclesWaitingToEnterAtEnd: Math.max(...runs.map((run) => run.vehiclesWaitingToEnterAtEnd)),
         vehiclesOnNetwork: {
           min: Math.min(...runs.map((run) => run.vehiclesOnNetwork.min)),
           mean: runs.reduce((sum, run) => sum + run.vehiclesOnNetwork.mean, 0) / runs.length,
@@ -157,7 +170,7 @@ async function measureEngineInNode() {
         runs,
       };
       rows.push(row);
-      log(`engine, ${targetVehicles} vehicles${snapshotEveryStep ? ", snapshot every step" : ""}: ${spread(row.simSecondsPerRealSecond)} simulated s per real s`);
+      log(`engine, ${scenario}, ${targetVehicles} vehicles${snapshotEveryStep ? ", snapshot every step" : ""}: ${spread(row.simSecondsPerRealSecond)} simulated s per real s`);
     }
   }
   return rows;
@@ -241,13 +254,15 @@ function pageAddresses(mode) {
   // The uncapped and software modes are about drawing only, so they use the first speed.
   const speedsHere = mode === "headed-gpu" || mode === "headless-gpu" ? speeds : speeds.slice(0, 1);
   const addresses = [];
-  for (const n of counts) {
-    for (let rep = 0; rep < protocolReps; rep++) addresses.push(`?mode=protocol&n=${n}&steps=${quick ? 100 : 300}&rep=${rep}`);
-  }
-  for (const speed of speedsHere) {
+  for (const scenario of browserScenarios) {
     for (const n of counts) {
-      for (const [runs, draw] of [[1, 0], [1, 1], [2, 0], [2, 1]]) {
-        addresses.push(`?mode=views&n=${n}&runs=${runs}&draw=${draw}&speed=${speed}&warm=${warmS}&measure=${measureS}`);
+      for (let rep = 0; rep < protocolReps; rep++) addresses.push(`?mode=protocol&scenario=${scenario}&n=${n}&steps=${quick ? 100 : 300}&rep=${rep}`);
+    }
+    for (const speed of speedsHere) {
+      for (const n of counts) {
+        for (const [runs, draw] of [[1, 0], [1, 1], [2, 0], [2, 1]]) {
+          addresses.push(`?mode=views&scenario=${scenario}&n=${n}&runs=${runs}&draw=${draw}&speed=${speed}&warm=${warmS}&measure=${measureS}`);
+        }
       }
     }
   }
@@ -301,12 +316,12 @@ async function measureInChrome(chrome, mode, served) {
 
 function engineTable(rows) {
   const lines = [
-    "| Vehicles asked for | Vehicles on the network (min, mean, max) | What is timed | Simulated s per real s: median (min to max) | ms per step: median | Repetitions |",
-    "|---|---|---|---|---|---|",
+    "| Scenario | Vehicles asked for | Vehicles on the network (min, mean, max) | What is timed | Simulated s per real s: median (min to max) | ms per step: median | Repetitions |",
+    "|---|---|---|---|---|---|---|",
   ];
   for (const row of rows) {
     lines.push(
-      `| ${row.targetVehicles} | ${row.vehiclesOnNetwork.min}, ${round(row.vehiclesOnNetwork.mean)}, ${row.vehiclesOnNetwork.max} | ${row.snapshotEveryStep ? "step + build a snapshot" : "step only"} | ${spread(row.simSecondsPerRealSecond)} | ${round(row.msPerStep.median, 3)} | ${row.repetitions} |`,
+      `| ${row.scenario} | ${row.targetVehicles} | ${row.vehiclesOnNetwork.min}, ${round(row.vehiclesOnNetwork.mean)}, ${row.vehiclesOnNetwork.max} | ${row.snapshotEveryStep ? "step + build a snapshot" : "step only"} | ${spread(row.simSecondsPerRealSecond)} | ${round(row.msPerStep.median, 3)} | ${row.repetitions} |`,
     );
   }
   return lines.join("\n");
@@ -314,11 +329,11 @@ function engineTable(rows) {
 
 function protocolTable(browser) {
   const lines = [
-    "| Vehicles | Engine alone in the worker, simulated s per real s | step, ms | build snapshot, ms | post as objects (worker), ms | read objects (page), ms | pack + transfer typed array (worker), ms | read typed array (page), ms | Whole pipeline with objects, steps per real s | Whole pipeline with typed array, steps per real s | Repetitions |",
-    "|---|---|---|---|---|---|---|---|---|---|---|",
+    "| Scenario | Vehicles asked for | Vehicles on the network | Engine alone in the worker, simulated s per real s | step, ms | build snapshot, ms | post as objects (worker), ms | read objects (page), ms | pack + transfer typed array (worker), ms | read typed array (page), ms | Whole pipeline with objects, steps per real s | Whole pipeline with typed array, steps per real s | Repetitions |",
+    "|---|---|---|---|---|---|---|---|---|---|---|---|---|",
   ];
-  for (const n of counts) {
-    const runs = browser.results.filter((entry) => entry.result.mode === "protocol" && entry.result.targetVehicles === n).map((entry) => entry.result);
+  for (const scenario of browserScenarios) for (const n of counts) {
+    const runs = browser.results.filter((entry) => entry.result.mode === "protocol" && entry.result.scenario === scenario && entry.result.targetVehicles === n).map((entry) => entry.result);
     if (runs.length === 0) continue;
     const per = (variant, field) => runs.map((run) => {
       const found = run.variants.find((candidate) => candidate.variant === variant);
@@ -331,7 +346,7 @@ function protocolTable(browser) {
     const postTyped = per("post-typed", "workerMs");
     const pipeline = (variant) => summary(per(variant, "pageMs").map((ms) => 1000 / ms));
     lines.push(
-      `| ${n} | ${spread(summary(runs.map((run) => run.engineInWorker.simSecondsPerRealSecond)))} | ${round(summary(step).median, 3)} | ${round(summary(minus(snapshot, step)).median, 3)} | ${round(summary(minus(postObject, snapshot)).median, 3)} | ${round(summary(per("post-object", "pageReadMs")).median, 3)} | ${round(summary(minus(postTyped, snapshot)).median, 3)} | ${round(summary(per("post-typed", "pageReadMs")).median, 4)} | ${spread(pipeline("post-object"))} | ${spread(pipeline("post-typed"))} | ${runs.length} |`,
+      `| ${scenario} | ${n} | ${round(summary(runs.map((run) => run.variants[2].vehiclesOnNetwork)).median)} | ${spread(summary(runs.map((run) => run.engineInWorker.simSecondsPerRealSecond)))} | ${round(summary(step).median, 3)} | ${round(summary(minus(snapshot, step)).median, 3)} | ${round(summary(minus(postObject, snapshot)).median, 3)} | ${round(summary(per("post-object", "pageReadMs")).median, 3)} | ${round(summary(minus(postTyped, snapshot)).median, 3)} | ${round(summary(per("post-typed", "pageReadMs")).median, 4)} | ${spread(pipeline("post-object"))} | ${spread(pipeline("post-typed"))} | ${runs.length} |`,
     );
   }
   return lines.join("\n");
@@ -339,13 +354,13 @@ function protocolTable(browser) {
 
 function viewsTable(browser) {
   const lines = [
-    "| Vehicles | Speed asked for | Runs | Drawn | Speed achieved, each run | Frames per second | Frame interval, ms: median / 95th / max | Drawing work per frame, ms | Snapshots received per s, each run | Vehicles on the network, each run |",
-    "|---|---|---|---|---|---|---|---|---|---|",
+    "| Scenario | Vehicles asked for | Speed asked for | Runs | Drawn | Speed achieved | Frames per second | Frame interval, ms: median / 95th / max | Drawing work per frame, ms | Messages received per s | Reading and storing one message, ms | Vehicles on the network, each run |",
+    "|---|---|---|---|---|---|---|---|---|---|---|---|",
   ];
   for (const { result } of browser.results) {
     if (result.mode !== "views") continue;
     lines.push(
-      `| ${result.targetVehicles} | ${result.requestedSpeed}× | ${result.runs} | ${result.draw ? "yes" : "no"} | ${result.perRun.map((run) => `${round(run.achievedSpeed, 2)}×`).join(", ")} | ${round(result.framesPerSecond, 1)} | ${round(result.frameIntervalMs.median, 1)} / ${round(result.frameIntervalMs.p95, 1)} / ${round(result.frameIntervalMs.max, 1)} | ${result.draw ? round(result.drawCallbackMsPerFrame, 2) : "–"} | ${result.perRun.map((run) => round(run.framesReceivedPerSecond, 1)).join(", ")} | ${result.perRun.map((run) => run.vehiclesOnNetwork).join(", ")} |`,
+      `| ${result.scenario} | ${result.targetVehicles} | ${result.requestedSpeed}× | ${result.runs} | ${result.draw ? "yes" : "no"} | ${round(result.achievedSpeed, 2)}× | ${round(result.framesPerSecond, 1)} | ${round(result.frameIntervalMs.median, 1)} / ${round(result.frameIntervalMs.p95, 1)} / ${round(result.frameIntervalMs.max, 1)} | ${result.draw ? round(result.drawCallbackMsPerFrame, 2) : "–"} | ${round(result.messagesPerSecond, 1)} | ${round(result.receiveMsPerMessage, 2)} | ${result.vehiclesOnNetwork.join(", ")} |`,
     );
   }
   return lines.join("\n");
@@ -368,11 +383,13 @@ function markdown(data) {
     `- Power: ${m.power ?? "unknown"}`,
     `- Display: ${m.display || "unknown"}`,
     `- Load average when the measurement started (1, 5, 15 minutes): ${m.loadAverageAtStart.join(", ")}`,
-    `- Options: counts ${counts.join(", ")}; ${reps} repetitions of the engine measurement; ${protocolReps} of the snapshot measurement; views warmed up for ${warmS} s and measured for ${measureS} s${quick ? "; QUICK MODE, not for quoting" : ""}`,
+    `- Options: counts ${counts.join(", ")}; speeds asked for ${speeds.join(", ")}; ${reps} repetitions of the engine measurement; ${protocolReps} of the snapshot measurement; views warmed up for ${warmS} s and measured for ${measureS} s${quick ? "; QUICK MODE, not for quoting" : ""}`,
     "",
-    "## Scenario",
+    "## Scenarios",
     "",
-    "Parallel straight one-way roads, 2,000 m long, 12 m apart, cars only, single file, speed limit 13.9 m/s. One road for every 50 vehicles asked for (20, 60 and 100 roads for 1,000, 3,000 and 5,000 vehicles). Each road starts with 50 cars spaced evenly at 13 m/s and has a demand of 1,200 vehicles an hour, which replaces the cars that leave. Built in `apps/web/perf/scenario.ts` from the engine's public input.",
+    "Built in `apps/web/perf/scenario.ts` from the engine's public input.",
+    "",
+    ...Object.entries(data.scenarios).map(([name, scenario]) => `- **${name}.** ${scenario.description}`),
     "",
   ];
   if (data.engine) {
@@ -407,7 +424,7 @@ function markdown(data) {
       "",
       "### The app's worker and 3D view",
       "",
-      "Each run is the app's own worker (`apps/web/src/run.worker.ts`) and, where drawn, the app's own 3D view (`apps/web/src/RoadScene.tsx`), unchanged. Two runs are two workers and two views side by side. \"Drawing work per frame\" is time on the page's thread inside the animation-frame callbacks of all views together; it leaves out what the graphics card does afterwards.",
+      "The runs are advanced together by the app's own worker (`apps/web/src/run.worker.ts`), which posts one message holding a snapshot of every run, and each run is drawn, where drawn, by the app's own 3D view (`apps/web/src/RoadScene.tsx`), all unchanged. Two runs stand for a baseline and a proposal: one worker, two views side by side, each half the window. The view draws at most 4,000 vehicles. \"Drawing work per frame\" is time on the page's thread inside the animation-frame callbacks of all views together; it leaves out what the graphics card does afterwards.",
       "",
       viewsTable(browser),
       "",
@@ -421,9 +438,11 @@ function markdown(data) {
 
 // ---------------------------------------------------------------- main
 
-const data = { machine: machine(), options: { counts, reps, protocolReps, speeds, warmS, measureS, quick, window: WINDOW } };
+const data = { machine: machine(), options: { counts, reps, protocolReps, speeds, warmS, measureS, quick, window: WINDOW, engineScenarios, browserScenarios } };
 
-if (only !== "browser") data.engine = await measureEngineInNode();
+const bundle = await buildNodeBundle();
+data.scenarios = (await import(pathToFileURL(bundle).href)).SCENARIOS;
+if (only !== "browser") data.engine = measureEngineInNode(bundle);
 
 if (only !== "engine") {
   const chrome = findChrome();
