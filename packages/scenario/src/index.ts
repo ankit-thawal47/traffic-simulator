@@ -13,5 +13,13 @@ export type { Change, RoadLanesChange, RoadWidthChange, Scenario } from "./scena
 export { resolveScenario } from "./resolve";
 export { SCENARIO_LIMITS, readScenario, whyRefused } from "./read";
 export type { Outcome } from "./read";
+export {
+  LINK_LENGTH_LIMIT,
+  linkPayload,
+  scenarioFromLink,
+  scenarioFromText,
+  scenarioToLink,
+  scenarioToText,
+} from "./codec";
 export { ESTIMATE_LABEL, MEASURES, compareResults, formatChange } from "./comparison";
 export type { ComparedMeasure, Measure } from "./comparison";
