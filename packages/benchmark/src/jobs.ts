@@ -649,10 +649,18 @@ export interface LaneDropEngineResult {
   waitingToEnter: number;
 }
 
+/** Our engine's road upstream of the closure at the end of the warm-up. */
+export interface LaneDropSnapshot {
+  /** Cars standing still in the lane that is closed ahead. */
+  standingInClosedLane: number;
+  carsInOpenLanes: number;
+  meanSpeedOpenLanesMps: number;
+}
+
 export interface T15Result {
   seed: number;
   departures: number;
-  ours: LaneDropEngineResult & EngineCounts;
+  ours: LaneDropEngineResult & EngineCounts & { atWarmUp: LaneDropSnapshot; laneChangesStarted: number };
   sumo:
     | (LaneDropEngineResult &
         SumoCounts & { repeatedIdentically: boolean | null; summaryConservationViolations: number; summaryRows: number })
@@ -668,10 +676,36 @@ function runT15(job: Extract<Job, { kind: "t1.5" }>, context: JobContext): T15Re
   const departures: Departure[] = [];
   let produced = 0;
   let throughAtWarmUp = 0;
+  let atWarmUp: LaneDropSnapshot = { standingInClosedLane: 0, carsInOpenLanes: 0, meanSpeedOpenLanesMps: 0 };
+  let laneChangesStarted = 0;
+  let betweenLanes = new Set<number>();
   const ours = runEngine(input, {
     durationS: scenario.durationS,
     stationaryIds,
     observe: (snapshot, results) => {
+      // What the road upstream of the closure looks like, for the account of the result.
+      const nowBetween = new Set<number>();
+      const isWarmUp = Math.abs(snapshot.timeS - LANE_DROP.warmUpS) < STEP_S / 2;
+      let standing = 0;
+      let open = 0;
+      let openSpeed = 0;
+      for (const vehicle of snapshot.vehicles) {
+        if (stationaryIds.has(vehicle.id)) continue;
+        const lane = vehicle.lateralM / LANE_WIDTH_M - 0.5;
+        if (Math.abs(lane - Math.round(lane)) > 1e-6) {
+          nowBetween.add(vehicle.id);
+          if (!betweenLanes.has(vehicle.id)) laneChangesStarted++;
+        }
+        if (!isWarmUp || vehicle.positionM > LANE_DROP.dropAtM) continue;
+        if (Math.round(lane) === LANE_DROP.droppedLane) {
+          if (vehicle.speedMps === 0) standing++;
+        } else {
+          open++;
+          openSpeed += vehicle.speedMps;
+        }
+      }
+      betweenLanes = nowBetween;
+      if (isWarmUp) atWarmUp = { standingInClosedLane: standing, carsInOpenLanes: open, meanSpeedOpenLanesMps: open ? openSpeed / open : 0 };
       // The engine draws the departure times itself. They are read back here, to the step, as the
       // growth of (entered + waiting to enter), and the same departures are then given to SUMO.
       const now = results.vehiclesEntered + results.vehiclesWaitingToEnter - placed;
@@ -727,6 +761,8 @@ function runT15(job: Extract<Job, { kind: "t1.5" }>, context: JobContext): T15Re
       waitingToEnter: ours.finalResults.vehiclesWaitingToEnter,
       tier0: ours.tier0,
       stuckVehicles: ours.stuckVehicles,
+      atWarmUp,
+      laneChangesStarted,
     },
     sumo,
     sumoDepartSpeedMax,
