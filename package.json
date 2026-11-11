@@ -1,0 +1,20 @@
+{
+  "name": "traffic-simulator",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.2.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @traffic-simulator/web dev",
+    "build": "pnpm --filter @traffic-simulator/web build",
+    "test": "vitest run",
+    "typecheck": "pnpm -r typecheck",
+    "engine": "pnpm --filter @traffic-simulator/engine --silent cli"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
+  }
+}
