@@ -42,6 +42,9 @@ describe("saying how complete the figures are", () => {
     expect(completenessNote({ seedsFinished: 2, seeds: 5, firstSeedFinished: false }, watching, RUN_PLAN)).toBe(
       "Partial: the figures are over the 2 seeds of 5 that have finished. The other seeds are still running.",
     );
+    expect(completenessNote({ seedsFinished: 1, seeds: 5, firstSeedFinished: false }, watching, RUN_PLAN)).toBe(
+      "Partial: the figures are over the 1 seed of 5 that has finished. The other seeds are still running.",
+    );
   });
 
   it("says what is missing when only the watched run has not reached the end of its hour", () => {

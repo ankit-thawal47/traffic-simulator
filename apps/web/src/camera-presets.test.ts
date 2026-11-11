@@ -93,11 +93,12 @@ describe("the angled camera the views start with", () => {
 });
 
 describe("the close-up camera the views open with", () => {
-  it("looks at the middle of the first road, from its right-hand side and above", () => {
+  it("looks at the first road 50 m from where traffic enters it, from its right-hand side and above", () => {
     const pose = closeUpPose(network);
 
     // The main road runs east from x = -200 to 200; its right-hand side is the south, positive z in the scene.
-    expect(pose.target).toEqual([0, 0, 0]);
+    // Vehicles reach a point 50 m along within a few seconds of the start, so the opening view is not of an empty road.
+    expect(pose.target).toEqual([-150, 0, 0]);
     expect(pose.position[1]).toBeGreaterThan(10);
     expect(pose.position[2]).toBeGreaterThan(20);
   });
@@ -121,8 +122,17 @@ describe("the close-up camera the views open with", () => {
     const north: Network = { formatVersion: 1, roads: [network.roads[1]!] };
     const pose = closeUpPose(north);
 
-    // The side road runs north from (0, 0) to (0, 100): its middle is 50 m north, which is z = -50.
+    // The side road runs north from (0, 0) to (0, 100): 50 m along is 50 m north, which is z = -50.
     expect(pose.target).toEqual([0, 0, -50]);
     expect(pose.position[0]).toBeGreaterThan(20);
+  });
+
+  it("looks at the middle of a road shorter than 100 m", () => {
+    const short: Network = {
+      formatVersion: 1,
+      roads: [{ id: "short", points: [{ x: 0, y: 0 }, { x: 60, y: 0 }], widthM: 7, speedLimitMps: 13.9 }],
+    };
+
+    expect(closeUpPose(short).target).toEqual([30, 0, 0]);
   });
 });
