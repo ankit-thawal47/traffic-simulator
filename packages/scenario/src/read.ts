@@ -129,19 +129,18 @@ function readNetwork(value: unknown): Network {
       (point, at) => readPoint(point, `Point ${at + 1} of road "${id}"`),
     );
     if (points.length < 2) refuse(`${name} needs at least two points`);
-    const read: Road = {
-      id,
-      points,
-      widthM: aNumber(road.widthM, `The width of road "${id}"`, { above: 0, to: SCENARIO_LIMITS.roadWidthM }),
-      speedLimitMps: aNumber(road.speedLimitMps, `The speed limit of road "${id}"`, {
-        above: 0,
-        to: SCENARIO_LIMITS.speedLimitMps,
-      }),
-    };
+    const widthM = aNumber(road.widthM, `The width of road "${id}"`, { above: 0, to: SCENARIO_LIMITS.roadWidthM });
     // A lane count is part of network format version 2; a version 1 road may go without.
-    if (road.lanes !== undefined || formatVersion === 2) {
-      read.lanes = aWholeNumber(road.lanes, `The number of lanes of road "${id}"`, 1, SCENARIO_LIMITS.lanes);
-    }
+    const lanes =
+      road.lanes !== undefined || formatVersion === 2
+        ? { lanes: aWholeNumber(road.lanes, `The number of lanes of road "${id}"`, 1, SCENARIO_LIMITS.lanes) }
+        : {};
+    const speedLimitMps = aNumber(road.speedLimitMps, `The speed limit of road "${id}"`, {
+      above: 0,
+      to: SCENARIO_LIMITS.speedLimitMps,
+    });
+    // Always built in this order, so that one scenario always gives one text and one link.
+    const read: Road = { id, points, widthM, ...lanes, speedLimitMps };
     if (!(roadLengthM(read) > 0)) refuse(`${name} has no length: all its points are in one place`);
     return read;
   });
@@ -260,6 +259,7 @@ export function whyRefused(scenario: Scenario): string | undefined {
  * Read a scenario from an untrusted value (what a link or a file held, after
  * decoding). Older versions are upgraded to the current one. The scenario
  * returned is complete, of the current version, and one the engine will run.
+ * Its parts are always in the same order, whatever order they arrived in.
  */
 export function readScenario(value: unknown): Outcome<Scenario> {
   try {

@@ -139,6 +139,12 @@ describe("a scenario as a link", () => {
     expect(scenarioFromLink(link)).toEqual({ ok: true, value: scenario });
   });
 
+  it.each(examples)("the same scenario always gives the same link: %s opened and shared again", (_name, scenario) => {
+    const link = valueOf(scenarioToLink(scenario, PAGE));
+
+    expect(valueOf(scenarioToLink(valueOf(scenarioFromLink(link)!), PAGE))).toBe(link);
+  });
+
   it("puts the scenario in the fragment of the page's address, which is never sent to a server", () => {
     const link = valueOf(scenarioToLink(proposal, "https://traffic-simulator.example/app/?x=1#old-fragment"));
 

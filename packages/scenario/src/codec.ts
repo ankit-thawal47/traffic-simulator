@@ -17,7 +17,7 @@
  * UTF-8, compressed with raw DEFLATE, written in URL-safe base64.
  */
 import { deflateSync, inflateSync, strFromU8, strToU8 } from "fflate";
-import { readScenario, whyRefused, type Outcome } from "./read";
+import { readScenario, type Outcome } from "./read";
 import type { Scenario } from "./scenario";
 
 /**
@@ -44,14 +44,21 @@ function prefixed<T>(prefix: string, outcome: Outcome<T>): Outcome<T> {
 }
 
 /**
- * The scenario as the text of a file. Refused, with the reason, for a
- * scenario the engine would not run, so that a file that cannot be opened
- * again is never written.
+ * What is written for a scenario: the scenario as reading it back would give
+ * it. A scenario that could not be read back (one the engine would not run,
+ * or one outside the limits) is refused here, with the reason, so that a file
+ * or a link that cannot be opened again is never made. It also puts the parts
+ * in one fixed order, so the same scenario always gives the same text.
  */
+function toWrite(scenario: Scenario, cannot: string): Outcome<Scenario> {
+  return prefixed(cannot, readScenario(scenario));
+}
+
+/** The scenario as the text of a file, or why it cannot be saved. */
 export function scenarioToText(scenario: Scenario): Outcome<string> {
-  const refusal = whyRefused(scenario);
-  if (refusal) return refused(`This scenario cannot be saved. ${refusal}.`);
-  return { ok: true, value: `${JSON.stringify(scenario, null, 2)}\n` };
+  const checked = toWrite(scenario, "This scenario cannot be saved.");
+  if (!checked.ok) return checked;
+  return { ok: true, value: `${JSON.stringify(checked.value, null, 2)}\n` };
 }
 
 /** The scenario a file's text holds, of any version, or why it cannot be opened. */
@@ -92,14 +99,14 @@ export function linkPayload(value: unknown): string {
 
 /**
  * A link that opens the page with this scenario: the page's address, with the
- * scenario in its fragment. Refused, with the reason, for a scenario the
- * engine would not run, and for one too large for a link.
+ * scenario in its fragment. Refused, with the reason, for a scenario that
+ * could not be opened again, and for one too large for a link.
  */
 export function scenarioToLink(scenario: Scenario, pageAddress: string): Outcome<string> {
-  const refusal = whyRefused(scenario);
-  if (refusal) return refused(`This scenario cannot be shared. ${refusal}.`);
+  const checked = toWrite(scenario, "This scenario cannot be shared.");
+  if (!checked.ok) return checked;
   const page = pageAddress.split("#")[0]!;
-  const link = `${page}#${FRAGMENT_NAME}${linkPayload(scenario)}`;
+  const link = `${page}#${FRAGMENT_NAME}${linkPayload(checked.value)}`;
   if (link.length > LINK_LENGTH_LIMIT) {
     return refused(
       `This scenario is too large to share as a link (the link would be ${link.length} characters; ` +
