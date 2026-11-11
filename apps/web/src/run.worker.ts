@@ -1,44 +1,52 @@
 /// <reference lib="webworker" />
 /**
  * Runs the engine off the page's thread, so a slow run cannot freeze the page
- * (ADR 0004). The engine itself never waits for real time; this worker paces it.
+ * (ADR 0004). The engine itself never waits for real time; this worker paces it
+ * with a timer, and `watch.ts` decides how many steps are due at each tick.
  * All the runs it is given advance together, so they share one clock.
  */
-import { STEP_SECONDS } from "@traffic-simulator/engine";
 import type { RunCommand, RunFrame } from "./run-protocol";
-import { runTogether } from "./run-together";
+import type { TogetherFrame } from "./run-together";
+import { createWatch, type Watch } from "./watch";
 
-/** If the worker falls behind, catch up by at most this many steps at once, then let the runs lag. */
-const MAX_STEPS_PER_TICK = 10;
+/** Real milliseconds between looks at the clock. Short enough for smooth movement at every speed. */
+const TICK_MS = 25;
 
+let watch: Watch | undefined;
 let timer: ReturnType<typeof setInterval> | undefined;
+
+function post(frame: TogetherFrame) {
+  const message: RunFrame = { type: "frame", ...frame };
+  self.postMessage(message);
+}
 
 self.onmessage = (event: MessageEvent<RunCommand>) => {
   const command = event.data;
-  if (command.type !== "start") return;
-
-  if (timer !== undefined) clearInterval(timer);
-  const runs = runTogether(command.inputs);
-  const postFrame = () => {
-    const frame: RunFrame = { type: "frame", ...runs.frame() };
-    self.postMessage(frame);
-  };
-  const stepIntervalMs = (STEP_SECONDS * 1000) / command.speed;
-  let startedAtMs = performance.now();
-  let stepsDone = 0;
-  postFrame();
-
-  timer = setInterval(() => {
-    const stepsDue = Math.floor((performance.now() - startedAtMs) / stepIntervalMs) - stepsDone;
-    if (stepsDue <= 0) return;
-    const steps = Math.min(stepsDue, MAX_STEPS_PER_TICK);
-    for (let i = 0; i < steps; i++) runs.step();
-    stepsDone += steps;
-    if (stepsDue > steps) {
-      // Too far behind to catch up: restart the pacing from now.
-      startedAtMs = performance.now();
-      stepsDone = 0;
+  const nowMs = performance.now();
+  switch (command.type) {
+    case "start": {
+      const started = createWatch({ inputs: command.inputs, speed: command.speed, paused: command.paused, nowMs });
+      watch = started;
+      post(started.frame());
+      if (timer === undefined) {
+        timer = setInterval(() => {
+          const frame = watch?.tick(performance.now());
+          if (frame) post(frame);
+        }, TICK_MS);
+      }
+      break;
     }
-    postFrame();
-  }, stepIntervalMs / 2);
+    case "set-speed":
+      watch?.setSpeed(command.speed, nowMs);
+      break;
+    case "pause":
+      watch?.pause(nowMs);
+      break;
+    case "resume":
+      watch?.resume(nowMs);
+      break;
+    case "watch-again":
+      if (watch) post(watch.watchAgain(nowMs));
+      break;
+  }
 };

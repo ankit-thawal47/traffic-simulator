@@ -25,6 +25,17 @@ pnpm dev        # development server; open the address it prints
 pnpm build      # production build into apps/web/dist
 ```
 
+### Watch controls
+
+Above the two views, shared by both:
+
+- **Pause, Slower, Faster** — from 0.25 to 16 times real time. These change only how fast the runs are shown; the results at any run time are the same at every speed.
+- **Watch again** — starts the same runs from the beginning with the same seeds, so the identical runs.
+- **Camera** — drag to orbit, right-drag to pan, scroll to zoom; "Straight down" and "Angled" send the shared camera to a preset.
+- **Colour vehicles by** — vehicle class, or speed in bands (queued vehicles in red), with a legend.
+
+The logic behind them is in `apps/web/src` and tested from the command line: `watch-clock.ts` and `watch.ts` (speed, pause, watch again), `camera-presets.ts`, `vehicle-colours.ts`, `frame-store.ts`.
+
 ## Run the engine from the command line
 
 ```sh

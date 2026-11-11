@@ -1,0 +1,93 @@
+import type { Network } from "@traffic-simulator/engine";
+import { describe, expect, it } from "vitest";
+import { angledPose, networkBounds, straightDownPose } from "./camera-presets";
+
+/** One road 400 m long from west to east, and a side road running 100 m north from its middle. */
+const network: Network = {
+  formatVersion: 1,
+  roads: [
+    {
+      id: "main",
+      points: [
+        { x: -200, y: 0 },
+        { x: 200, y: 0 },
+      ],
+      widthM: 7,
+      speedLimitMps: 13.9,
+    },
+    {
+      id: "side",
+      points: [
+        { x: 0, y: 0 },
+        { x: 0, y: 100 },
+      ],
+      widthM: 7,
+      speedLimitMps: 13.9,
+    },
+  ],
+};
+
+const FOV_DEGREES = 45;
+/** tan of half of 45 degrees. */
+const TAN_HALF_FOV = 0.41421356;
+
+describe("the bounds of a network, in the scene's coordinates", () => {
+  it("covers every road; north on the ground is negative z in the scene", () => {
+    expect(networkBounds(network)).toEqual({ minX: -200, maxX: 200, minZ: -100, maxZ: 0 });
+  });
+});
+
+describe("the straight-down camera preset", () => {
+  it("looks at the middle of the network from directly above it", () => {
+    const pose = straightDownPose(networkBounds(network), { fovDegrees: FOV_DEGREES, aspect: 1 });
+
+    expect(pose.target).toEqual([0, 0, -50]);
+    expect(pose.position[0]).toBe(0);
+    expect(pose.position[2]).toBe(-50);
+    expect(pose.position[1]).toBeGreaterThan(0);
+  });
+
+  it("is high enough to show the whole network, without leaving it small in the view", () => {
+    // In a square view the 400 m length decides: half of it, 200 m, must fit in half the view.
+    const square = straightDownPose(networkBounds(network), { fovDegrees: FOV_DEGREES, aspect: 1 });
+    const neededM = 200 / TAN_HALF_FOV;
+    expect(square.position[1]).toBeGreaterThanOrEqual(neededM);
+    expect(square.position[1]).toBeLessThan(neededM * 1.3);
+
+    // A view twice as wide as it is tall shows the length from half the height.
+    const wide = straightDownPose(networkBounds(network), { fovDegrees: FOV_DEGREES, aspect: 2 });
+    expect(wide.position[1]).toBeCloseTo(square.position[1] / 2, 6);
+
+    // In a tall, narrow view the camera must go higher to keep the length in.
+    const narrow = straightDownPose(networkBounds(network), { fovDegrees: FOV_DEGREES, aspect: 0.5 });
+    expect(narrow.position[1]).toBeCloseTo(square.position[1] * 2, 6);
+  });
+
+  it("in a very wide view, the network's depth from north to south decides the height", () => {
+    const pose = straightDownPose(networkBounds(network), { fovDegrees: FOV_DEGREES, aspect: 10 });
+    const neededM = 50 / TAN_HALF_FOV;
+
+    expect(pose.position[1]).toBeGreaterThanOrEqual(neededM);
+    expect(pose.position[1]).toBeLessThan(neededM * 1.3);
+  });
+
+  it("does not sit on top of a very small network", () => {
+    const tiny = { minX: 0, maxX: 2, minZ: 0, maxZ: 0 };
+
+    expect(straightDownPose(tiny, { fovDegrees: FOV_DEGREES, aspect: 1 }).position[1]).toBeGreaterThanOrEqual(30);
+  });
+});
+
+describe("the angled camera the views start with", () => {
+  it("looks at the middle of the network from above the ground and to the south", () => {
+    const pose = angledPose(networkBounds(network));
+
+    expect(pose.target).toEqual([0, 0, -50]);
+    expect(pose.position[1]).toBeGreaterThan(0);
+    // South on the ground is positive z in the scene.
+    expect(pose.position[2]).toBeGreaterThan(pose.target[2]);
+    // Angled, not straight down: further away along the ground than it is high.
+    const alongGroundM = Math.hypot(pose.position[0] - pose.target[0], pose.position[2] - pose.target[2]);
+    expect(alongGroundM).toBeGreaterThan(pose.position[1]);
+  });
+});

@@ -15,8 +15,72 @@ body {
 
 main {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
   height: 100%;
+}
+
+/* Watch controls: speed, camera and colouring, shared by both views. */
+.watch-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 28px;
+  padding: 6px 16px;
+  background: #f4f7f8;
+  border-bottom: 1px solid #c9d2d6;
+  font-size: 13px;
+}
+
+.control-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.control-group button,
+.control-group select {
+  padding: 3px 9px;
+  font: inherit;
+  color: #1c2328;
+}
+
+.control-group output {
+  min-width: 44px;
+  text-align: center;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.group-name {
+  color: #55616a;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.swatch {
+  width: 12px;
+  height: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 2px;
+}
+
+.clock em {
+  font-style: normal;
+  color: #8a5a00;
 }
 
 header {

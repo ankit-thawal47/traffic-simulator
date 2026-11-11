@@ -1,28 +1,25 @@
-import { positionAlongRoad, type Network, type Road, type Snapshot, type VehicleClass } from "@traffic-simulator/engine";
+import { positionAlongRoad, type Network, type Road, type VehicleClass } from "@traffic-simulator/engine";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { angledPose, networkBounds } from "./camera-presets";
+import type { FrameStore } from "./frame-store";
 import { interpolateVehicles } from "./interpolate";
 import type { SharedCamera } from "./shared-camera";
+import { vehicleColour, type ColourBy } from "./vehicle-colours";
 
-/** The two most recent snapshots of a run, and when the later one arrived. */
-export interface FrameStore {
-  earlier?: Snapshot;
-  later?: Snapshot;
-  laterArrivedAtMs: number;
-  /** Real milliseconds between snapshots, used to pace the movement between them. */
-  intervalMs: number;
-}
+/** The camera's vertical field of view, in degrees. */
+export const CAMERA_FOV_DEGREES = 45;
 
 /**
- * How each vehicle class is drawn. Length and width come from the engine with each vehicle;
- * height and colour are for the drawing only, so they live here.
+ * How tall each vehicle class is drawn, in metres. Length and width come from the engine
+ * with each vehicle; height is for the drawing only, so it lives here.
  */
-const VEHICLE_CLASS_DRAWING: Record<VehicleClass, { heightM: number; colour: THREE.Color }> = {
-  "two-wheeler": { heightM: 1.3, colour: new THREE.Color(0x2f6fd0) },
-  car: { heightM: 1.5, colour: new THREE.Color(0xd9482b) },
-  "auto-rickshaw": { heightM: 1.7, colour: new THREE.Color(0xe0b020) },
-  bus: { heightM: 3.0, colour: new THREE.Color(0x2a9d6a) },
+const VEHICLE_HEIGHT_M: Record<VehicleClass, number> = {
+  "two-wheeler": 1.3,
+  car: 1.5,
+  "auto-rickshaw": 1.7,
+  bus: 3.0,
 };
 const ROAD_THICKNESS_M = 0.2;
 const MAX_VEHICLES_DRAWN = 4000;
@@ -54,12 +51,17 @@ export function RoadScene({
   network,
   frames,
   sharedCamera,
+  colourBy = "vehicle-class",
 }: {
   network: Network;
   frames: FrameStore;
   sharedCamera?: SharedCamera;
+  colourBy?: ColourBy;
 }) {
   const container = useRef<HTMLDivElement>(null);
+  // Read on every drawn frame, so a change of colouring shows at once without rebuilding the scene.
+  const colouring = useRef(colourBy);
+  colouring.current = colourBy;
 
   useEffect(() => {
     const host = container.current;
@@ -101,19 +103,19 @@ export function RoadScene({
     // All vehicles are drawn in one batch: a unit box scaled to each vehicle's size.
     const vehicles = new THREE.InstancedMesh(
       new THREE.BoxGeometry(1, 1, 1),
-      // White, so that each vehicle shows its own colour.
+      // White, so that each vehicle shows exactly the colour it is given when drawn.
       new THREE.MeshLambertMaterial({ color: 0xffffff }),
       MAX_VEHICLES_DRAWN,
     );
-    vehicles.setColorAt(0, VEHICLE_CLASS_DRAWING.car.colour);
     vehicles.count = 0;
     vehicles.frustumCulled = false;
     scene.add(vehicles);
 
-    const camera = new THREE.PerspectiveCamera(45, 1, 1, extent * 20);
-    camera.position.set(centre.x - extent * 0.1, extent * 0.3, centre.z + extent * 0.65);
+    const camera = new THREE.PerspectiveCamera(CAMERA_FOV_DEGREES, 1, 1, extent * 20);
+    const startPose = angledPose(networkBounds(network));
+    camera.position.fromArray(startPose.position);
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.copy(centre);
+    controls.target.fromArray(startPose.target);
     controls.maxPolarAngle = Math.PI / 2 - 0.02;
     controls.update();
 
@@ -153,6 +155,8 @@ export function RoadScene({
     resizeObserver.observe(host);
 
     const placement = new THREE.Object3D();
+    const colour = new THREE.Color();
+    const coloursDrawn = new Map<string, number>();
     const drawVehicles = (nowMs: number) => {
       if (!frames.later) {
         vehicles.count = 0;
@@ -169,17 +173,23 @@ export function RoadScene({
         const toLeftM = road.widthM / 2 - vehicle.lateralM;
         const x = point.x - direction.y * toLeftM;
         const y = point.y + direction.x * toLeftM;
-        const drawing = VEHICLE_CLASS_DRAWING[vehicle.vehicleClass];
-        placement.position.set(x, drawing.heightM / 2, -y);
+        const heightM = VEHICLE_HEIGHT_M[vehicle.vehicleClass];
+        placement.position.set(x, heightM / 2, -y);
         placement.rotation.set(0, Math.atan2(direction.y, direction.x), 0);
-        placement.scale.set(vehicle.lengthM, drawing.heightM, vehicle.widthM);
+        placement.scale.set(vehicle.lengthM, heightM, vehicle.widthM);
         placement.updateMatrix();
-        vehicles.setColorAt(count, drawing.colour);
+        const hex = vehicleColour(colouring.current, vehicle);
+        vehicles.setColorAt(count, colour.set(hex));
+        coloursDrawn.set(hex, (coloursDrawn.get(hex) ?? 0) + 1);
         vehicles.setMatrixAt(count++, placement.matrix);
       }
       vehicles.count = count;
       vehicles.instanceMatrix.needsUpdate = true;
       if (vehicles.instanceColor) vehicles.instanceColor.needsUpdate = true;
+      // Written to the page so that what each view draws can be checked from outside.
+      const summary = [...coloursDrawn].map(([drawnHex, drawn]) => `${drawnHex}:${drawn}`).join(" ");
+      if (host.dataset.vehicleColours !== summary) host.dataset.vehicleColours = summary;
+      coloursDrawn.clear();
     };
 
     let animation = requestAnimationFrame(function draw(nowMs) {
