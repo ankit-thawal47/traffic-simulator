@@ -10,11 +10,15 @@ import {
   createRun,
   roadLengthM,
   VEHICLE_CLASSES,
+  type Connection,
   type Demand,
   type DemandFlow,
+  type Junction,
   type Network,
   type Point,
   type Road,
+  type SignalPhase,
+  type SignalPlan,
   type VehicleClass,
   type VehicleMix,
 } from "@traffic-simulator/engine";
@@ -43,6 +47,11 @@ export const SCENARIO_LIMITS = {
   flows: 10_000,
   vehiclesPerHour: 100_000,
   changes: 2000,
+  junctions: 500,
+  connectionsPerJunction: 500,
+  phasesPerJunction: 50,
+  /** Longest green, amber or all-red time of a signal plan, in seconds. */
+  signalSeconds: 3600,
 } as const;
 
 /** Thrown inside this file only; readScenario() turns it into an Outcome. */
@@ -114,7 +123,7 @@ function readPoint(value: unknown, what: string): Point {
 function readNetwork(value: unknown): Network {
   const network = anObject(value, "The network");
   const formatVersion = network.formatVersion;
-  if (formatVersion !== 1 && formatVersion !== 2) {
+  if (formatVersion !== 1 && formatVersion !== 2 && formatVersion !== 3) {
     refuse(`The network uses a network format version this version of the product does not know (${shown(formatVersion)})`);
   }
   const ids = new Set<string>();
@@ -130,9 +139,9 @@ function readNetwork(value: unknown): Network {
     );
     if (points.length < 2) refuse(`${name} needs at least two points`);
     const widthM = aNumber(road.widthM, `The width of road "${id}"`, { above: 0, to: SCENARIO_LIMITS.roadWidthM });
-    // A lane count is part of network format version 2; a version 1 road may go without.
+    // A lane count is part of the network format from version 2; a version 1 road may go without.
     const lanes =
-      road.lanes !== undefined || formatVersion === 2
+      road.lanes !== undefined || formatVersion >= 2
         ? { lanes: aWholeNumber(road.lanes, `The number of lanes of road "${id}"`, 1, SCENARIO_LIMITS.lanes) }
         : {};
     const speedLimitMps = aNumber(road.speedLimitMps, `The speed limit of road "${id}"`, {
@@ -145,7 +154,60 @@ function readNetwork(value: unknown): Network {
     return read;
   });
   if (roads.length === 0) refuse("The network has no roads");
-  return { formatVersion, roads };
+  // Junctions are part of network format version 3. An older network has none.
+  if (network.junctions === undefined) return { formatVersion, roads };
+  const entries = aList(network.junctions, "The network's list of junctions", SCENARIO_LIMITS.junctions);
+  if (formatVersion !== 3) {
+    if (entries.length === 0) return { formatVersion, roads };
+    refuse(`The network has junctions, which need network format version 3 (it says ${shown(formatVersion)})`);
+  }
+  const withRoads: Network = { formatVersion, roads };
+  const junctionIds = new Set<string>();
+  const junctions = entries.map((entry, index): Junction => {
+    const junction = anObject(entry, `Junction ${index + 1}`);
+    const id = aString(junction.id, `The identifier of junction ${index + 1}`, SCENARIO_LIMITS.roadIdLength);
+    if (id === "") refuse(`Junction ${index + 1} has an empty identifier`);
+    if (junctionIds.has(id)) refuse(`The network has two junctions with the identifier "${id}"`);
+    junctionIds.add(id);
+    const name = `junction "${id}"`;
+    if (junction.control !== "signal") {
+      refuse(`Junction "${id}" is of a kind this version of the product does not know: ${shown(junction.control)}`);
+    }
+    const connections = aList(junction.connections, `The connections of ${name}`, SCENARIO_LIMITS.connectionsPerJunction).map(
+      (value, at): Connection => {
+        const what = `Connection ${at + 1} of ${name}`;
+        const connection = anObject(value, what);
+        return {
+          fromRoadId: aRoadOf(withRoads, connection.fromRoadId, what),
+          toRoadId: aRoadOf(withRoads, connection.toRoadId, what),
+        };
+      },
+    );
+    const plan = anObject(junction.signalPlan, `The signal plan of ${name}`);
+    const seconds = SCENARIO_LIMITS.signalSeconds;
+    const phases = aList(plan.phases, `The phases of ${name}`, SCENARIO_LIMITS.phasesPerJunction).map((value, at): SignalPhase => {
+      const what = `Phase ${at + 1} of ${name}`;
+      const phase = anObject(value, what);
+      return {
+        greenRoadIds: aList(phase.greenRoadIds, `The roads with green in ${what.toLowerCase()}`, SCENARIO_LIMITS.roads).map(
+          (roadId) => aRoadOf(withRoads, roadId, what),
+        ),
+        greenS: aNumber(phase.greenS, `The green time of ${what.toLowerCase()}`, { above: 0, to: seconds }),
+      };
+    });
+    const signalPlan: SignalPlan = {
+      phases,
+      amberS: aNumber(plan.amberS, `The amber time of ${name}`, { from: 0, to: seconds }),
+      allRedS: aNumber(plan.allRedS, `The all-red time of ${name}`, { from: 0, to: seconds }),
+      ...(plan.offsetS === undefined
+        ? {}
+        : { offsetS: aNumber(plan.offsetS, `The signal plan offset of ${name}`, { from: -seconds * 100, to: seconds * 100 }) }),
+    };
+    // What the parts must add up to (every approach has green, no road ends at two
+    // junctions, turns that are not too tight) is the engine's to judge: whyRefused().
+    return { id, control: "signal", connections, signalPlan };
+  });
+  return { formatVersion, roads, junctions };
 }
 
 function aRoadOf(network: Network, value: unknown, what: string): string {
