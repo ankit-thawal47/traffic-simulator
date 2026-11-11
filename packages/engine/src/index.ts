@@ -1,6 +1,15 @@
 export { createRun } from "./run";
-export { STEP_SECONDS, VEHICLE_CLASS_ASSUMPTIONS } from "./assumptions";
-export type { VehicleClassAssumptions } from "./assumptions";
+export {
+  BENGALURU_VEHICLE_MIX,
+  SIDEWAYS_ASSUMPTIONS,
+  STANDARD_LANE_WIDTH_M,
+  STEP_SECONDS,
+  STRIP_WIDTH_M,
+  stripsOccupied,
+  VEHICLE_CLASSES,
+  VEHICLE_CLASS_ASSUMPTIONS,
+} from "./assumptions";
+export type { Assumption, VehicleClassAssumptions } from "./assumptions";
 export { positionAlongRoad, roadLengthM } from "./geometry";
 export type { RoadPosition } from "./geometry";
 export type {
@@ -15,5 +24,7 @@ export type {
   RunInput,
   Snapshot,
   VehicleClass,
+  VehicleClassDelay,
+  VehicleMix,
   VehicleState,
 } from "./types";

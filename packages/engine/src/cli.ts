@@ -1,9 +1,9 @@
 /**
  * Run the engine from the command line, with no browser:
  *
- *   pnpm engine [scenario.json] [--duration <seconds>] [--seed <integer>] [--check]
+ *   pnpm engine [scenario.json] [--duration <seconds>] [--seed <integer>] [--lane-discipline on|off] [--check]
  *
- * The file holds { network, demand, seed, initialVehicles? }. Without a file,
+ * The file holds { network, demand, seed, laneDiscipline?, initialVehicles? }. Without a file,
  * the one-road example is run. Prints the results as JSON. With --check, the
  * consistency checks are applied too and a failure sets a non-zero exit code.
  */
@@ -19,6 +19,7 @@ function main(argv: string[]): number {
   let durationS = 3600;
   let seed: number | undefined;
   let check = false;
+  let laneDiscipline: boolean | undefined;
 
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i]!;
@@ -26,6 +27,11 @@ function main(argv: string[]): number {
     if (arg === "--check") check = true;
     else if (arg === "--duration") durationS = Number(argv[++i]);
     else if (arg === "--seed") seed = Number(argv[++i]);
+    else if (arg === "--lane-discipline") {
+      const value = argv[++i];
+      if (value !== "on" && value !== "off") return fail("--lane-discipline needs on or off");
+      laneDiscipline = value === "on";
+    }
     else if (arg.startsWith("--")) return fail(`Unknown option: ${arg}`);
     else file = arg;
   }
@@ -38,6 +44,7 @@ function main(argv: string[]): number {
     : resolve(here, "../examples/one-road.json");
   const input = JSON.parse(readFileSync(path, "utf8")) as RunInput;
   if (seed !== undefined) input.seed = seed;
+  if (laneDiscipline !== undefined) input.laneDiscipline = laneDiscipline;
 
   if (check) {
     const report = checkRunConsistency(input, { durationS });

@@ -40,6 +40,7 @@ function frame(timeS: number, vehicles: VehicleState[], through = 0): [Snapshot,
       vehiclesThrough: through,
       vehiclesOnNetwork: vehicles.length,
       vehiclesWaitingToEnter: 0,
+      delayByVehicleClass: createRun({ network, demand: { flows: [] }, seed: 1 }).results().delayByVehicleClass,
     },
   ];
 }

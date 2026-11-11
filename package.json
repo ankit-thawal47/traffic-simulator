@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "pnpm --filter @traffic-simulator/web dev",
-    "build": "pnpm --filter @traffic-simulator/web build",
+    "build": "pnpm --filter @traffic-simulator/web build && rm -rf dist && cp -R apps/web/dist dist",
     "test": "vitest run",
     "typecheck": "pnpm -r typecheck",
     "engine": "pnpm --filter @traffic-simulator/engine --silent cli",
