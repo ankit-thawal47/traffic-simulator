@@ -1,0 +1,23 @@
+{
+  "network": {
+    "formatVersion": 2,
+    "roads": [
+      {
+        "id": "main",
+        "points": [
+          { "x": -200, "y": 0 },
+          { "x": 200, "y": 0 }
+        ],
+        "widthM": 10.5,
+        "lanes": 3,
+        "speedLimitMps": 13.9
+      }
+    ]
+  },
+  "demand": {
+    "flows": [{ "entryRoadId": "main", "exitRoadId": "main", "vehiclesPerHour": 6000 }],
+    "vehicleMix": { "two-wheeler": 0.65, "car": 0.22, "auto-rickshaw": 0.055, "bus": 0.04 }
+  },
+  "laneDiscipline": false,
+  "seed": 1
+}
