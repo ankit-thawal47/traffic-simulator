@@ -31,6 +31,25 @@ function applyChange(resolved: Resolved, change: Change, label: string): Resolve
         },
       };
     }
+    case "road-lanes": {
+      if (!resolved.network.roads.some((road) => road.id === change.roadId)) {
+        throw new Error(`${label} names a road that is not in the network: "${change.roadId}"`);
+      }
+      if (!Number.isInteger(change.lanes) || change.lanes < 1) {
+        throw new Error(
+          `${label} gives road "${change.roadId}" a number of lanes that is not a whole number of 1 or more`,
+        );
+      }
+      return {
+        ...resolved,
+        network: {
+          ...resolved.network,
+          roads: resolved.network.roads.map((road) =>
+            road.id === change.roadId ? { ...road, lanes: change.lanes } : road,
+          ),
+        },
+      };
+    }
     default:
       // A scenario read from a link or a file may hold anything.
       throw new Error(`${label} is of a kind this version does not know: "${String((change as { kind: unknown }).kind)}"`);
@@ -39,8 +58,9 @@ function applyChange(resolved: Resolved, change: Change, label: string): Resolve
 
 /**
  * Resolve a scenario into the engine's input: apply its changes, in order, to
- * its network and demand. The scenario itself is left untouched. The engine
- * receives only the result and knows nothing of baselines, proposals or changes.
+ * its network and demand, and pass on its lane discipline and seed. The scenario
+ * itself is left untouched. The engine receives only the result and knows
+ * nothing of baselines, proposals or changes.
  */
 export function resolveScenario(scenario: Scenario): RunInput {
   if (scenario.formatVersion !== SCENARIO_FORMAT_VERSION) {
@@ -50,5 +70,10 @@ export function resolveScenario(scenario: Scenario): RunInput {
   scenario.changes.forEach((change, index) => {
     resolved = applyChange(resolved, change, `Change ${index + 1}`);
   });
-  return { network: resolved.network, demand: resolved.demand, seed: scenario.seed };
+  return {
+    network: resolved.network,
+    demand: resolved.demand,
+    seed: scenario.seed,
+    laneDiscipline: scenario.laneDiscipline,
+  };
 }

@@ -11,7 +11,8 @@
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@traffic-simulator/engine": "workspace:*"
+    "@traffic-simulator/engine": "workspace:*",
+    "fflate": "0.8.3"
   },
   "devDependencies": {
     "typescript": "^5.6.3"

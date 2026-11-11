@@ -2,7 +2,7 @@ import { positionAlongRoad, type Network, type Road, type VehicleClass } from "@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { angledPose, networkBounds } from "./camera-presets";
+import { closeUpPose } from "./camera-presets";
 import type { FrameStore } from "./frame-store";
 import { interpolateVehicles } from "./interpolate";
 import type { SharedCamera } from "./shared-camera";
@@ -112,7 +112,7 @@ export function RoadScene({
     scene.add(vehicles);
 
     const camera = new THREE.PerspectiveCamera(CAMERA_FOV_DEGREES, 1, 1, extent * 20);
-    const startPose = angledPose(networkBounds(network));
+    const startPose = closeUpPose(network);
     camera.position.fromArray(startPose.position);
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.target.fromArray(startPose.target);

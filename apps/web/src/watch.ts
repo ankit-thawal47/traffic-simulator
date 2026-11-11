@@ -1,4 +1,5 @@
 import { STEP_SECONDS, type RunInput } from "@traffic-simulator/engine";
+import type { RunPlan } from "@traffic-simulator/scenario";
 import { runTogether, type TogetherFrame } from "./run-together";
 import { createWatchClock } from "./watch-clock";
 
@@ -14,7 +15,10 @@ export interface Watch {
   readonly paused: boolean;
   /** All the runs as they are now. */
   frame(): TogetherFrame;
-  /** Advance the runs by the steps that have come due. Gives the new frame, or nothing if no step was due. */
+  /**
+   * Advance the runs by the steps that have come due. Gives the new frame, or
+   * nothing if no step was due or the runs have already reached their end.
+   */
   tick(nowMs: number): TogetherFrame | undefined;
   setSpeed(speed: number, nowMs: number): void;
   pause(nowMs: number): void;
@@ -26,8 +30,16 @@ export interface Watch {
 /** If the runs fall behind real time, catch up by at most this many steps at once, then let them lag. */
 const MAX_STEPS_AT_ONCE = 10;
 
-export function createWatch(options: { inputs: RunInput[]; speed: number; paused?: boolean; nowMs: number }): Watch {
-  let runs = runTogether(options.inputs);
+export function createWatch(options: {
+  inputs: RunInput[];
+  /** What each run covers; the run plan of the spec unless given. */
+  plan?: RunPlan;
+  speed: number;
+  paused?: boolean;
+  nowMs: number;
+}): Watch {
+  let runs = runTogether(options.inputs, options.plan);
+  let finished = runs.frame().finished;
   let clock = createWatchClock({
     stepSeconds: STEP_SECONDS,
     speed: options.speed,
@@ -46,15 +58,18 @@ export function createWatch(options: { inputs: RunInput[]; speed: number; paused
     frame: () => runs.frame(),
     tick(nowMs) {
       const steps = clock.stepsDue(nowMs);
-      if (steps === 0) return undefined;
+      if (steps === 0 || finished) return undefined;
       for (let i = 0; i < steps; i++) runs.step();
-      return runs.frame();
+      const frame = runs.frame();
+      finished = frame.finished;
+      return frame;
     },
     setSpeed: (speed, nowMs) => clock.setSpeed(speed, nowMs),
     pause: (nowMs) => clock.pause(nowMs),
     resume: (nowMs) => clock.resume(nowMs),
     watchAgain(nowMs) {
-      runs = runTogether(options.inputs);
+      runs = runTogether(options.inputs, options.plan);
+      finished = false;
       clock = createWatchClock({
         stepSeconds: STEP_SECONDS,
         speed: clock.speed,

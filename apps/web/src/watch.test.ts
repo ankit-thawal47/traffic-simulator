@@ -2,6 +2,7 @@ import type { RunInput } from "@traffic-simulator/engine";
 import oneRoad from "@traffic-simulator/engine/examples/one-road.json";
 import { describe, expect, it } from "vitest";
 import type { TogetherFrame } from "./run-together";
+import { createMeasuredRun, type RunPlan } from "@traffic-simulator/scenario";
 import { createWatch, type Watch } from "./watch";
 
 const baseline = oneRoad as RunInput;
@@ -14,8 +15,17 @@ const proposal: RunInput = {
 /** Real milliseconds between the moments the watch is asked to advance. */
 const TICK_MS = 50;
 
+/** No warm-up, so the results are the engine's own from the start of the run. The warm-up has its own tests below. */
+const noWarmUp: RunPlan = { warmUpS: 0, measuredS: 3600, seeds: 5 };
+
 function watchBoth(options: { speed?: number; paused?: boolean } = {}): Watch {
-  return createWatch({ inputs: [baseline, proposal], speed: options.speed ?? 1, paused: options.paused, nowMs: 0 });
+  return createWatch({
+    inputs: [baseline, proposal],
+    plan: noWarmUp,
+    speed: options.speed ?? 1,
+    paused: options.paused,
+    nowMs: 0,
+  });
 }
 
 /**
@@ -44,7 +54,7 @@ describe("watching runs: speed and pausing change only how fast the planner watc
 
     expect(frame?.timeS).toBeCloseTo(1, 9);
     expect(frame?.runs).toHaveLength(2);
-    expect(frame?.runs.map((run) => run.results.timeS)).toEqual([frame?.timeS, frame?.timeS]);
+    expect(frame?.runs.map((run) => run.results?.timeS)).toEqual([frame?.timeS, frame?.timeS]);
   });
 
   it("the same scenarios watched at different speeds give identical results at the same run time", () => {
@@ -62,7 +72,7 @@ describe("watching runs: speed and pausing change only how fast the planner watc
     // Something happened on the road, and the two scenarios differ.
     const frame = atNormalSpeed.frame();
     expect(frame.timeS).toBeCloseTo(120, 9);
-    expect(frame.runs[0]!.results.vehiclesThrough).toBeGreaterThan(10);
+    expect(frame.runs[0]!.results!.vehiclesThrough).toBeGreaterThan(10);
     expect(frame.runs[0]!.results).not.toEqual(frame.runs[1]!.results);
 
     expect(slowly.frame()).toEqual(frame);
@@ -148,5 +158,75 @@ describe("watching again", () => {
     expect(fromTheStart.timeS).toBe(0);
     expect(watch.tick(nowMs + 5000)).toBeUndefined();
     expect(watch.frame().timeS).toBe(0);
+  });
+});
+
+describe("watching runs over the run plan", () => {
+  const plan: RunPlan = { warmUpS: 20, measuredS: 40, seeds: 5 };
+  const watchPlan = (speed = 1) => createWatch({ inputs: [baseline, proposal], plan, speed, nowMs: 0 });
+  /** The results of each run at its end, warm-up left out, from running it alone with no watching at all. */
+  const unwatched = [baseline, proposal].map((input) => {
+    const run = createMeasuredRun(input, plan);
+    while (!run.finished) run.step();
+    return run.results();
+  });
+
+  it("covers one hour after a ten minute warm-up unless told otherwise", () => {
+    const watch = createWatch({ inputs: [baseline], speed: 16, nowMs: 0 });
+    const { frames } = watchUntil(watch, 600);
+
+    expect(frames.slice(0, -1).every((frame) => frame.warmingUp && frame.runs[0]!.results === undefined)).toBe(true);
+    expect(watch.frame().warmingUp).toBe(false);
+    expect(watch.frame().finished).toBe(false);
+  });
+
+  it("shows no results during the warm-up, and afterwards results that leave it out", () => {
+    const watch = watchPlan();
+
+    watchUntil(watch, 19.8);
+    expect(watch.frame()).toMatchObject({ warmingUp: true, finished: false });
+    expect(watch.frame().runs.map((run) => run.results)).toEqual([undefined, undefined]);
+
+    watchUntil(watch, 30);
+    const frame = watch.frame();
+    expect(frame.warmingUp).toBe(false);
+    expect(frame.runs[0]!.results!.timeS).toBeCloseTo(10, 6);
+    expect(frame.runs[0]!.snapshot.timeS).toBeCloseTo(30, 6);
+  });
+
+  it("stops at the end of the run, however much longer the planner waits", () => {
+    const watch = watchPlan();
+    const { nowMs } = watchUntil(watch, 60);
+    const atTheEnd = watch.frame();
+
+    expect(atTheEnd.finished).toBe(true);
+    expect(atTheEnd.timeS).toBeCloseTo(60, 6);
+    expect(atTheEnd.runs.map((run) => run.results)).toEqual(unwatched);
+    for (let i = 1; i <= 20; i++) expect(watch.tick(nowMs + i * 1000)).toBeUndefined();
+    expect(watch.frame()).toEqual(atTheEnd);
+  });
+
+  it("gives the same results at the end whatever the speed, with pauses, and when watched again", () => {
+    const quickly = watchPlan(16);
+    watchUntil(quickly, 60);
+
+    const interrupted = watchPlan(0.5);
+    let { nowMs } = watchUntil(interrupted, 25);
+    interrupted.pause(nowMs);
+    nowMs += 60_000;
+    interrupted.tick(nowMs);
+    interrupted.resume(nowMs);
+    interrupted.setSpeed(8, nowMs);
+    ({ nowMs } = watchUntil(interrupted, 45, nowMs));
+    // Part-way through the results, the planner starts again from the beginning.
+    expect(interrupted.watchAgain(nowMs)).toMatchObject({ timeS: 0, warmingUp: true, finished: false });
+    ({ nowMs } = watchUntil(interrupted, 60, nowMs));
+    // And once more after the end.
+    interrupted.watchAgain(nowMs);
+    watchUntil(interrupted, 60, nowMs);
+
+    expect(quickly.frame().runs.map((run) => run.results)).toEqual(unwatched);
+    expect(interrupted.frame().runs.map((run) => run.results)).toEqual(unwatched);
+    expect(interrupted.frame().finished).toBe(true);
   });
 });

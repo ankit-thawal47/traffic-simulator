@@ -7,10 +7,22 @@
  * run, resolveScenario() applies the changes and hands the engine only a
  * network, a demand and a seed. Vocabulary follows GLOSSARY.md.
  */
-import type { Demand, Network } from "@traffic-simulator/engine";
+import { STANDARD_LANE_WIDTH_M, type Demand, type Network, type Road } from "@traffic-simulator/engine";
 
 /** The current version of the scenario description. */
-export const SCENARIO_FORMAT_VERSION = 1;
+/**
+ * The current version of the scenario description. It counts changes to this
+ * description only, and is separate from the version of the engine's network
+ * format (`network.formatVersion`), which the network inside carries itself.
+ *
+ * Versions so far:
+ * 1. name, network, changes (road width), demand, seed.
+ * 2. adds lane discipline, and the road lanes change.
+ *
+ * A new version raises this number, adds one upgrade step (upgrade.ts) and
+ * one saved example (test/fixtures); older links and files keep loading.
+ */
+export const SCENARIO_FORMAT_VERSION = 2;
 
 /** Set the usable width of one road, named by its stable identifier. */
 export interface RoadWidthChange {
@@ -20,11 +32,27 @@ export interface RoadWidthChange {
 }
 
 /**
+ * Set the number of marked lanes of one road, named by its stable identifier.
+ *
+ * Lanes and width are independent: this change leaves the road's width as it
+ * is, and a width change leaves its lane count as it is. The lanes share the
+ * width equally. With lane discipline on, a lane must be wide enough for every
+ * vehicle class in the vehicle mix, or the engine refuses the scenario
+ * (see whyRefused()). With lane discipline off the road carries mixed traffic,
+ * which takes no notice of lanes, so this change does not alter the estimate.
+ */
+export interface RoadLanesChange {
+  kind: "road-lanes";
+  roadId: string;
+  lanes: number;
+}
+
+/**
  * One difference between a proposal and the baseline. Each kind of change is
  * one member of this union, told apart by `kind`; a new kind is added here and
  * given one case in applyChange() (resolve.ts).
  */
-export type Change = RoadWidthChange;
+export type Change = RoadWidthChange | RoadLanesChange;
 
 export interface Scenario {
   formatVersion: typeof SCENARIO_FORMAT_VERSION;
@@ -34,6 +62,11 @@ export interface Scenario {
   /** Applied in order when the scenario is resolved. Empty for a baseline. */
   changes: Change[];
   demand: Demand;
+  /**
+   * Lane discipline. On: vehicles keep to the road's lanes. Off: the road
+   * carries mixed traffic, with vehicles sharing its width strip by strip.
+   */
+  laneDiscipline: boolean;
   /** Any integer. The same scenario and seed always give the same run. */
   seed: number;
 }
@@ -71,14 +104,53 @@ export function withRoadWidth(scenario: Scenario, roadId: string, widthM: number
   return { ...scenario, changes: [...others, { kind: "road-width", roadId, widthM }] };
 }
 
+/**
+ * The lanes a road has. A road of network format version 1 has no lane count;
+ * like the engine, give it as many lanes of the standard width as fit its
+ * width, and at least one.
+ */
+export function lanesOf(road: Road): number {
+  return road.lanes ?? Math.max(1, Math.floor(road.widthM / STANDARD_LANE_WIDTH_M + 1e-9));
+}
+
+/**
+ * The scenario with one road set to a new number of lanes. As with width, a
+ * road has at most one lanes change, and setting it back to the lanes it has
+ * today leaves none.
+ */
+export function withRoadLanes(scenario: Scenario, roadId: string, lanes: number): Scenario {
+  const others = scenario.changes.filter((change) => !(change.kind === "road-lanes" && change.roadId === roadId));
+  const today = scenario.network.roads.find((road) => road.id === roadId);
+  if (today && lanesOf(today) === lanes) return { ...scenario, changes: others };
+  return { ...scenario, changes: [...others, { kind: "road-lanes", roadId, lanes }] };
+}
+
 /** The baseline: the road as it is today, with no changes. */
-export function createBaseline(description: { name: string; network: Network; demand: Demand; seed: number }): Scenario {
+export function createBaseline(description: {
+  name: string;
+  network: Network;
+  demand: Demand;
+  seed: number;
+  /** Off (mixed traffic) unless given. */
+  laneDiscipline?: boolean;
+}): Scenario {
   return {
     formatVersion: SCENARIO_FORMAT_VERSION,
     name: description.name,
     network: description.network,
     changes: [],
     demand: description.demand,
+    laneDiscipline: description.laneDiscipline ?? false,
     seed: description.seed,
   };
+}
+
+/**
+ * The baseline a scenario is compared against: the same scenario with no
+ * changes. One scenario description therefore holds the planner's whole
+ * comparison, and the proposal cannot differ from the baseline by anything
+ * but its changes.
+ */
+export function baselineOf(scenario: Scenario): Scenario {
+  return { ...scenario, changes: [] };
 }

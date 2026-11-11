@@ -1491,10 +1491,12 @@ export function createRun(input: RunInput): Run {
       const through = throughByClass.get(vehicleClass)!;
       const still = unfinished.get(vehicleClass)!;
       const vehicles = through.count + still.count;
+      const totalDelayS = through.delayS + still.delayS;
       delayByVehicleClass[vehicleClass] = {
         vehicles,
         vehiclesThrough: through.count,
-        meanDelayS: vehicles > 0 ? (through.delayS + still.delayS) / vehicles : null,
+        meanDelayS: vehicles > 0 ? totalDelayS / vehicles : null,
+        totalDelayS,
       };
     }
     const longestQueueByApproach: Record<string, ApproachQueue> = {};

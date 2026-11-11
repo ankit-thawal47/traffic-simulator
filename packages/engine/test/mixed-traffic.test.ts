@@ -508,7 +508,7 @@ describe("mean delay per vehicle class", () => {
     expect(delay.car.vehicles).toBe(1);
     expect(delay.car.vehiclesThrough).toBe(1);
     expect(Math.abs(delay.car.meanDelayS!)).toBeLessThan(0.01);
-    expect(delay.bus).toEqual({ vehicles: 0, vehiclesThrough: 0, meanDelayS: null });
+    expect(delay.bus).toEqual({ vehicles: 0, vehiclesThrough: 0, meanDelayS: null, totalDelayS: 0 });
   });
 
   it("delay is actual travel time less travel time at desired speed: a car held behind a slow bus loses about a fifth", () => {
