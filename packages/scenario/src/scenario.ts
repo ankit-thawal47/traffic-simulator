@@ -7,7 +7,7 @@
  * run, resolveScenario() applies the changes and hands the engine only a
  * network, a demand and a seed. Vocabulary follows GLOSSARY.md.
  */
-import type { Demand, Network } from "@traffic-simulator/engine";
+import { STANDARD_LANE_WIDTH_M, type Demand, type Network, type Road } from "@traffic-simulator/engine";
 
 /** The current version of the scenario description. */
 /**
@@ -32,11 +32,27 @@ export interface RoadWidthChange {
 }
 
 /**
+ * Set the number of marked lanes of one road, named by its stable identifier.
+ *
+ * Lanes and width are independent: this change leaves the road's width as it
+ * is, and a width change leaves its lane count as it is. The lanes share the
+ * width equally. With lane discipline on, a lane must be wide enough for every
+ * vehicle class in the vehicle mix, or the engine refuses the scenario
+ * (see whyRefused()). With lane discipline off the road carries mixed traffic,
+ * which takes no notice of lanes, so this change does not alter the estimate.
+ */
+export interface RoadLanesChange {
+  kind: "road-lanes";
+  roadId: string;
+  lanes: number;
+}
+
+/**
  * One difference between a proposal and the baseline. Each kind of change is
  * one member of this union, told apart by `kind`; a new kind is added here and
  * given one case in applyChange() (resolve.ts).
  */
-export type Change = RoadWidthChange;
+export type Change = RoadWidthChange | RoadLanesChange;
 
 export interface Scenario {
   formatVersion: typeof SCENARIO_FORMAT_VERSION;
@@ -86,6 +102,27 @@ export function withRoadWidth(scenario: Scenario, roadId: string, widthM: number
   const today = scenario.network.roads.find((road) => road.id === roadId);
   if (today && today.widthM === widthM) return { ...scenario, changes: others };
   return { ...scenario, changes: [...others, { kind: "road-width", roadId, widthM }] };
+}
+
+/**
+ * The lanes a road has. A road of network format version 1 has no lane count;
+ * like the engine, give it as many lanes of the standard width as fit its
+ * width, and at least one.
+ */
+export function lanesOf(road: Road): number {
+  return road.lanes ?? Math.max(1, Math.floor(road.widthM / STANDARD_LANE_WIDTH_M + 1e-9));
+}
+
+/**
+ * The scenario with one road set to a new number of lanes. As with width, a
+ * road has at most one lanes change, and setting it back to the lanes it has
+ * today leaves none.
+ */
+export function withRoadLanes(scenario: Scenario, roadId: string, lanes: number): Scenario {
+  const others = scenario.changes.filter((change) => !(change.kind === "road-lanes" && change.roadId === roadId));
+  const today = scenario.network.roads.find((road) => road.id === roadId);
+  if (today && lanesOf(today) === lanes) return { ...scenario, changes: others };
+  return { ...scenario, changes: [...others, { kind: "road-lanes", roadId, lanes }] };
 }
 
 /** The baseline: the road as it is today, with no changes. */

@@ -13,6 +13,7 @@ import {
   createBaseline,
   createProposal,
   formatChange,
+  lanesOf,
   resolveScenario,
   withoutChange,
   withRoadWidth,
@@ -55,6 +56,10 @@ function describeChange(change: Change, network: Network): string {
     case "road-width": {
       const today = network.roads.find((road) => road.id === change.roadId)?.widthM;
       return `Road "${change.roadId}": width ${today ?? "?"} m → ${change.widthM} m`;
+    }
+    case "road-lanes": {
+      const today = network.roads.find((road) => road.id === change.roadId);
+      return `Road "${change.roadId}": lanes ${today ? lanesOf(today) : "?"} → ${change.lanes}`;
     }
   }
 }

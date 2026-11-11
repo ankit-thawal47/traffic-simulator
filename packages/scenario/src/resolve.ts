@@ -31,6 +31,25 @@ function applyChange(resolved: Resolved, change: Change, label: string): Resolve
         },
       };
     }
+    case "road-lanes": {
+      if (!resolved.network.roads.some((road) => road.id === change.roadId)) {
+        throw new Error(`${label} names a road that is not in the network: "${change.roadId}"`);
+      }
+      if (!Number.isInteger(change.lanes) || change.lanes < 1) {
+        throw new Error(
+          `${label} gives road "${change.roadId}" a number of lanes that is not a whole number of 1 or more`,
+        );
+      }
+      return {
+        ...resolved,
+        network: {
+          ...resolved.network,
+          roads: resolved.network.roads.map((road) =>
+            road.id === change.roadId ? { ...road, lanes: change.lanes } : road,
+          ),
+        },
+      };
+    }
     default:
       // A scenario read from a link or a file may hold anything.
       throw new Error(`${label} is of a kind this version does not know: "${String((change as { kind: unknown }).kind)}"`);
