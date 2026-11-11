@@ -15,6 +15,7 @@ import {
   type Scenario,
 } from "@traffic-simulator/scenario";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { AssumptionsPanel } from "./AssumptionsPanel";
 import { angledPose, closeUpPose, networkBounds, straightDownPose } from "./camera-presets";
 import { EXAMPLES } from "./examples";
 import { clearSnapshots, newFrameStore, receiveSnapshot } from "./frame-store";
@@ -221,6 +222,7 @@ export function App() {
           </span>
           {paused && <em data-testid="paused"> · paused</em>}
         </p>
+        <AssumptionsPanel />
       </header>
 
       <section className="watch-controls" aria-label="Watch controls">

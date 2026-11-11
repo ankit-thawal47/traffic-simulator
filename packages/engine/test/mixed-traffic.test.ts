@@ -100,11 +100,13 @@ describe("vehicle classes", () => {
     expect(size.bus![1]).toBeLessThanOrEqual(2.9);
   });
 
-  it("every vehicle class's assumptions name their source and are marked unconfirmed", () => {
+  it("every value of every vehicle class names its source and says how far it has been checked", () => {
     for (const vehicleClass of ["two-wheeler", "car", "auto-rickshaw", "bus"] as const) {
       const assumptions = VEHICLE_CLASS_ASSUMPTIONS[vehicleClass];
-      expect(assumptions.source.length).toBeGreaterThan(20);
-      expect(assumptions.confirmed).toBe(false);
+      for (const name of ["lengthM", "widthM", "desiredSpeedMps", "timeGapS", "standstillGapM"] as const) {
+        expect(assumptions.evidence[name].source.length).toBeGreaterThan(20);
+        expect(["confirmed", "secondary-source", "our-choice", "unconfirmed"]).toContain(assumptions.evidence[name].state);
+      }
     }
   });
 

@@ -147,7 +147,10 @@ A website where a planner picks a network, describes a change to it, and watches
 - A run is one simulated hour after a 10 minute warm-up; results exclude the warm-up.
 - Five seeds per scenario; results are the average and range.
 - Fixed result set: vehicles through, mean travel time, mean delay per vehicle class, longest queue per approach, stuck vehicles.
-- Performance target: 3,000 vehicles on the network at once, at least 5 times faster than real time, with two 3D views. It is measured in the thin slice and revised from the measurement.
+- Performance target, revised on 12 November 2026 from the ticket 03 measurement (`docs/performance.md`). Reference machine: MacBook Pro, Apple M3 Pro, Chrome.
+  - Watching: baseline and proposal of 3,000 vehicles each, two 3D views, at the app's fastest watching speed (16 times real time), at 30 frames a second or more.
+  - Running unseen: the engine alone at 3,000 vehicles, at least 100 simulated seconds per real second.
+  - The original target (3,000 vehicles, 5 times real time, two views) was met with a wide margin on the reference machine, so it was tightened. The measurement covers straight roads in mixed traffic only; it must be repeated after junctions, filtering and the flyover exist, and after visual polish. If a later measurement misses: first send vehicle positions as typed arrays, then run seeds in parallel workers, then reduce the network or the period.
 
 ### Vehicle classes and assumptions
 

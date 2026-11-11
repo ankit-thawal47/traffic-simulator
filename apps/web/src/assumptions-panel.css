@@ -1,0 +1,153 @@
+/* The assumptions panel: a read-only dialog over the page. */
+dialog.assumptions {
+  width: min(1100px, 94vw);
+  height: min(88vh, 900px);
+  padding: 0;
+  border: 1px solid #c9d2d6;
+  border-radius: 6px;
+  color: #1c2328;
+  background: #fff;
+  overflow: hidden;
+}
+
+dialog.assumptions[open] {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+dialog.assumptions::backdrop {
+  background: rgba(20, 30, 36, 0.45);
+}
+
+dialog.assumptions > header {
+  position: static;
+}
+
+dialog.assumptions h2 {
+  margin: 0;
+}
+
+.assumptions-body {
+  padding: 12px 16px 20px;
+  overflow-y: auto;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.assumptions-body p {
+  margin: 0 0 8px;
+  max-width: 80ch;
+}
+
+.assumptions-body h3 {
+  margin: 18px 0 4px;
+  font-size: 14px;
+  color: #1c2328;
+}
+
+.assumptions-body table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.assumptions-body th,
+.assumptions-body td {
+  padding: 6px 8px;
+  border-top: 1px solid #dfe5e8;
+  text-align: left;
+  vertical-align: top;
+}
+
+.assumptions-body thead th {
+  border-top: 0;
+  font-weight: 600;
+  color: #55616a;
+}
+
+.assumptions-body th:nth-child(1) {
+  width: 22%;
+  font-weight: 500;
+}
+
+.assumptions-body th:nth-child(2),
+.assumptions-body td:nth-child(2) {
+  width: 13%;
+}
+
+.assumptions-body th:nth-child(3),
+.assumptions-body td:nth-child(3) {
+  width: 15%;
+}
+
+.assumptions-body .value {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.assumptions-body .source {
+  color: #2f3a41;
+  overflow-wrap: anywhere;
+}
+
+.assumptions-body .note {
+  display: block;
+  margin-top: 3px;
+  color: #55616a;
+}
+
+.state {
+  display: inline-block;
+  padding: 1px 7px;
+  border: 1px solid;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.state-confirmed {
+  color: #17603a;
+  background: #e8f4ec;
+}
+
+.state-secondary-source {
+  color: #7a5200;
+  background: #fbf2dc;
+}
+
+.state-our-choice {
+  color: #23507e;
+  background: #e8f0f9;
+}
+
+.state-unconfirmed {
+  color: #7a1a15;
+  background: #fbeceb;
+}
+
+.assumption-states,
+.not-modelled {
+  display: grid;
+  gap: 4px;
+  margin: 8px 0;
+}
+
+.assumption-states > div,
+.not-modelled > div {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 10px;
+}
+
+.assumption-states dd,
+.not-modelled dd {
+  margin: 0;
+}
+
+.not-modelled dt {
+  font-weight: 600;
+}
+
+.not-modelled > div {
+  padding: 5px 0;
+  border-top: 1px solid #dfe5e8;
+}
