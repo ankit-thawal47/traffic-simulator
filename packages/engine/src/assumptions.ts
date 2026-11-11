@@ -171,6 +171,14 @@ export const JUNCTION_ASSUMPTIONS = {
       "(speed squared over radius). Our choice: about 18 km/h on a 10 m radius. Not from a measurement.",
     confirmed: false,
   },
+  crossingMarginS: {
+    value: 1,
+    unit: "s",
+    source:
+      "Time a vehicle leaves between a crossing vehicle clearing a place where their paths cross and its own arrival there, " +
+      "when it asks to be let into a junction. Our choice. Not from a measurement.",
+    confirmed: false,
+  },
 } satisfies Record<string, Assumption>;
 
 /** Width of a strip, in metres (spec: Engine behaviour, Strips). */

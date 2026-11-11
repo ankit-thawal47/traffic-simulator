@@ -9,6 +9,7 @@ import {
   VEHICLE_CLASS_ASSUMPTIONS,
   type VehicleClassAssumptions,
 } from "./assumptions";
+import { bandPieces, findCrossings, NO_CROSSING } from "./crossings";
 import { roadLengthM } from "./geometry";
 import {
   createTurningPath,
@@ -99,6 +100,12 @@ interface JunctionState {
    * in the order they were let in. They may still be on the approach.
    */
   admitted: Vehicle[];
+  /**
+   * Where the junction's connections cross: for connections a and b, the table
+   * of findCrossings() at [a.index * connections.length + b.index], or
+   * undefined where the two nowhere overlap (and for a connection with itself).
+   */
+  crossings: (Int16Array | undefined)[];
 }
 
 /** Where a vehicle is relative to a junction on its route. */
@@ -265,7 +272,7 @@ export function createRun(input: RunInput): Run {
     if (junction.control !== "signal") {
       throw new Error(`Junction "${junction.id}" is of a kind this version does not know: "${String(junction.control)}"`);
     }
-    const state: JunctionState = { junction, connections: [], approaches: [], admitted: [] };
+    const state: JunctionState = { junction, connections: [], approaches: [], admitted: [], crossings: [] };
     for (const connection of junction.connections) {
       const from = roads.get(connection.fromRoadId);
       const to = roads.get(connection.toRoadId);
@@ -303,6 +310,23 @@ export function createRun(input: RunInput): Run {
       from.connections.set(to.road.id, connectionState);
       fedByJunction.set(to, junction.id);
       to.startsAtJunction = true;
+    }
+
+    // Crossing paths: found once, here, for every pair of the junction's connections.
+    const bands = state.connections.map((connection) =>
+      bandPieces({
+        path: connection.path,
+        stripCount: connection.stripCount,
+        fromLeftM: connection.from.stripOffsetM + connection.fromShift * connection.from.stripWidthM,
+        fromStripWidthM: connection.from.stripWidthM,
+        toLeftM: connection.to.stripOffsetM + connection.toShift * connection.to.stripWidthM,
+        toStripWidthM: connection.to.stripWidthM,
+      }),
+    );
+    for (const a of state.connections) {
+      for (const b of state.connections) {
+        state.crossings.push(a === b ? undefined : findCrossings(bands[a.index]!, bands[b.index]!));
+      }
     }
 
     const plan = junction.signalPlan;
@@ -737,7 +761,12 @@ export function createRun(input: RunInput): Run {
     // A vehicle keeps its strips from being let into a junction until it has left it.
     if (vehicle.admitted || vehicle.place !== ON_ROAD) return;
     if (vehicle.shiftDirection !== 0) {
-      // Already shifting: it keeps heading for the strips it set out for.
+      // Already shifting: it keeps heading for the strips it set out for, unless
+      // a vehicle since let into the junction is just behind one of them.
+      if (vehicle.road.endsAt && letInBehind(vehicle, vehicle.reservedLow, vehicle.reservedHigh)) {
+        vehicle.reservedHigh = vehicle.reservedLow - 1;
+        return;
+      }
       if (vehicle.reservedLow <= vehicle.reservedHigh) {
         vehicle.claimDirection = vehicle.shiftDirection;
         vehicle.claimLow = vehicle.reservedLow;
@@ -762,6 +791,8 @@ export function createRun(input: RunInput): Run {
         if (strip < 0 || strip + vehicle.strips > road.stripCount) break;
         const entered = direction < 0 ? strip : strip + vehicle.strips - 1;
         if (stripTakenAlongside(vehicle, entered)) break;
+        // Not in front of a vehicle already let into the junction: those let in go in the order they were let in.
+        if (road.endsAt && letInBehind(vehicle, entered, entered)) break;
 
         let there = accelerationBehind(vehicle, leaderIn(vehicle, strip, strip + vehicle.strips - 1));
         // A stop line that holds the vehicle holds it in every strip.
@@ -974,10 +1005,15 @@ export function createRun(input: RunInput): Run {
       const curve = curveThrough(connection, vehicle.strip, vehicle.strips);
       if (!curve) continue;
       if (!leadersLetIn(vehicle)) continue;
-      vehicle.admitted = true;
-      vehicle.order = nextOrder++;
       vehicle.turning = connection;
       vehicle.curve = curve;
+      if (!crossingsWillBeFree(vehicle)) {
+        vehicle.turning = undefined;
+        vehicle.curve = undefined;
+        continue;
+      }
+      vehicle.admitted = true;
+      vehicle.order = nextOrder++;
       junction.admitted.push(vehicle);
     }
   }
@@ -1052,8 +1088,115 @@ export function createRun(input: RunInput): Run {
         const rearOnMyLineM =
           otherRearM <= 0 ? otherRearM : curveDistanceM(curve, curveParameter(other.curve!, otherRearM));
         consider(rearOnMyLineM - alongM, other.speedMps);
+        continue;
+      }
+      // Another connection: the vehicle let in first goes first. This one may go
+      // as far as the first place where its strips cross ground the other may
+      // still cover, and no further until the other's rear bumper has passed.
+      const first = firstCrossingPiece(vehicle, other, otherRearM);
+      if (first === NO_CROSSING) continue;
+      // A vehicle ahead in its own strips that takes another way is followed as
+      // a moving vehicle; any other is a place to stop short of.
+      const followed = otherConnection.from === connection.from && shareStrips(vehicle, other);
+      consider(curveDistanceM(curve, first / connection.path.pieces) - alongM, followed ? other.speedMps : 0);
+    }
+  }
+
+  /** The leftmost strip of its connection that a vehicle let into a junction occupies. */
+  function ownStrip(vehicle: Vehicle): number {
+    const connection = vehicle.turning!;
+    return vehicle.strip - (vehicle.place === REAR_IN_JUNCTION ? connection.toShift : connection.fromShift);
+  }
+
+  /** The piece of the other vehicle's connection that its rear bumper is in. */
+  function rearPiece(other: Vehicle, otherRearM: number): number {
+    if (otherRearM <= 0) return 0;
+    const pieces = other.turning!.path.pieces;
+    return Math.min(pieces - 1, Math.floor(curveParameter(other.curve!, otherRearM) * pieces));
+  }
+
+  /**
+   * The first piece of `vehicle`'s connection where its strips cross ground that
+   * `other`, on another connection with its rear bumper at `otherRearM`, may
+   * still cover; NO_CROSSING when there is none.
+   */
+  function firstCrossingPiece(vehicle: Vehicle, other: Vehicle, otherRearM: number): number {
+    const a = vehicle.turning!;
+    const b = other.turning!;
+    const table = a.junction.crossings[a.index * a.junction.connections.length + b.index];
+    if (!table) return NO_CROSSING;
+    const piecesB = b.path.pieces;
+    const k = rearPiece(other, otherRearM);
+    const mine = ownStrip(vehicle);
+    const its = ownStrip(other);
+    let first = NO_CROSSING;
+    for (let i = mine; i < mine + vehicle.strips; i++) {
+      for (let j = its; j < its + other.strips; j++) {
+        const piece = table[(i * b.stripCount + j) * piecesB + k]!;
+        if (piece < first) first = piece;
       }
     }
+    return first;
+  }
+
+  /** The last piece of `other`'s connection where its strips cross `vehicle`'s. Call only when they do cross. */
+  function lastCrossingPiece(vehicle: Vehicle, other: Vehicle): number {
+    const a = vehicle.turning!;
+    const b = other.turning!;
+    const table = a.junction.crossings[a.index * a.junction.connections.length + b.index]!;
+    const piecesB = b.path.pieces;
+    const mine = ownStrip(vehicle);
+    const its = ownStrip(other);
+    for (let k = piecesB - 1; k > 0; k--) {
+      for (let i = mine; i < mine + vehicle.strips; i++) {
+        for (let j = its; j < its + other.strips; j++) {
+          if (table[(i * b.stripCount + j) * piecesB + k]! !== NO_CROSSING) return k;
+        }
+      }
+    }
+    return 0;
+  }
+
+  /**
+   * Whether a vehicle asking to be let in will find every crossing free (spec:
+   * a vehicle reserves its time at each crossing before entering). Those let in
+   * before it go first at every place where their strips cross its own. It is
+   * let in only if, for each of them, the soonest it can reach the first such
+   * place is later, by a margin, than the time by which the other's rear bumper
+   * should have passed the last.
+   */
+  function crossingsWillBeFree(vehicle: Vehicle): boolean {
+    const connection = vehicle.turning!;
+    const curve = vehicle.curve!;
+    const toStopLineM = vehicle.road.lengthM - vehicle.positionM;
+    const fastestMps = Math.max(vehicle.speedMps, Math.min(vehicle.desiredSpeedMps, turnSpeedMps(curve)));
+    const marginS = JUNCTION_ASSUMPTIONS.crossingMarginS.value;
+    for (const other of connection.junction.admitted) {
+      const otherConnection = other.turning!;
+      // Vehicles it follows, on its own connection or out of its own strips, need no free crossing.
+      if (otherConnection === connection) continue;
+      if (otherConnection.from === connection.from && shareStrips(vehicle, other)) continue;
+      const otherRearM = rearAlongTurnM(other);
+      const first = firstCrossingPiece(vehicle, other, otherRearM);
+      if (first === NO_CROSSING) continue;
+      const arriveS = (toStopLineM + curveDistanceM(curve, first / connection.path.pieces)) / fastestMps;
+      const last = lastCrossingPiece(vehicle, other);
+      const toClearM = curveDistanceM(other.curve!, (last + 1) / otherConnection.path.pieces) - otherRearM;
+      const cruiseMps = Math.min(other.desiredSpeedMps, turnSpeedMps(other.curve!));
+      if (arriveS < soonestS(other, toClearM, cruiseMps) + marginS) return false;
+    }
+    return true;
+  }
+
+  /** Whether a vehicle that has been let into the junction is just behind the vehicle in any of the strips low..high. */
+  function letInBehind(vehicle: Vehicle, low: number, high: number): boolean {
+    const road = vehicle.road;
+    const base = vehicle.index * road.stripCount;
+    for (let s = low; s <= high; s++) {
+      const j = road.behindOf[base + s]!;
+      if (j >= 0 && road.vehicles[j]!.admitted) return true;
+    }
+    return false;
   }
 
   /** Decide a vehicle's next position and speed along the road. */

@@ -1,4 +1,4 @@
-import type { Network, Road, SignalPlan } from "../src/index";
+import { BENGALURU_VEHICLE_MIX, type Demand, type Network, type Road, type SignalPlan } from "../src/index";
 
 export type Arm = "north" | "east" | "south" | "west";
 export const ARMS: readonly Arm[] = ["north", "east", "south", "west"];
@@ -43,6 +43,22 @@ export function alwaysGreenFor(...roadIds: string[]): SignalPlan {
     amberS: 3,
     allRedS: 2,
   };
+}
+
+/** Demand on every approach: a fifth turns left, a fifth turns right, the rest go straight on. */
+export function everyMovement(vehiclesPerHourPerApproach: number, mixed = true): Demand {
+  const flows = ARMS.flatMap((from, at) => {
+    // ARMS runs clockwise seen from above. Facing the junction from the south, the west is on the left.
+    const left = ARMS[(at + 1) % 4]!;
+    const opposite = ARMS[(at + 2) % 4]!;
+    const right = ARMS[(at + 3) % 4]!;
+    return [
+      { entryRoadId: `${from}-in`, exitRoadId: `${left}-out`, vehiclesPerHour: vehiclesPerHourPerApproach * 0.2 },
+      { entryRoadId: `${from}-in`, exitRoadId: `${opposite}-out`, vehiclesPerHour: vehiclesPerHourPerApproach * 0.6 },
+      { entryRoadId: `${from}-in`, exitRoadId: `${right}-out`, vehiclesPerHour: vehiclesPerHourPerApproach * 0.2 },
+    ];
+  });
+  return mixed ? { flows, vehicleMix: BENGALURU_VEHICLE_MIX } : { flows };
 }
 
 /**
