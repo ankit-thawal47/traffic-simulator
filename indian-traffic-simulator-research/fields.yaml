@@ -1,0 +1,300 @@
+# Field definitions for the Indian traffic simulator research.
+# Shape required by ~/.claude/skills/research/validate_json.py: fields: {<category>: [{name, ...}]}
+# detail_level: brief -> moderate -> detailed
+# applies_to: item categories from outline.yaml. Fill a field when the item category is listed; otherwise write "N/A".
+# required: true fields must be present in every result JSON; the rest are filled where applicable.
+# Result JSON must be FLAT (field names as top-level keys); the validator does not look inside custom category objects.
+# uncertain: reserved, filled in the deep phase.
+fields:
+  basic_info:
+  - name: name
+    description: Name of the item.
+    detail_level: brief
+    applies_to: &1
+    - simulator
+    - model
+    - india_context
+    - architecture
+    - lesson
+    required: true
+  - name: type
+    description: What kind of thing it is (simulator, model, dataset, standard, design
+      decision, lesson).
+    detail_level: brief
+    applies_to: *1
+    required: true
+  - name: maintainer
+    description: Organisation, group or authors behind it.
+    detail_level: brief
+    applies_to: *1
+    required: true
+  - name: first_release
+    description: Year first released or published.
+    detail_level: brief
+    applies_to: *1
+    required: false
+  - name: last_activity
+    description: Date of the most recent release, commit or publication.
+    detail_level: brief
+    applies_to: *1
+    required: true
+  - name: licence
+    description: Named licence of the code or data.
+    detail_level: brief
+    applies_to: *1
+    required: false
+  - name: language
+    description: Implementation language(s).
+    detail_level: brief
+    applies_to: *1
+    required: false
+  - name: code_availability
+    description: Paper only, binary, or source with a public repository link.
+    detail_level: brief
+    applies_to: *1
+    required: true
+  - name: maintenance_health
+    description: Active maintainers, release cadence, fork drift.
+    detail_level: moderate
+    applies_to: *1
+    required: false
+  model:
+  - name: scale
+    description: Microscopic, mesoscopic or macroscopic.
+    detail_level: brief
+    applies_to: &2
+    - simulator
+    - model
+    required: false
+  - name: car_following
+    description: Car-following model(s) used, with key parameters.
+    detail_level: moderate
+    applies_to: *2
+    required: false
+  - name: lane_model
+    description: How lanes and lane changes are handled.
+    detail_level: moderate
+    applies_to: *2
+    required: false
+  - name: lateral_model_type
+    description: None, sublane, strip-based, continuous 2D, or force-based.
+    detail_level: moderate
+    applies_to: *2
+    required: false
+  - name: junction_model
+    description: How conflicts, priority and signals are resolved at junctions.
+    detail_level: detailed
+    applies_to: *2
+    required: false
+  - name: signal_control_modes
+    description: Fixed, actuated, adaptive, or hooks for learned control.
+    detail_level: moderate
+    applies_to: *2
+    required: false
+  - name: flyover_support
+    description: Whether grade-separated roads, ramps, merges and diverges are supported.
+    detail_level: moderate
+    applies_to: *2
+    required: false
+  - name: grade_separation_handling
+    description: How layers, bridges and ramps are imported, checked and repaired.
+    detail_level: detailed
+    applies_to: *2
+    required: false
+  - name: vehicle_types
+    description: Vehicle classes supported and how they differ.
+    detail_level: moderate
+    applies_to: *2
+    required: false
+  - name: gridlock_policy
+    description: Teleport, junction-blocker ignore, priority tweaks, or none; and
+      whether it is reported.
+    detail_level: moderate
+    applies_to: *2
+    required: false
+  india_fit:
+  - name: mixed_traffic_support
+    description: Whether vehicles of very different sizes share road space realistically.
+    detail_level: moderate
+    applies_to: &3
+    - simulator
+    - model
+    - india_context
+    required: false
+  - name: non_lane_behaviour
+    description: Support for movement that ignores lane markings.
+    detail_level: detailed
+    applies_to: *3
+    required: false
+  - name: seepage_filtering_support
+    description: Whether small vehicles can filter to the front of a queue.
+    detail_level: moderate
+    applies_to: *3
+    required: false
+  - name: per_class_parameters
+    description: Published parameter values per vehicle class (size, speed, acceleration,
+      clearances).
+    detail_level: detailed
+    applies_to: *3
+    required: false
+  - name: indian_calibration_evidence
+    description: Studies calibrating or validating it on Indian traffic, with results.
+    detail_level: detailed
+    applies_to: *3
+    required: false
+  - name: calibration_dataset_used
+    description: Which trajectory or count data, which city, and whether it is open.
+    detail_level: moderate
+    applies_to: *3
+    required: false
+  - name: calibration_method
+    description: Manual, sensitivity analysis, genetic algorithm, Bayesian; and the
+      error metric.
+    detail_level: moderate
+    applies_to: *3
+    required: false
+  - name: max_density_tested
+    description: Highest density handled, in vehicles per km or area occupancy.
+    detail_level: brief
+    applies_to: *3
+    required: false
+  - name: validation_against_field_case
+    description: A named real case it was checked against (for example Hebbal or Silk
+      Board).
+    detail_level: moderate
+    applies_to: *3
+    required: false
+  data:
+  - name: network_import
+    description: Supported network sources and how OpenStreetMap is converted.
+    detail_level: moderate
+    applies_to: &4
+    - simulator
+    - india_context
+    - architecture
+    required: false
+  - name: demand_input_formats
+    description: How trips or flows are specified.
+    detail_level: moderate
+    applies_to: *4
+    required: false
+  - name: data_access
+    description: For datasets - where to download, size, format, licence, any registration
+      needed.
+    detail_level: moderate
+    applies_to: *4
+    required: false
+  engineering:
+  - name: runs_in_browser_or_server
+    description: Where the engine runs in practice.
+    detail_level: brief
+    applies_to: &5
+    - simulator
+    - architecture
+    required: false
+  - name: wasm_or_streaming_feasibility
+    description: Can it compile to WebAssembly, or must state be streamed from a server.
+    detail_level: moderate
+    applies_to: *5
+    required: false
+  - name: api
+    description: Programmatic control interface (for example TraCI, Python API, JavaScript
+      module).
+    detail_level: moderate
+    applies_to: *5
+    required: false
+  - name: performance
+    description: Reported vehicle counts and speed relative to real time.
+    detail_level: moderate
+    applies_to: *5
+    required: false
+  - name: gpu_requirement
+    description: Whether it needs CUDA or similar.
+    detail_level: brief
+    applies_to: *5
+    required: false
+  - name: multi_tenancy_model
+    description: Process per scenario, shared engine, or client-side; effect on hosting
+      cost.
+    detail_level: moderate
+    applies_to: *5
+    required: false
+  - name: build_complexity
+    description: Effort to install, build and embed.
+    detail_level: moderate
+    applies_to: *5
+    required: false
+  - name: scenario_editability
+    description: Which objects a user can edit (lanes, widths, signals, demand, parking,
+      bus stops).
+    detail_level: moderate
+    applies_to: *5
+    required: false
+  - name: output_metrics_supported
+    description: Delay, queues, level of service, dynamic PCU, emissions, conflicts.
+    detail_level: moderate
+    applies_to: *5
+    required: false
+  - name: emissions_support
+    description: HBEFA or similar emission model available.
+    detail_level: brief
+    applies_to: *5
+    required: false
+  reuse_verdict:
+  - name: reuse_mode
+    description: Use as engine, port the model, use as data, or inspiration only.
+    detail_level: moderate
+    applies_to: &6
+    - simulator
+    - model
+    - india_context
+    required: false
+  - name: effort_within_72_hours
+    description: Realistic effort to adopt it inside a 72-hour build, and what would
+      be cut.
+    detail_level: detailed
+    applies_to: *6
+    required: false
+  - name: licence_constraint
+    description: What the licence forces on our code or deployment.
+    detail_level: moderate
+    applies_to: *6
+    required: false
+  lessons:
+  - name: known_limitations
+    description: Limits the authors or users acknowledge.
+    detail_level: detailed
+    applies_to: &7
+    - simulator
+    - model
+    - india_context
+    - architecture
+    - lesson
+    required: true
+  - name: documented_failures
+    description: Things that went wrong in practice, with the cause.
+    detail_level: detailed
+    applies_to: *7
+    required: false
+  - name: validation_approach
+    description: How correctness was demonstrated.
+    detail_level: moderate
+    applies_to: *7
+    required: true
+  - name: takeaway_for_our_build
+    description: The concrete design rule we should adopt because of this item.
+    detail_level: detailed
+    applies_to: *7
+    required: true
+  sources:
+  - name: links
+    description: URLs for every claim, primary sources preferred.
+    detail_level: brief
+    applies_to:
+    - simulator
+    - model
+    - india_context
+    - architecture
+    - lesson
+    required: true
+uncertain: []

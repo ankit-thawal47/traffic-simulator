@@ -1,0 +1,8 @@
+.idea/
+.DS_Store
+node_modules/
+dist/
+# Third-party skill pack copied in by hand; not part of this project
+deep-research-skills/
+# Datasets with no stated licence are downloaded by script, never committed
+data/external/

@@ -1,0 +1,255 @@
+# Research outline: agent-based traffic simulator adapted for Indian conditions
+# Built from: Step 1 (model knowledge) + Step 2 (one web-search agent, 18 searches, 2026-11-11).
+# Items flagged `verified: false` come from model memory or an unconfirmed agent claim.
+
+topic: >
+  Agent-based traffic simulator (road network with junctions, flyovers, roads of
+  different widths and capacities, deployed as a web application where users set
+  up scenarios and see results) adapted for Indian traffic conditions:
+  open-source simulators to reuse or take inspiration from, everything a
+  software architect needs to build it, and prior work to learn mistakes from.
+topic_slug: indian-traffic-simulator-research
+created: 2026-11-11
+time_range: unlimited
+context:
+  purpose: QUEST Lab (IISc) Full Stack AI pre-doctoral application, Project 2
+  hard_constraint: 72 hours from first prompt (ends 2026-11-14 14:37 IST), single session
+  decision_this_research_feeds: >
+    Reuse an existing engine, port a published model into our own engine, or
+    build from scratch; and what "adapted for India" must concretely mean.
+
+# priority: high = needed to make the build/reuse decision; medium = shapes the
+# design; low = background only, research if time allows.
+items:
+  # ---- A. Open-source simulators (reuse or inspiration) ----
+  - id: A01
+    name: SUMO
+    category: simulator
+    priority: high
+    description: Eclipse/DLR microscopic simulator, C++, EPL-2.0. Include the sublane model (SL2015), netconvert OSM import, osmWebWizard, TraCI/libsumo, and documented teleport/gridlock options.
+  - id: A02
+    name: A/B Street and osm2streets
+    category: simulator
+    priority: high
+    description: Rust simulator that builds from OpenStreetMap and runs in the browser via WebAssembly; osm2streets is its separately maintained OSM-to-street-geometry library (osm2lanes was archived March 2023).
+  - id: A03
+    name: MTGermany/mixedTraffic (Mixed Traffic Model)
+    category: simulator
+    priority: high
+    description: Treiber's JavaScript in-browser simulation of the Kanagaraj-Treiber 2018 two-dimensional mixed traffic model. Strongest "port the model" candidate found.
+  - id: A04
+    name: traffic-simulation.de / MovSim
+    category: simulator
+    priority: high
+    description: Treiber's in-browser JavaScript simulator (IDM + MOBIL) and the Java MovSim. Reference for a lane-based browser engine with ramps and junctions.
+  - id: A05
+    name: UXsim
+    category: simulator
+    priority: medium
+    description: Pure-Python mesoscopic simulator (JOSS 2025). Candidate for a server-side engine behind an API.
+  - id: A06
+    name: MATSim (with seepage extension)
+    category: simulator
+    priority: medium
+    description: Java agent-based simulator with a queue model; Agarwal and Laemmel (2016) added seepage for mixed traffic in a Patna scenario.
+  - id: A07
+    name: CityFlow
+    category: simulator
+    priority: medium
+    description: Fast microscopic engine built for signal-control research, C++ with Python bindings.
+  - id: A08
+    name: SiMTraM
+    category: simulator
+    priority: high
+    description: IIT Bombay strip-based mixed-traffic simulator built on SUMO (SourceForge). Check code availability, staleness and what it got right for Indian roads.
+  - id: A09
+    name: HETEROSIM
+    category: simulator
+    priority: medium
+    verified: false
+    description: IIT Madras heterogeneous traffic simulator (Arasan and Koshy). Likely paper-only; capture the model and its validation.
+  - id: A10
+    name: DhakaSim and RoadBird
+    category: simulator
+    priority: medium
+    description: BUET (Bangladesh) simulators for non-lane mixed traffic. DhakaSim could not do lane-based traffic and was rebuilt as RoadBird to support both.
+  - id: A11
+    name: TrafficFluid-Sim
+    category: simulator
+    priority: medium
+    description: Technical University of Crete fork of SUMO for lane-free traffic (global coordinates, bicycle kinematic model). Forked October 2020 and not rebased.
+  - id: A12
+    name: OpenTrafficSim
+    category: simulator
+    priority: low
+    description: TU Delft Java simulator, BSD-3 licence, multi-scale, covers cars, buses, bicycles and pedestrians.
+  - id: A13
+    name: MOSS
+    category: simulator
+    priority: low
+    description: Tsinghua GPU-accelerated microscopic simulator (IDM + MOBIL); needs Linux and CUDA. Scaling reference only.
+  - id: A14
+    name: Mesa and Mesa-Geo
+    category: simulator
+    priority: low
+    description: General Python agent-based modelling framework; check whether it suits a road-network traffic engine.
+  - id: A15
+    name: Web reference architectures
+    category: simulator
+    priority: high
+    description: SUMO-Web3D (SUMO on server streaming to a browser), alexose/traffic-visualizer (Rust/WASM + WebGL2), and the FOSS4G 2025/2026 web simulation platform with a scenario editor (code availability unconfirmed).
+  - id: A16
+    name: Commercial and large research platforms (reference only)
+    category: simulator
+    priority: low
+    verified: false
+    description: PTV Vissim and Aimsun (most Indian calibration literature uses Vissim); SimMobility, POLARIS, Flow. Features and calibration practice only; not reusable.
+
+  # ---- B. Behaviour models ----
+  - id: B01
+    name: Car-following models
+    category: model
+    priority: high
+    description: IDM, Krauss, Gipps, Wiedemann, Nagel-Schreckenberg. Which are simple, stable and have Indian calibrations.
+  - id: B02
+    name: Lane-changing models
+    category: model
+    priority: medium
+    description: MOBIL, SUMO LC2013 and SL2015.
+  - id: B03
+    name: Two-dimensional lane-free models
+    category: model
+    priority: high
+    description: Mixed Traffic Model (Kanagaraj and Treiber 2018, arXiv 1805.05076), Intelligent-Agent Model (Treiber and Chaudhari, arXiv 2310.16816), Non-Lane-Based IDM calibrated on Chennai trajectories.
+  - id: B04
+    name: Strip-based, seepage and filtering models
+    category: model
+    priority: high
+    description: Strip-based lateral movement, gap filling, two-wheelers seeping to the queue front, multi-interaction two-wheeler model (TU Delft/Tongji 2023).
+  - id: B05
+    name: Leader identification in non-lane traffic
+    category: model
+    priority: medium
+    description: Rules for deciding which vehicle is the leader when there are no lanes (Transportation Research Part C vol. 171; arXiv 2405.10665).
+  - id: B06
+    name: Junction control and conflict models
+    category: model
+    priority: high
+    description: Fixed-time, actuated and adaptive signals (CoSiCoSt), gap acceptance at unsignalised junctions, roundabouts, conflict points.
+  - id: B07
+    name: Flyovers and grade separation
+    category: model
+    priority: high
+    description: Representing layers, ramps, merges and diverges in the network graph and in vehicle behaviour.
+  - id: B08
+    name: Routing and demand
+    category: model
+    priority: medium
+    description: Shortest path, rerouting under congestion, origin-destination matrices, demand generation without survey data.
+
+  # ---- C. Indian context and data ----
+  - id: C01
+    name: Vehicle mix and per-class parameters
+    category: india_context
+    priority: high
+    description: Share, dimensions, speeds and accelerations for two-wheelers, auto-rickshaws, buses, cars, light goods vehicles, cycles; Bengaluru-specific mix where available.
+  - id: C02
+    name: Driver and roadside behaviour
+    category: india_context
+    priority: medium
+    description: Weak lane discipline, wrong-side driving, roadside parking, bus stops without bays, speed breakers, pedestrians crossing mid-block.
+  - id: C03
+    name: Indian standards and capacity measures
+    category: india_context
+    priority: high
+    description: Indo-HCM 2017 (CSIR-CRRI), IRC 106, static versus dynamic passenger car units, area occupancy, level of service definitions.
+  - id: C04
+    name: Indian trajectory and calibration datasets
+    category: india_context
+    priority: high
+    description: Chennai ETF2D set (DOI 10.25368/2025.122), NCR drone sets (arXiv 2512.11898), SkyEye Ahmedabad, two-wheeler seepage benchmark (Mendeley DOI 10.17632/hs6drgb2vx.1), IDS-JODHA, IIT Guwahati highway data.
+  - id: C05
+    name: Bengaluru network and traffic data sources
+    category: india_context
+    priority: high
+    description: OpenStreetMap coverage and flyover tagging quality, OpenCity.in, Bengaluru traffic police data, B-ATCS adaptive signals, TomTom index.
+  - id: C06
+    name: Bengaluru flyover case studies
+    category: india_context
+    priority: high
+    description: IIT Bombay Hebbal integrated microsimulation report (OpenCity), Silk Board double-decker flyover shifting congestion downstream. Candidate validation cases and scenario templates.
+  - id: C07
+    name: Indian calibration studies on SUMO and Vissim
+    category: india_context
+    priority: medium
+    description: IIT Madras SUMO calibration on a Chennai stretch, Lucknow electric three-wheeler SUMO study, Vissim genetic-algorithm calibrations. Parameter values and error metrics.
+
+  # ---- D. Architecture decisions ----
+  - id: D01
+    name: Engine placement
+    category: architecture
+    priority: high
+    description: Three patterns - SUMO on a server streaming state; engine in the browser (JavaScript or Rust/WebAssembly); Python engine behind an API. Hosting cost, multi-tenancy (libsumo is one process per simulation), latency.
+  - id: D02
+    name: Engine design
+    category: architecture
+    priority: high
+    description: Time-stepped versus event-driven, spatial indexing at Indian densities (up to about 900 vehicles per km), seeded determinism, one engine for lane-based and lane-free movement.
+  - id: D03
+    name: Network pipeline
+    category: architecture
+    priority: high
+    description: OpenStreetMap to simulation graph (osmnx, netconvert, osm2streets), lane and width inference, checking and repairing layer tags and connectivity.
+  - id: D04
+    name: Scenario model and editor
+    category: architecture
+    priority: high
+    description: What users can edit (demand, lanes, widths, signals, closures, parking, bus stops, grade separation), storage, sharing, comparison of scenarios.
+  - id: D05
+    name: Rendering stack
+    category: architecture
+    priority: medium
+    description: MapLibre, deck.gl, Canvas, WebGL, CesiumJS; frame rate with thousands of small vehicles.
+  - id: D06
+    name: Results and metrics
+    category: architecture
+    priority: medium
+    description: Throughput, delay, queue length, travel time, level of service, dynamic PCU, emissions, and reporting of gridlock interventions.
+  - id: D07
+    name: Deployment, testing and upkeep
+    category: architecture
+    priority: medium
+    description: Hosting options, continuous integration, test strategy for a simulation (conservation, determinism, fundamental diagram).
+  - id: D08
+    name: Licences
+    category: architecture
+    priority: medium
+    description: EPL-2.0, GPL, Apache, MIT and BSD compatibility for reused code, ported models and OpenStreetMap data (ODbL).
+
+  # ---- E. Lessons from prior work ----
+  - id: E01
+    name: Gridlock and deadlock handling
+    category: lesson
+    priority: high
+    description: SUMO teleporting (time-to-teleport default 300 s), jmIgnoreJunctionBlocker, roundabout priority; why junctions lock up and what policies exist.
+  - id: E02
+    name: Calibration and validation practice
+    category: lesson
+    priority: high
+    description: How prior work validated against field data, which parameters matter most, common error metrics (GEH, travel time), and what a 72-hour project can credibly claim.
+  - id: E03
+    name: Performance scaling
+    category: lesson
+    priority: medium
+    description: How engines scale with vehicle count; what limits browser and single-server engines.
+  - id: E04
+    name: Design mistakes in earlier simulators
+    category: lesson
+    priority: high
+    description: DhakaSim's lane-free-only design, TrafficFluid's fork drift, SiMTraM going stale, static PCU, network boundaries that hide downstream congestion, lane-based models on Indian roads.
+
+execution:
+  batch_size: 4          # parallel agents per batch (confirmed by user 2026-11-11)
+  items_per_agent: 3     # items handed to each agent (confirmed by user 2026-11-11)
+  priority_filter: [high]   # 23 high-priority items -> 8 agents; medium and low skipped for now
+  output_dir: ./results
