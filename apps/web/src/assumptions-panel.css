@@ -102,7 +102,6 @@ dialog.assumptions h2 {
   border: 1px solid;
   border-radius: 10px;
   font-size: 12px;
-  white-space: nowrap;
 }
 
 .state-confirmed {
