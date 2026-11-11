@@ -22,7 +22,7 @@ describe("consistency checks on a signal junction where paths cross", () => {
     expectConsistent({ network: fourWay({ signalPlan: oneApproachAtATime() }), demand: everyMovement(500), seed: 22 }, 600, 180);
   });
 
-  it("pass where the roads out of the junction are half as wide as the approaches, so vehicles must move over before entering", () => {
+  it("pass where the roads out of the junction are half as wide as the approaches, so vehicles keep to the strips that lead onto their turn", () => {
     const narrow = { widthM: 3.5, lanes: 1 };
     const network = fourWay({
       signalPlan: oneApproachAtATime(),

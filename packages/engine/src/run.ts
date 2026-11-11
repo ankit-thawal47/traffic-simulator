@@ -625,7 +625,11 @@ export function createRun(input: RunInput): Run {
     let bestStrip = -1;
     let bestGapM = 0;
     let bestSpeedMps = 0;
+    const next = route[1];
+    const ahead = next && road.connections.get(next.road.id);
     for (let strip = 0; strip + strips <= road.stripCount; strip++) {
+      // Where the road it turns onto is narrower, it enters in strips that lead onto it.
+      if (ahead && !curveThrough(ahead, strip, strips)) continue;
       let nearest: Vehicle | undefined;
       for (let s = strip; s < strip + strips; s++) {
         const other = last[s];
@@ -781,6 +785,7 @@ export function createRun(input: RunInput): Run {
 
     const road = vehicle.road;
     const held = vehicle.ahead !== undefined && stopLineHolds(vehicle);
+    const fitsTurn = vehicle.ahead !== undefined && curveThrough(vehicle.ahead, vehicle.strip, vehicle.strips) !== undefined;
     const politeness = SIDEWAYS_ASSUMPTIONS.politeness.value;
     const safeBraking = SIDEWAYS_ASSUMPTIONS.safeBrakingMps2.value;
     let bestGain = threshold;
@@ -791,6 +796,8 @@ export function createRun(input: RunInput): Run {
         if (strip < 0 || strip + vehicle.strips > road.stripCount) break;
         const entered = direction < 0 ? strip : strip + vehicle.strips - 1;
         if (stripTakenAlongside(vehicle, entered)) break;
+        // It does not leave the strips that lead onto its turn for strips that do not.
+        if (fitsTurn && !curveThrough(vehicle.ahead!, strip, vehicle.strips)) break;
         // Not in front of a vehicle already let into the junction: those let in go in the order they were let in.
         if (road.endsAt && letInBehind(vehicle, entered, entered)) break;
 

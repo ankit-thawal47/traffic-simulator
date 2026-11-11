@@ -241,6 +241,74 @@ describe("a fixed-time signal plan", () => {
   });
 });
 
+describe("the longest queue per approach", () => {
+  // South has red until 50 s, then green for 20 s.
+  const plan = oneApproachAtATime(20, 3, 2);
+  const singleLane = { widthM: 3.5, lanes: 1 };
+  const network = fourWay({ signalPlan: plan, roads: { "south-in": singleLane, "north-out": singleLane } });
+
+  it("is reported for every approach, and is nothing where no vehicle has queued", () => {
+    const run = createRun({ network, demand: noDemand, seed: 1 });
+    advance(run, 10);
+    expect(run.results().longestQueueByApproach).toEqual({
+      "south-in": { lengthM: 0, vehicles: 0 },
+      "north-in": { lengthM: 0, vehicles: 0 },
+      "west-in": { lengthM: 0, vehicles: 0 },
+      "east-in": { lengthM: 0, vehicles: 0 },
+    });
+  });
+
+  it("is measured from the stop line to the back of the last queued vehicle", () => {
+    const run = createRun({
+      network,
+      demand: noDemand,
+      seed: 1,
+      laneDiscipline: true,
+      // Five cars in one lane, arriving at a red signal.
+      initialVehicles: [160, 140, 120, 100, 80].map((positionM) => ({
+        roadId: "south-in",
+        positionM,
+        speedMps: 8,
+        exitRoadId: "north-out",
+      })),
+    });
+    advance(run, 49);
+
+    // Each car is 4.4 m long and stands 2 m behind the car, or the stop line, ahead of it: 5 x 6.4 m.
+    const queue = run.results().longestQueueByApproach["south-in"]!;
+    expect(queue.vehicles).toBe(5);
+    expect(queue.lengthM).toBeGreaterThan(32);
+    expect(queue.lengthM).toBeLessThan(33.5);
+    expect(run.results().longestQueueByApproach["north-in"]).toEqual({ lengthM: 0, vehicles: 0 });
+
+    // It is the longest over the run so far: it stays after the queue has gone.
+    advance(run, 40);
+    expect(run.snapshot().vehicles.filter((vehicle) => vehicle.roadId === "south-in")).toEqual([]);
+    expect(run.results().longestQueueByApproach["south-in"]).toEqual(queue);
+  });
+
+  it("does not count vehicles that drive through on green without queuing", () => {
+    const run = createRun({
+      network: fourWay({ signalPlan: alwaysGreenFor("south-in") }),
+      demand: { flows: [{ entryRoadId: "south-in", exitRoadId: "north-out", vehiclesPerHour: 600 }] },
+      seed: 2,
+    });
+    advance(run, 120);
+    expect(run.results().vehiclesThrough).toBeGreaterThan(10);
+    expect(run.results().longestQueueByApproach["south-in"]).toEqual({ lengthM: 0, vehicles: 0 });
+  });
+
+  it("is empty for a network with no junction", () => {
+    const run = createRun({
+      network: { formatVersion: 2, roads: [{ ...network.roads[0]!, id: "main" }] },
+      demand: { flows: [{ entryRoadId: "main", exitRoadId: "main", vehiclesPerHour: 600 }] },
+      seed: 2,
+    });
+    advance(run, 30);
+    expect(run.results().longestQueueByApproach).toEqual({});
+  });
+});
+
 describe("keeping the junction clear", () => {
   // Three stationary vehicles side by side fill the 7 m road out of the junction, their rear bumpers 7.6 m and 9.1 m along it.
   const blockers: InitialVehicle[] = [
