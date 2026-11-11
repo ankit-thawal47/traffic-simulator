@@ -2,13 +2,10 @@ import {
   STRIP_WIDTH_M,
   stripsOccupied,
   VEHICLE_CLASSES,
-  type Demand,
   type Network,
 } from "@traffic-simulator/engine";
-import mixedTraffic from "@traffic-simulator/engine/examples/mixed-traffic.json";
 import {
   baselineOf,
-  createBaseline,
   lanesOf,
   resolveScenario,
   whyRefused,
@@ -19,6 +16,7 @@ import {
 } from "@traffic-simulator/scenario";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { angledPose, closeUpPose, networkBounds, straightDownPose } from "./camera-presets";
+import { EXAMPLES } from "./examples";
 import { clearSnapshots, newFrameStore, receiveSnapshot } from "./frame-store";
 import { ResultsPanel } from "./ResultsPanel";
 import { formatClock } from "./results-text";
@@ -33,12 +31,7 @@ import { legendFor, type ColourBy } from "./vehicle-colours";
 import { WATCH_SPEEDS, fasterSpeed, formatSpeed, slowerSpeed } from "./watch-clock";
 
 /** The scenario the page opens with, until the planner opens one from a link or a file. */
-const exampleScenario = createBaseline({
-  name: "One road",
-  network: mixedTraffic.network as Network,
-  demand: mixedTraffic.demand as Demand,
-  seed: mixedTraffic.seed,
-});
+const exampleScenario = EXAMPLES[0]!.scenario;
 
 /** A road cannot be made narrower than the strips the widest vehicle class occupies, or wider than this. */
 const NARROWEST_ROAD_M = Math.max(...VEHICLE_CLASSES.map(stripsOccupied)) * STRIP_WIDTH_M;
@@ -322,6 +315,31 @@ export function App() {
       <section className="panels">
         <section className="proposal" aria-label="Proposal">
           <h2>Proposal</h2>
+          <div className="change-control">
+            <label>
+              Start from an example
+              <select
+                data-testid="example"
+                value={EXAMPLES.find((example) => example.scenario.name === proposal.name)?.id ?? ""}
+                onChange={(event) => {
+                  const example = EXAMPLES.find((one) => one.id === event.target.value);
+                  if (!example) return;
+                  setProposal(example.scenario);
+                  setRefusal(undefined);
+                  setOpened((count) => count + 1);
+                }}
+              >
+                <option value="" disabled>
+                  (a scenario of your own)
+                </option>
+                {EXAMPLES.map((example) => (
+                  <option key={example.id} value={example.id}>
+                    {example.scenario.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
           <RoadWidthControl key={`width-${opened}`} proposal={proposal} onChange={propose} />
           <RoadLanesControl key={`lanes-${opened}`} proposal={proposal} onChange={propose} />
           {refusal && (

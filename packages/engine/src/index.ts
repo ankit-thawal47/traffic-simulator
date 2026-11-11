@@ -15,7 +15,9 @@ export { positionAlongRoad, roadLengthM } from "./geometry";
 export type { RoadPosition } from "./geometry";
 export {
   createNetworkLayout,
+  approachRoadIds,
   footprintInJunction,
+  junctionOutline,
   signalAspect,
   signalState,
   vehiclePose,

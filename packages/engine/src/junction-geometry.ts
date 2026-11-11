@@ -222,6 +222,51 @@ export function signalState(plan: SignalPlan, approachRoadId: string, timeS: num
   return signalAspect(plan, approachRoadId, timeS).state;
 }
 
+/** The ids of a junction's approaches (the roads that end at it), in the order its connections name them. */
+export function approachRoadIds(junction: Junction): string[] {
+  const ids: string[] = [];
+  for (const connection of junction.connections) {
+    if (!ids.includes(connection.fromRoadId)) ids.push(connection.fromRoadId);
+  }
+  return ids;
+}
+
+/**
+ * The ground a junction covers, for drawing it: the outline round the ends of
+ * the roads that arrive at it and the starts of those that leave it (their
+ * convex hull), going round anticlockwise.
+ */
+export function junctionOutline(network: Network, junction: Junction): Point[] {
+  const roads = new Map(network.roads.map((road) => [road.id, road]));
+  const corners: Point[] = [];
+  const done = new Set<string>();
+  for (const connection of junction.connections) {
+    for (const [roadId, atEnd] of [
+      [connection.fromRoadId, true],
+      [connection.toRoadId, false],
+    ] as const) {
+      const road = roads.get(roadId);
+      if (!road || done.has(roadId)) continue;
+      done.add(roadId);
+      const at = positionAlongRoad(road, atEnd ? roadLengthM(road) : 0);
+      corners.push(pointAcross(at, road.widthM, 0), pointAcross(at, road.widthM, road.widthM));
+    }
+  }
+  // Convex hull (Andrew's monotone chain).
+  corners.sort((a, b) => a.x - b.x || a.y - b.y);
+  const turn = (o: Point, a: Point, b: Point) => (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+  const hull: Point[] = [];
+  for (const pass of [corners, [...corners].reverse()]) {
+    const start = hull.length;
+    for (const point of pass) {
+      while (hull.length >= start + 2 && turn(hull[hull.length - 2]!, hull[hull.length - 1]!, point) <= 0) hull.pop();
+      hull.push(point);
+    }
+    hull.pop();
+  }
+  return hull;
+}
+
 /** The roads and turning paths of a network, ready for working out where vehicles are. */
 export interface NetworkLayout {
   roads: Map<string, { road: Road; lengthM: number }>;

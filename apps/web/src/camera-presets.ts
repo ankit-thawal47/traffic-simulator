@@ -1,4 +1,4 @@
-import { positionAlongRoad, roadLengthM, type Network } from "@traffic-simulator/engine";
+import { junctionOutline, positionAlongRoad, roadLengthM, type Network } from "@traffic-simulator/engine";
 import type { CameraPose } from "./shared-camera";
 
 /**
@@ -66,6 +66,9 @@ const CLOSE_UP = { toTheRightM: 38, upM: 23, behindM: 8 };
 /** How far along the first road the close-up looks: near where traffic enters, so vehicles are there from the first seconds. */
 const CLOSE_UP_ALONG_M = 50;
 
+/** Where the close-up camera stands to look at a junction, in metres from its middle. */
+const JUNCTION_CLOSE_UP = { toTheEastM: 20, upM: 55, toTheSouthM: 55 };
+
 /**
  * The view the views open with: close to the network's first road, 50 m from
  * where traffic enters it (or its middle, if it is shorter than 100 m), from
@@ -75,6 +78,19 @@ const CLOSE_UP_ALONG_M = 50;
 export function closeUpPose(network: Network): CameraPose {
   const road = network.roads[0];
   if (!road) return angledPose(networkBounds(network));
+  // A network with a junction opens on its first junction: the whole of it and the front of each queue.
+  const junction = network.junctions?.[0];
+  const outline = junction ? junctionOutline(network, junction) : [];
+  if (outline.length > 0) {
+    const xs = outline.map((corner) => corner.x);
+    const ys = outline.map((corner) => corner.y);
+    const x = (Math.min(...xs) + Math.max(...xs)) / 2;
+    const y = (Math.min(...ys) + Math.max(...ys)) / 2;
+    return {
+      position: [x + JUNCTION_CLOSE_UP.toTheEastM, JUNCTION_CLOSE_UP.upM, 0 - y + JUNCTION_CLOSE_UP.toTheSouthM],
+      target: [x, 0, 0 - y],
+    };
+  }
   const { point, direction } = positionAlongRoad(road, Math.min(CLOSE_UP_ALONG_M, roadLengthM(road) / 2));
   // On the ground, the right of the direction (dx, dy) is (dy, -dx).
   const x = point.x + direction.y * CLOSE_UP.toTheRightM - direction.x * CLOSE_UP.behindM;

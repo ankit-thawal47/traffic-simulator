@@ -3,6 +3,7 @@ import {
   BENGALURU_VEHICLE_MIX,
   createNetworkLayout,
   createRun,
+  junctionOutline,
   resultsExcludingWarmUp,
   signalState,
   STEP_SECONDS,
@@ -239,6 +240,25 @@ describe("a fixed-time signal plan", () => {
     );
     expect(withPlan({ ...plan, phases: plan.phases.map((phase) => ({ ...phase, greenS: 0 })) })).toThrow(/green/i);
     expect(withPlan({ ...plan, amberS: -1 })).toThrow(/amber/i);
+  });
+});
+
+describe("the ground a junction covers", () => {
+  it("is the outline round the ends of its roads", () => {
+    const network = fourWay();
+    const outline = junctionOutline(network, network.junctions![0]!);
+    // Roads 7 m wide either side of each arm's middle, ending 15 m from the centre: a square with its corners cut off.
+    const corners = outline.map((point) => `${point.x},${point.y}`).sort();
+    expect(corners).toEqual(
+      ["-15,-7", "-15,7", "-7,-15", "-7,15", "15,-7", "15,7", "7,-15", "7,15"].sort(),
+    );
+    // Going round it in order encloses 30 x 30 m less four corners of 8 x 8 / 2.
+    let twiceArea = 0;
+    outline.forEach((a, i) => {
+      const b = outline[(i + 1) % outline.length]!;
+      twiceArea += a.x * b.y - b.x * a.y;
+    });
+    expect(Math.abs(twiceArea) / 2).toBeCloseTo(772, 6);
   });
 });
 

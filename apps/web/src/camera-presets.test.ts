@@ -1,4 +1,5 @@
 import type { Network } from "@traffic-simulator/engine";
+import signalJunction from "@traffic-simulator/engine/examples/signal-junction.json";
 import { describe, expect, it } from "vitest";
 import { angledPose, closeUpPose, networkBounds, straightDownPose } from "./camera-presets";
 
@@ -134,5 +135,19 @@ describe("the close-up camera the views open with", () => {
     };
 
     expect(closeUpPose(short).target).toEqual([30, 0, 0]);
+  });
+
+  it("looks at the middle of the first junction when the network has one, from the south and above, with the whole junction in view", () => {
+    const pose = closeUpPose(signalJunction.network as Network);
+
+    // The example's junction is centred on the origin; its stop lines are 15 m out.
+    expect(pose.target).toEqual([0, 0, 0]);
+    expect(pose.position[1]).toBeGreaterThan(20);
+    expect(pose.position[2]).toBeGreaterThan(20);
+    const distanceM = Math.hypot(...pose.position);
+    const shownM = 2 * distanceM * TAN_HALF_FOV;
+    // All four stop lines, 30 m apart, and some of each queue.
+    expect(shownM).toBeGreaterThan(45);
+    expect(shownM).toBeLessThan(90);
   });
 });
