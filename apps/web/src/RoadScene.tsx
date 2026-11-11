@@ -1,18 +1,15 @@
-import { positionAlongRoad, type Network, type Road, type Snapshot } from "@traffic-simulator/engine";
+import { positionAlongRoad, type Network, type Road } from "@traffic-simulator/engine";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { angledPose, networkBounds } from "./camera-presets";
+import type { FrameStore } from "./frame-store";
 import { interpolateVehicles } from "./interpolate";
 import type { SharedCamera } from "./shared-camera";
+import { vehicleColour, type ColourBy } from "./vehicle-colours";
 
-/** The two most recent snapshots of a run, and when the later one arrived. */
-export interface FrameStore {
-  earlier?: Snapshot;
-  later?: Snapshot;
-  laterArrivedAtMs: number;
-  /** Real milliseconds between snapshots, used to pace the movement between them. */
-  intervalMs: number;
-}
+/** The camera's vertical field of view, in degrees. */
+export const CAMERA_FOV_DEGREES = 45;
 
 const VEHICLE_HEIGHT_M = 1.5;
 const ROAD_THICKNESS_M = 0.2;
@@ -45,12 +42,17 @@ export function RoadScene({
   network,
   frames,
   sharedCamera,
+  colourBy = "vehicle-class",
 }: {
   network: Network;
   frames: FrameStore;
   sharedCamera?: SharedCamera;
+  colourBy?: ColourBy;
 }) {
   const container = useRef<HTMLDivElement>(null);
+  // Read on every drawn frame, so a change of colouring shows at once without rebuilding the scene.
+  const colouring = useRef(colourBy);
+  colouring.current = colourBy;
 
   useEffect(() => {
     const host = container.current;
@@ -92,17 +94,19 @@ export function RoadScene({
     // All vehicles are drawn in one batch: a unit box scaled to each vehicle's size.
     const vehicles = new THREE.InstancedMesh(
       new THREE.BoxGeometry(1, 1, 1),
-      new THREE.MeshLambertMaterial({ color: 0xd9482b }),
+      // White, so that each vehicle shows exactly the colour it is given when drawn.
+      new THREE.MeshLambertMaterial({ color: 0xffffff }),
       MAX_VEHICLES_DRAWN,
     );
     vehicles.count = 0;
     vehicles.frustumCulled = false;
     scene.add(vehicles);
 
-    const camera = new THREE.PerspectiveCamera(45, 1, 1, extent * 20);
-    camera.position.set(centre.x - extent * 0.1, extent * 0.3, centre.z + extent * 0.65);
+    const camera = new THREE.PerspectiveCamera(CAMERA_FOV_DEGREES, 1, 1, extent * 20);
+    const startPose = angledPose(networkBounds(network));
+    camera.position.fromArray(startPose.position);
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.copy(centre);
+    controls.target.fromArray(startPose.target);
     controls.maxPolarAngle = Math.PI / 2 - 0.02;
     controls.update();
 
@@ -142,6 +146,8 @@ export function RoadScene({
     resizeObserver.observe(host);
 
     const placement = new THREE.Object3D();
+    const colour = new THREE.Color();
+    const coloursDrawn = new Map<string, number>();
     const drawVehicles = (nowMs: number) => {
       if (!frames.later) {
         vehicles.count = 0;
@@ -162,10 +168,18 @@ export function RoadScene({
         placement.rotation.set(0, Math.atan2(direction.y, direction.x), 0);
         placement.scale.set(vehicle.lengthM, VEHICLE_HEIGHT_M, vehicle.widthM);
         placement.updateMatrix();
+        const hex = vehicleColour(colouring.current, vehicle);
+        vehicles.setColorAt(count, colour.set(hex));
+        coloursDrawn.set(hex, (coloursDrawn.get(hex) ?? 0) + 1);
         vehicles.setMatrixAt(count++, placement.matrix);
       }
       vehicles.count = count;
       vehicles.instanceMatrix.needsUpdate = true;
+      if (vehicles.instanceColor) vehicles.instanceColor.needsUpdate = true;
+      // Written to the page so that what each view draws can be checked from outside.
+      const summary = [...coloursDrawn].map(([drawnHex, drawn]) => `${drawnHex}:${drawn}`).join(" ");
+      if (host.dataset.vehicleColours !== summary) host.dataset.vehicleColours = summary;
+      coloursDrawn.clear();
     };
 
     let animation = requestAnimationFrame(function draw(nowMs) {
