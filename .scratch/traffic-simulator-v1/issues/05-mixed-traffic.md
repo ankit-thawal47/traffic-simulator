@@ -4,7 +4,7 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done (merged to integration branch)
 
 - [x] Four vehicle classes exist, each with its own size and following assumptions, held in one assumptions table
 - [x] Road width is divided into strips; a vehicle's leader is the nearest vehicle ahead that overlaps its strips

@@ -69,6 +69,9 @@ importers:
       '@traffic-simulator/engine':
         specifier: workspace:*
         version: link:../engine
+      fflate:
+        specifier: 0.8.3
+        version: 0.8.3
     devDependencies:
       typescript:
         specifier: ^5.6.3

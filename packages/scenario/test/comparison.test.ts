@@ -2,10 +2,10 @@ import { describe, expect, it } from "vitest";
 import type { Results, VehicleClassDelay } from "@traffic-simulator/engine";
 import { compareResults, formatChange, type Measure } from "../src/index";
 
-const noVehicles: VehicleClassDelay = { vehicles: 0, vehiclesThrough: 0, meanDelayS: null };
+const noVehicles: VehicleClassDelay = { vehicles: 0, vehiclesThrough: 0, meanDelayS: null, totalDelayS: 0 };
 const delays = (twoWheelerS: number, carS: number): Results["delayByVehicleClass"] => ({
-  "two-wheeler": { vehicles: 120, vehiclesThrough: 110, meanDelayS: twoWheelerS },
-  car: { vehicles: 90, vehiclesThrough: 80, meanDelayS: carS },
+  "two-wheeler": { vehicles: 120, vehiclesThrough: 110, meanDelayS: twoWheelerS, totalDelayS: 120 * twoWheelerS },
+  car: { vehicles: 90, vehiclesThrough: 80, meanDelayS: carS, totalDelayS: 90 * carS },
   "auto-rickshaw": noVehicles,
   bus: noVehicles,
 });
@@ -43,14 +43,12 @@ describe("comparing a proposal's results against the baseline's", () => {
     });
   });
 
-  it("reports the same measures, in the same order, whatever the results are", () => {
+  it("reports only the fixed result set (ADR 0005), in the same order, whatever the results are", () => {
     const ids = compareResults(baseline, proposal).map((row) => row.id);
 
+    // Of the fixed set, these are what the engine reports so far. Its other counts are not results.
     expect(ids).toEqual([
       "vehicles-through",
-      "vehicles-entered",
-      "vehicles-on-network",
-      "vehicles-waiting-to-enter",
       "mean-delay-two-wheeler",
       "mean-delay-car",
       "mean-delay-auto-rickshaw",
@@ -64,9 +62,11 @@ describe("comparing a proposal's results against the baseline's", () => {
   });
 
   it("gives no percentage when the baseline is zero, only the absolute change", () => {
-    const waiting = compareResults(baseline, proposal).find((row) => row.id === "vehicles-waiting-to-enter");
+    const through = compareResults({ ...baseline, vehiclesThrough: 0 }, { ...proposal, vehiclesThrough: 20 }).find(
+      (row) => row.id === "vehicles-through",
+    );
 
-    expect(waiting).toMatchObject({ baseline: 0, proposal: 20, change: 20, changePercent: null });
+    expect(through).toMatchObject({ baseline: 0, proposal: 20, change: 20, changePercent: null });
   });
 
   it("gives the mean delay of each vehicle class, and nothing for a vehicle class with no vehicles", () => {

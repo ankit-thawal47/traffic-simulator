@@ -139,6 +139,13 @@ export interface VehicleClassDelay {
   vehiclesThrough: number;
   /** In seconds; null when there are no vehicles of this class. */
   meanDelayS: number | null;
+  /**
+   * The delays of those vehicles added up, in seconds: the mean times the
+   * number of vehicles. Unlike the mean, it can be subtracted: the total at one
+   * moment less the total at an earlier one is the delay added in between,
+   * which is how a warm-up is left out (resultsExcludingWarmUp).
+   */
+  totalDelayS: number;
 }
 
 /** One execution of a scenario. Advance it with step(); read it with snapshot() and results(). */

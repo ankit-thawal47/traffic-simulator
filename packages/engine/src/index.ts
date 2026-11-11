@@ -1,4 +1,5 @@
 export { createRun } from "./run";
+export { resultsExcludingWarmUp } from "./warm-up";
 export {
   BENGALURU_VEHICLE_MIX,
   SIDEWAYS_ASSUMPTIONS,

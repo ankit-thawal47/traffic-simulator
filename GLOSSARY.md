@@ -25,7 +25,7 @@ One execution of a scenario from its start time to its end time.
 _Avoid_: Simulation, job, execution
 
 **Estimate**:
-A result produced by a run. An estimate is verified and plausible, and is never presented as calibrated.
+A result produced by a run. An estimate is never presented as calibrated; what has been verified, and against what, is stated in the benchmark results.
 _Avoid_: Prediction, forecast
 
 **Network**:
