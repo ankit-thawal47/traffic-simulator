@@ -13,7 +13,9 @@ import {
   createTurningPath,
   curveDistanceM,
   curveParameter,
+  signalAspect,
   turningCurve,
+  type SignalAspect,
   type TurningCurve,
   type TurningPath,
 } from "./junction-geometry";
@@ -63,6 +65,8 @@ interface RoadState {
   startsAtJunction: boolean;
   /** For a road that starts at a junction: the rearmost vehicle in each strip at the start of the step. */
   lastInStrip: (Vehicle | undefined)[];
+  /** For an approach: what its signal shows at the start of the step. */
+  aspect: SignalAspect;
 }
 
 /**
@@ -245,6 +249,7 @@ export function createRun(input: RunInput): Run {
       connections: new Map(),
       startsAtJunction: false,
       lastInStrip: [],
+      aspect: { state: "green", remainingS: Infinity },
     });
   }
 
@@ -295,6 +300,27 @@ export function createRun(input: RunInput): Run {
       from.connections.set(to.road.id, connectionState);
       fedByJunction.set(to, junction.id);
       to.startsAtJunction = true;
+    }
+
+    const plan = junction.signalPlan;
+    const name = `The signal plan of junction "${junction.id}"`;
+    if (!plan || !Array.isArray(plan.phases) || plan.phases.length === 0) throw new Error(`${name} needs at least one phase`);
+    if (!(plan.amberS >= 0) || !Number.isFinite(plan.amberS)) throw new Error(`${name} has an invalid amber time`);
+    if (!(plan.allRedS >= 0) || !Number.isFinite(plan.allRedS)) throw new Error(`${name} has an invalid all-red time`);
+    const withGreen = new Set<string>();
+    for (const phase of plan.phases) {
+      if (!(phase.greenS > 0) || !Number.isFinite(phase.greenS)) throw new Error(`${name} has a phase without a green time above zero`);
+      for (const roadId of phase.greenRoadIds) {
+        if (roads.get(roadId)?.endsAt !== state) {
+          throw new Error(`${name} gives green to a road that is not an approach of the junction: "${roadId}"`);
+        }
+        withGreen.add(roadId);
+      }
+    }
+    for (const approach of state.approaches) {
+      if (!withGreen.has(approach.road.id)) {
+        throw new Error(`Approach "${approach.road.id}" of junction "${junction.id}" never has green`);
+      }
     }
     junctions.push(state);
   }
@@ -721,6 +747,7 @@ export function createRun(input: RunInput): Run {
     if (acceleration(vehicle, undefined, 0) - current <= threshold) return;
 
     const road = vehicle.road;
+    const held = vehicle.ahead !== undefined && stopLineHolds(vehicle);
     const politeness = SIDEWAYS_ASSUMPTIONS.politeness.value;
     const safeBraking = SIDEWAYS_ASSUMPTIONS.safeBrakingMps2.value;
     let bestGain = threshold;
@@ -732,7 +759,9 @@ export function createRun(input: RunInput): Run {
         const entered = direction < 0 ? strip : strip + vehicle.strips - 1;
         if (stripTakenAlongside(vehicle, entered)) break;
 
-        const there = accelerationBehind(vehicle, leaderIn(vehicle, strip, strip + vehicle.strips - 1));
+        let there = accelerationBehind(vehicle, leaderIn(vehicle, strip, strip + vehicle.strips - 1));
+        // A stop line that holds the vehicle holds it in every strip.
+        if (held) there = Math.min(there, acceleration(vehicle, road.lengthM - vehicle.positionM, 0));
         if (there < current - EPSILON) break;
 
         let braking = 0;
@@ -855,7 +884,27 @@ export function createRun(input: RunInput): Run {
    * across the whole width of the approach.
    */
   function stopLineHolds(vehicle: Vehicle): boolean {
-    return vehicle.road.lengthM - vehicle.positionM <= askingDistanceM(vehicle);
+    const road = vehicle.road;
+    // Red or amber holds every vehicle not yet let in. On green, a vehicle near
+    // enough to have asked and not been let in is held as well.
+    if (road.aspect.state !== "green") return true;
+    return road.lengthM - vehicle.positionM <= askingDistanceM(vehicle);
+  }
+
+  /**
+   * The soonest a vehicle can cover a distance: speeding up at its full
+   * acceleration (or slowing at its comfortable deceleration) to a speed and
+   * holding it. Used to tell when a vehicle will be at a place in the junction.
+   */
+  function soonestS(vehicle: Vehicle, distanceM: number, cruiseMps: number): number {
+    if (distanceM <= 0) return 0;
+    const v = vehicle.speedMps;
+    const faster = cruiseMps >= v;
+    const rate = faster ? vehicle.assumptions.maxAccelerationMps2 : -vehicle.assumptions.comfortableDecelerationMps2;
+    // Distance covered while changing speed from v to the cruising speed.
+    const changingM = (cruiseMps * cruiseMps - v * v) / (2 * rate);
+    if (distanceM >= changingM) return (cruiseMps - v) / rate + (distanceM - changingM) / cruiseMps;
+    return (Math.sqrt(Math.max(0, v * v + 2 * rate * distanceM)) - v) / rate;
   }
 
   /**
@@ -867,11 +916,17 @@ export function createRun(input: RunInput): Run {
    */
   function letIn(junction: JunctionState): void {
     const asking: Vehicle[] = [];
+    const amberS = junction.junction.signalPlan.amberS;
     for (const road of junction.approaches) {
+      // Nobody is let in on amber or red.
+      if (road.aspect.state !== "green") continue;
       for (const vehicle of road.vehicles) {
         if (vehicle.place !== ON_ROAD || vehicle.admitted || vehicle.stationary || vehicle.shiftDirection !== 0) continue;
         if (!vehicle.ahead) continue;
-        if (road.lengthM - vehicle.positionM > askingDistanceM(vehicle)) continue;
+        const toStopLineM = road.lengthM - vehicle.positionM;
+        if (toStopLineM > askingDistanceM(vehicle)) continue;
+        // It must be able to reach the stop line before the amber ends.
+        if (soonestS(vehicle, toStopLineM, vehicle.desiredSpeedMps) > road.aspect.remainingS + amberS) continue;
         asking.push(vehicle);
       }
     }
@@ -1018,6 +1073,7 @@ export function createRun(input: RunInput): Run {
       for (let i = 0; i < vehicles.length; i++) vehicles[i]!.index = i;
       findNeighbours(road, true);
       if (road.startsAtJunction) findLastInStrips(road);
+      if (road.endsAt) road.aspect = signalAspect(road.endsAt.junction.signalPlan, road.road.id, stepCount * STEP_SECONDS);
     }
     for (const junction of junctions) letIn(junction);
 
