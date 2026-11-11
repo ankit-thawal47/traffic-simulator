@@ -1,4 +1,4 @@
-import type { Network } from "@traffic-simulator/engine";
+import { positionAlongRoad, roadLengthM, type Network } from "@traffic-simulator/engine";
 import type { CameraPose } from "./shared-camera";
 
 /**
@@ -54,9 +54,29 @@ export function straightDownPose(bounds: SceneBounds, view: { fovDegrees: number
   return { position: [target[0], heightM, target[2]], target };
 }
 
-/** The angled view from the south that the views start with. */
+/** The angled view of the whole network from the south. */
 export function angledPose(bounds: SceneBounds): CameraPose {
   const target = centreOf(bounds);
   const extentM = Math.max(Math.hypot(bounds.maxX - bounds.minX, bounds.maxZ - bounds.minZ), 50);
   return { position: [target[0] - extentM * 0.1, extentM * 0.3, target[2] + extentM * 0.65], target };
+}
+
+/** Where the close-up camera stands, in metres from the point on the road it looks at. */
+const CLOSE_UP = { toTheRightM: 30, upM: 18, behindM: 6 };
+
+/**
+ * The view the views open with: close to the middle of the network's first
+ * road, from its right-hand side and a little behind, near enough that each
+ * vehicle and its size can be made out. About 30 m of road fills the view
+ * from top to bottom.
+ */
+export function closeUpPose(network: Network): CameraPose {
+  const road = network.roads[0];
+  if (!road) return angledPose(networkBounds(network));
+  const { point, direction } = positionAlongRoad(road, roadLengthM(road) / 2);
+  // On the ground, the right of the direction (dx, dy) is (dy, -dx).
+  const x = point.x + direction.y * CLOSE_UP.toTheRightM - direction.x * CLOSE_UP.behindM;
+  const y = point.y - direction.x * CLOSE_UP.toTheRightM - direction.y * CLOSE_UP.behindM;
+  // `0 -` and not a plain minus, so that y = 0 gives 0 and not -0.
+  return { position: [x, CLOSE_UP.upM, 0 - y], target: [point.x, 0, 0 - point.y] };
 }
