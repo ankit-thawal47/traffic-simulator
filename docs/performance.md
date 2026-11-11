@@ -10,6 +10,7 @@ The spec's target is: **3,000 vehicles on the network at once, at least 5 times 
 
 - With mixed traffic, a baseline and a proposal of about 3,000 vehicles each, advanced together by the app's worker and drawn in two 3D views, ran at 5.00 times real time at 120 frames a second (the display's limit) on an Apple M3 Pro with its own graphics card. Asked for 16 times (the fastest the app offers) it gave 16.00 times; asked for 80 times (the most the app's worker can give) it gave 79.7 times.
 - The engine alone, in Node, ran 3,000 mixed-traffic vehicles at 249 simulated seconds per real second (232 to 253 over five repetitions): about 50 times the target.
+- With the app's second worker also running every seed unseen and flat out, as it does while a planner watches (added by ticket 11 during this work), the same two views still gave 5.00 times at 120 frames a second, and 16.00 times when asked.
 - It is not yet decidable for v1 because the engine has no signals, junctions, queues, filtering at a stop line, flyover or stuck vehicles yet, and only one machine and one browser were measured. Every figure here is therefore a **floor on cost**. The measurement is one command (`pnpm perf`) so that it can be repeated as those arrive.
 
 Nothing below is an estimate unless it says "derived"; derived figures are arithmetic on observed ones and say which.
@@ -70,6 +71,24 @@ The app's own worker and 3D view, unchanged, in a visible Chrome window. "Two ru
 
 **Software drawing is not the product's frame rate.** Headless Chrome with SwiftShader drew two views of 3,000 vehicles at 1.3 frames a second and one view of 1,000 at 3.1. The speed achieved was still 5.00×, because the engine runs in the worker. These figures say only that the app must not be judged, or tested for frame rate, in a browser without a graphics card.
 
+## With the seeds running unseen at the same time
+
+Ticket 11 was merged while this measurement was being made. In the app, a second worker now runs all five seeds of the baseline and the proposal unseen and flat out while the planner watches the first seed. The views were measured again with that worker running the same inputs (visible Chrome, real graphics card, commit `37187d0` plus the measurement's own changes; tables in `docs/performance/measurement-2026-11-11-with-unseen-seeds.md`). The machine was far busier during this pass (load average 59 at the start, from other work).
+
+| Vehicles in each run | Speed asked for | Runs and views | Speed achieved | Frames per second | Drawing work per frame on the page's thread, ms |
+|---|---|---|---|---|---|
+| about 1,000 | 5× | 2 | 5.00× | 120.0 | 1.08 |
+| **about 3,000** | **5×** | **2** | **5.00×** | **120.0** | **3.10** |
+| about 5,000 | 5× | 2 | 4.99× | 120.0 | 4.28 |
+| about 3,000 | 16× | 2 | 16.00× | 120.0 | 3.05 |
+| about 5,000 | 16× | 2 | 15.98× | 119.3 | 4.46 |
+| about 3,000 | 80× | 2 | 75.90× | 120.0 | 2.42 |
+| about 5,000 | 80× | 2 | 48.11× | 120.0 | 3.26 |
+
+The engine-alone figures in that file (99 simulated seconds per real second at 3,000 vehicles, 97 to 133) were taken under the same load of 59 and are not the engine's speed on a quiet machine; the figures in "Engine alone" above are the ones to use. They do show that even with every processor contended the engine stayed about 20 times above the target.
+
+How long the five seeds take to finish in the app was not timed.
+
 ## Cost of moving snapshots from the worker to the page
 
 The engine ran flat out in a worker and posted after every step (300 steps, three repetitions). Real milliseconds per step, one run:
@@ -101,13 +120,15 @@ The engine ran flat out in a worker and posted after every step (300 steps, thre
 
 **Protocol.** No change is needed to meet the target. Three changes are worth making when the worker is next touched, in this order:
 
-1. Runs that are not watched (seeds two to five) must not build or post snapshots at all. Building alone costs 40% on top of a step (249 → 178).
+1. Runs that are not watched must not build or post snapshots at all. Building alone costs 40% on top of a step (249 → 178). The unseen-seeds worker added by ticket 11 already does this; keep it so.
 2. Raise or remove the 4,000-vehicle limit in the 3D view, or say on screen when vehicles are not drawn.
 3. Move to a transferred typed array when a run exceeds about 5,000 vehicles or a slower machine is measured and found short. The prototype shows the gain: the page's cost per snapshot falls from 0.85 ms to 0.002 ms at 3,000 vehicles.
 
 **Drawing.** Keep the single instanced batch. Measure again after visual polish (shadows, vehicle shapes), which is the first thing likely to cost the graphics card real work.
 
-**If a later measurement misses the target**, the order of response suggested by these figures is: stop building snapshots for unseen runs; typed-array snapshots; run seeds in parallel workers; and only then a smaller network or a shorter period.
+**Unseen seeds.** The unseen-seeds worker runs the five seeds one after another on one thread. If the wait for results proves too long once junctions exist, running seeds in parallel workers is the cheapest gain: the machine measured has 12 processors and the watched run needs one.
+
+**If a later measurement misses the target**, the order of response suggested by these figures is: typed-array snapshots; seeds in parallel workers; and only then a smaller network or a shorter period.
 
 ## What was not measured
 
@@ -118,12 +139,14 @@ The engine ran flat out in a worker and posted after every step (300 steps, thre
 - The deployed site. The page measured was a production build served locally.
 - Memory use, battery power, and long runs (each view was measured for 10 seconds).
 - Whether the visible window was on a lit screen. The page reported itself visible and drew at the display's 120 Hz, but nobody was watching it.
-- Five seeds at once in several workers.
+- The time the app's unseen-seeds worker takes to finish five seeds of a baseline and a proposal, and five seeds at once in several workers. Only its effect on the watched run was measured.
+- A quiet machine. Every pass shared the machine with other work.
 
 ## History
 
 - `docs/performance/measurement-2026-11-11-cars-only.md`: the first measurement, taken the same day before mixed traffic was merged (engine with cars in single file, one worker per run). The engine alone then ran 3,000 cars at 1,751 simulated seconds per real second; mixed traffic made a step about 7 times dearer (0.114 ms → 0.805 ms). Its tables were produced by the measurement as it stood at commit `b8b3d97`.
-- `docs/performance/measurement-2026-11-11-mixed-traffic.md`: the measurement this document reports.
+- `docs/performance/measurement-2026-11-11-mixed-traffic.md`: the measurement this document reports, taken after mixed traffic and the two-view comparison were merged (measurement at commit `6bacd68`).
+- `docs/performance/measurement-2026-11-11-with-unseen-seeds.md`: the views measured again after ticket 11, with the unseen-seeds worker running, on a much busier machine.
 
 ## Repeating it
 
