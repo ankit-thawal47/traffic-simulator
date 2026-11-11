@@ -4,7 +4,7 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done (merged to integration branch)
 
 - [x] A network can contain a signal junction with a fixed-time signal plan
 - [x] Vehicles stop at a red signal and move off on green
