@@ -1,4 +1,4 @@
-import { positionAlongRoad, type Network, type Road, type Snapshot } from "@traffic-simulator/engine";
+import { positionAlongRoad, type Network, type Road, type Snapshot, type VehicleClass } from "@traffic-simulator/engine";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
@@ -13,7 +13,16 @@ export interface FrameStore {
   intervalMs: number;
 }
 
-const VEHICLE_HEIGHT_M = 1.5;
+/**
+ * How each vehicle class is drawn. Length and width come from the engine with each vehicle;
+ * height is for the drawing only, so it lives here. Colours match the swatches in styles.css.
+ */
+const VEHICLE_CLASS_DRAWING: Record<VehicleClass, { heightM: number; colour: THREE.Color }> = {
+  "two-wheeler": { heightM: 1.3, colour: new THREE.Color(0x2f6fd0) },
+  car: { heightM: 1.5, colour: new THREE.Color(0xd9482b) },
+  "auto-rickshaw": { heightM: 1.7, colour: new THREE.Color(0xe0b020) },
+  bus: { heightM: 3.0, colour: new THREE.Color(0x2a9d6a) },
+};
 const ROAD_THICKNESS_M = 0.2;
 const MAX_VEHICLES_DRAWN = 4000;
 
@@ -80,9 +89,11 @@ export function RoadScene({ network, frames }: { network: Network; frames: Frame
     // All vehicles are drawn in one batch: a unit box scaled to each vehicle's size.
     const vehicles = new THREE.InstancedMesh(
       new THREE.BoxGeometry(1, 1, 1),
-      new THREE.MeshLambertMaterial({ color: 0xd9482b }),
+      // White, so that each vehicle shows its own colour.
+      new THREE.MeshLambertMaterial({ color: 0xffffff }),
       MAX_VEHICLES_DRAWN,
     );
+    vehicles.setColorAt(0, VEHICLE_CLASS_DRAWING.car.colour);
     vehicles.count = 0;
     vehicles.frustumCulled = false;
     scene.add(vehicles);
@@ -121,14 +132,17 @@ export function RoadScene({ network, frames }: { network: Network; frames: Frame
         const toLeftM = road.widthM / 2 - vehicle.lateralM;
         const x = point.x - direction.y * toLeftM;
         const y = point.y + direction.x * toLeftM;
-        placement.position.set(x, VEHICLE_HEIGHT_M / 2, -y);
+        const drawing = VEHICLE_CLASS_DRAWING[vehicle.vehicleClass];
+        placement.position.set(x, drawing.heightM / 2, -y);
         placement.rotation.set(0, Math.atan2(direction.y, direction.x), 0);
-        placement.scale.set(vehicle.lengthM, VEHICLE_HEIGHT_M, vehicle.widthM);
+        placement.scale.set(vehicle.lengthM, drawing.heightM, vehicle.widthM);
         placement.updateMatrix();
+        vehicles.setColorAt(count, drawing.colour);
         vehicles.setMatrixAt(count++, placement.matrix);
       }
       vehicles.count = count;
       vehicles.instanceMatrix.needsUpdate = true;
+      if (vehicles.instanceColor) vehicles.instanceColor.needsUpdate = true;
     };
 
     let animation = requestAnimationFrame(function draw(nowMs) {
