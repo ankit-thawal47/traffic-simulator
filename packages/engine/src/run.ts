@@ -6,7 +6,7 @@ import type { Results, Road, Run, RunInput, Snapshot, VehicleClass } from "./typ
 interface RoadState {
   road: Road;
   lengthM: number;
-  /** Vehicles on this road, in no particular order. */
+  /** Vehicles on this road; sorted front first at the start of each step. */
   vehicles: Vehicle[];
 }
 
@@ -31,6 +31,18 @@ interface FlowState {
   random: RandomStream;
   nextArrivalS: number;
   waiting: number;
+}
+
+/** Floor on the gap used by the following rule, so a touching vehicle brakes hard instead of dividing by zero. */
+const MIN_GAP_M = 0.01;
+
+function frontFirst(a: Vehicle, b: Vehicle): number {
+  return b.positionM - a.positionM || a.id - b.id;
+}
+
+/** Clear distance from a vehicle's front bumper to the rear bumper of the vehicle ahead. */
+function gapTo(vehicle: Vehicle, leader: Vehicle): number {
+  return leader.positionM - leader.assumptions.lengthM - vehicle.positionM;
 }
 
 export function createRun(input: RunInput): Run {
@@ -72,26 +84,100 @@ export function createRun(input: RunInput): Run {
     return vehicle;
   }
 
+  for (const initial of input.initialVehicles ?? []) {
+    const road = roads.get(initial.roadId);
+    if (!road) throw new Error(`An initial vehicle is on a road that is not in the network: "${initial.roadId}"`);
+    const vehicleClass = initial.vehicleClass ?? "car";
+    const lengthM = VEHICLE_CLASS_ASSUMPTIONS[vehicleClass].lengthM;
+    if (initial.positionM < lengthM || initial.positionM > road.lengthM) {
+      throw new Error(`An initial vehicle at ${initial.positionM} m does not fit on road "${initial.roadId}"`);
+    }
+    if (initial.speedMps < 0) throw new Error("An initial vehicle has a negative speed");
+    const vehicle = placeVehicle(road, vehicleClass, initial.positionM, initial.stationary ? 0 : initial.speedMps);
+    vehicle.stationary = initial.stationary === true;
+  }
+
+  /**
+   * Put a waiting vehicle at the start of a road if there is room: its rear bumper
+   * at the start, and at least its desired following gap to the last vehicle on the road.
+   */
+  function tryToEnter(road: RoadState, vehicleClass: VehicleClass): boolean {
+    const assumptions = VEHICLE_CLASS_ASSUMPTIONS[vehicleClass];
+    let speedMps = Math.min(assumptions.desiredSpeedMps, road.road.speedLimitMps);
+    let last: Vehicle | undefined;
+    for (const vehicle of road.vehicles) {
+      if (!last || vehicle.positionM - vehicle.assumptions.lengthM < last.positionM - last.assumptions.lengthM) last = vehicle;
+    }
+    if (last) {
+      speedMps = Math.min(speedMps, last.speedMps);
+      const gapM = last.positionM - last.assumptions.lengthM - assumptions.lengthM;
+      if (gapM < assumptions.standstillGapM + speedMps * assumptions.timeGapS) return false;
+    }
+    placeVehicle(road, vehicleClass, assumptions.lengthM, speedMps);
+    return true;
+  }
+
   function desiredSpeedMps(vehicle: Vehicle): number {
     return Math.min(vehicle.assumptions.desiredSpeedMps, vehicle.road.road.speedLimitMps);
   }
 
-  /** The following rule (Intelligent Driver Model), free-road part only for now. */
-  function acceleration(vehicle: Vehicle): number {
-    const ratio = vehicle.speedMps / desiredSpeedMps(vehicle);
-    return vehicle.assumptions.maxAccelerationMps2 * (1 - ratio * ratio * ratio * ratio);
+  /**
+   * The following rule: the Intelligent Driver Model (Treiber, Hennecke and Helbing 2000).
+   * dv/dt = a [1 - (v/v0)^4 - (sd/s)^2], where s is the gap to the leader and
+   * the desired gap is sd = s0 + v T + v dv / (2 sqrt(a b)), dv being the approach rate.
+   */
+  function acceleration(vehicle: Vehicle, leader: Vehicle | undefined): number {
+    const { maxAccelerationMps2: a, comfortableDecelerationMps2: b, timeGapS, standstillGapM } = vehicle.assumptions;
+    const v = vehicle.speedMps;
+    const ratio = v / desiredSpeedMps(vehicle);
+    let interaction = 0;
+    if (leader) {
+      const gapM = Math.max(gapTo(vehicle, leader), MIN_GAP_M);
+      const approachRate = v - leader.speedMps;
+      const desiredGapM = standstillGapM + Math.max(0, v * timeGapS + (v * approachRate) / (2 * Math.sqrt(a * b)));
+      interaction = (desiredGapM / gapM) * (desiredGapM / gapM);
+    }
+    return a * (1 - ratio * ratio * ratio * ratio - interaction);
   }
 
-  function decide(vehicle: Vehicle): void {
-    const a = acceleration(vehicle);
+  /** Decide a vehicle's next position and speed from the current state of everything else. */
+  function decide(vehicle: Vehicle, leader: Vehicle | undefined): void {
+    if (vehicle.stationary) return;
+    const a = acceleration(vehicle, leader);
     const v = vehicle.speedMps;
     const dt = STEP_SECONDS;
-    vehicle.nextSpeedMps = v + a * dt;
-    vehicle.nextPositionM = vehicle.positionM + v * dt + 0.5 * a * dt * dt;
+    let nextSpeed = v + a * dt;
+    let advance: number;
+    if (nextSpeed < 0) {
+      // The vehicle comes to rest part-way through the step; it never reverses.
+      advance = a < 0 ? (v * v) / (-2 * a) : 0;
+      nextSpeed = 0;
+    } else {
+      advance = v * dt + 0.5 * a * dt * dt;
+    }
+    if (leader) {
+      // Safety net (ours, not part of the published rule): a vehicle never advances
+      // further in one step than the clear gap it started the step with. The leader
+      // only moves forward, so this holds whatever the leader does, and it depends
+      // only on the state at the start of the step.
+      const clearM = Math.max(0, gapTo(vehicle, leader));
+      if (advance > clearM) {
+        advance = clearM;
+        nextSpeed = Math.min(nextSpeed, advance / dt);
+      }
+    }
+    vehicle.nextSpeedMps = nextSpeed;
+    vehicle.nextPositionM = vehicle.positionM + advance;
   }
 
   function step(): void {
-    for (const road of roads.values()) for (const vehicle of road.vehicles) decide(vehicle);
+    // Decide: every vehicle decides from the same state.
+    for (const road of roads.values()) {
+      road.vehicles.sort(frontFirst);
+      for (let i = 0; i < road.vehicles.length; i++) decide(road.vehicles[i]!, road.vehicles[i - 1]);
+    }
+
+    // Apply: all moves happen together.
 
     for (const road of roads.values()) {
       for (const vehicle of road.vehicles) {
@@ -111,11 +197,7 @@ export function createRun(input: RunInput): Run {
         flow.waiting++;
         flow.nextArrivalS += exponential(flow.random, flow.meanHeadwayS);
       }
-      if (flow.waiting > 0) {
-        const car = VEHICLE_CLASS_ASSUMPTIONS.car;
-        placeVehicle(flow.entryRoad, "car", car.lengthM, Math.min(car.desiredSpeedMps, flow.entryRoad.road.speedLimitMps));
-        flow.waiting--;
-      }
+      if (flow.waiting > 0 && tryToEnter(flow.entryRoad, "car")) flow.waiting--;
     }
   }
 
