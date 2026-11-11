@@ -2,12 +2,13 @@
 
 A what-if tool for Indian roads: a planner describes a road and a change to it, and compares how traffic behaves in each. Vocabulary is in `GLOSSARY.md`; decisions are in `docs/adr/`.
 
-So far: cars enter one straight road, follow one another, and leave, drawn as 3D boxes with the count of vehicles through.
+So far: cars enter one straight road, follow one another, and leave. The planner changes the road's width in a proposal; baseline and proposal run together in two 3D views that share one camera and one clock, with results for both and the change from the baseline.
 
 ## Layout
 
 - `packages/engine` — the engine. Plain TypeScript with no browser or Node dependencies. Given a network, a demand and a seed, it advances a run step by step and gives back snapshots and results as plain data.
-- `apps/web` — the app (React, Vite, three.js). It runs the engine in a background worker and draws the 3D view.
+- `packages/scenario` — the scenario description (network, list of changes, demand, seed; versioned), `resolveScenario()` which applies the changes and gives the engine only network, demand and seed, and the comparison of results against the baseline. Plain TypeScript, no browser dependencies.
+- `apps/web` — the app (React, Vite, three.js). It resolves the baseline and the proposal, runs both in one background worker on one clock, and draws the two 3D views.
 
 ## Install
 
