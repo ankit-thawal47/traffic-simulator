@@ -376,42 +376,45 @@ export const JUNCTION_ASSUMPTIONS = {
   turnAccelerationMps2: {
     value: 2.5,
     unit: "m/s2",
+    state: "our-choice",
     source:
-      "Sideways acceleration a vehicle accepts in a turn; with the turn's radius it gives the speed of the turn " +
-      "(speed squared over radius). Our choice: about 18 km/h on a 10 m radius. Not from a measurement.",
-    confirmed: false,
+      "Our choice; not from a measurement. With the turn's radius it gives the speed of the turn (speed squared " +
+      "over radius): about 18 km/h on a 10 m radius.",
   },
   crossingMarginS: {
     value: 1,
     unit: "s",
-    source:
-      "Time a vehicle leaves between a crossing vehicle clearing a place where their paths cross and its own arrival there, " +
-      "when it asks to be let into a junction. Our choice. Not from a measurement.",
-    confirmed: false,
+    state: "our-choice",
+    source: "Our choice; not from a measurement. Applied when a vehicle asks to be let into a junction.",
   },
   queueSpeedMps: {
     value: 1.4,
     unit: "m/s",
-    source: "A vehicle slower than this (5 km/h) on an approach is counted as queued. Our choice. Not from a measurement.",
-    confirmed: false,
+    state: "our-choice",
+    source: "Our choice; not from a measurement. It is 5 km/h, a slow walking pace.",
   },
   queueBreakM: {
     value: 10,
     unit: "m",
-    source:
-      "A queue is counted back from the stop line as far as the first stretch longer than this with no queued vehicle in it. " +
-      "Our choice. Not from a measurement.",
-    confirmed: false,
+    state: "our-choice",
+    source: "Our choice; not from a measurement. About two car lengths.",
   },
   keepClearSlackM: {
     value: 0.5,
     unit: "m",
+    state: "our-choice",
     source:
-      "Room a vehicle wants on the road beyond a junction, over its own length and standstill gap, before it enters. " +
-      "Our choice. Not from a measurement.",
-    confirmed: false,
+      "Our choice; not from a measurement. A vehicle stops a little short of its standstill gap, so it needs slightly more room than that.",
   },
 } satisfies Record<string, Assumption>;
+
+const JUNCTION_NAMES: Record<keyof typeof JUNCTION_ASSUMPTIONS, string> = {
+  turnAccelerationMps2: "Sideways acceleration a vehicle accepts in a turn, which sets how far it slows for the turn",
+  crossingMarginS: "Time left between a crossing vehicle clearing a place where paths cross and a vehicle's own arrival there",
+  queueSpeedMps: "Queue speed: a vehicle on an approach slower than this is counted as queued",
+  queueBreakM: "Queue break: a queue is counted back from the stop line to the first stretch this long with no queued vehicle",
+  keepClearSlackM: "Room on the road beyond a junction, over its length and standstill gap, that a vehicle wants before it enters",
+};
 
 /** Width of a strip, in metres (spec: Engine behaviour, Strips). */
 export const STRIP_WIDTH_M = SIDEWAYS_ASSUMPTIONS.stripWidthM.value;
@@ -529,6 +532,45 @@ export const RULES: readonly Rule[] = [
     state: "our-choice",
     source: "Ours; no source gives it. It keeps a full road from being overfilled; the vehicles left waiting are counted and shown with the results.",
   },
+  {
+    id: "rule.signal",
+    name: "Signals: a signal that is not green acts as a stopped vehicle at the stop line across the whole approach; a vehicle is let in only on green, and only if it can reach the stop line before the amber ends",
+    state: "our-choice",
+    source:
+      "Ours. Treating a red signal as a stopped vehicle is common practice in simulators; when a vehicle asks " +
+      "(as near the stop line as the gap the following rule wants to a stopped vehicle) and the amber test are our own.",
+    note: "A vehicle let in late and then slowed by the vehicle ahead can cross a moment after the red begins.",
+  },
+  {
+    id: "rule.let-in-order",
+    name: "Order in a junction: vehicles are let in one after another, each only after the vehicles ahead of it in its strips, and where the paths of two cross the one let in first goes first",
+    state: "our-choice",
+    source:
+      "Ours; no source gives it. One order for the whole junction means vehicles inside it cannot end up waiting for each other in a ring.",
+    note: "A turn across oncoming traffic therefore waits for a longer gap than a driver would take.",
+  },
+  {
+    id: "rule.crossing-paths",
+    name: "Crossing paths: where the strips of two connections cross is found when the network loads; a vehicle is let in only if each such place will be free when it gets there, and stops short of one that is not",
+    state: "our-choice",
+    source:
+      "Ours. Reserving a time at each point where paths cross is the general idea of conflict-point junction models; " +
+      "doing it strip by strip, and how times are estimated, are our own. No other simulator's code was used.",
+  },
+  {
+    id: "rule.keep-clear",
+    name: "Keep clear: a vehicle enters a junction only if the road beyond has room for it, allowing for the vehicles already let in and for the distance the last vehicle there covers if it brakes comfortably to a stop",
+    state: "our-choice",
+    source: "Ours; no source gives it. If the vehicle ahead brakes harder than comfortably, a vehicle can be left standing in the junction for a moment.",
+  },
+  {
+    id: "rule.turning",
+    name: "Turning: inside a junction a vehicle keeps the strips it entered in and follows its turning path; it enters the network in strips that lead onto its turn",
+    state: "our-choice",
+    source:
+      "Ours; no source gives it. Vehicles do not sort themselves by turn before the stop line, so a vehicle turning " +
+      "right from the left of an approach waits for the traffic beside it.",
+  },
 ];
 
 /** One assumption as shown to the planner. */
@@ -608,6 +650,16 @@ export function listAssumptions(): AssumptionGroup[] {
     }),
   };
 
+  const junctionGroup: AssumptionGroup = {
+    id: "junctions",
+    title: "At junctions",
+    about: "None of these comes from a measurement.",
+    assumptions: (Object.keys(JUNCTION_NAMES) as (keyof typeof JUNCTION_NAMES)[]).map((name) => {
+      const { value, unit, state, source } = JUNCTION_ASSUMPTIONS[name];
+      return { id: `junction.${name}`, name: JUNCTION_NAMES[name], value, unit, state, source };
+    }),
+  };
+
   const mixGroup: AssumptionGroup = {
     id: "vehicle-mix",
     title: "Vehicle mix for a Bengaluru arterial",
@@ -630,5 +682,5 @@ export function listAssumptions(): AssumptionGroup[] {
     assumptions: RULES.map(({ id, name, state, source, note }) => ({ id, name, value: null, unit: "", state, source, note })),
   };
 
-  return [...perClass, sharedGroup, mixGroup, rulesGroup];
+  return [...perClass, sharedGroup, junctionGroup, mixGroup, rulesGroup];
 }

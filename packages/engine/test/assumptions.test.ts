@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   BENGALURU_VEHICLE_MIX,
+  JUNCTION_ASSUMPTIONS,
   listAssumptions,
   NOT_MODELLED,
   SIDEWAYS_ASSUMPTIONS,
@@ -65,8 +66,27 @@ describe("the list of assumptions shown to the planner", () => {
     }
   });
 
-  it("groups them by vehicle class, then those shared, then the rules", () => {
-    expect(listAssumptions().map((group) => group.id)).toEqual([...VEHICLE_CLASSES, "shared", "vehicle-mix", "rules"]);
+  it("groups them by vehicle class, then those shared, those for junctions, the vehicle mix, then the rules", () => {
+    expect(listAssumptions().map((group) => group.id)).toEqual([
+      ...VEHICLE_CLASSES,
+      "shared",
+      "junctions",
+      "vehicle-mix",
+      "rules",
+    ]);
+  });
+
+  it("has every assumption the engine uses at junctions, as the engine has it, each marked as our choice", () => {
+    const names = Object.keys(JUNCTION_ASSUMPTIONS) as (keyof typeof JUNCTION_ASSUMPTIONS)[];
+    // Turn speed, crossing margin, what counts as queued (two values) and keep-clear room.
+    expect(names).toHaveLength(5);
+    for (const name of names) {
+      expect(listed(`junction.${name}`).value).toBe(JUNCTION_ASSUMPTIONS[name].value);
+      expect(listed(`junction.${name}`).state).toBe("our-choice");
+    }
+    for (const rule of ["rule.signal", "rule.let-in-order", "rule.crossing-paths", "rule.keep-clear"]) {
+      expect(listed(rule).state).toBe("our-choice");
+    }
   });
 
   it("marks as our choice what no source gives: side clearances, sideways speed caps, the same-space rule, the limit on advancing", () => {
