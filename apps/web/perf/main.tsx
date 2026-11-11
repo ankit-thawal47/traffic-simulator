@@ -1,22 +1,25 @@
 /**
  * The measurement page. What it measures is chosen by the address:
  *
- *   ?mode=views&scenario=mixed&n=3000&runs=2&draw=1&speed=5&warm=4&measure=10
+ *   ?mode=views&scenario=mixed&n=3000&runs=2&draw=1&seeds=1&speed=5&warm=4&measure=10
  *       `runs` runs of the measurement scenario (as a baseline and a proposal
  *       would be), advanced together in the app's own worker, each drawn
- *       (draw=1) by the app's own 3D view or not drawn (draw=0). Reports the
- *       speed achieved and frames per second.
+ *       (draw=1) by the app's own 3D view or not drawn (draw=0). With seeds=1 the
+ *       app's second worker also runs the same inputs unseen and flat out, as it
+ *       does in the app while the planner watches. Reports the speed achieved and
+ *       frames per second.
  *
  *   ?mode=protocol&scenario=mixed&n=3000&steps=300
  *       The cost of moving snapshots from a worker to the page (see protocol.worker.ts).
  *
  * The result is sent to the measuring script with POST /result; the reply names the next address to open.
  */
-import { STEP_SECONDS, type Results, type RunInput } from "@traffic-simulator/engine";
+import { STEP_SECONDS, type RunInput } from "@traffic-simulator/engine";
 import { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
   createProductWorker,
+  createUnseenSeedsWorker,
   createSharedCamera,
   newFrameStore,
   receiveSnapshot,
@@ -84,14 +87,16 @@ interface Probe {
   lastTimeS: number;
   lastArrivedAtMs: number;
   vehiclesOnNetwork: number[];
+  /** Progress reports from the worker running the seeds unseen; shows it was running. */
+  unseenSeedEvents: number;
 }
 
 /** The runs, wired as the app wires a baseline and a proposal: one app worker, a frame store and a view for each run, one shared camera. */
-function MeasuredRuns(props: { inputs: RunInput[]; speed: number; draw: boolean; probe: Probe }) {
-  const { inputs, speed, draw, probe } = props;
+function MeasuredRuns(props: { inputs: RunInput[]; speed: number; draw: boolean; unseenSeeds: boolean; probe: Probe }) {
+  const { inputs, speed, draw, unseenSeeds, probe } = props;
   const sharedCamera = useMemo(() => createSharedCamera(), []);
   const stores = useMemo(() => inputs.map(() => newFrameStore()), [inputs]);
-  const [frame, setFrame] = useState<{ timeS: number; results: Results[] }>();
+  const [frame, setFrame] = useState<{ timeS: number; vehiclesOnNetwork: number[] }>();
 
   useEffect(() => {
     const worker = createProductWorker();
@@ -100,16 +105,29 @@ function MeasuredRuns(props: { inputs: RunInput[]; speed: number; draw: boolean;
       const runs = event.data.runs;
       const arrivedAtMs = performance.now();
       runs.forEach((run, i) => receiveSnapshot(stores[i]!, run.snapshot, arrivedAtMs, speed));
-      setFrame({ timeS: event.data.timeS, results: runs.map((run) => run.results) });
+      const vehiclesOnNetwork = runs.map((run) => run.snapshot.vehicles.length);
+      setFrame({ timeS: event.data.timeS, vehiclesOnNetwork });
       probe.messages++;
       probe.lastTimeS = event.data.timeS;
       probe.lastArrivedAtMs = arrivedAtMs;
-      probe.vehiclesOnNetwork = runs.map((run) => run.results.vehiclesOnNetwork);
+      probe.vehiclesOnNetwork = vehiclesOnNetwork;
       probe.messageMs += performance.now() - startedAt;
     };
     worker.postMessage({ type: "start", inputs, speed, paused: false } satisfies RunCommand);
-    return () => worker.terminate();
-  }, [inputs, speed, stores, probe]);
+    // As in the app: every seed of the same inputs also runs unseen, flat out, in a second worker.
+    const seedsWorker = unseenSeeds ? createUnseenSeedsWorker() : undefined;
+    if (seedsWorker) {
+      seedsWorker.onmessage = (event: MessageEvent<{ type: string }>) => {
+        probe.unseenSeedEvents++;
+        void event.data;
+      };
+      seedsWorker.postMessage({ inputs });
+    }
+    return () => {
+      worker.terminate();
+      seedsWorker?.terminate();
+    };
+  }, [inputs, speed, stores, probe, unseenSeeds]);
 
   return (
     <div className="views">
@@ -117,7 +135,7 @@ function MeasuredRuns(props: { inputs: RunInput[]; speed: number; draw: boolean;
         <div className="view" key={i}>
           {draw ? <RoadScene network={input.network} frames={stores[i]!} sharedCamera={sharedCamera} /> : null}
           <div className="note">
-            on the network: {frame ? frame.results[i]?.vehiclesOnNetwork : "–"}, run time{" "}
+            on the network: {frame ? frame.vehiclesOnNetwork[i] : "–"}, run time{" "}
             {frame ? frame.timeS.toFixed(1) : "–"} s
           </div>
         </div>
@@ -133,6 +151,7 @@ function measureViews(): void {
   const speed = numberParam("speed", 5);
   const warmS = numberParam("warm", 4);
   const measureS = numberParam("measure", 10);
+  const unseenSeeds = numberParam("seeds", 1) === 1;
 
   // Time spent inside animation-frame callbacks (placing vehicles and issuing the draw calls), for all views together.
   let callbackMs = 0;
@@ -165,12 +184,12 @@ function measureViews(): void {
     // Long tasks are not reported by this browser.
   }
 
-  const probe: Probe = { messages: 0, messageMs: 0, lastTimeS: 0, lastArrivedAtMs: 0, vehiclesOnNetwork: [] };
+  const probe: Probe = { messages: 0, messageMs: 0, lastTimeS: 0, lastArrivedAtMs: 0, vehiclesOnNetwork: [], unseenSeedEvents: 0 };
   const inputs: RunInput[] = [];
   for (let i = 0; i < runs; i++) inputs.push(buildMeasurementScenario(scenario, targetVehicles, i + 1));
 
   createRoot(document.getElementById("root")!).render(
-    <MeasuredRuns inputs={inputs} speed={speed} draw={draw} probe={probe} />,
+    <MeasuredRuns inputs={inputs} speed={speed} draw={draw} unseenSeeds={unseenSeeds} probe={probe} />,
   );
 
   setTimeout(() => {
@@ -194,6 +213,8 @@ function measureViews(): void {
         runs,
         draw,
         requestedSpeed: speed,
+        unseenSeeds,
+        unseenSeedEvents: probe.unseenSeedEvents,
         warmS,
         measureS,
         elapsedMs,

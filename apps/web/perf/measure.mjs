@@ -9,6 +9,7 @@
  *   pnpm perf --browsers headed-gpu,headless-software
  *   pnpm perf --counts 1000,3000,5000 --reps 5 --date 2026-11-11
  *   pnpm perf --scenarios mixed,cars-only --browser-scenarios mixed --speeds 5,16,80
+ *   pnpm perf --no-unseen-seeds    watch without the app's second worker running the seeds unseen
  *
  * The scenarios are described in scenario.ts. By default the engine is measured on both
  * and the browser parts on mixed traffic only.
@@ -59,6 +60,7 @@ const protocolReps = quick ? 1 : 3;
 const speeds = option("speeds", quick ? "5" : "5,16,80").split(",").map(Number);
 const engineScenarios = option("scenarios", "mixed,cars-only").split(",");
 const browserScenarios = option("browser-scenarios", "mixed").split(",");
+const unseenSeeds = args.includes("--no-unseen-seeds") ? 0 : 1;
 const warmS = quick ? 2 : 4;
 const measureS = quick ? 4 : 10;
 const date = option("date", new Date().toISOString().slice(0, 10));
@@ -261,7 +263,7 @@ function pageAddresses(mode) {
     for (const speed of speedsHere) {
       for (const n of counts) {
         for (const [runs, draw] of [[1, 0], [1, 1], [2, 0], [2, 1]]) {
-          addresses.push(`?mode=views&scenario=${scenario}&n=${n}&runs=${runs}&draw=${draw}&speed=${speed}&warm=${warmS}&measure=${measureS}`);
+          addresses.push(`?mode=views&scenario=${scenario}&n=${n}&runs=${runs}&draw=${draw}&seeds=${unseenSeeds}&speed=${speed}&warm=${warmS}&measure=${measureS}`);
         }
       }
     }
@@ -354,13 +356,13 @@ function protocolTable(browser) {
 
 function viewsTable(browser) {
   const lines = [
-    "| Scenario | Vehicles asked for | Speed asked for | Runs | Drawn | Speed achieved | Frames per second | Frame interval, ms: median / 95th / max | Drawing work per frame, ms | Messages received per s | Reading and storing one message, ms | Vehicles on the network, each run |",
-    "|---|---|---|---|---|---|---|---|---|---|---|---|",
+    "| Scenario | Vehicles asked for | Speed asked for | Runs | Drawn | Seeds running unseen | Speed achieved | Frames per second | Frame interval, ms: median / 95th / max | Drawing work per frame, ms | Messages received per s | Reading and storing one message, ms | Vehicles on the network, each run |",
+    "|---|---|---|---|---|---|---|---|---|---|---|---|---|",
   ];
   for (const { result } of browser.results) {
     if (result.mode !== "views") continue;
     lines.push(
-      `| ${result.scenario} | ${result.targetVehicles} | ${result.requestedSpeed}× | ${result.runs} | ${result.draw ? "yes" : "no"} | ${round(result.achievedSpeed, 2)}× | ${round(result.framesPerSecond, 1)} | ${round(result.frameIntervalMs.median, 1)} / ${round(result.frameIntervalMs.p95, 1)} / ${round(result.frameIntervalMs.max, 1)} | ${result.draw ? round(result.drawCallbackMsPerFrame, 2) : "–"} | ${round(result.messagesPerSecond, 1)} | ${round(result.receiveMsPerMessage, 2)} | ${result.vehiclesOnNetwork.join(", ")} |`,
+      `| ${result.scenario} | ${result.targetVehicles} | ${result.requestedSpeed}× | ${result.runs} | ${result.draw ? "yes" : "no"} | ${result.unseenSeeds ? "yes" : "no"} | ${round(result.achievedSpeed, 2)}× | ${round(result.framesPerSecond, 1)} | ${round(result.frameIntervalMs.median, 1)} / ${round(result.frameIntervalMs.p95, 1)} / ${round(result.frameIntervalMs.max, 1)} | ${result.draw ? round(result.drawCallbackMsPerFrame, 2) : "–"} | ${round(result.messagesPerSecond, 1)} | ${round(result.receiveMsPerMessage, 2)} | ${result.vehiclesOnNetwork.join(", ")} |`,
     );
   }
   return lines.join("\n");
@@ -424,7 +426,7 @@ function markdown(data) {
       "",
       "### The app's worker and 3D view",
       "",
-      "The runs are advanced together by the app's own worker (`apps/web/src/run.worker.ts`), which posts one message holding a snapshot of every run, and each run is drawn, where drawn, by the app's own 3D view (`apps/web/src/RoadScene.tsx`), all unchanged. Two runs stand for a baseline and a proposal: one worker, two views side by side, each half the window. The view draws at most 4,000 vehicles. \"Drawing work per frame\" is time on the page's thread inside the animation-frame callbacks of all views together; it leaves out what the graphics card does afterwards.",
+      "The runs are advanced together by the app's own worker (`apps/web/src/run.worker.ts`), which posts one message holding a snapshot of every run, and each run is drawn, where drawn, by the app's own 3D view (`apps/web/src/RoadScene.tsx`), all unchanged. Two runs stand for a baseline and a proposal: one worker, two views side by side, each half the window. Where \"seeds running unseen\" says yes, the app's second worker (`apps/web/src/seeds.worker.ts`) was also running every seed of the same inputs flat out, as it does in the app while the planner watches. The view draws at most 4,000 vehicles. \"Drawing work per frame\" is time on the page's thread inside the animation-frame callbacks of all views together; it leaves out what the graphics card does afterwards.",
       "",
       viewsTable(browser),
       "",
