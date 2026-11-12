@@ -31,6 +31,40 @@ describe("turning traffic at a saturated signal junction", () => {
     });
   }
 
+  // The stem of a T has no straight on, so no traffic beside a turner goes another way: as on Hebbal's ground road
+  // from the airport, where all of it turns one way, the turn keeps the whole width of the approach.
+  it("lets a turn from an approach with no straight on leave from every lane", () => {
+    const signalPlan = {
+      phases: [
+        { greenRoadIds: ["south-in"], greenS: 100000 },
+        { greenRoadIds: ["west-in", "east-in"], greenS: 1 },
+      ],
+      amberS: 3,
+      allRedS: 2,
+    };
+    const cross = fourWay({ signalPlan });
+    const network = {
+      ...cross,
+      roads: cross.roads.filter((road) => !road.id.startsWith("north")),
+      junctions: cross.junctions!.map((junction) => ({
+        ...junction,
+        connections: junction.connections.filter((c) => !c.fromRoadId.startsWith("north") && !c.toRoadId.startsWith("north")),
+      })),
+    };
+    const run = createRun({
+      network,
+      demand: { flows: [{ entryRoadId: "south-in", exitRoadId: "west-out", vehiclesPerHour: 1500 }] },
+      seed: 1,
+      laneDiscipline: true,
+    });
+    const lanesTurnedFrom = new Set<number>();
+    while (run.timeS < 300 - 1e-9) {
+      run.step();
+      for (const vehicle of run.snapshot().vehicles) if (vehicle.turn) lanesTurnedFrom.add(Math.round(vehicle.turn.fromLateralM));
+    }
+    expect(lanesTurnedFrom.size).toBe(2);
+  });
+
   // Opposite approaches share a green (the plan of benchmark test T2.4) and every approach is saturated, so
   // oncoming traffic leaves no gap during green. Ticket 24 measured right-turners standing at the stop line
   // for 700 s (and stuck vehicles released) when nobody could be let in after the green.

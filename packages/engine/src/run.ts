@@ -332,7 +332,8 @@ export function createRun(input: RunInput): Run {
 
   /**
    * Turning lanes (ours; not published): how many strips of its approach a turn at a signal or priority junction
-   * leaves from, on its own side of the road. The share of the road's lanes in the assumptions table,
+   * leaves from, on its own side of the road, where the approach also has a connection straight on (elsewhere,
+   * as on the stem of a T, the turns keep the whole width). The share of the road's lanes in the assumptions table,
    * rounded down, at least one lane; in mixed traffic as many strips as those lanes are wide, and never fewer
    * than the widest vehicle class needs. Straight on takes the whole road.
    */
@@ -356,6 +357,15 @@ export function createRun(input: RunInput): Run {
     }
     const sideBySide = junction.control === "none";
     const state: JunctionState = { junction, connections: [], approaches: [], admitted: [], crossings: [], sideRoads: undefined };
+    // The approaches with a connection straight on: only there do turns keep to their own side (turnStripsOf).
+    const withStraightOn = new Set<string>();
+    if (!sideBySide) {
+      for (const connection of junction.connections) {
+        const from = roads.get(connection.fromRoadId);
+        const to = roads.get(connection.toRoadId);
+        if (from && to && from !== to && createTurningPath(junction.id, from.road, to.road).direction === "straight") withStraightOn.add(from.road.id);
+      }
+    }
     for (const connection of junction.connections) {
       const from = roads.get(connection.fromRoadId);
       const to = roads.get(connection.toRoadId);
@@ -381,7 +391,7 @@ export function createRun(input: RunInput): Run {
         fromShift: alignRight ? from.stripCount - Math.min(from.stripCount, to.stripCount) : 0,
         toShift: alignRight ? to.stripCount - Math.min(from.stripCount, to.stripCount) : 0,
       };
-      if (!sideBySide && path.direction !== "straight") {
+      if (!sideBySide && path.direction !== "straight" && withStraightOn.has(from.road.id)) {
         // A turn leaves from the lanes on its own side of the approach (turnStripsOf), and joins as many on that side of the road beyond.
         const turnStrips = Math.min(turnStripsOf(from), strips.stripCount);
         strips = {
