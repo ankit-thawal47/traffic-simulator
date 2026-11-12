@@ -5,6 +5,7 @@ import flyover from "../examples/flyover.json";
 import mixedTraffic from "../examples/mixed-traffic.json";
 import oneRoad from "../examples/one-road.json";
 import signalJunction from "../examples/signal-junction.json";
+import { flyoverNetworkWithSplitExit, weavingDemand } from "./flyover-network";
 import { alwaysGreenFor, fourWay } from "./four-way";
 
 const LANE_M = 3.5;
@@ -147,5 +148,28 @@ describe("stuck vehicles", () => {
     expect(results.vehiclesThrough).toBe(0);
     expect(results.stuckVehicles).toBe(0);
     expect(run.snapshot().vehicles.some((vehicle) => vehicle.id === 1)).toBe(true);
+  });
+});
+
+describe("stuck vehicles in a known lock-up: a weaving section with lane discipline on, loaded far beyond what it carries", () => {
+  // The README's known case: the weaving section jams back into the signal junction before it.
+  const weaving = (seed: number): RunInput => ({
+    network: flyoverNetworkWithSplitExit(),
+    demand: weavingDemand(3000, 600),
+    seed,
+    laneDiscipline: true,
+  });
+
+  it("are released and counted, and the run finishes", { timeout: 120_000 }, () => {
+    // Measured by hand for seeds 81 to 83 over the warm-up and an hour: 7, 3 and 4.
+    const results = runFor(weaving(82), 4200);
+    expect(results.stuckVehicles).toBeGreaterThan(0);
+    expect(results.vehiclesEntered).toBe(results.vehiclesThrough + results.vehiclesOnNetwork + results.stuckVehicles);
+  });
+
+  it("keep every consistency check through a release", { timeout: 300_000 }, () => {
+    const report = checkRunConsistency(weaving(82), { durationS: 2600 });
+    expect(report.violations.slice(0, 5)).toEqual([]);
+    expect(report.results.stuckVehicles).toBeGreaterThan(0);
   });
 });
