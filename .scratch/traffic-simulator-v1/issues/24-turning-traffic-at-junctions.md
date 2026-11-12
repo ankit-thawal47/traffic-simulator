@@ -6,12 +6,12 @@
 
 **Status:** ready-for-agent
 
-- [ ] The causes are established inside the engine, with numbers, before anything is changed
-- [ ] No vehicle waiting at a junction stands 300 s or more in T2.4 and the weaving scenario, seeds 81 to 86
-- [ ] Benchmark Tiers 2 and 3 re-run for both engines; results in a new dated document; each row pass or fail with the remaining gap and its cause
-- [ ] Four-way junction throughput does not fall, and Tier 0, Tier 1 and Tier 4 rows involving junctions do not get worse
-- [ ] Every new rule or constant is in the assumptions table as our choice, with the reason
-- [ ] Consistency checks pass at saturating demand, several seeds, a simulated hour
+- [x] The causes are established inside the engine, with numbers, before anything is changed
+- [x] No vehicle waiting at a junction stands 300 s or more in T2.4 and the weaving scenario, seeds 81 to 86
+- [x] Benchmark Tiers 2 and 3 re-run for both engines; results in a new dated document; each row pass or fail with the remaining gap and its cause
+- [x] Four-way junction throughput does not fall, and Tier 0, Tier 1 and Tier 4 rows involving junctions do not get worse
+- [x] Every new rule or constant is in the assumptions table as our choice, with the reason
+- [x] Consistency checks pass at saturating demand, several seeds, a simulated hour
 
 ## Causes, measured before any change (2026-11-12)
 
@@ -70,3 +70,55 @@ the near-side turn no priority). Seeds 81, 84, 85, 86: none stood 300 s. Stuck v
 counterfactual still had a vehicle stand 700 s and one stuck vehicle released. Letting a vehicle that was at the head and
 refused for crossing traffic when its green ended go once the crossing is free, before crossing traffic of the next phase
 (counterfactual), cut the longest stand to 76 s and raised opposing discharge to 21.7 a green.
+
+## What was changed, and the results (2026-11-12)
+
+Two rules, each in the assumptions table as our choice with its reason:
+
+- **Turning lanes** (`junction.turnLaneShare`, 0.5 of the lanes; `rule.turning`): on an approach of a signal or priority
+  junction that also goes straight on, a turn leaves from the half of the lanes on its own side (at least one lane; in mixed
+  traffic never narrower than the widest vehicle class), and joins as many on that side of the road beyond; straight on from any
+  lane. Elsewhere (the stem of a T) the turns keep the whole width: with half, Hebbal's ground road from the airport, where all
+  traffic turns one way, cost the corridor 7% of its throughput. Addresses (a).
+- **Clearing after green** (`rule.clear-after-green`; no constant): a vehicle at the front of its strips refused on its green
+  because vehicles let in before it would cross its path is let in after the green, once they are clear; until then no vehicle
+  of another approach whose path crosses its own is let in. It gives up if the road beyond has no room. Addresses (b) and (c)
+  where they starved a turner. No hidden repair: stuck vehicles are still released and counted by the same rule.
+
+Not kept: letting a vehicle that gives way go ahead of conflicting vehicles already let in when the gap allows (tried on a copy
+for T2.3: +2% to +10% side-road capacity only; the gap a side-road car really needs is set by the time it takes to clear the
+crossing from rest at a = 1 m/s², about 8 s).
+
+**Discharge per green** (`perf/turning-discharge.ts`, seeds 1 to 3, 1800 s), before -> after (straight on only, unchanged):
+
+| Scenario | Every movement | Straight on only |
+|---|---|---|
+| One at a time, cars in lanes | 10.8 -> 15.9 | 16.0 |
+| One at a time, mixed traffic | 17.9 -> 29.4 | 38.9 |
+| Opposing (T2.4 plan), cars in lanes | 13.4 -> 21.8 | 26.5 |
+| Opposing, mixed traffic | 17.8 -> 24.7 | 29.6 |
+| Junction beneath the flyover (Tier 3 network) | 9.4 -> 15.2 | - |
+
+Vehicles through in 1800 s rose in every row (one at a time, lanes 754 -> 1,113; opposing, lanes 1,270 -> 2,021; mixed 1,257 ->
+2,031 and 1,764 -> 2,415). Longest any vehicle stood: 764, 446, 749, 334 and 800 s -> 79, 90, 76, 195 and 110 s.
+
+**Standing 300 s or more.** T2.4's set-up (`perf/t24-standing.ts`, seeds 1 to 10): before, the longest stand was 133 to 757 s a
+seed, vehicles stood 300 s in 9 of 10 seeds (up to 125 of them) and 6 were released as stuck; after, 64 to 76 s, none, none.
+Weaving scenario, mixed traffic (`perf/weaving-standing.ts`), seeds 81 to 86: before 0, 94, 65, 0, 0, 0 stood 300 s; after 0 in
+every seed, and more through (6,830 to 6,998 -> 6,992 to 7,161). With lane discipline on, the weaving section's known lock-up
+(stuck-vehicles.test.ts) still happens, later: it jams back from the weaving section, not at the junction's letting in.
+
+**Benchmark** (`docs/benchmark-results-2026-11-12-after-ticket-24-tiers-2-to-5.md`; kinds re-run for both engines: t2.1, t2.2,
+t2.3, t2.4, t3, t4.6): T2.1 to T2.3 unchanged bit for bit (neither rule applies); T2.4 passes (0 stuck in 10 runs, 10 before;
+2,025 through against SUMO's 1,408); Tier 3: junction beneath now carries what SUMO does, 0 stuck (11 before), T3.1 16 of 20
+links, T3.2 4 of 16 pairs (2 before), T3.3 4 of 12 approaches (2 before), T3.4 now fails by 8 and 13 points (route choice sends
+15% of through traffic beneath the flyover, SUMO 2% to 8%); T4.6 4,258 PCU/h (4,244 before). Tiers 0 and 1 have no junction.
+
+**Hebbal corridor** (`run-corridor.ts`, seed 1, an hour): through 4,825 -> 4,843; vehicles standing 300 s or more 136 -> 31;
+longest stand 495 -> 303 s (on `tumkur-in`, queued 300 m at its 57 s green); stuck released 0 -> 0.
+
+**Consistency** (`perf/junction-consistency-hour.ts`): no violation through a simulated hour at 1500 veh/h an approach, seeds 1
+to 3, cars in lanes and mixed traffic, both plans, and the flyover example; no stuck vehicle released in any.
+
+**Engine speed** (`perf/engine-speed.ts`, median of 5, an hour): signal-junction.json 5,942 -> 7,105 simulated seconds per real
+second; flyover.json 2,527 -> 3,209 (fewer vehicles waiting on the network).
