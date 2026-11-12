@@ -4,7 +4,7 @@
 
 **Blocked by:** 06, 07, 08, 18
 
-**Status:** ready-for-agent
+**Status:** done (merged; results in docs/benchmark-results-2026-11-12-tiers-2-to-5.md, failures included)
 
 - [x] Tier 2 and tier 3 tests run for both engines and are recorded
 - [x] The Chennai dataset is fetched by a script and is not committed; its field figures are confirmed from the data
