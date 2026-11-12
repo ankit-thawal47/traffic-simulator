@@ -18,4 +18,6 @@ type Saved = Record<string, unknown>;
 export const UPGRADE_STEPS: Record<number, (older: Saved) => Saved> = {
   // Version 1 had no lane discipline: every scenario ran as mixed traffic.
   1: (version1) => ({ ...version1, formatVersion: 2, laneDiscipline: false }),
+  // Version 2 had no roads left unbuilt: every road of its network existed in the baseline.
+  2: (version2) => ({ ...version2, formatVersion: 3, unbuiltRoadIds: [] }),
 };

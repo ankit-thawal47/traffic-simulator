@@ -3,14 +3,43 @@ export {
   baselineOf,
   createBaseline,
   createProposal,
+  LOST_WIDTH_REASONS,
+  changeTarget,
+  greenTimesOf,
+  isFlyoverRoad,
   lanesOf,
   withChange,
+  withDemandScale,
+  withFlowRate,
+  withFlyover,
+  withLaneClosure,
+  withLaneDiscipline,
+  withLostWidth,
   withoutChange,
+  withRoadClosure,
   withRoadLanes,
   withRoadWidth,
+  withSignalTiming,
+  withVehicleMix,
 } from "./scenario";
-export type { Change, RoadLanesChange, RoadWidthChange, Scenario } from "./scenario";
+export type {
+  Change,
+  DemandScaleChange,
+  FlowRateChange,
+  FlyoverChange,
+  LaneClosureChange,
+  LaneDisciplineChange,
+  LostWidthChange,
+  LostWidthReason,
+  RoadClosureChange,
+  RoadLanesChange,
+  RoadWidthChange,
+  Scenario,
+  SignalTimingChange,
+  VehicleMixChange,
+} from "./scenario";
 export { resolveScenario } from "./resolve";
+export { describeChange, describeVehicleMix } from "./describe";
 export { SCENARIO_LIMITS, readScenario, whyRefused } from "./read";
 export type { Outcome } from "./read";
 export {

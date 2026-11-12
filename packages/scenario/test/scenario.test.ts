@@ -40,7 +40,7 @@ describe("a scenario", () => {
   it("a baseline has no changes and resolves to its own network, demand and seed", () => {
     const baseline = createBaseline({ name: "Main road today", network, demand, seed: 7 });
 
-    expect(baseline.formatVersion).toBe(2);
+    expect(baseline.formatVersion).toBe(3);
     expect(baseline.changes).toEqual([]);
     expect(resolveScenario(baseline)).toEqual({ network, demand, seed: 7, laneDiscipline: false });
   });
@@ -137,9 +137,9 @@ describe("resolving a scenario into the engine's input", () => {
   });
 
   it("refuses a scenario description of a version it does not know", () => {
-    const fromTheFuture = { ...baseline, formatVersion: 3 } as unknown as Scenario;
+    const fromTheFuture = { ...baseline, formatVersion: 4 } as unknown as Scenario;
 
-    expect(() => resolveScenario(fromTheFuture)).toThrow("Unsupported scenario format version: 3");
+    expect(() => resolveScenario(fromTheFuture)).toThrow("Unsupported scenario format version: 4");
   });
 
   it("refuses a kind of change it does not know", () => {

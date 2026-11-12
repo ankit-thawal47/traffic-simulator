@@ -23,7 +23,15 @@ import {
   type VehicleMix,
 } from "@traffic-simulator/engine";
 import { resolveScenario } from "./resolve";
-import { baselineOf, SCENARIO_FORMAT_VERSION, type Change, type Scenario } from "./scenario";
+import {
+  baselineOf,
+  isFlyoverRoad,
+  LOST_WIDTH_REASONS,
+  SCENARIO_FORMAT_VERSION,
+  type Change,
+  type LostWidthReason,
+  type Scenario,
+} from "./scenario";
 import { UPGRADE_STEPS } from "./upgrade";
 
 /** The outcome of something that can fail with a message meant for the planner. */
@@ -49,6 +57,8 @@ export const SCENARIO_LIMITS = {
   flows: 10_000,
   vehiclesPerHour: 100_000,
   changes: 2000,
+  /** The most all demand can be scaled by. */
+  demandScale: 10,
   junctions: 500,
   connectionsPerJunction: 500,
   phasesPerJunction: 50,
@@ -231,17 +241,17 @@ function aRoadOf(network: Network, value: unknown, what: string): string {
   return roadId;
 }
 
-function readVehicleMix(value: unknown): VehicleMix {
-  const mix = anObject(value, "The vehicle mix");
+function readVehicleMix(value: unknown, what = "The vehicle mix"): VehicleMix {
+  const mix = anObject(value, what);
   const read: VehicleMix = {};
   for (const key of Object.keys(mix)) {
     if (!VEHICLE_CLASSES.includes(key as VehicleClass)) {
-      refuse(`The vehicle mix names a vehicle class this version of the product does not know: "${key}"`);
+      refuse(`${what} names a vehicle class this version of the product does not know: "${key}"`);
     }
     read[key as VehicleClass] = aNumber(mix[key], `The share of vehicle class "${key}"`, { from: 0, to: 1_000_000 });
   }
   if (!Object.values(read).some((share) => share > 0)) {
-    refuse("The vehicle mix needs a share above zero for at least one vehicle class");
+    refuse(`${what} needs a share above zero for at least one vehicle class`);
   }
   return read;
 }
@@ -263,9 +273,19 @@ function readDemand(value: unknown, network: Network): Demand {
   return demand.vehicleMix === undefined ? { flows } : { flows, vehicleMix: readVehicleMix(demand.vehicleMix) };
 }
 
+/** A road that can be built or removed as a flyover: a raised road of the network. */
+function aFlyoverRoadOf(network: Network, value: unknown, what: string): string {
+  const roadId = aRoadOf(network, value, what);
+  if (!isFlyoverRoad(network.roads.find((road) => road.id === roadId)!)) {
+    refuse(`${what} names a road that is not a flyover road (it is not raised): "${roadId}"`);
+  }
+  return roadId;
+}
+
 /** One case for each kind of change, as in applyChange() (resolve.ts). */
-function readChange(value: unknown, network: Network, label: string): Change {
+function readChange(value: unknown, network: Network, demand: Demand, label: string): Change {
   const change = anObject(value, label);
+  const inLabel = label.toLowerCase();
   switch (change.kind) {
     case "road-width":
       return {
@@ -282,6 +302,75 @@ function readChange(value: unknown, network: Network, label: string): Change {
         roadId: aRoadOf(network, change.roadId, label),
         lanes: aWholeNumber(change.lanes, `The number of lanes in ${label.toLowerCase()}`, 1, SCENARIO_LIMITS.lanes),
       };
+    case "lane-closure":
+      return {
+        kind: "lane-closure",
+        roadId: aRoadOf(network, change.roadId, label),
+        // That at least one lane stays open depends on the other changes: resolveScenario() checks it.
+        lanesClosed: aWholeNumber(change.lanesClosed, `The number of lanes closed in ${inLabel}`, 1, SCENARIO_LIMITS.lanes - 1),
+      };
+    case "lost-width": {
+      const roadId = aRoadOf(network, change.roadId, label);
+      const widthM = aNumber(change.widthM, `The lost width in ${inLabel}`, { above: 0, to: SCENARIO_LIMITS.roadWidthM });
+      if (!LOST_WIDTH_REASONS.includes(change.reason as LostWidthReason)) {
+        refuse(`The reason for the lost width in ${inLabel} is not one this version of the product knows: ${shown(change.reason)}`);
+      }
+      return { kind: "lost-width", roadId, widthM, reason: change.reason as LostWidthReason };
+    }
+    case "road-closure":
+      return { kind: "road-closure", roadId: aRoadOf(network, change.roadId, label) };
+    case "flyover": {
+      const roadId = aFlyoverRoadOf(network, change.roadId, label);
+      if (typeof change.built !== "boolean") {
+        refuse(`${label} must say whether the flyover road is built (true) or not (false) (found ${shown(change.built)})`);
+      }
+      return { kind: "flyover", roadId, built: change.built };
+    }
+    case "signal-timing": {
+      const junctionId = aString(change.junctionId, label, SCENARIO_LIMITS.roadIdLength);
+      const junction = network.junctions?.find((one) => one.id === junctionId);
+      if (!junction) refuse(`${label} names a junction that is not in the network: "${junctionId}"`);
+      if (junction.control !== "signal") refuse(`${label} gives green times to junction "${junctionId}", which has no signal`);
+      const greenS = aList(change.greenS, `The green times in ${inLabel}`, SCENARIO_LIMITS.phasesPerJunction).map((green, at) =>
+        aNumber(green, `Green time ${at + 1} in ${inLabel}`, { above: 0, to: SCENARIO_LIMITS.signalSeconds }),
+      );
+      const phases = junction.signalPlan.phases.length;
+      if (greenS.length !== phases) {
+        refuse(`${label} gives junction "${junctionId}" ${greenS.length} green times; its signal plan has ${phases} phases`);
+      }
+      return { kind: "signal-timing", junctionId, greenS };
+    }
+    case "flow-rate": {
+      const entryRoadId = aRoadOf(network, change.entryRoadId, label);
+      const exitRoadId = aRoadOf(network, change.exitRoadId, label);
+      if (!demand.flows.some((flow) => flow.entryRoadId === entryRoadId && flow.exitRoadId === exitRoadId)) {
+        refuse(`${label} names a flow that is not in the demand: from road "${entryRoadId}" to road "${exitRoadId}"`);
+      }
+      return {
+        kind: "flow-rate",
+        entryRoadId,
+        exitRoadId,
+        vehiclesPerHour: aNumber(change.vehiclesPerHour, `The vehicles per hour in ${inLabel}`, {
+          from: 0,
+          to: SCENARIO_LIMITS.vehiclesPerHour,
+        }),
+      };
+    }
+    case "vehicle-mix":
+      return { kind: "vehicle-mix", vehicleMix: readVehicleMix(change.vehicleMix, `The vehicle mix in ${inLabel}`) };
+    case "demand-scale":
+      return {
+        kind: "demand-scale",
+        factor: aNumber(change.factor, `The factor all demand is scaled by in ${inLabel}`, {
+          from: 0,
+          to: SCENARIO_LIMITS.demandScale,
+        }),
+      };
+    case "lane-discipline":
+      if (typeof change.on !== "boolean") {
+        refuse(`${label} must switch lane discipline on (true) or off (false) (found ${shown(change.on)})`);
+      }
+      return { kind: "lane-discipline", on: change.on };
     default:
       return refuse(`${label} is of a kind this version of the product does not know: ${shown(change.kind)}`);
   }
@@ -343,14 +432,18 @@ export function readScenario(value: unknown): Outcome<Scenario> {
     }
     const saved = upgraded(value as Record<string, unknown>);
     const network = readNetwork(saved.network);
+    const demand = readDemand(saved.demand, network);
     const scenario: Scenario = {
       formatVersion: SCENARIO_FORMAT_VERSION,
       name: aString(saved.name, "The scenario's name", SCENARIO_LIMITS.nameLength),
       network,
-      changes: aList(saved.changes, "The list of changes", SCENARIO_LIMITS.changes).map((change, index) =>
-        readChange(change, network, `Change ${index + 1}`),
+      unbuiltRoadIds: aList(saved.unbuiltRoadIds, "The list of roads not built today", SCENARIO_LIMITS.roads).map(
+        (roadId, index) => aFlyoverRoadOf(network, roadId, `Entry ${index + 1} of the list of roads not built today`),
       ),
-      demand: readDemand(saved.demand, network),
+      changes: aList(saved.changes, "The list of changes", SCENARIO_LIMITS.changes).map((change, index) =>
+        readChange(change, network, demand, `Change ${index + 1}`),
+      ),
+      demand,
       laneDiscipline:
         typeof saved.laneDiscipline === "boolean"
           ? saved.laneDiscipline

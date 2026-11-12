@@ -1,17 +1,12 @@
-import {
-  STRIP_WIDTH_M,
-  stripsOccupied,
-  VEHICLE_CLASSES,
-  type Network,
-} from "@traffic-simulator/engine";
+import { STRIP_WIDTH_M, stripsOccupied, VEHICLE_CLASSES } from "@traffic-simulator/engine";
 import {
   baselineOf,
-  lanesOf,
+  changeTarget,
+  describeChange,
   resolveScenario,
   whyRefused,
   withoutChange,
   withRoadWidth,
-  type Change,
   type Scenario,
 } from "@traffic-simulator/scenario";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -37,19 +32,6 @@ const exampleScenario = EXAMPLES[0]!.scenario;
 /** A road cannot be made narrower than the strips the widest vehicle class occupies, or wider than this. */
 const NARROWEST_ROAD_M = Math.max(...VEHICLE_CLASSES.map(stripsOccupied)) * STRIP_WIDTH_M;
 const WIDEST_ROAD_M = 30;
-
-function describeChange(change: Change, network: Network): string {
-  switch (change.kind) {
-    case "road-width": {
-      const today = network.roads.find((road) => road.id === change.roadId)?.widthM;
-      return `Road "${change.roadId}": width ${today ?? "?"} m → ${change.widthM} m`;
-    }
-    case "road-lanes": {
-      const today = network.roads.find((road) => road.id === change.roadId);
-      return `Road "${change.roadId}": lanes ${today ? lanesOf(today) : "?"} → ${change.lanes}`;
-    }
-  }
-}
 
 const SLOWEST_SPEED = Math.min(...WATCH_SPEEDS);
 const FASTEST_SPEED = Math.max(...WATCH_SPEEDS);
@@ -357,8 +339,8 @@ export function App() {
           ) : (
             <ol data-testid="changes">
               {proposal.changes.map((change, index) => (
-                <li key={`${change.kind}:${change.roadId}`}>
-                  {describeChange(change, proposal.network)}{" "}
+                <li key={changeTarget(change)}>
+                  {describeChange(change, proposal)}{" "}
                   <button type="button" onClick={() => propose(withoutChange(proposal, index))}>
                     Remove
                   </button>

@@ -62,7 +62,7 @@ describe("a scenario as a file", () => {
 
     expect(text).toContain("\n");
     expect(JSON.parse(text)).toEqual(proposal);
-    expect(JSON.parse(text).formatVersion).toBe(2);
+    expect(JSON.parse(text).formatVersion).toBe(3);
   });
 
   it("is not written for a scenario the engine would refuse, and the planner is told why", () => {
@@ -80,7 +80,7 @@ describe("a scenario as a file", () => {
       "a scenario from a newer version of the product",
       JSON.stringify({ ...proposal, formatVersion: 12 }),
       "This file cannot be opened. It was made with a newer version of the product (scenario description version 12; " +
-        "this page reads up to version 2). Reload the page to get the latest version and open it again.",
+        "this page reads up to version 3). Reload the page to get the latest version and open it again.",
     ],
     [
       "a scenario with a damaged part",
@@ -116,9 +116,10 @@ describe("a scenario as a file", () => {
     },
   );
 
-  it("the saved example of version 2 opens as exactly what was saved", () => {
+  it("the saved example of version 2 opens as what was saved, brought up to the current version", () => {
     expect(valueOf(scenarioFromText(fixture("v2-mixed-traffic-lanes-and-width.json")))).toEqual({
-      formatVersion: 2,
+      formatVersion: 3,
+      unbuiltRoadIds: [],
       name: "One road, widened to four lanes",
       network: mixedTraffic.network,
       changes: [
