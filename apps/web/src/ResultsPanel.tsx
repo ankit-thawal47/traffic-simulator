@@ -8,7 +8,7 @@ import {
 } from "@traffic-simulator/scenario";
 import type { Network } from "@traffic-simulator/engine";
 import { collectedResults, type FiveSeeds } from "./five-seeds";
-import { formatAcrossSeeds } from "./results-text";
+import { formatAcrossSeeds, stuckVehiclesNote } from "./results-text";
 
 /**
  * The results area: progress across the seeds, and the fixed result set
@@ -25,6 +25,11 @@ export function ResultsPanel({ collected, networks }: { collected: FiveSeeds; ne
     baseline: acrossSeeds(results.baseline.map((seed) => seed.vehiclesWaitingToEnter)),
     proposal: acrossSeeds(results.proposal.map((seed) => seed.vehiclesWaitingToEnter)),
   };
+  // Stuck vehicles are one of the rows; when any seed had one, the caption says so too.
+  const stuckNote = stuckVehiclesNote(
+    acrossSeeds(results.baseline.map((seed) => seed.stuckVehicles)),
+    acrossSeeds(results.proposal.map((seed) => seed.stuckVehicles)),
+  );
   const someWaiting = (waiting.baseline.highest ?? 0) > 0 || (waiting.proposal.highest ?? 0) > 0;
 
   return (
@@ -41,6 +46,7 @@ export function ResultsPanel({ collected, networks }: { collected: FiveSeeds; ne
         <caption>
           {ESTIMATE_LABEL}. One hour after a {plan.warmUpS / 60} minute warm-up; average and range (lowest to highest)
           over {results.seeds} seeds.
+          {stuckNote && <span data-testid="stuck-note"> {stuckNote}</span>}
         </caption>
         <thead>
           <tr>

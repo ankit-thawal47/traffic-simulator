@@ -1,6 +1,6 @@
 import { RUN_PLAN } from "@traffic-simulator/scenario";
 import { describe, expect, it } from "vitest";
-import { formatAcrossSeeds, formatClock } from "./results-text";
+import { formatAcrossSeeds, formatClock, stuckVehiclesNote } from "./results-text";
 
 describe("a figure across seeds, written out", () => {
   it("is the average, then the range from lowest to highest", () => {
@@ -10,6 +10,26 @@ describe("a figure across seeds, written out", () => {
 
   it("is a dash when there is nothing to measure", () => {
     expect(formatAcrossSeeds({ average: null, lowest: null, highest: null, seeds: 0 })).toBe("–");
+  });
+});
+
+describe("the note on stuck vehicles", () => {
+  const none = { average: 0, lowest: 0, highest: 0, seeds: 5 };
+
+  it("is nothing when no seed of either scenario had a stuck vehicle", () => {
+    expect(stuckVehiclesNote(none, none)).toBeNull();
+    expect(stuckVehiclesNote({ average: null, lowest: null, highest: null, seeds: 0 }, none)).toBeNull();
+  });
+
+  it("says which scenario locked up and that its figures are less reliable", () => {
+    expect(stuckVehiclesNote(none, { average: 0.4, lowest: 0, highest: 2, seeds: 5 })).toBe(
+      "The proposal locked up: in at least one seed vehicles could not move and were released by force (stuck vehicles). " +
+        "Its figures are less reliable.",
+    );
+    expect(stuckVehiclesNote({ average: 1, lowest: 1, highest: 1, seeds: 5 }, { average: 3, lowest: 1, highest: 6, seeds: 5 })).toBe(
+      "The baseline and the proposal locked up: in at least one seed vehicles could not move and were released by force (stuck vehicles). " +
+        "Their figures are less reliable.",
+    );
   });
 });
 

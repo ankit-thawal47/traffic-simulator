@@ -57,8 +57,24 @@ describe("comparing a proposal's results against the baseline's", () => {
       "mean-delay-car",
       "mean-delay-auto-rickshaw",
       "mean-delay-bus",
+      "stuck-vehicles",
     ]);
     expect(compareResults(baseline, baseline).map((row) => row.id)).toEqual(ids);
+  });
+
+  it("gives the stuck vehicles as an absolute number and as a change from the baseline", () => {
+    const rows = compareResults(baseline, { ...proposal, vehiclesOnNetwork: 37, stuckVehicles: 3 });
+
+    expect(rows.find((row) => row.id === "stuck-vehicles")).toEqual({
+      id: "stuck-vehicles",
+      name: "Stuck vehicles",
+      unit: "vehicles",
+      baseline: 0,
+      proposal: 3,
+      change: 3,
+      changePercent: null,
+      estimateLabel: "Uncalibrated estimate",
+    });
   });
 
   it("every result carries the uncalibrated estimate label", () => {
