@@ -558,7 +558,7 @@ export const STUCK_VEHICLE_ASSUMPTIONS = {
       "Our choice, SUMO's default time-to-teleport (300 s). Longer than any red in the example signal plans and long " +
       "enough that a vehicle refused at a busy junction for a few cycles is not taken for a stuck one; short enough " +
       "that a lock is released several times within a simulated hour rather than spoiling the rest of the run. " +
-      "Time held at a red or amber signal, or behind a stationary vehicle with no way round, does not count towards it.",
+      "Time held at a red or amber signal, behind a stationary vehicle with no way round, or waiting for a gap on the side road of a priority junction, does not count towards it.",
     note:
       "Not a measurement of anything: no source says how long a real lock lasts before someone moves. A lower value " +
       "would release more often and sooner; the count is reported so the planner can see when it happened at all.",
@@ -567,7 +567,7 @@ export const STUCK_VEHICLE_ASSUMPTIONS = {
 
 const STUCK_VEHICLE_NAMES: Record<keyof typeof STUCK_VEHICLE_ASSUMPTIONS, string> = {
   standingBelowMps: "Speed below which a vehicle is standing",
-  stuckAfterS: "Time a vehicle at the front of its queue must stand, not held by a signal or a stationary vehicle, before it is released as a stuck vehicle",
+  stuckAfterS: "Time a vehicle at the front of its queue must stand, not held by a signal, a stationary vehicle or the main road of a priority junction, before it is released as a stuck vehicle",
 };
 
 const ROUTE_CHOICE_NAMES: Record<keyof typeof ROUTE_CHOICE_ASSUMPTIONS, string> = {
@@ -802,7 +802,7 @@ export const RULES: readonly Rule[] = [
   },
   {
     id: "rule.stuck-vehicles",
-    name: "Stuck vehicles: a vehicle at the front of its queue that has stood for 300 s, not held by a red or amber signal and not behind a stationary vehicle it has no way round, is taken off the network and counted as a stuck vehicle",
+    name: "Stuck vehicles: a vehicle at the front of its queue that has stood for 300 s, not held by a red or amber signal, not behind a stationary vehicle it has no way round and not waiting for a gap at a priority junction, is taken off the network and counted as a stuck vehicle",
     state: "our-choice",
     source:
       "Ours, after SUMO's teleporting (SUMO documentation, \"Why Vehicles are teleporting\"), which also acts on a " +

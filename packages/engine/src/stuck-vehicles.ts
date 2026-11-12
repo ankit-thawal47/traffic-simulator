@@ -10,9 +10,13 @@
  *    road) is also standing, and is not a stationary vehicle, is queued: its
  *    time restarts. Only a vehicle at the front of a queue collects time, so a
  *    long queue behind a lock, or behind a red, collects none.
- *  - A vehicle at the front of a queue that is held by a red or amber signal, or
- *    stands behind a stationary vehicle with no clear strips to go round it,
- *    is held: its time neither grows nor restarts.
+ *  - A vehicle at the front of a queue that is held by a red or amber signal,
+ *    stands behind a stationary vehicle with no clear strips to go round it, or
+ *    waits on a side road of a priority junction for a gap in main-road
+ *    traffic (refused for want of a large enough gap, or because the room
+ *    beyond is taken by traffic still moving on), is held: its time neither
+ *    grows nor restarts. Main-road traffic never waits for side-road traffic,
+ *    so a vehicle waiting for a gap is never part of a lock.
  *  - Any other standing vehicle collects the step's time.
  *  - Moving, its time restarts.
  * A vehicle whose time reaches stuckAfterS is a stuck vehicle. At most one is
@@ -46,7 +50,7 @@ export interface StandingFacts {
   movingAcross: boolean;
   /** Its nearest vehicle ahead in its strips on the same road is standing and is not a stationary vehicle. */
   behindStandingVehicle: boolean;
-  /** It is held by a red or amber signal, or stands behind a stationary vehicle with no clear strips to go round it. */
+  /** It is held by a red or amber signal, stands behind a stationary vehicle with no clear strips to go round it, or waits for a gap at a priority junction. */
   held: boolean;
 }
 

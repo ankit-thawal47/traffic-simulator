@@ -100,6 +100,33 @@ describe("a network with a priority junction", () => {
     expect(Math.max(...twoWheelerTakes)).toBeGreaterThan(Math.max(...carTakes));
   });
 
+  it("does not release a side-road vehicle that is only waiting for a gap, however long it waits", () => {
+    const main = 1500;
+    const run = createRun({
+      network: tJunction(),
+      demand: {
+        flows: [
+          { entryRoadId: "west-in", exitRoadId: "east-out", vehiclesPerHour: main },
+          { entryRoadId: "east-in", exitRoadId: "west-out", vehiclesPerHour: main },
+          { entryRoadId: "south-in", exitRoadId: "east-out", vehiclesPerHour: 60 },
+        ],
+        vehicleMix: { bus: 1 },
+      },
+      seed: 3,
+    });
+    // The longest any vehicle has stood still at the front of the side road.
+    const stoodS = new Map<number, number>();
+    while (run.timeS < 1800) {
+      run.step();
+      for (const vehicle of run.snapshot().vehicles) {
+        if (vehicle.roadId !== "south-in" || vehicle.turn || vehicle.positionM < 190 || vehicle.speedMps >= 0.1) continue;
+        stoodS.set(vehicle.id, (stoodS.get(vehicle.id) ?? 0) + 0.2);
+      }
+    }
+    expect(Math.max(...stoodS.values())).toBeGreaterThan(300);
+    expect(run.results().stuckVehicles).toBe(0);
+  });
+
   it("has at least one main road and at least one side road", () => {
     const none = tJunction();
     none.junctions = [{ ...none.junctions![0]!, mainRoadIds: [] } as never];

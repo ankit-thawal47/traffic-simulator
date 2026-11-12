@@ -1259,7 +1259,11 @@ export function createRun(input: RunInput): Run {
       const curve = curveThrough(connection, vehicle.strip, vehicle.strips);
       if (!curve) continue;
       if (!leadersLetIn(vehicle)) continue;
-      if (!roomBeyond(vehicle, connection, vehicle.strip)) continue;
+      if (!roomBeyond(vehicle, connection, vehicle.strip)) {
+        // On a side road, room taken by main-road traffic still moving on is room still to come: waiting for a gap.
+        if (junction.sideRoads?.has(vehicle.road)) vehicle.waitingForGap = roomTakenByMovingTraffic(vehicle, connection);
+        continue;
+      }
       vehicle.turning = connection;
       vehicle.curve = curve;
       // On a side road of a priority junction it goes only into a large enough gap in main-road traffic.
@@ -1509,8 +1513,9 @@ export function createRun(input: RunInput): Run {
    * it set, finds a large enough gap in main-road traffic: for every vehicle on
    * a main road of the junction whose path crosses its own and that has not
    * reached the first place where they cross, the soonest that vehicle can get
-   * there against the soonest this one can be clear of every such place. The
-   * places are those of the junction's crossings tables, found once.
+   * there against the soonest this one can be clear of every such place; and
+   * no main-road vehicle let in is still on such a place. The places are those
+   * of the junction's crossings tables, found once.
    */
   function gapInMainRoad(vehicle: Vehicle, junction: JunctionState): boolean {
     const connection = vehicle.turning!;
@@ -1520,6 +1525,20 @@ export function createRun(input: RunInput): Run {
     const toStopLineM = vehicle.road.lengthM - vehicle.positionM;
     const cruiseMps = Math.min(vehicle.desiredSpeedMps, turnSpeedMps(curve));
     const mine = vehicle.strip - connection.fromShift;
+    // Main-road vehicles let in whose front bumper is past the place where their path first crosses this one's
+    // keep the place until their rear bumper is past the last.
+    for (const other of junction.admitted) {
+      const otherConnection = other.turning!;
+      if (junction.sideRoads!.has(otherConnection.from)) continue;
+      if (!junction.crossings[otherConnection.index * count + connection.index]) continue;
+      const first = firstCrossingPiece(other, vehicle, -1);
+      if (first === NO_CROSSING) continue;
+      // Not there yet: its lag is looked at below, with the vehicles on the main roads.
+      const frontAlongM = other.place === REAR_IN_JUNCTION ? Infinity : other.positionM - otherConnection.from.lengthM;
+      if (frontAlongM < curveDistanceM(other.curve!, first / otherConnection.path.pieces)) continue;
+      const last = lastCrossingPiece(vehicle, other);
+      if (rearAlongTurnM(other) < curveDistanceM(other.curve!, (last + 1) / otherConnection.path.pieces)) return false;
+    }
     for (const road of junction.approaches) {
       if (junction.sideRoads!.has(road)) continue;
       for (const other of road.vehicles) {
@@ -1552,7 +1571,7 @@ export function createRun(input: RunInput): Run {
         }
         if (first === NO_CROSSING) continue;
         const toCrossingM = road.lengthM - other.positionM + curveDistanceM(otherCurve, first / otherConnection.path.pieces);
-        // Already at the place: one let in goes first (crossingsWillBeFree); this one waits.
+        // Already at the place: one let in was looked at above.
         if (toCrossingM <= 0) {
           if (other.admitted) continue;
           return false;
@@ -1593,6 +1612,16 @@ export function createRun(input: RunInput): Run {
     }
     const { lengthM, standstillGapM } = vehicle.assumptions;
     return roomM >= lengthM + standstillGapM + JUNCTION_ASSUMPTIONS.keepClearSlackM.value;
+  }
+
+  /** Whether every rearmost vehicle in the strips a vehicle would take on the road beyond is moving (not standing). */
+  function roomTakenByMovingTraffic(vehicle: Vehicle, connection: ConnectionState): boolean {
+    const exitStrip = vehicle.strip - connection.fromShift + connection.toShift;
+    for (let s = exitStrip; s < exitStrip + vehicle.strips; s++) {
+      const last = connection.to.lastInStrip[s];
+      if (last && isStanding(last.speedMps)) return false;
+    }
+    return true;
   }
 
   /** Whether a vehicle that has been let into the junction is just behind the vehicle in any of the strips low..high. */
