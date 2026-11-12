@@ -4,9 +4,9 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done (public URL https://traffic-simulator-omega.vercel.app, checked logged out on 2026-11-12)
 
-- [ ] The repository is pushed to GitHub
-- [ ] Vercel builds and serves the app from the repository
-- [ ] A change pushed to the main branch appears on the public URL without manual steps
-- [ ] The public URL is recorded in the README
+- [x] The repository is pushed to GitHub
+- [x] Vercel builds and serves the app from the repository
+- [x] A change pushed to the main branch appears on the public URL without manual steps
+- [x] The public URL is recorded in the README
