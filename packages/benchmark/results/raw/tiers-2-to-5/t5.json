@@ -1,0 +1,254 @@
+[
+ {
+  "job": {
+   "kind": "t5",
+   "id": "t5-1000-cars-ours",
+   "vehicles": 1000,
+   "vehicleKind": "cars",
+   "engine": "ours"
+  },
+  "wallClockS": 0.424,
+  "result": {
+   "vehicles": 1000,
+   "kind": "cars",
+   "engine": "ours",
+   "speedRatio": 626.1152678208057,
+   "setupS": 0.003923666999999994,
+   "stepS": 0.09582900000000001,
+   "peakMemoryBytes": 100810752,
+   "loadAverage": 19.1953125,
+   "vehiclesAtEnd": 1000
+  }
+ },
+ {
+  "job": {
+   "kind": "t5",
+   "id": "t5-1000-cars-sumo",
+   "vehicles": 1000,
+   "vehicleKind": "cars",
+   "engine": "sumo"
+  },
+  "wallClockS": 1.464,
+  "result": {
+   "vehicles": 1000,
+   "kind": "cars",
+   "engine": "sumo",
+   "speedRatio": 122.44897959183673,
+   "setupS": 0.29800000000000004,
+   "stepS": 0.49,
+   "peakMemoryBytes": 58294272,
+   "loadAverage": 19.1953125,
+   "vehiclesAtEnd": 1000
+  }
+ },
+ {
+  "job": {
+   "kind": "t5",
+   "id": "t5-1000-mixed-ours",
+   "vehicles": 1000,
+   "vehicleKind": "mixed",
+   "engine": "ours"
+  },
+  "wallClockS": 0.379,
+  "result": {
+   "vehicles": 1000,
+   "kind": "mixed",
+   "engine": "ours",
+   "speedRatio": 433.0625188900968,
+   "setupS": 0.005198457999999988,
+   "stepS": 0.13854812500000002,
+   "peakMemoryBytes": 103546880,
+   "loadAverage": 19.1953125,
+   "vehiclesAtEnd": 1000
+  }
+ },
+ {
+  "job": {
+   "kind": "t5",
+   "id": "t5-1000-mixed-sumo",
+   "vehicles": 1000,
+   "vehicleKind": "mixed",
+   "engine": "sumo"
+  },
+  "wallClockS": 26.934,
+  "result": {
+   "vehicles": 1000,
+   "kind": "mixed",
+   "engine": "sumo",
+   "speedRatio": 2.2953328232593724,
+   "setupS": 0.29199999999999804,
+   "stepS": 26.14,
+   "peakMemoryBytes": 55033856,
+   "loadAverage": 19.1953125,
+   "vehiclesAtEnd": 1000
+  }
+ },
+ {
+  "job": {
+   "kind": "t5",
+   "id": "t5-5000-cars-ours",
+   "vehicles": 5000,
+   "vehicleKind": "cars",
+   "engine": "ours"
+  },
+  "wallClockS": 0.509,
+  "result": {
+   "vehicles": 5000,
+   "kind": "cars",
+   "engine": "ours",
+   "speedRatio": 190.05497736168056,
+   "setupS": 0.008365499999999998,
+   "stepS": 0.315698125,
+   "peakMemoryBytes": 110804992,
+   "loadAverage": 15.24658203125,
+   "vehiclesAtEnd": 5000
+  }
+ },
+ {
+  "job": {
+   "kind": "t5",
+   "id": "t5-5000-cars-sumo",
+   "vehicles": 5000,
+   "vehicleKind": "cars",
+   "engine": "sumo"
+  },
+  "wallClockS": 2.048,
+  "result": {
+   "vehicles": 5000,
+   "kind": "cars",
+   "engine": "sumo",
+   "speedRatio": 43.16546762589928,
+   "setupS": 0.2240000000000002,
+   "stepS": 1.39,
+   "peakMemoryBytes": 74907648,
+   "loadAverage": 15.24658203125,
+   "vehiclesAtEnd": 5000
+  }
+ },
+ {
+  "job": {
+   "kind": "t5",
+   "id": "t5-5000-mixed-ours",
+   "vehicles": 5000,
+   "vehicleKind": "mixed",
+   "engine": "ours"
+  },
+  "wallClockS": 0.654,
+  "result": {
+   "vehicles": 5000,
+   "kind": "mixed",
+   "engine": "ours",
+   "speedRatio": 122.32528127169361,
+   "setupS": 0.005593082999999993,
+   "stepS": 0.49049550000000003,
+   "peakMemoryBytes": 116965376,
+   "loadAverage": 15.24658203125,
+   "vehiclesAtEnd": 5000
+  }
+ },
+ {
+  "job": {
+   "kind": "t5",
+   "id": "t5-5000-mixed-sumo",
+   "vehicles": 5000,
+   "vehicleKind": "mixed",
+   "engine": "sumo"
+  },
+  "wallClockS": 142.919,
+  "result": {
+   "vehicles": 5000,
+   "kind": "mixed",
+   "engine": "sumo",
+   "speedRatio": 0.4219409282700422,
+   "setupS": 0.34200000000001296,
+   "stepS": 142.2,
+   "peakMemoryBytes": 70893568,
+   "loadAverage": 15.24658203125,
+   "vehiclesAtEnd": 5000
+  }
+ },
+ {
+  "job": {
+   "kind": "t5",
+   "id": "t5-20000-cars-ours",
+   "vehicles": 20000,
+   "vehicleKind": "cars",
+   "engine": "ours"
+  },
+  "wallClockS": 1.462,
+  "result": {
+   "vehicles": 20000,
+   "kind": "cars",
+   "engine": "ours",
+   "speedRatio": 46.756572870105956,
+   "setupS": 0.021548582999999993,
+   "stepS": 1.283242041,
+   "peakMemoryBytes": 142868480,
+   "loadAverage": 31.5146484375,
+   "vehiclesAtEnd": 20000
+  }
+ },
+ {
+  "job": {
+   "kind": "t5",
+   "id": "t5-20000-cars-sumo",
+   "vehicles": 20000,
+   "vehicleKind": "cars",
+   "engine": "sumo"
+  },
+  "wallClockS": 9.439,
+  "result": {
+   "vehicles": 20000,
+   "kind": "cars",
+   "engine": "sumo",
+   "speedRatio": 6.952491309385863,
+   "setupS": 0.2859999999999996,
+   "stepS": 8.63,
+   "peakMemoryBytes": 136970240,
+   "loadAverage": 31.5146484375,
+   "vehiclesAtEnd": 20000
+  }
+ },
+ {
+  "job": {
+   "kind": "t5",
+   "id": "t5-20000-mixed-ours",
+   "vehicles": 20000,
+   "vehicleKind": "mixed",
+   "engine": "ours"
+  },
+  "wallClockS": 2.211,
+  "result": {
+   "vehicles": 20000,
+   "kind": "mixed",
+   "engine": "ours",
+   "speedRatio": 30.54723138126366,
+   "setupS": 0.021922458000000006,
+   "stepS": 1.964171458,
+   "peakMemoryBytes": 155385856,
+   "loadAverage": 27.73876953125,
+   "vehiclesAtEnd": 20000
+  }
+ },
+ {
+  "job": {
+   "kind": "t5",
+   "id": "t5-20000-mixed-sumo",
+   "vehicles": 20000,
+   "vehicleKind": "mixed",
+   "engine": "sumo"
+  },
+  "wallClockS": 432.721,
+  "result": {
+   "vehicles": 20000,
+   "kind": "mixed",
+   "engine": "sumo",
+   "speedRatio": 0.13889853462045976,
+   "setupS": 0.3039999999999736,
+   "stepS": 431.97,
+   "peakMemoryBytes": 128040960,
+   "loadAverage": 26.63818359375,
+   "vehiclesAtEnd": 20000
+  }
+ }
+]

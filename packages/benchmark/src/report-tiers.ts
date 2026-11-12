@@ -572,9 +572,11 @@ ${table(["", "2:45 to 3:00 pm", "3:00 to 3:15 pm"], fieldRows)}
 
 **The speed column disagrees with the positions by a factor of about two.** Between two successive observations of a vehicle,
 0.5 s apart by the time column, the front bumper moves on average ${num(fields[0]!.positionSpeedMeanAll, 2)} and
-${num(fields[1]!.positionSpeedMeanAll, 2)} m/s; the speed column of the same observations averages ${num(fields[0]!.speedColumnMeanAll, 2)} and
-${num(fields[1]!.speedColumnMeanAll, 2)} m/s (the paper's 5.88 m/s overall is the speed column). The positions and the time column agree with
-the counted flow: about 6,000 vehicles an hour at about 150 vehicles per km in the stretch is a speed near 11 m/s, not 6. Which
+${num(fields[1]!.positionSpeedMeanAll, 2)} m/s in the two periods; the speed column, over all observations, averages ${num(fields[0]!.speedColumnMeanAll, 2)} and
+${num(fields[1]!.speedColumnMeanAll, 2)} m/s (the overall 5.88 m/s that the research agent read in the paper matches the speed column, as do its
+per-class figures). The positions and the time column agree with the counted flow: ${num(fields[0]!.measure.throughputPerHour, 0)} and
+${num(fields[1]!.measure.throughputPerHour, 0)} vehicles an hour past 200 m at a mean of ${num(fields[0]!.measure.minutes.reduce((s, m) => s + m.densityPerKm, 0) / fields[0]!.measure.minutes.length, 0)} and
+${num(fields[1]!.measure.minutes.reduce((s, m) => s + m.densityPerKm, 0) / fields[1]!.measure.minutes.length, 0)} vehicles per km in the stretch is a speed near 11 m/s (flow / density), not 6. Which
 column is wrong is not known; the legend gives no help. **Decided before any model run was looked at:** T4.1 is scored against
 speeds from the positions (distance covered over time taken in the stretch 30 to 220 m), because the throughput and the density
 the engines are given and scored on come from the same positions and times. The speed column's figures are shown below for comparison.
@@ -757,6 +759,10 @@ ${table(
 )}
 
 ${runsTable}
+
+The parts marked "uncommitted changes" ran from the working tree before its harness was committed; the jobs' code that ran is
+that of commit \`4838f76\` (afterwards only the document's text and findings changed). The engine is the same in every part.
+Machine time in all: about 6.5 minutes of wall clock for Tiers 2 to 4 at six processes, 10.4 minutes for Tier 5.
 
 ## Results table
 

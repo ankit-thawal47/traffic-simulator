@@ -1,0 +1,2953 @@
+[
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.3-s1",
+   "share": 0.3,
+   "seed": 1
+  },
+  "wallClockS": 1.394,
+  "result": {
+   "share": 0.3,
+   "seed": 1,
+   "flowPerHour": 219.6283807304679,
+   "ours": {
+    "throughPerHour": 217,
+    "vehicles": 217,
+    "unfinished": 0,
+    "meanDelayS": 18.468936644898164,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.215
+   },
+   "sumo": {
+    "throughPerHour": 218,
+    "vehicles": 217,
+    "unfinished": 0,
+    "meanDelayS": 20.414281105990778,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 3,
+    "warningCount": 3,
+    "warnings": [
+     "Warning: Vehicle 'v144' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2620.000.",
+     "Warning: Vehicle 'v163' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2900.000.",
+     "Warning: Vehicle 'v207' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3530.000."
+    ],
+    "wallClockS": 0.471
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.3-s2",
+   "share": 0.3,
+   "seed": 2
+  },
+  "wallClockS": 1.458,
+  "result": {
+   "share": 0.3,
+   "seed": 2,
+   "flowPerHour": 219.6283807304679,
+   "ours": {
+    "throughPerHour": 216,
+    "vehicles": 213,
+    "unfinished": 0,
+    "meanDelayS": 18.666809765428145,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.229
+   },
+   "sumo": {
+    "throughPerHour": 216,
+    "vehicles": 213,
+    "unfinished": 0,
+    "meanDelayS": 21.77500469483568,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v18' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=450.000."
+    ],
+    "wallClockS": 0.465
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.3-s3",
+   "share": 0.3,
+   "seed": 3
+  },
+  "wallClockS": 1.478,
+  "result": {
+   "share": 0.3,
+   "seed": 3,
+   "flowPerHour": 219.6283807304679,
+   "ours": {
+    "throughPerHour": 237,
+    "vehicles": 235,
+    "unfinished": 0,
+    "meanDelayS": 20.12877301534527,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.214
+   },
+   "sumo": {
+    "throughPerHour": 237,
+    "vehicles": 235,
+    "unfinished": 0,
+    "meanDelayS": 22.20762978723406,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v261' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3950.000."
+    ],
+    "wallClockS": 0.493
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.3-s4",
+   "share": 0.3,
+   "seed": 4
+  },
+  "wallClockS": 1.439,
+  "result": {
+   "share": 0.3,
+   "seed": 4,
+   "flowPerHour": 219.6283807304679,
+   "ours": {
+    "throughPerHour": 215,
+    "vehicles": 210,
+    "unfinished": 0,
+    "meanDelayS": 19.959069549036066,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.208
+   },
+   "sumo": {
+    "throughPerHour": 214,
+    "vehicles": 210,
+    "unfinished": 0,
+    "meanDelayS": 22.917209523809525,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 0.439
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.3-s5",
+   "share": 0.3,
+   "seed": 5
+  },
+  "wallClockS": 1.421,
+  "result": {
+   "share": 0.3,
+   "seed": 5,
+   "flowPerHour": 219.6283807304679,
+   "ours": {
+    "throughPerHour": 210,
+    "vehicles": 208,
+    "unfinished": 0,
+    "meanDelayS": 19.102623011984033,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.195
+   },
+   "sumo": {
+    "throughPerHour": 210,
+    "vehicles": 208,
+    "unfinished": 0,
+    "meanDelayS": 20.62910576923077,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v78' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1220.000."
+    ],
+    "wallClockS": 0.42
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.3-s6",
+   "share": 0.3,
+   "seed": 6
+  },
+  "wallClockS": 1.414,
+  "result": {
+   "share": 0.3,
+   "seed": 6,
+   "flowPerHour": 219.6283807304679,
+   "ours": {
+    "throughPerHour": 231,
+    "vehicles": 227,
+    "unfinished": 0,
+    "meanDelayS": 19.29186513910993,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.216
+   },
+   "sumo": {
+    "throughPerHour": 232,
+    "vehicles": 227,
+    "unfinished": 0,
+    "meanDelayS": 22.507810572687227,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v101' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1640.000."
+    ],
+    "wallClockS": 0.442
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.3-s7",
+   "share": 0.3,
+   "seed": 7
+  },
+  "wallClockS": 1.419,
+  "result": {
+   "share": 0.3,
+   "seed": 7,
+   "flowPerHour": 219.6283807304679,
+   "ours": {
+    "throughPerHour": 240,
+    "vehicles": 237,
+    "unfinished": 0,
+    "meanDelayS": 18.650600744034023,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.22
+   },
+   "sumo": {
+    "throughPerHour": 240,
+    "vehicles": 237,
+    "unfinished": 0,
+    "meanDelayS": 21.69401687763714,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 0.397
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.3-s8",
+   "share": 0.3,
+   "seed": 8
+  },
+  "wallClockS": 1.393,
+  "result": {
+   "share": 0.3,
+   "seed": 8,
+   "flowPerHour": 219.6283807304679,
+   "ours": {
+    "throughPerHour": 203,
+    "vehicles": 212,
+    "unfinished": 0,
+    "meanDelayS": 19.750150238177078,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.213
+   },
+   "sumo": {
+    "throughPerHour": 202,
+    "vehicles": 212,
+    "unfinished": 0,
+    "meanDelayS": 22.63210377358491,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 0.405
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.3-s9",
+   "share": 0.3,
+   "seed": 9
+  },
+  "wallClockS": 1.374,
+  "result": {
+   "share": 0.3,
+   "seed": 9,
+   "flowPerHour": 219.6283807304679,
+   "ours": {
+    "throughPerHour": 221,
+    "vehicles": 219,
+    "unfinished": 0,
+    "meanDelayS": 19.884750612286034,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.206
+   },
+   "sumo": {
+    "throughPerHour": 221,
+    "vehicles": 219,
+    "unfinished": 0,
+    "meanDelayS": 22.114648401826475,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v193' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3180.000."
+    ],
+    "wallClockS": 0.388
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.3-s10",
+   "share": 0.3,
+   "seed": 10
+  },
+  "wallClockS": 1.42,
+  "result": {
+   "share": 0.3,
+   "seed": 10,
+   "flowPerHour": 219.6283807304679,
+   "ours": {
+    "throughPerHour": 222,
+    "vehicles": 218,
+    "unfinished": 0,
+    "meanDelayS": 16.905246489592606,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.197
+   },
+   "sumo": {
+    "throughPerHour": 222,
+    "vehicles": 218,
+    "unfinished": 0,
+    "meanDelayS": 18.876720183486245,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 0.439
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.5-s1",
+   "share": 0.5,
+   "seed": 1
+  },
+  "wallClockS": 1.447,
+  "result": {
+   "share": 0.5,
+   "seed": 1,
+   "flowPerHour": 366.04730121744655,
+   "ours": {
+    "throughPerHour": 350,
+    "vehicles": 345,
+    "unfinished": 0,
+    "meanDelayS": 20.658472164083893,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.222
+   },
+   "sumo": {
+    "throughPerHour": 350,
+    "vehicles": 345,
+    "unfinished": 0,
+    "meanDelayS": 25.330078260869556,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 2,
+    "warningCount": 2,
+    "warnings": [
+     "Warning: Vehicle 'v395' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=4090.000.",
+     "Warning: Vehicle 'v441' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=4510.000."
+    ],
+    "wallClockS": 0.461
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.5-s2",
+   "share": 0.5,
+   "seed": 2
+  },
+  "wallClockS": 1.441,
+  "result": {
+   "share": 0.5,
+   "seed": 2,
+   "flowPerHour": 366.04730121744655,
+   "ours": {
+    "throughPerHour": 384,
+    "vehicles": 380,
+    "unfinished": 0,
+    "meanDelayS": 21.28460207372442,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.206
+   },
+   "sumo": {
+    "throughPerHour": 383,
+    "vehicles": 380,
+    "unfinished": 0,
+    "meanDelayS": 27.712121052631577,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v287' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2830.000."
+    ],
+    "wallClockS": 0.466
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.5-s3",
+   "share": 0.5,
+   "seed": 3
+  },
+  "wallClockS": 1.497,
+  "result": {
+   "share": 0.5,
+   "seed": 3,
+   "flowPerHour": 366.04730121744655,
+   "ours": {
+    "throughPerHour": 384,
+    "vehicles": 378,
+    "unfinished": 0,
+    "meanDelayS": 21.352255870142105,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.242
+   },
+   "sumo": {
+    "throughPerHour": 385,
+    "vehicles": 378,
+    "unfinished": 0,
+    "meanDelayS": 25.58374074074075,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v384' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3740.000."
+    ],
+    "wallClockS": 0.484
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.5-s4",
+   "share": 0.5,
+   "seed": 4
+  },
+  "wallClockS": 1.531,
+  "result": {
+   "share": 0.5,
+   "seed": 4,
+   "flowPerHour": 366.04730121744655,
+   "ours": {
+    "throughPerHour": 371,
+    "vehicles": 373,
+    "unfinished": 0,
+    "meanDelayS": 22.229422536505126,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.265
+   },
+   "sumo": {
+    "throughPerHour": 370,
+    "vehicles": 373,
+    "unfinished": 0,
+    "meanDelayS": 27.031860589812343,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 4,
+    "warningCount": 4,
+    "warnings": [
+     "Warning: Vehicle 'v1' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=100.000.",
+     "Warning: Vehicle 'v260' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2760.000.",
+     "Warning: Vehicle 'v316' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3250.000.",
+     "Warning: Vehicle 'v456' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=4650.000."
+    ],
+    "wallClockS": 0.481
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.5-s5",
+   "share": 0.5,
+   "seed": 5
+  },
+  "wallClockS": 1.474,
+  "result": {
+   "share": 0.5,
+   "seed": 5,
+   "flowPerHour": 366.04730121744655,
+   "ours": {
+    "throughPerHour": 365,
+    "vehicles": 361,
+    "unfinished": 0,
+    "meanDelayS": 21.350918023331893,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.238
+   },
+   "sumo": {
+    "throughPerHour": 364,
+    "vehicles": 361,
+    "unfinished": 0,
+    "meanDelayS": 24.96599168975069,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 3,
+    "warningCount": 3,
+    "warnings": [
+     "Warning: Vehicle 'v90' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=870.000.",
+     "Warning: Vehicle 'v255' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2620.000.",
+     "Warning: Vehicle 'v459' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=4650.000."
+    ],
+    "wallClockS": 0.474
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.5-s6",
+   "share": 0.5,
+   "seed": 6
+  },
+  "wallClockS": 1.501,
+  "result": {
+   "share": 0.5,
+   "seed": 6,
+   "flowPerHour": 366.04730121744655,
+   "ours": {
+    "throughPerHour": 368,
+    "vehicles": 374,
+    "unfinished": 0,
+    "meanDelayS": 24.044064369142784,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.262
+   },
+   "sumo": {
+    "throughPerHour": 368,
+    "vehicles": 374,
+    "unfinished": 0,
+    "meanDelayS": 27.95033422459893,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v13' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=170.000."
+    ],
+    "wallClockS": 0.464
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.5-s7",
+   "share": 0.5,
+   "seed": 7
+  },
+  "wallClockS": 1.441,
+  "result": {
+   "share": 0.5,
+   "seed": 7,
+   "flowPerHour": 366.04730121744655,
+   "ours": {
+    "throughPerHour": 389,
+    "vehicles": 372,
+    "unfinished": 0,
+    "meanDelayS": 21.209176957904443,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.215
+   },
+   "sumo": {
+    "throughPerHour": 390,
+    "vehicles": 372,
+    "unfinished": 0,
+    "meanDelayS": 25.151158602150513,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 4,
+    "warningCount": 4,
+    "warnings": [
+     "Warning: Vehicle 'v140' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1080.000.",
+     "Warning: Vehicle 'v268' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2480.000.",
+     "Warning: Vehicle 'v276' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2550.000.",
+     "Warning: Vehicle 'v384' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3600.000."
+    ],
+    "wallClockS": 0.482
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.5-s8",
+   "share": 0.5,
+   "seed": 8
+  },
+  "wallClockS": 1.429,
+  "result": {
+   "share": 0.5,
+   "seed": 8,
+   "flowPerHour": 366.04730121744655,
+   "ours": {
+    "throughPerHour": 354,
+    "vehicles": 346,
+    "unfinished": 0,
+    "meanDelayS": 22.66724855603226,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.215
+   },
+   "sumo": {
+    "throughPerHour": 354,
+    "vehicles": 346,
+    "unfinished": 0,
+    "meanDelayS": 27.141468208092487,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 4,
+    "warningCount": 4,
+    "warnings": [
+     "Warning: Vehicle 'v265' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2900.000.",
+     "Warning: Vehicle 'v287' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3110.000.",
+     "Warning: Vehicle 'v447' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=4720.000.",
+     "Warning: Vehicle 'v468' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=4930.000."
+    ],
+    "wallClockS": 0.481
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.5-s9",
+   "share": 0.5,
+   "seed": 9
+  },
+  "wallClockS": 1.461,
+  "result": {
+   "share": 0.5,
+   "seed": 9,
+   "flowPerHour": 366.04730121744655,
+   "ours": {
+    "throughPerHour": 338,
+    "vehicles": 331,
+    "unfinished": 0,
+    "meanDelayS": 21.13300126796787,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.242
+   },
+   "sumo": {
+    "throughPerHour": 340,
+    "vehicles": 331,
+    "unfinished": 0,
+    "meanDelayS": 25.679906344410874,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v203' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2060.000."
+    ],
+    "wallClockS": 0.476
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.5-s10",
+   "share": 0.5,
+   "seed": 10
+  },
+  "wallClockS": 1.492,
+  "result": {
+   "share": 0.5,
+   "seed": 10,
+   "flowPerHour": 366.04730121744655,
+   "ours": {
+    "throughPerHour": 375,
+    "vehicles": 373,
+    "unfinished": 0,
+    "meanDelayS": 22.231414833225426,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.251
+   },
+   "sumo": {
+    "throughPerHour": 374,
+    "vehicles": 373,
+    "unfinished": 0,
+    "meanDelayS": 25.35497587131367,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 4,
+    "warningCount": 4,
+    "warnings": [
+     "Warning: Vehicle 'v51' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=590.000.",
+     "Warning: Vehicle 'v85' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=870.000.",
+     "Warning: Vehicle 'v176' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1710.000.",
+     "Warning: Vehicle 'v501' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=4860.000."
+    ],
+    "wallClockS": 0.497
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.7-s1",
+   "share": 0.7,
+   "seed": 1
+  },
+  "wallClockS": 1.515,
+  "result": {
+   "share": 0.7,
+   "seed": 1,
+   "flowPerHour": 512.4662217044252,
+   "ours": {
+    "throughPerHour": 492,
+    "vehicles": 481,
+    "unfinished": 0,
+    "meanDelayS": 23.823595098496813,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.275
+   },
+   "sumo": {
+    "throughPerHour": 492,
+    "vehicles": 481,
+    "unfinished": 0,
+    "meanDelayS": 30.748166320166323,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 5,
+    "warningCount": 5,
+    "warnings": [
+     "Warning: Vehicle 'v168' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1290.000.",
+     "Warning: Vehicle 'v201' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1500.000.",
+     "Warning: Vehicle 'v311' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2270.000.",
+     "Warning: Vehicle 'v392' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2900.000.",
+     "Warning: Vehicle 'v639' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=4790.000."
+    ],
+    "wallClockS": 0.522
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.7-s2",
+   "share": 0.7,
+   "seed": 2
+  },
+  "wallClockS": 1.511,
+  "result": {
+   "share": 0.7,
+   "seed": 2,
+   "flowPerHour": 512.4662217044252,
+   "ours": {
+    "throughPerHour": 513,
+    "vehicles": 509,
+    "unfinished": 0,
+    "meanDelayS": 29.691620657904785,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.265
+   },
+   "sumo": {
+    "throughPerHour": 514,
+    "vehicles": 509,
+    "unfinished": 0,
+    "meanDelayS": 39.85558349705308,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 5,
+    "warningCount": 5,
+    "warnings": [
+     "Warning: Vehicle 'v104' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=800.000.",
+     "Warning: Vehicle 'v369' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2550.000.",
+     "Warning: Vehicle 'v396' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2760.000.",
+     "Warning: Vehicle 'v416' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2900.000.",
+     "Warning: Vehicle 'v662' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=4860.000."
+    ],
+    "wallClockS": 0.542
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.7-s3",
+   "share": 0.7,
+   "seed": 3
+  },
+  "wallClockS": 1.605,
+  "result": {
+   "share": 0.7,
+   "seed": 3,
+   "flowPerHour": 512.4662217044252,
+   "ours": {
+    "throughPerHour": 531,
+    "vehicles": 520,
+    "unfinished": 0,
+    "meanDelayS": 26.172137124807428,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.276
+   },
+   "sumo": {
+    "throughPerHour": 532,
+    "vehicles": 520,
+    "unfinished": 0,
+    "meanDelayS": 34.663903846153836,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 3,
+    "warningCount": 3,
+    "warnings": [
+     "Warning: Vehicle 'v186' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1220.000.",
+     "Warning: Vehicle 'v544' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3740.000.",
+     "Warning: Vehicle 'v576' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3950.000."
+    ],
+    "wallClockS": 0.604
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.7-s4",
+   "share": 0.7,
+   "seed": 4
+  },
+  "wallClockS": 1.593,
+  "result": {
+   "share": 0.7,
+   "seed": 4,
+   "flowPerHour": 512.4662217044252,
+   "ours": {
+    "throughPerHour": 526,
+    "vehicles": 517,
+    "unfinished": 0,
+    "meanDelayS": 26.68776931508976,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.289
+   },
+   "sumo": {
+    "throughPerHour": 526,
+    "vehicles": 517,
+    "unfinished": 0,
+    "meanDelayS": 31.708874274661483,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 3,
+    "warningCount": 3,
+    "warnings": [
+     "Warning: Vehicle 'v116' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=940.000.",
+     "Warning: Vehicle 'v164' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1290.000.",
+     "Warning: Vehicle 'v513' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3740.000."
+    ],
+    "wallClockS": 0.585
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.7-s5",
+   "share": 0.7,
+   "seed": 5
+  },
+  "wallClockS": 1.721,
+  "result": {
+   "share": 0.7,
+   "seed": 5,
+   "flowPerHour": 512.4662217044252,
+   "ours": {
+    "throughPerHour": 503,
+    "vehicles": 500,
+    "unfinished": 0,
+    "meanDelayS": 24.3581316811077,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.298
+   },
+   "sumo": {
+    "throughPerHour": 504,
+    "vehicles": 500,
+    "unfinished": 0,
+    "meanDelayS": 28.482951999999962,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 3,
+    "warningCount": 3,
+    "warnings": [
+     "Warning: Vehicle 'v120' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=800.000.",
+     "Warning: Vehicle 'v207' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1500.000.",
+     "Warning: Vehicle 'v457' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3320.000."
+    ],
+    "wallClockS": 0.608
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.7-s6",
+   "share": 0.7,
+   "seed": 6
+  },
+  "wallClockS": 1.721,
+  "result": {
+   "share": 0.7,
+   "seed": 6,
+   "flowPerHour": 512.4662217044252,
+   "ours": {
+    "throughPerHour": 521,
+    "vehicles": 513,
+    "unfinished": 0,
+    "meanDelayS": 26.45198654879833,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.306
+   },
+   "sumo": {
+    "throughPerHour": 522,
+    "vehicles": 513,
+    "unfinished": 0,
+    "meanDelayS": 36.81082651072124,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 2,
+    "warningCount": 2,
+    "warnings": [
+     "Warning: Vehicle 'v128' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=870.000.",
+     "Warning: Vehicle 'v490' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3460.000."
+    ],
+    "wallClockS": 0.595
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.7-s7",
+   "share": 0.7,
+   "seed": 7
+  },
+  "wallClockS": 1.752,
+  "result": {
+   "share": 0.7,
+   "seed": 7,
+   "flowPerHour": 512.4662217044252,
+   "ours": {
+    "throughPerHour": 520,
+    "vehicles": 502,
+    "unfinished": 0,
+    "meanDelayS": 28.795778798789883,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.291
+   },
+   "sumo": {
+    "throughPerHour": 519,
+    "vehicles": 502,
+    "unfinished": 0,
+    "meanDelayS": 38.564370517928246,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v724' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=5000.000."
+    ],
+    "wallClockS": 0.616
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.7-s8",
+   "share": 0.7,
+   "seed": 8
+  },
+  "wallClockS": 1.691,
+  "result": {
+   "share": 0.7,
+   "seed": 8,
+   "flowPerHour": 512.4662217044252,
+   "ours": {
+    "throughPerHour": 518,
+    "vehicles": 512,
+    "unfinished": 0,
+    "meanDelayS": 27.30277979708862,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.304
+   },
+   "sumo": {
+    "throughPerHour": 518,
+    "vehicles": 512,
+    "unfinished": 0,
+    "meanDelayS": 37.676951171875,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 7,
+    "warningCount": 7,
+    "warnings": [
+     "Warning: Vehicle 'v24' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=310.000.",
+     "Warning: Vehicle 'v34' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=380.000.",
+     "Warning: Vehicle 'v51' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=520.000.",
+     "Warning: Vehicle 'v83' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=730.000.",
+     "Warning: Vehicle 'v201' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1640.000."
+    ],
+    "wallClockS": 0.588
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.7-s9",
+   "share": 0.7,
+   "seed": 9
+  },
+  "wallClockS": 1.676,
+  "result": {
+   "share": 0.7,
+   "seed": 9,
+   "flowPerHour": 512.4662217044252,
+   "ours": {
+    "throughPerHour": 474,
+    "vehicles": 474,
+    "unfinished": 0,
+    "meanDelayS": 24.390674291214882,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.265
+   },
+   "sumo": {
+    "throughPerHour": 473,
+    "vehicles": 474,
+    "unfinished": 0,
+    "meanDelayS": 30.881706751054843,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 7,
+    "warningCount": 7,
+    "warnings": [
+     "Warning: Vehicle 'v76' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=590.000.",
+     "Warning: Vehicle 'v87' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=660.000.",
+     "Warning: Vehicle 'v181' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1290.000.",
+     "Warning: Vehicle 'v225' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1640.000.",
+     "Warning: Vehicle 'v361' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2760.000."
+    ],
+    "wallClockS": 0.552
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.7-s10",
+   "share": 0.7,
+   "seed": 10
+  },
+  "wallClockS": 1.75,
+  "result": {
+   "share": 0.7,
+   "seed": 10,
+   "flowPerHour": 512.4662217044252,
+   "ours": {
+    "throughPerHour": 549,
+    "vehicles": 541,
+    "unfinished": 0,
+    "meanDelayS": 27.795748523862795,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.298
+   },
+   "sumo": {
+    "throughPerHour": 549,
+    "vehicles": 541,
+    "unfinished": 0,
+    "meanDelayS": 36.863036968576694,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 3,
+    "warningCount": 3,
+    "warnings": [
+     "Warning: Vehicle 'v56' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=450.000.",
+     "Warning: Vehicle 'v363' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2550.000.",
+     "Warning: Vehicle 'v728' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=4860.000."
+    ],
+    "wallClockS": 0.591
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.8-s1",
+   "share": 0.8,
+   "seed": 1
+  },
+  "wallClockS": 1.936,
+  "result": {
+   "share": 0.8,
+   "seed": 1,
+   "flowPerHour": 585.6756819479145,
+   "ours": {
+    "throughPerHour": 557,
+    "vehicles": 555,
+    "unfinished": 0,
+    "meanDelayS": 28.511967569995406,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.346
+   },
+   "sumo": {
+    "throughPerHour": 557,
+    "vehicles": 555,
+    "unfinished": 0,
+    "meanDelayS": 36.88439279279282,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 6,
+    "warningCount": 6,
+    "warnings": [
+     "Warning: Vehicle 'v87' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=590.000.",
+     "Warning: Vehicle 'v193' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1290.000.",
+     "Warning: Vehicle 'v327' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2130.000.",
+     "Warning: Vehicle 'v339' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2200.000.",
+     "Warning: Vehicle 'v481' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3110.000."
+    ],
+    "wallClockS": 0.712
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.8-s2",
+   "share": 0.8,
+   "seed": 2
+  },
+  "wallClockS": 1.917,
+  "result": {
+   "share": 0.8,
+   "seed": 2,
+   "flowPerHour": 585.6756819479145,
+   "ours": {
+    "throughPerHour": 571,
+    "vehicles": 568,
+    "unfinished": 0,
+    "meanDelayS": 40.27777177717784,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.327
+   },
+   "sumo": {
+    "throughPerHour": 578,
+    "vehicles": 568,
+    "unfinished": 0,
+    "meanDelayS": 67.81182042253519,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v724' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=4650.000."
+    ],
+    "wallClockS": 0.745
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.8-s3",
+   "share": 0.8,
+   "seed": 3
+  },
+  "wallClockS": 1.815,
+  "result": {
+   "share": 0.8,
+   "seed": 3,
+   "flowPerHour": 585.6756819479145,
+   "ours": {
+    "throughPerHour": 605,
+    "vehicles": 588,
+    "unfinished": 0,
+    "meanDelayS": 33.777689641886106,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.312
+   },
+   "sumo": {
+    "throughPerHour": 607,
+    "vehicles": 588,
+    "unfinished": 0,
+    "meanDelayS": 60.52845408163275,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 3,
+    "warningCount": 3,
+    "warnings": [
+     "Warning: Vehicle 'v511' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3110.000.",
+     "Warning: Vehicle 'v536' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3250.000.",
+     "Warning: Vehicle 'v560' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3390.000."
+    ],
+    "wallClockS": 0.69
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.8-s4",
+   "share": 0.8,
+   "seed": 4
+  },
+  "wallClockS": 1.731,
+  "result": {
+   "share": 0.8,
+   "seed": 4,
+   "flowPerHour": 585.6756819479145,
+   "ours": {
+    "throughPerHour": 595,
+    "vehicles": 599,
+    "unfinished": 0,
+    "meanDelayS": 31.007870331151,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.308
+   },
+   "sumo": {
+    "throughPerHour": 596,
+    "vehicles": 599,
+    "unfinished": 0,
+    "meanDelayS": 46.976816360601035,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 2,
+    "warningCount": 2,
+    "warnings": [
+     "Warning: Vehicle 'v98' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=730.000.",
+     "Warning: Vehicle 'v379' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2480.000."
+    ],
+    "wallClockS": 0.637
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.8-s5",
+   "share": 0.8,
+   "seed": 5
+  },
+  "wallClockS": 1.754,
+  "result": {
+   "share": 0.8,
+   "seed": 5,
+   "flowPerHour": 585.6756819479145,
+   "ours": {
+    "throughPerHour": 580,
+    "vehicles": 568,
+    "unfinished": 0,
+    "meanDelayS": 31.154908582123323,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.287
+   },
+   "sumo": {
+    "throughPerHour": 583,
+    "vehicles": 568,
+    "unfinished": 0,
+    "meanDelayS": 47.306514084507036,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 2,
+    "warningCount": 2,
+    "warnings": [
+     "Warning: Vehicle 'v173' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1080.000.",
+     "Warning: Vehicle 'v448' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2830.000."
+    ],
+    "wallClockS": 0.661
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.8-s6",
+   "share": 0.8,
+   "seed": 6
+  },
+  "wallClockS": 1.742,
+  "result": {
+   "share": 0.8,
+   "seed": 6,
+   "flowPerHour": 585.6756819479145,
+   "ours": {
+    "throughPerHour": 588,
+    "vehicles": 588,
+    "unfinished": 0,
+    "meanDelayS": 39.735355866999136,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.305
+   },
+   "sumo": {
+    "throughPerHour": 590,
+    "vehicles": 588,
+    "unfinished": 0,
+    "meanDelayS": 62.56793027210888,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 2,
+    "warningCount": 2,
+    "warnings": [
+     "Warning: Vehicle 'v105' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=660.000.",
+     "Warning: Vehicle 'v337' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2130.000."
+    ],
+    "wallClockS": 0.645
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.8-s7",
+   "share": 0.8,
+   "seed": 7
+  },
+  "wallClockS": 2.168,
+  "result": {
+   "share": 0.8,
+   "seed": 7,
+   "flowPerHour": 585.6756819479145,
+   "ours": {
+    "throughPerHour": 603,
+    "vehicles": 577,
+    "unfinished": 0,
+    "meanDelayS": 43.02799021269711,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.352
+   },
+   "sumo": {
+    "throughPerHour": 595,
+    "vehicles": 577,
+    "unfinished": 0,
+    "meanDelayS": 76.38934315424603,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 3,
+    "warningCount": 3,
+    "warnings": [
+     "Warning: Vehicle 'v49' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=310.000.",
+     "Warning: Vehicle 'v323' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1920.000.",
+     "Warning: Vehicle 'v786' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=4860.000."
+    ],
+    "wallClockS": 1.012
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.8-s8",
+   "share": 0.8,
+   "seed": 8
+  },
+  "wallClockS": 1.775,
+  "result": {
+   "share": 0.8,
+   "seed": 8,
+   "flowPerHour": 585.6756819479145,
+   "ours": {
+    "throughPerHour": 586,
+    "vehicles": 581,
+    "unfinished": 0,
+    "meanDelayS": 31.468365616202515,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.332
+   },
+   "sumo": {
+    "throughPerHour": 583,
+    "vehicles": 581,
+    "unfinished": 0,
+    "meanDelayS": 60.525703958691864,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 5,
+    "warningCount": 5,
+    "warnings": [
+     "Warning: Vehicle 'v19' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=170.000.",
+     "Warning: Vehicle 'v96' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=730.000.",
+     "Warning: Vehicle 'v141' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1010.000.",
+     "Warning: Vehicle 'v220' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1570.000.",
+     "Warning: Vehicle 'v405' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2760.000."
+    ],
+    "wallClockS": 0.652
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.8-s9",
+   "share": 0.8,
+   "seed": 9
+  },
+  "wallClockS": 1.746,
+  "result": {
+   "share": 0.8,
+   "seed": 9,
+   "flowPerHour": 585.6756819479145,
+   "ours": {
+    "throughPerHour": 551,
+    "vehicles": 552,
+    "unfinished": 0,
+    "meanDelayS": 29.226648793158372,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.316
+   },
+   "sumo": {
+    "throughPerHour": 551,
+    "vehicles": 552,
+    "unfinished": 0,
+    "meanDelayS": 39.11862862318845,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 7,
+    "warningCount": 7,
+    "warnings": [
+     "Warning: Vehicle 'v30' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=240.000.",
+     "Warning: Vehicle 'v97' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=660.000.",
+     "Warning: Vehicle 'v109' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=730.000.",
+     "Warning: Vehicle 'v324' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2130.000.",
+     "Warning: Vehicle 'v561' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3740.000."
+    ],
+    "wallClockS": 0.641
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.8-s10",
+   "share": 0.8,
+   "seed": 10
+  },
+  "wallClockS": 2.172,
+  "result": {
+   "share": 0.8,
+   "seed": 10,
+   "flowPerHour": 585.6756819479145,
+   "ours": {
+    "throughPerHour": 628,
+    "vehicles": 627,
+    "unfinished": 0,
+    "meanDelayS": 40.92059107143598,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.338
+   },
+   "sumo": {
+    "throughPerHour": 611,
+    "vehicles": 627,
+    "unfinished": 0,
+    "meanDelayS": 77.2293381180223,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 5,
+    "warningCount": 5,
+    "warnings": [
+     "Warning: Vehicle 'v36' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=240.000.",
+     "Warning: Vehicle 'v275' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1710.000.",
+     "Warning: Vehicle 'v331' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2060.000.",
+     "Warning: Vehicle 'v355' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2200.000.",
+     "Warning: Vehicle 'v482' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=2970.000."
+    ],
+    "wallClockS": 1.056
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.9-s1",
+   "share": 0.9,
+   "seed": 1
+  },
+  "wallClockS": 2.259,
+  "result": {
+   "share": 0.9,
+   "seed": 1,
+   "flowPerHour": 658.8851421914038,
+   "ours": {
+    "throughPerHour": 631,
+    "vehicles": 636,
+    "unfinished": 0,
+    "meanDelayS": 47.6622602784329,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.354
+   },
+   "sumo": {
+    "throughPerHour": 617,
+    "vehicles": 636,
+    "unfinished": 0,
+    "meanDelayS": 113.94008490566036,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.117
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.9-s2",
+   "share": 0.9,
+   "seed": 2
+  },
+  "wallClockS": 2.609,
+  "result": {
+   "share": 0.9,
+   "seed": 2,
+   "flowPerHour": 658.8851421914038,
+   "ours": {
+    "throughPerHour": 644,
+    "vehicles": 636,
+    "unfinished": 0,
+    "meanDelayS": 71.82521435645961,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.436
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 636,
+    "unfinished": 0,
+    "meanDelayS": 194.0910817610064,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.383
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.9-s3",
+   "share": 0.9,
+   "seed": 3
+  },
+  "wallClockS": 2.811,
+  "result": {
+   "share": 0.9,
+   "seed": 3,
+   "flowPerHour": 658.8851421914038,
+   "ours": {
+    "throughPerHour": 671,
+    "vehicles": 661,
+    "unfinished": 0,
+    "meanDelayS": 93.27310636709993,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.564
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 661,
+    "unfinished": 0,
+    "meanDelayS": 276.5862859304083,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.466
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.9-s4",
+   "share": 0.9,
+   "seed": 4
+  },
+  "wallClockS": 2.645,
+  "result": {
+   "share": 0.9,
+   "seed": 4,
+   "flowPerHour": 658.8851421914038,
+   "ours": {
+    "throughPerHour": 667,
+    "vehicles": 679,
+    "unfinished": 0,
+    "meanDelayS": 54.85418169557925,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.491
+   },
+   "sumo": {
+    "throughPerHour": 623,
+    "vehicles": 679,
+    "unfinished": 0,
+    "meanDelayS": 193.36691605301922,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v97' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=660.000."
+    ],
+    "wallClockS": 1.285
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.9-s5",
+   "share": 0.9,
+   "seed": 5
+  },
+  "wallClockS": 2.434,
+  "result": {
+   "share": 0.9,
+   "seed": 5,
+   "flowPerHour": 658.8851421914038,
+   "ours": {
+    "throughPerHour": 658,
+    "vehicles": 652,
+    "unfinished": 0,
+    "meanDelayS": 48.12770071620659,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.423
+   },
+   "sumo": {
+    "throughPerHour": 625,
+    "vehicles": 652,
+    "unfinished": 0,
+    "meanDelayS": 154.36265030674838,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.166
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.9-s6",
+   "share": 0.9,
+   "seed": 6
+  },
+  "wallClockS": 2.634,
+  "result": {
+   "share": 0.9,
+   "seed": 6,
+   "flowPerHour": 658.8851421914038,
+   "ours": {
+    "throughPerHour": 657,
+    "vehicles": 639,
+    "unfinished": 0,
+    "meanDelayS": 61.791292274382414,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.422
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 639,
+    "unfinished": 0,
+    "meanDelayS": 236.7560813771518,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.328
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.9-s7",
+   "share": 0.9,
+   "seed": 7
+  },
+  "wallClockS": 2.803,
+  "result": {
+   "share": 0.9,
+   "seed": 7,
+   "flowPerHour": 658.8851421914038,
+   "ours": {
+    "throughPerHour": 671,
+    "vehicles": 630,
+    "unfinished": 0,
+    "meanDelayS": 99.73778208028772,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.59
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 630,
+    "unfinished": 0,
+    "meanDelayS": 297.32280634920636,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.305
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.9-s8",
+   "share": 0.9,
+   "seed": 8
+  },
+  "wallClockS": 2.212,
+  "result": {
+   "share": 0.9,
+   "seed": 8,
+   "flowPerHour": 658.8851421914038,
+   "ours": {
+    "throughPerHour": 649,
+    "vehicles": 643,
+    "unfinished": 0,
+    "meanDelayS": 65.96443963478434,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.498
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 643,
+    "unfinished": 0,
+    "meanDelayS": 128.58553965785393,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v239' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1500.000."
+    ],
+    "wallClockS": 0.864
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.9-s9",
+   "share": 0.9,
+   "seed": 9
+  },
+  "wallClockS": 2.063,
+  "result": {
+   "share": 0.9,
+   "seed": 9,
+   "flowPerHour": 658.8851421914038,
+   "ours": {
+    "throughPerHour": 621,
+    "vehicles": 619,
+    "unfinished": 0,
+    "meanDelayS": 40.57207849213296,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.376
+   },
+   "sumo": {
+    "throughPerHour": 614,
+    "vehicles": 619,
+    "unfinished": 0,
+    "meanDelayS": 70.98736510500811,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v592' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=3530.000."
+    ],
+    "wallClockS": 0.795
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.9-s10",
+   "share": 0.9,
+   "seed": 10
+  },
+  "wallClockS": 2.538,
+  "result": {
+   "share": 0.9,
+   "seed": 10,
+   "flowPerHour": 658.8851421914038,
+   "ours": {
+    "throughPerHour": 674,
+    "vehicles": 719,
+    "unfinished": 0,
+    "meanDelayS": 112.23368172175742,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.629
+   },
+   "sumo": {
+    "throughPerHour": 625,
+    "vehicles": 719,
+    "unfinished": 0,
+    "meanDelayS": 286.6771349095964,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v12' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=100.000."
+    ],
+    "wallClockS": 1.18
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.95-s1",
+   "share": 0.95,
+   "seed": 1
+  },
+  "wallClockS": 2.427,
+  "result": {
+   "share": 0.95,
+   "seed": 1,
+   "flowPerHour": 695.4898723131485,
+   "ours": {
+    "throughPerHour": 664,
+    "vehicles": 672,
+    "unfinished": 0,
+    "meanDelayS": 62.00293984767235,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.514
+   },
+   "sumo": {
+    "throughPerHour": 625,
+    "vehicles": 672,
+    "unfinished": 0,
+    "meanDelayS": 215.56062202380954,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.167
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.95-s2",
+   "share": 0.95,
+   "seed": 2
+  },
+  "wallClockS": 2.706,
+  "result": {
+   "share": 0.95,
+   "seed": 2,
+   "flowPerHour": 695.4898723131485,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 686,
+    "unfinished": 0,
+    "meanDelayS": 125.16663876939394,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.637
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 686,
+    "unfinished": 0,
+    "meanDelayS": 324.7034548104958,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.319
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.95-s3",
+   "share": 0.95,
+   "seed": 3
+  },
+  "wallClockS": 2.938,
+  "result": {
+   "share": 0.95,
+   "seed": 3,
+   "flowPerHour": 695.4898723131485,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 710,
+    "unfinished": 0,
+    "meanDelayS": 213.71882582677844,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.812
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 710,
+    "unfinished": 0,
+    "meanDelayS": 423.98340140845073,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.307
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.95-s4",
+   "share": 0.95,
+   "seed": 4
+  },
+  "wallClockS": 2.592,
+  "result": {
+   "share": 0.95,
+   "seed": 4,
+   "flowPerHour": 695.4898723131485,
+   "ours": {
+    "throughPerHour": 672,
+    "vehicles": 712,
+    "unfinished": 0,
+    "meanDelayS": 143.63049058539156,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.622
+   },
+   "sumo": {
+    "throughPerHour": 623,
+    "vehicles": 712,
+    "unfinished": 0,
+    "meanDelayS": 312.7704620786516,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.142
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.95-s5",
+   "share": 0.95,
+   "seed": 5
+  },
+  "wallClockS": 3.106,
+  "result": {
+   "share": 0.95,
+   "seed": 5,
+   "flowPerHour": 695.4898723131485,
+   "ours": {
+    "throughPerHour": 672,
+    "vehicles": 665,
+    "unfinished": 0,
+    "meanDelayS": 99.55207427266829,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.545
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 665,
+    "unfinished": 0,
+    "meanDelayS": 298.46334887218035,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v25' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=170.000."
+    ],
+    "wallClockS": 1.674
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.95-s6",
+   "share": 0.95,
+   "seed": 6
+  },
+  "wallClockS": 3.224,
+  "result": {
+   "share": 0.95,
+   "seed": 6,
+   "flowPerHour": 695.4898723131485,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 676,
+    "unfinished": 0,
+    "meanDelayS": 157.52099032275197,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.604
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 676,
+    "unfinished": 0,
+    "meanDelayS": 362.9849452662723,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.754
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.95-s7",
+   "share": 0.95,
+   "seed": 7
+  },
+  "wallClockS": 3.567,
+  "result": {
+   "share": 0.95,
+   "seed": 7,
+   "flowPerHour": 695.4898723131485,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 664,
+    "unfinished": 0,
+    "meanDelayS": 217.75901645829677,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.801
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 664,
+    "unfinished": 0,
+    "meanDelayS": 431.30946234939813,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.899
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.95-s8",
+   "share": 0.95,
+   "seed": 8
+  },
+  "wallClockS": 2.871,
+  "result": {
+   "share": 0.95,
+   "seed": 8,
+   "flowPerHour": 695.4898723131485,
+   "ours": {
+    "throughPerHour": 665,
+    "vehicles": 669,
+    "unfinished": 0,
+    "meanDelayS": 96.04521154726804,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.555
+   },
+   "sumo": {
+    "throughPerHour": 625,
+    "vehicles": 669,
+    "unfinished": 0,
+    "meanDelayS": 234.14423019431996,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.469
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.95-s9",
+   "share": 0.95,
+   "seed": 9
+  },
+  "wallClockS": 2.97,
+  "result": {
+   "share": 0.95,
+   "seed": 9,
+   "flowPerHour": 695.4898723131485,
+   "ours": {
+    "throughPerHour": 655,
+    "vehicles": 664,
+    "unfinished": 0,
+    "meanDelayS": 65.49952804624178,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.586
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 664,
+    "unfinished": 0,
+    "meanDelayS": 201.39132831325307,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.505
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x0.95-s10",
+   "share": 0.95,
+   "seed": 10
+  },
+  "wallClockS": 3.692,
+  "result": {
+   "share": 0.95,
+   "seed": 10,
+   "flowPerHour": 695.4898723131485,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 760,
+    "unfinished": 0,
+    "meanDelayS": 249.83072698373664,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.975
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 760,
+    "unfinished": 15,
+    "meanDelayS": 459.21999342105295,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.867
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1-s1",
+   "share": 1,
+   "seed": 1
+  },
+  "wallClockS": 4.012,
+  "result": {
+   "share": 1,
+   "seed": 1,
+   "flowPerHour": 732.0946024348931,
+   "ours": {
+    "throughPerHour": 672,
+    "vehicles": 721,
+    "unfinished": 0,
+    "meanDelayS": 170.2757766899507,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.901
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 721,
+    "unfinished": 0,
+    "meanDelayS": 367.3230332871014,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v36' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=240.000."
+    ],
+    "wallClockS": 2.209
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1-s2",
+   "share": 1,
+   "seed": 2
+  },
+  "wallClockS": 4.21,
+  "result": {
+   "share": 1,
+   "seed": 2,
+   "flowPerHour": 732.0946024348931,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 728,
+    "unfinished": 0,
+    "meanDelayS": 243.61960999526372,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.905
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 728,
+    "unfinished": 0,
+    "meanDelayS": 465.2848324175818,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.065
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1-s3",
+   "share": 1,
+   "seed": 3
+  },
+  "wallClockS": 4.401,
+  "result": {
+   "share": 1,
+   "seed": 3,
+   "flowPerHour": 732.0946024348931,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 750,
+    "unfinished": 0,
+    "meanDelayS": 350.0657761080631,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.026
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 750,
+    "unfinished": 26,
+    "meanDelayS": 576.3010373333343,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.158
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1-s4",
+   "share": 1,
+   "seed": 4
+  },
+  "wallClockS": 4.048,
+  "result": {
+   "share": 1,
+   "seed": 4,
+   "flowPerHour": 732.0946024348931,
+   "ours": {
+    "throughPerHour": 677,
+    "vehicles": 735,
+    "unfinished": 0,
+    "meanDelayS": 237.63324461779914,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.989
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 735,
+    "unfinished": 0,
+    "meanDelayS": 447.25657823129256,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v19' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=170.000."
+    ],
+    "wallClockS": 1.851
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1-s5",
+   "share": 1,
+   "seed": 5
+  },
+  "wallClockS": 4.09,
+  "result": {
+   "share": 1,
+   "seed": 5,
+   "flowPerHour": 732.0946024348931,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 710,
+    "unfinished": 0,
+    "meanDelayS": 229.01122476882318,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.126
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 710,
+    "unfinished": 0,
+    "meanDelayS": 449.2609281690143,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.852
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1-s6",
+   "share": 1,
+   "seed": 6
+  },
+  "wallClockS": 4.274,
+  "result": {
+   "share": 1,
+   "seed": 6,
+   "flowPerHour": 732.0946024348931,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 701,
+    "unfinished": 0,
+    "meanDelayS": 273.25043701985265,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.401
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 701,
+    "unfinished": 0,
+    "meanDelayS": 487.460793152639,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.375
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1-s7",
+   "share": 1,
+   "seed": 7
+  },
+  "wallClockS": 3.265,
+  "result": {
+   "share": 1,
+   "seed": 7,
+   "flowPerHour": 732.0946024348931,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 707,
+    "unfinished": 0,
+    "meanDelayS": 344.81781402789943,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.851
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 707,
+    "unfinished": 0,
+    "meanDelayS": 570.7483932107498,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.457
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1-s8",
+   "share": 1,
+   "seed": 8
+  },
+  "wallClockS": 2.536,
+  "result": {
+   "share": 1,
+   "seed": 8,
+   "flowPerHour": 732.0946024348931,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 698,
+    "unfinished": 0,
+    "meanDelayS": 175.9066969117399,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.645
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 698,
+    "unfinished": 0,
+    "meanDelayS": 362.1080673352438,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.178
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1-s9",
+   "share": 1,
+   "seed": 9
+  },
+  "wallClockS": 2.587,
+  "result": {
+   "share": 1,
+   "seed": 9,
+   "flowPerHour": 732.0946024348931,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 708,
+    "unfinished": 0,
+    "meanDelayS": 134.51101795655794,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.601
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 708,
+    "unfinished": 0,
+    "meanDelayS": 346.71761299435036,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.212
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1-s10",
+   "share": 1,
+   "seed": 10
+  },
+  "wallClockS": 3.276,
+  "result": {
+   "share": 1,
+   "seed": 10,
+   "flowPerHour": 732.0946024348931,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 798,
+    "unfinished": 0,
+    "meanDelayS": 390.7012832429636,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.913
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 798,
+    "unfinished": 59,
+    "meanDelayS": 607.4288746867169,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.576
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1.3-s1",
+   "share": 1.3,
+   "seed": 1
+  },
+  "wallClockS": 3.817,
+  "result": {
+   "share": 1.3,
+   "seed": 1,
+   "flowPerHour": 951.722983165361,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 976,
+    "unfinished": 193,
+    "meanDelayS": 901.4702213413964,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.992
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 976,
+    "unfinished": 263,
+    "meanDelayS": 1083.9507407918688,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.063
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1.3-s2",
+   "share": 1.3,
+   "seed": 2
+  },
+  "wallClockS": 3.729,
+  "result": {
+   "share": 1.3,
+   "seed": 2,
+   "flowPerHour": 951.722983165361,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 940,
+    "unfinished": 166,
+    "meanDelayS": 957.8910103781551,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.873
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 940,
+    "unfinished": 236,
+    "meanDelayS": 1146.714133505919,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.064
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1.3-s3",
+   "share": 1.3,
+   "seed": 3
+  },
+  "wallClockS": 4.249,
+  "result": {
+   "share": 1.3,
+   "seed": 3,
+   "flowPerHour": 951.722983165361,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 967,
+    "unfinished": 210,
+    "meanDelayS": 1043.5400778474454,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.146
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 967,
+    "unfinished": 280,
+    "meanDelayS": 1225.8105248171282,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.244
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1.3-s4",
+   "share": 1.3,
+   "seed": 4
+  },
+  "wallClockS": 3.992,
+  "result": {
+   "share": 1.3,
+   "seed": 4,
+   "flowPerHour": 951.722983165361,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 926,
+    "unfinished": 141,
+    "meanDelayS": 901.5833504269293,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.095
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 926,
+    "unfinished": 211,
+    "meanDelayS": 1094.0619313586155,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.062
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1.3-s5",
+   "share": 1.3,
+   "seed": 5
+  },
+  "wallClockS": 4.03,
+  "result": {
+   "share": 1.3,
+   "seed": 5,
+   "flowPerHour": 951.722983165361,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 951,
+    "unfinished": 182,
+    "meanDelayS": 944.654955206644,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.988
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 951,
+    "unfinished": 252,
+    "meanDelayS": 1130.927203279384,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.145
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1.3-s6",
+   "share": 1.3,
+   "seed": 6
+  },
+  "wallClockS": 3.71,
+  "result": {
+   "share": 1.3,
+   "seed": 6,
+   "flowPerHour": 951.722983165361,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 892,
+    "unfinished": 147,
+    "meanDelayS": 967.8131816716315,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.882
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 892,
+    "unfinished": 217,
+    "meanDelayS": 1164.3360930123931,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.074
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1.3-s7",
+   "share": 1.3,
+   "seed": 7
+  },
+  "wallClockS": 3.768,
+  "result": {
+   "share": 1.3,
+   "seed": 7,
+   "flowPerHour": 951.722983165361,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 897,
+    "unfinished": 150,
+    "meanDelayS": 1023.6198229359511,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.997
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 897,
+    "unfinished": 220,
+    "meanDelayS": 1219.213617265245,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.949
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1.3-s8",
+   "share": 1.3,
+   "seed": 8
+  },
+  "wallClockS": 3.467,
+  "result": {
+   "share": 1.3,
+   "seed": 8,
+   "flowPerHour": 951.722983165361,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 902,
+    "unfinished": 118,
+    "meanDelayS": 832.4823001981143,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.2
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 902,
+    "unfinished": 187,
+    "meanDelayS": 1025.3382716410738,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.513
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1.3-s9",
+   "share": 1.3,
+   "seed": 9
+  },
+  "wallClockS": 2.845,
+  "result": {
+   "share": 1.3,
+   "seed": 9,
+   "flowPerHour": 951.722983165361,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 903,
+    "unfinished": 135,
+    "meanDelayS": 851.9313156286878,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.775
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 903,
+    "unfinished": 204,
+    "meanDelayS": 1043.4517605829967,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.492
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.2",
+   "id": "t2.2-x1.3-s10",
+   "share": 1.3,
+   "seed": 10
+  },
+  "wallClockS": 2.964,
+  "result": {
+   "share": 1.3,
+   "seed": 10,
+   "flowPerHour": 951.722983165361,
+   "ours": {
+    "throughPerHour": 675,
+    "vehicles": 1010,
+    "unfinished": 244,
+    "meanDelayS": 1084.8807709101222,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.783
+   },
+   "sumo": {
+    "throughPerHour": 624,
+    "vehicles": 1010,
+    "unfinished": 314,
+    "meanDelayS": 1260.0647579891283,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 1.618
+   }
+  }
+ }
+]
