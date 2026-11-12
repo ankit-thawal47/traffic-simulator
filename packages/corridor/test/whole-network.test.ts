@@ -294,6 +294,42 @@ describe("the whole network of a corridor", () => {
     ]);
   });
 
+  it("makes a priority junction, set back like a signal junction, in network format version 5", () => {
+    const corridor = importCorridor(
+      extract,
+      corrections([road("in", [10]), road("on", [11]), road("slip", [30])], {}, {
+        junctions: [
+          {
+            id: "give-way",
+            name: "Give way",
+            control: "priority",
+            mainRoadIds: ["in"],
+            setBackM: 10,
+            connections: [
+              { fromRoadId: "in", toRoadId: "on" },
+              { fromRoadId: "in", toRoadId: "slip" },
+            ],
+          },
+        ],
+      }),
+    );
+
+    expect(corridor.problems).toEqual([]);
+    expect(corridor.network!.formatVersion).toBe(5);
+    expect(byId(corridor.network!, "in").points.at(-1)).toEqual({ x: 0, y: 212.64 });
+    expect(corridor.network!.junctions).toEqual([
+      {
+        id: "give-way",
+        control: "priority",
+        connections: [
+          { fromRoadId: "in", toRoadId: "on" },
+          { fromRoadId: "in", toRoadId: "slip" },
+        ],
+        mainRoadIds: ["in"],
+      },
+    ]);
+  });
+
   it("moves a road drawn too close to another just far enough for both widths, and says how far", () => {
     // Way 50 runs beside way 10, 0.00005 degrees (5.566 m) east of it: closer than half of both widths (8.75 m).
     const besides: OsmExtract = {

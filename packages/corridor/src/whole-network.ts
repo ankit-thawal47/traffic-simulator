@@ -1,5 +1,6 @@
 /**
- * The whole corridor as one network in the engine's format (version 4).
+ * The whole corridor as one network in the engine's format (version 4, or 5
+ * with a priority junction).
  *
  * OpenStreetMap draws each carriageway as a line, and draws the lines of two
  * roads that divide or join to one shared node. The engine needs more than
@@ -279,9 +280,11 @@ export function wholeNetwork(
     road.line = slice(road.line, byM, lengthOf(road.line.points));
   };
 
-  // Signal junctions, with their roads set back from the node where the corrections say so.
+  // Signal and priority junctions, with their roads set back from the node where the corrections say so.
   for (const junction of corrections.junctions) {
-    if (junction.control !== "signal" || !junction.signalPlan) continue;
+    const signal = junction.control === "signal" && junction.signalPlan;
+    const priority = junction.control === "priority" && junction.mainRoadIds;
+    if (!signal && !priority) continue;
     const what = `Junction "${junction.id}"`;
     const inNetwork = (id: string): string => roadOfPart.get(id) ?? id;
     const connections: Connection[] = junction.connections.map(({ fromRoadId, toRoadId }) => ({
@@ -297,13 +300,17 @@ export function wholeNetwork(
           "so that the stop lines stand back and the turns have room.",
       );
     }
+    if (junction.control === "priority") {
+      junctions.push({ id: junction.id, control: "priority", connections, mainRoadIds: junction.mainRoadIds!.map(inNetwork) });
+      continue;
+    }
     junctions.push({
       id: junction.id,
       control: "signal",
       connections,
       signalPlan: {
-        ...junction.signalPlan,
-        phases: junction.signalPlan.phases.map((phase) => ({ ...phase, greenRoadIds: phase.greenRoadIds.map(inNetwork) })),
+        ...junction.signalPlan!,
+        phases: junction.signalPlan!.phases.map((phase) => ({ ...phase, greenRoadIds: phase.greenRoadIds.map(inNetwork) })),
       },
     });
   }
@@ -425,7 +432,8 @@ export function wholeNetwork(
   const roads = [...working.values()];
   const heights = heightsOf(roads, junctions, settings);
   const network: Network = {
-    formatVersion: 4,
+    // Priority junctions are part of network format version 5; a network without one stays at version 4.
+    formatVersion: junctions.some((junction) => junction.control === "priority") ? 5 : 4,
     roads: roads.map((road): Road => ({
       id: road.id,
       points: heights.get(road.id)!,

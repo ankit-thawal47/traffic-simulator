@@ -112,8 +112,11 @@ export interface ConnectionCorrection {
 export interface JunctionCorrection {
   id: string;
   name: string;
-  control: "signal" | "unconfirmed";
+  /** Priority: no signal; traffic on the main roads goes first and side-road traffic waits for a gap (network format version 5). */
+  control: "signal" | "priority" | "unconfirmed";
   connections: ConnectionCorrection[];
+  /** Needed for a priority junction: its approaches that are the main road. */
+  mainRoadIds?: string[];
   /**
    * Cut every road of the junction back this far from where it meets the
    * junction, in the whole network: needed where OpenStreetMap draws all the

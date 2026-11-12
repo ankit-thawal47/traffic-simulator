@@ -224,6 +224,7 @@ function checkJunction(
   const before = problems.length;
   const name = `Junction "${junction.id}"`;
   if (junction.control === "signal" && !junction.signalPlan) problems.push(`${name} is a signal junction with no signal plan`);
+  if (junction.control === "priority" && !junction.mainRoadIds?.length) problems.push(`${name} is a priority junction with no main road`);
   for (const connection of junction.connections) {
     const from = roads.get(connection.fromRoadId);
     const to = roads.get(connection.toRoadId);
