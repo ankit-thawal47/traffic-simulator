@@ -1,0 +1,65 @@
+{
+  "corridorId": "hebbal-city-bound",
+  "checkedOn": "2026-11-12",
+  "sources": {
+    "rites": "RITES Ltd for Government of Karnataka and BMRCL, 'Extract of the Report on Capacity Augmentation of Road and Rail infrastructure at Hebbal Junction' (33 pages, published by BMRCL December 2021), OpenCity dataset 'Capacity Augmentation of Road and Rail infrastructure at Hebbal Junction' (licence shown: Other (Public Domain)), https://data.opencity.in/dataset/ea803af5-a9fd-439f-9365-0ec3ded0d455/resource/75cd4720-f36c-43bd-8e40-510447152891/download/a6b1f762-c310-4d03-aff8-77ca80a78d25.pdf, read 2026-11-12",
+    "iitb": "Prof. Archak Mittal, IIT Bombay, 'Integrated Traffic Microsimulation Study - Bengaluru: Hebbal Flyover & Hebbal Short Tunnel', 10 August 2026 (26 pages; a consultancy report for Rithwik Projects Pvt Ltd, stated to be the author's technical opinion and not the views of IIT Bombay), OpenCity dataset 'Hebbal Tunnel Road - Veterinary College to GKVK Documents', https://data.opencity.in/dataset/6b11c60b-2d6d-4426-acfa-1e5464759137/resource/1677ca40-d3cd-42b3-b9d0-78d339307019/download/integrated-traffic-microsimulation-report-bengaluru-projectv4.pdf, read 2026-11-12",
+    "iisc": "Prof. Ashish Verma, IISc Sustainable Transportation Lab, 'Analysis of Integrated Traffic Microsimulation Study - Bengaluru by Dr. Archak Mittal, IIT Bombay: A Technical Review' (7 pages), same OpenCity dataset, https://data.opencity.in/dataset/6b11c60b-2d6d-4426-acfa-1e5464759137/resource/26640ad3-9a60-4329-aeef-8bc1a815bfe4/download/av_technical_review_iitb_report.pdf, read 2026-11-12"
+  },
+  "peakHourTurningVolumes2019": {
+    "evidence": {
+      "state": "confirmed",
+      "source": "RITES extract, page 8, 'Peak Hour Traffic - 2019 (Hebbal)': a turning diagram for the whole interchange (flyover, ramps and ground level together), in PCU per hour, total 26,896. The daily diagram on page 7 is dated July 2019. The page does not say which hour of the day the peak hour is."
+    },
+    "unit": "PCU per hour",
+    "fromAirport": { "toTumkur": 2890, "toCity": 3642, "toKRPuram": 2336, "total": 8867 },
+    "fromTumkur": { "toAirport": 1277, "toKRPuram": 2670, "toCity": 1056, "total": 5003 },
+    "fromKRPuram": { "toAirport": 1018, "toTumkur": 2800, "toCity": 1874, "total": 5691 },
+    "fromCity": { "toTumkur": 824, "toAirport": 4335, "toKRPuram": 2176, "total": 7335 }
+  },
+  "junctionTotals2025": {
+    "evidence": {
+      "state": "confirmed",
+      "source": "IIT Bombay report, section 5.2 'Junction traffic volumes': Hebbal Junction, morning peak 09:00 to 10:00, 32,770 vehicles per hour = 31,758 PCU per hour, quoted from the tunnel project report's counts. The report gives no turning movements and no table of vehicle classes, and says signal timings were not recorded. The IISc review confirms the same figures and finds the report's base speed (13.74 km/h) at odds with the 4.29 km/h observed."
+    },
+    "vehiclesPerHour": 32770,
+    "pcuPerHour": 31758
+  },
+  "pcuPerVehicle": {
+    "value": 0.969,
+    "evidence": {
+      "state": "assumed",
+      "source": "31,758 PCU / 32,770 vehicles at Hebbal Junction in the 09:00 to 10:00 peak (IIT Bombay report, section 5.2). Used to turn the 2019 RITES volumes from PCU into vehicles. An assumption because it joins two surveys years apart, and neither document says which PCU factors it used. The RITES 2051 forecast table implies 1.23 PCU per vehicle, with goods vehicles and buses included."
+    }
+  },
+  "flows": {
+    "evidence": {
+      "state": "assumed",
+      "source": "RITES 2019 peak-hour turning volumes (confirmed, above), divided by 0.969 PCU per vehicle (assumed, above) and put on the roads of the corridor by hand from the OpenStreetMap layout as it is in November 2026. The counts are from July 2019; the ramp from K.R. Puram towards the city opened after that, so which road each movement uses today is our reading of the map, not an observation."
+    },
+    "groundLevel": [
+      { "from": "Airport", "to": "Tumkur", "pcuPerHour": 2890, "entryRoadId": "airport-ground-in", "exitRoadId": "tumkur-out", "vehiclesPerHour": 2982 },
+      { "from": "Tumkur", "to": "Airport", "pcuPerHour": 1277, "entryRoadId": "tumkur-in", "exitRoadId": "airport-out", "vehiclesPerHour": 1318 },
+      { "from": "Tumkur", "to": "K.R. Puram", "pcuPerHour": 2670, "entryRoadId": "tumkur-in", "exitRoadId": "krpuram-out", "vehiclesPerHour": 2755 },
+      { "from": "Tumkur", "to": "City", "pcuPerHour": 1056, "entryRoadId": "tumkur-in", "exitRoadId": "tumkur-loop-ground", "vehiclesPerHour": 1090, "note": "Leaves the ground-level network at the foot of the loop; the loop and the ramp towards the city are raised." },
+      { "from": "K.R. Puram", "to": "Tumkur", "pcuPerHour": 2800, "entryRoadId": "krpuram-in", "exitRoadId": "tumkur-out", "vehiclesPerHour": 2890 },
+      { "from": "K.R. Puram", "to": "Airport", "pcuPerHour": 1018, "entryRoadId": "krpuram-in", "exitRoadId": "airport-out", "vehiclesPerHour": 1051 }
+    ],
+    "needingTheFlyover": [
+      { "from": "Airport", "to": "City", "pcuPerHour": 3642, "vehiclesPerHour": 3759, "entryRoadId": "flyover-approach", "via": ["flyover-main", "bellary-landing", "bellary-south"], "note": "How it divides at the fork between the Ganga Nagar flyover and the ground-level road to the CBI Road junction is not published." },
+      { "from": "K.R. Puram", "to": "City", "pcuPerHour": 1874, "vehiclesPerHour": 1934, "entryRoadId": "krpuram-ramp-ground", "via": ["krpuram-ramp", "city-ramp-two-lane", "city-ramp", "city-ramp-landing", "bellary-south"] }
+    ],
+    "leftOut": [
+      { "from": "Airport", "to": "K.R. Puram", "pcuPerHour": 2336, "note": "Taken to use the loop flyover from the airport side to the Outer Ring Road eastbound (way 30213110), which is outside the extent. The published signal plan does give road A a left turn at ground level; how the movement divides between the two is not published." },
+      { "from": "City", "to": "any", "pcuPerHour": 7335, "note": "Not city-bound: uses the airport-bound flyover and its ramps." }
+    ]
+  },
+  "vehicleMix": {
+    "evidence": {
+      "state": "assumed",
+      "source": "RITES extract, page 26, 'Traffic Input for Horizon Year - Scenario 1', estimated traffic for 2051 in vehicles: car 8,354; taxi 6,266; two-wheeler 11,835; auto 2,437; bus (private, KSRTC) 1,044; LCV 1,392; truck 1,741; multi-axle 696; total 33,765. This is a forecast input, not an observed mix: no document read gives an observed count by vehicle class at Hebbal (the pie chart on page 6 is a 2019 split of trips by mode: public transport 45%, car and taxi 36%, two-wheeler 16%, auto 3%). Car and taxi are counted together as car; goods vehicles (3,829, 11% of vehicles) are left out because the engine has no class for them; the 728 BMTC buses per hour given separately are left out."
+    },
+    "vehiclesPerHour2051": { "two-wheeler": 11835, "car": 14620, "auto-rickshaw": 2437, "bus": 1044 },
+    "mix": { "two-wheeler": 0.395, "car": 0.488, "auto-rickshaw": 0.081, "bus": 0.035 }
+  }
+}
