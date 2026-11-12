@@ -227,6 +227,14 @@ export interface Results {
   vehiclesOnNetwork: number;
   /** Vehicles the demand has produced that are still waiting for space to enter. */
   vehiclesWaitingToEnter: number;
+  /**
+   * Stuck vehicles: vehicles the run released by force because they locked
+   * with others so that none could move (stuck-vehicles.ts). A released vehicle
+   * is taken off the network and is not counted through, so vehicles entered is
+   * vehicles through, plus those on the network, plus stuck vehicles. Above zero,
+   * the run locked up and its other results are less reliable.
+   */
+  stuckVehicles: number;
   /** Delay for each vehicle class. */
   delayByVehicleClass: Record<VehicleClass, VehicleClassDelay>;
   /**
@@ -284,6 +292,11 @@ export interface VehicleClassDelay {
   vehicles: number;
   /** How many of them have left the network. */
   vehiclesThrough: number;
+  /**
+   * How many of them were released as stuck vehicles: taken off the network, not
+   * through. Each is in the mean with its delay up to the moment it was released.
+   */
+  stuckVehicles: number;
   /** In seconds; null when there are no vehicles of this class. */
   meanDelayS: number | null;
   /**

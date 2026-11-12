@@ -31,15 +31,16 @@ function car(id: number, positionM: number, overrides: Partial<VehicleState> = {
   };
 }
 
-function frame(timeS: number, vehicles: VehicleState[], through = 0): [Snapshot, Results] {
+function frame(timeS: number, vehicles: VehicleState[], through = 0, stuck = 0): [Snapshot, Results] {
   return [
     { timeS, vehicles },
     {
       timeS,
-      vehiclesEntered: vehicles.length + through,
+      vehiclesEntered: vehicles.length + through + stuck,
       vehiclesThrough: through,
       vehiclesOnNetwork: vehicles.length,
       vehiclesWaitingToEnter: 0,
+      stuckVehicles: stuck,
       delayByVehicleClass: createRun({ network, demand: { flows: [] }, seed: 1 }).results().delayByVehicleClass,
       longestQueueByApproach: {},
     },
@@ -60,6 +61,14 @@ describe("consistency checks on hand-made frames", () => {
         frame(0.2, [car(2, 102), car(3, 4.4)], 1),
       ),
     ).toEqual([]);
+  });
+
+  it("accept a vehicle taken off the network when it is counted as a stuck vehicle, and report it when it is not", () => {
+    const before = frame(0, [car(1, 300, { speedMps: 0 }), car(2, 100)]);
+    expect(checksFailedBy(before, frame(0.2, [car(2, 102)], 0, 1))).toEqual([]);
+    // Gone from the network, counted neither through nor as stuck.
+    const [snapshot, results] = frame(0.2, [car(2, 102)]);
+    expect(checksFailedBy(before, [snapshot, { ...results, vehiclesEntered: 2 }])).toEqual(["no-vehicle-lost"]);
   });
 
   it("report two vehicles that overlap", () => {

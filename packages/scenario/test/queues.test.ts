@@ -3,7 +3,7 @@ import type { Network, Results, VehicleClassDelay } from "@traffic-simulator/eng
 import flyover from "@traffic-simulator/engine/examples/flyover.json";
 import { MEASURES, compareAcrossSeeds, compareResults, measuresFor } from "../src/index";
 
-const noVehicles: VehicleClassDelay = { vehicles: 0, vehiclesThrough: 0, meanDelayS: null, totalDelayS: 0 };
+const noVehicles: VehicleClassDelay = { vehicles: 0, vehiclesThrough: 0, stuckVehicles: 0, meanDelayS: null, totalDelayS: 0 };
 
 /** Results with these longest queues, in metres, by approach. */
 function results(queuesM: Record<string, number>): Results {
@@ -13,6 +13,7 @@ function results(queuesM: Record<string, number>): Results {
     vehiclesThrough: 0,
     vehiclesOnNetwork: 0,
     vehiclesWaitingToEnter: 0,
+    stuckVehicles: 0,
     delayByVehicleClass: { "two-wheeler": noVehicles, car: noVehicles, "auto-rickshaw": noVehicles, bus: noVehicles },
     longestQueueByApproach: Object.fromEntries(
       Object.entries(queuesM).map(([roadId, lengthM]) => [roadId, { lengthM, vehicles: 1, eachMinute: [] }]),

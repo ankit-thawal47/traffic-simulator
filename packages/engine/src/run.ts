@@ -25,6 +25,7 @@ import { checkFlyoverFormat } from "./levels";
 import { stripsStraightOn } from "./merge-diverge";
 import { createRandomStream, exponential, type RandomStream } from "./random";
 import { createRouteChoice, routesWithChoice, type RouteChoice, type Trip } from "./route-choice";
+import { createStuckVehicles, isStanding, standing, standingTimeAfter } from "./stuck-vehicles";
 import type {
   ApproachQueue,
   Junction,
@@ -173,6 +174,8 @@ interface Vehicle {
   ahead: ConnectionState | undefined;
   /** ON_ROAD, FRONT_IN_JUNCTION or REAR_IN_JUNCTION. */
   place: number;
+  /** How long the vehicle has stood at the front of its queue, as stuck-vehicles.ts counts it. */
+  standingS: number;
   /** While any part of the vehicle is in a junction: the connection it is on. */
   turning: ConnectionState | undefined;
   /** Whether the vehicle has been let into the junction ahead, and its place in the order of those let in. */
@@ -652,6 +655,10 @@ export function createRun(input: RunInput): Run {
   let vehiclesThrough = 0;
   const throughByClass = new Map<VehicleClass, { count: number; delayS: number }>();
   for (const vehicleClass of VEHICLE_CLASSES) throughByClass.set(vehicleClass, { count: 0, delayS: 0 });
+  const stuckVehicles = createStuckVehicles();
+  /** Stuck vehicles released, by vehicle class, with their delay up to the moment each was released. */
+  const stuckByClass = new Map<VehicleClass, { count: number; delayS: number }>();
+  for (const vehicleClass of VEHICLE_CLASSES) stuckByClass.set(vehicleClass, { count: 0, delayS: 0 });
 
   function placeVehicle(
     road: RoadState,
@@ -690,6 +697,7 @@ export function createRun(input: RunInput): Run {
       routeIndex: 0,
       ahead: next && road.connections.get(next.road.id),
       place: ON_ROAD,
+      standingS: 0,
       turning: undefined,
       admitted: false,
       order: 0,
@@ -1557,6 +1565,51 @@ export function createRun(input: RunInput): Run {
   }
 
   /**
+   * Stuck vehicles (stuck-vehicles.ts): from the state at the start of the step,
+   * add the step to the time each vehicle has stood, and find the vehicle to
+   * release, if any. Vehicles must be sorted, with their neighbours, aspects and
+   * sorting found, as at the start of step().
+   */
+  function findStuckVehicle(): Vehicle | undefined {
+    const looked: Vehicle[] = [];
+    for (const road of roads.values()) {
+      for (const vehicle of road.vehicles) {
+        if (vehicle.stationary) continue;
+        const leader = leaderIn(vehicle, lowStrip(vehicle), highStrip(vehicle));
+        const atRed =
+          vehicle.place === ON_ROAD && !vehicle.admitted && road.endsAt?.junction.control === "signal" && road.aspect.state !== "green";
+        const noWayRound = road.blockedFrom !== undefined && vehicle.blockedAhead && vehicle.sorting === 0;
+        const kind = standing({
+          speedMps: vehicle.speedMps,
+          movingAcross: vehicle.shiftDirection !== 0,
+          behindStandingVehicle: leader !== undefined && !leader.stationary && isStanding(leader.speedMps),
+          held: atRed || noWayRound,
+        });
+        vehicle.standingS = standingTimeAfter(vehicle.standingS, kind);
+        if (kind === "standing") looked.push(vehicle);
+      }
+    }
+    return stuckVehicles.choose(looked, stepCount * STEP_SECONDS);
+  }
+
+  /** Take a stuck vehicle off the network, and count it with its delay so far. */
+  function release(vehicle: Vehicle, timeS: number): void {
+    const at = vehicle.road.vehicles.indexOf(vehicle);
+    // It has left the network this step after all: it is through, not stuck.
+    if (at < 0) return;
+    vehicle.road.vehicles.splice(at, 1);
+    if (vehicle.admitted) {
+      for (const junction of junctions) junction.admitted = junction.admitted.filter((other) => other !== vehicle);
+    }
+    // Its journey is not finished, and its time says nothing about the route's: it is not measured.
+    if (vehicle.trip) vehicle.trip.finished = true;
+    const stuck = stuckByClass.get(vehicle.vehicleClass)!;
+    stuck.count++;
+    stuck.delayS += delayS(vehicle, timeS, vehicle.positionM);
+    stuckVehicles.released(timeS);
+  }
+
+  /**
    * One step. Every vehicle decides from the same state, in two rounds, and then all
    * moves are applied together, so results do not depend on processing order:
    *   1. sideways: every vehicle makes its claim from the state at the start of the
@@ -1599,6 +1652,7 @@ export function createRun(input: RunInput): Run {
       const control = road.endsAt?.junction;
       if (control?.control === "signal") road.aspect = signalAspect(control.signalPlan, road.road.id, stepCount * STEP_SECONDS);
     }
+    const stuck = findStuckVehicle();
     for (const junction of junctions) letIn(junction);
 
     for (const road of roads.values()) {
@@ -1692,6 +1746,8 @@ export function createRun(input: RunInput): Run {
     if (someLeftJunction) {
       for (const junction of junctions) junction.admitted = junction.admitted.filter((vehicle) => vehicle.admitted);
     }
+    // Decided from the state at the start of the step, applied with the step's moves.
+    if (stuck) release(stuck, timeS);
 
     stepCount++;
     for (const junction of junctions) {
@@ -1783,12 +1839,14 @@ export function createRun(input: RunInput): Run {
     const delayByVehicleClass = {} as Record<VehicleClass, VehicleClassDelay>;
     for (const vehicleClass of VEHICLE_CLASSES) {
       const through = throughByClass.get(vehicleClass)!;
+      const released = stuckByClass.get(vehicleClass)!;
       const still = unfinished.get(vehicleClass)!;
-      const vehicles = through.count + still.count;
-      const totalDelayS = through.delayS + still.delayS;
+      const vehicles = through.count + released.count + still.count;
+      const totalDelayS = through.delayS + released.delayS + still.delayS;
       delayByVehicleClass[vehicleClass] = {
         vehicles,
         vehiclesThrough: through.count,
+        stuckVehicles: released.count,
         meanDelayS: vehicles > 0 ? totalDelayS / vehicles : null,
         totalDelayS,
       };
@@ -1805,6 +1863,7 @@ export function createRun(input: RunInput): Run {
       vehiclesThrough,
       vehiclesOnNetwork,
       vehiclesWaitingToEnter,
+      stuckVehicles: stuckVehicles.count,
       delayByVehicleClass,
       longestQueueByApproach,
     };

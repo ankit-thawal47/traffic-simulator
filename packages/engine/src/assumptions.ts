@@ -492,6 +492,40 @@ export const ROUTE_CHOICE_ASSUMPTIONS = {
   },
 } satisfies Record<string, Assumption>;
 
+/**
+ * When a vehicle counts as a stuck vehicle and is released (stuck-vehicles.ts). Both are our own
+ * choices, taken from the defaults of SUMO, which handles locks the same way.
+ */
+export const STUCK_VEHICLE_ASSUMPTIONS = {
+  standingBelowMps: {
+    value: 0.1,
+    unit: "m/s",
+    state: "our-choice",
+    source:
+      "Our choice, the same as SUMO's (a vehicle slower than 0.1 m/s is waiting; SUMO documentation, \"Why Vehicles " +
+      "are teleporting\"). Slow enough that a vehicle creeping up in a queue is not standing, fast enough that one " +
+      "held at rest by the following rule's last few millimetres is.",
+  },
+  stuckAfterS: {
+    value: 300,
+    unit: "s",
+    state: "our-choice",
+    source:
+      "Our choice, SUMO's default time-to-teleport (300 s). Longer than any red in the example signal plans and long " +
+      "enough that a vehicle refused at a busy junction for a few cycles is not taken for a stuck one; short enough " +
+      "that a lock is released several times within a simulated hour rather than spoiling the rest of the run. " +
+      "Time held at a red or amber signal, or behind a stationary vehicle with no way round, does not count towards it.",
+    note:
+      "Not a measurement of anything: no source says how long a real lock lasts before someone moves. A lower value " +
+      "would release more often and sooner; the count is reported so the planner can see when it happened at all.",
+  },
+} satisfies Record<string, Assumption>;
+
+const STUCK_VEHICLE_NAMES: Record<keyof typeof STUCK_VEHICLE_ASSUMPTIONS, string> = {
+  standingBelowMps: "Speed below which a vehicle is standing",
+  stuckAfterS: "Time a vehicle at the front of its queue must stand, not held by a signal or a stationary vehicle, before it is released as a stuck vehicle",
+};
+
 const ROUTE_CHOICE_NAMES: Record<keyof typeof ROUTE_CHOICE_ASSUMPTIONS, string> = {
   travelTimePower: "How strongly the faster route is preferred: a route's share falls with its measured travel time to this power",
   smallestShare: "Smallest share of through traffic a route gets, however slow it is",
@@ -705,6 +739,22 @@ export const RULES: readonly Rule[] = [
       "road is blocked right across for its width) is left as it was.",
   },
   {
+    id: "rule.stuck-vehicles",
+    name: "Stuck vehicles: a vehicle at the front of its queue that has stood for 300 s, not held by a red or amber signal and not behind a stationary vehicle it has no way round, is taken off the network and counted as a stuck vehicle",
+    state: "our-choice",
+    source:
+      "Ours, after SUMO's teleporting (SUMO documentation, \"Why Vehicles are teleporting\"), which also acts on a " +
+      "vehicle at the front of its lane that has waited for 300 s. A vehicle standing behind another vehicle that is " +
+      "standing is queued, and its time restarts; so a long queue behind a lock loses only the vehicle at its front, " +
+      "and the rest move up. Every lock has a vehicle at the front of a queue in it, because a vehicle only follows " +
+      "one further along the same road. Where SUMO puts the vehicle back further along its route, we take it off the " +
+      "network: it is not counted through, and its delay up to that moment stays in the mean delay of its vehicle " +
+      "class (so the mean delay is understated when vehicles are stuck). One vehicle is released at a time, and after " +
+      "a release every vehicle's time restarts, so the vehicles freed by it have time to move before another is " +
+      "released. Stationary vehicles (breakdowns) are never released. It does not catch a lock whose vehicles keep " +
+      "creeping forward, or a vehicle that stands behind another standing one far ahead of it in its strips.",
+  },
+  {
     id: "rule.route-choice",
     name: "Route choice: through traffic that can take a flyover or the junction beneath chooses once, when it comes to enter the network, as a probability from each route's measured travel time at that moment; all other traffic takes the fastest path on empty roads",
     state: "our-choice",
@@ -817,6 +867,18 @@ export function listAssumptions(): AssumptionGroup[] {
     }),
   };
 
+  const stuckGroup: AssumptionGroup = {
+    id: "stuck-vehicles",
+    title: "Stuck vehicles",
+    about:
+      "When vehicles lock each other so that none can move, one is taken off the network and counted as a stuck " +
+      "vehicle. None of these comes from a measurement.",
+    assumptions: (Object.keys(STUCK_VEHICLE_NAMES) as (keyof typeof STUCK_VEHICLE_NAMES)[]).map((name) => {
+      const { value, unit, state, source, note } = (STUCK_VEHICLE_ASSUMPTIONS as Record<string, Assumption>)[name]!;
+      return { id: `stuck.${name}`, name: STUCK_VEHICLE_NAMES[name], value, unit, state, source, note };
+    }),
+  };
+
   const mixGroup: AssumptionGroup = {
     id: "vehicle-mix",
     title: "Vehicle mix for a Bengaluru arterial",
@@ -839,5 +901,5 @@ export function listAssumptions(): AssumptionGroup[] {
     assumptions: RULES.map(({ id, name, state, source, note }) => ({ id, name, value: null, unit: "", state, source, note })),
   };
 
-  return [...perClass, sharedGroup, junctionGroup, routeChoiceGroup, mixGroup, rulesGroup];
+  return [...perClass, sharedGroup, junctionGroup, routeChoiceGroup, stuckGroup, mixGroup, rulesGroup];
 }
