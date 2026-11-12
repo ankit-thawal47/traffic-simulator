@@ -64,5 +64,16 @@ export {
 export type { AcrossSeeds, ComparedMeasure, ComparedMeasureAcrossSeeds, Measure } from "./comparison";
 export { RUN_PLAN, createMeasuredRun, runEverySeed, seedsFor } from "./run-plan";
 export type { MeasuredRun, RunPlan } from "./run-plan";
-export { BUILDING_BLOCK_KINDS, buildLayout, defaultBlock } from "./builder";
+export {
+  BLOCK_NAMES,
+  BUILDING_BLOCK_KINDS,
+  buildLayout,
+  builtBaseline,
+  defaultBlock,
+  LAYOUT_LIMITS,
+  withBlockAdded,
+  withBlockMoved,
+  withBlockSettings,
+  withoutBlock,
+} from "./builder";
 export type { BuildingBlock, BuildingBlockKind, Built, JunctionBlock, JunctionControl, Layout, StraightBlock } from "./builder";

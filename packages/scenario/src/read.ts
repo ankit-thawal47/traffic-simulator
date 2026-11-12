@@ -22,6 +22,7 @@ import {
   type VehicleClass,
   type VehicleMix,
 } from "@traffic-simulator/engine";
+import { BUILDING_BLOCK_KINDS, buildLayout, LAYOUT_LIMITS, type BuildingBlock, type Layout } from "./builder";
 import { CORRIDORS, corridorById } from "./corridors";
 import { resolveScenario } from "./resolve";
 import {
@@ -136,6 +137,44 @@ function readPoint(value: unknown, what: string, formatVersion: number): Point {
   if (formatVersion < 4) refuse(`${what} has a height, which needs network format version 4 (the network says ${formatVersion})`);
   const high = SCENARIO_LIMITS.heightM;
   return { ...read, z: aNumber(point.z, `The height of ${what.charAt(0).toLowerCase()}${what.slice(1)}`, { from: -high, to: high }) };
+}
+
+/**
+ * A layout of building blocks, checked for its shape only: each block's
+ * kind, and that its settings are numbers and words of the right sort. Whether
+ * the settings make a network that can run is the builder's to say.
+ */
+function readLayout(value: unknown): Layout {
+  const layout = anObject(value, "The layout");
+  const blocks = aList(layout.blocks, "The layout's list of blocks", LAYOUT_LIMITS.blocks).map((entry, index): BuildingBlock => {
+    const label = `Block ${index + 1} of the layout`;
+    const block = anObject(entry, label);
+    const kind = block.kind;
+    if (typeof kind !== "string" || !(BUILDING_BLOCK_KINDS as readonly string[]).includes(kind)) {
+      refuse(`${label} is of a kind this version of the product does not know: ${shown(kind)}`);
+    }
+    const size = { from: 0, to: 100_000 };
+    const lanes = aWholeNumber(block.lanes, `The lanes of ${label.toLowerCase()}`, 1, SCENARIO_LIMITS.lanes);
+    const widthM = aNumber(block.widthM, `The width of ${label.toLowerCase()}`, size);
+    const lengthM = aNumber(block.lengthM, `The length of ${label.toLowerCase()}`, size);
+    if (kind === "straight") return { kind, lanes, widthM, lengthM };
+    if (block.control !== "signal" && block.control !== "priority") {
+      refuse(`The junction of ${label.toLowerCase()} must be "signal" or "priority" (found ${shown(block.control)})`);
+    }
+    return {
+      kind: kind as Exclude<BuildingBlock["kind"], "straight">,
+      lanes,
+      widthM,
+      lengthM,
+      sideLanes: aWholeNumber(block.sideLanes, `The side-road lanes of ${label.toLowerCase()}`, 1, SCENARIO_LIMITS.lanes),
+      sideWidthM: aNumber(block.sideWidthM, `The side-road width of ${label.toLowerCase()}`, size),
+      sideLengthM: aNumber(block.sideLengthM, `The side-road length of ${label.toLowerCase()}`, size),
+      control: block.control,
+      mainGreenS: aNumber(block.mainGreenS, `The main-road green time of ${label.toLowerCase()}`, { from: 0, to: SCENARIO_LIMITS.signalSeconds }),
+      sideGreenS: aNumber(block.sideGreenS, `The side-road green time of ${label.toLowerCase()}`, { from: 0, to: SCENARIO_LIMITS.signalSeconds }),
+    };
+  });
+  return { blocks };
 }
 
 function readNetwork(value: unknown): Network {
@@ -444,8 +483,15 @@ export function readScenario(value: unknown): Outcome<Scenario> {
     }
     const saved = upgraded(value as Record<string, unknown>);
     const corridorId = saved.corridorId === undefined ? undefined : aString(saved.corridorId, "The corridor's id", SCENARIO_LIMITS.roadIdLength);
+    const layout = saved.layout === undefined ? undefined : readLayout(saved.layout);
     let network: Network;
-    if (corridorId === undefined) {
+    if (layout !== undefined) {
+      if (saved.network !== undefined) refuse("It has a layout and also carries a network; a scenario has one or the other");
+      if (corridorId !== undefined) refuse("It has a layout and also names a corridor; a scenario has one or the other");
+      const built = buildLayout(layout);
+      if (!built.ok) refuse(built.message.replace(/\.$/, ""));
+      network = built.value.network;
+    } else if (corridorId === undefined) {
       network = readNetwork(saved.network);
     } else {
       if (saved.network !== undefined) refuse("It names a corridor and also carries a network; a scenario has one or the other");
@@ -463,6 +509,7 @@ export function readScenario(value: unknown): Outcome<Scenario> {
       formatVersion: SCENARIO_FORMAT_VERSION,
       name: aString(saved.name, "The scenario's name", SCENARIO_LIMITS.nameLength),
       ...(corridorId === undefined ? {} : { corridorId }),
+      ...(layout === undefined ? {} : { layout }),
       network,
       unbuiltRoadIds: aList(saved.unbuiltRoadIds, "The list of roads not built today", SCENARIO_LIMITS.roads).map(
         (roadId, index) => aFlyoverRoadOf(network, roadId, `Entry ${index + 1} of the list of roads not built today`),

@@ -139,3 +139,30 @@ describe("a scenario saved by version 3 of the scenario description", () => {
     expect(scenario.network).toEqual(saved.network);
   });
 });
+
+describe("a scenario saved by version 4 of the scenario description", () => {
+  it.each(["v4-priority-junction-own-network.json", "v4-hebbal-corridor-by-id.json"])(
+    "%s loads as the current version, unchanged but for its version and built from no layout, as version 4 never was",
+    (name) => {
+      const saved = fixture(name) as Record<string, unknown>;
+      const scenario = loaded(name);
+      const { formatVersion: _saved, ...asSaved } = saved;
+      const { formatVersion, network, ...asLoaded } = scenario;
+
+      expect(saved.formatVersion).toBe(4);
+      expect(formatVersion).toBe(SCENARIO_FORMAT_VERSION);
+      expect(scenario.layout).toBeUndefined();
+      const { network: savedNetwork, ...savedRest } = asSaved;
+      expect(asLoaded).toEqual(savedRest);
+      if (savedNetwork !== undefined) expect(network).toEqual(savedNetwork);
+    },
+  );
+
+  it("means the same thing: a priority junction with one side-road lane resolves as version 4 resolved it", () => {
+    const scenario = loaded("v4-priority-junction-own-network.json");
+    const sideRoad = resolveScenario(scenario).network.roads.find((road) => road.id === "south-in");
+
+    expect(sideRoad?.lanes).toBe(1);
+    expect(resolveScenario(scenario).seed).toBe(4);
+  });
+});
