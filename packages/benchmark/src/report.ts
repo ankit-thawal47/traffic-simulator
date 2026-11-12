@@ -370,7 +370,7 @@ export function writeReport(rawDir: string, reportFile: string): void {
         "Lane drop 3 to 2, demand above capacity: discharge flow downstream",
         "the other engine",
         "10% between the engines",
-        `${meanCi(dropOurs)} veh/h; **flagged**: ${num(dropStuck.mean, 0)} stuck vehicles per run`,
+        `${meanCi(dropOurs)} veh/h; ${dropStuck.max > 0 ? `**flagged**: ${num(dropStuck.mean, 0)} stuck vehicles per run` : "no stuck vehicle"}`,
         dropSumo ? `${meanCi(dropSumo)} veh/h` : NOT_RUN,
         "between engines",
         "between engines",
