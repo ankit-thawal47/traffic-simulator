@@ -4,7 +4,7 @@
 
 **Blocked by:** 07, 08
 
-**Status:** ready-for-agent
+**Status:** done (merged to integration branch)
 
 - [x] The four building blocks can be added, ordered and removed along one main road
 - [x] Each block's lanes, width and length can be set; junction blocks can be signal or priority junctions; signal timing can be set
