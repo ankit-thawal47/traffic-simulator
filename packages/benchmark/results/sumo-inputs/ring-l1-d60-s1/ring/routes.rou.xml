@@ -1,0 +1,67 @@
+<routes>
+<vType id="carRecorded" vClass="passenger" carFollowModel="IDM" length="4.4" width="1.9" minGap="2" accel="1" decel="1" tau="0.8" delta="4" stepping="0.2" maxSpeed="15" speedFactor="1" speedDev="0"><param key="has.fcd.device" value="true"/></vType>
+<route id="r0" edges="e0 e1 e2 e3" repeat="15"/>
+<route id="r1" edges="e1 e2 e3 e0" repeat="15"/>
+<route id="r2" edges="e2 e3 e0 e1" repeat="15"/>
+<route id="r3" edges="e3 e0 e1 e2" repeat="15"/>
+<vehicle id="c0" type="carRecorded" route="r0" depart="0" departLane="0" departPos="8.862441814852218" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c1" type="carRecorded" route="r0" depart="0" departLane="0" departPos="25.924729410652162" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c2" type="carRecorded" route="r0" depart="0" departLane="0" departPos="42.08522840743262" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c3" type="carRecorded" route="r0" depart="0" departLane="0" departPos="58.19402491812912" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c4" type="carRecorded" route="r0" depart="0" departLane="0" departPos="74.94867320841172" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c5" type="carRecorded" route="r0" depart="0" departLane="0" departPos="91.18661677240698" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c6" type="carRecorded" route="r0" depart="0" departLane="0" departPos="108.39087361196675" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c7" type="carRecorded" route="r0" depart="0" departLane="0" departPos="124.4562366392463" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c8" type="carRecorded" route="r0" depart="0" departLane="0" departPos="140.94545194624607" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c9" type="carRecorded" route="r0" depart="0" departLane="0" departPos="158.5264121167113" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c10" type="carRecorded" route="r0" depart="0" departLane="0" departPos="175.38973940144615" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c11" type="carRecorded" route="r0" depart="0" departLane="0" departPos="192.05200467802592" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c12" type="carRecorded" route="r0" depart="0" departLane="0" departPos="208.63861365354933" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c13" type="carRecorded" route="r0" depart="0" departLane="0" departPos="224.17780504099414" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c14" type="carRecorded" route="r0" depart="0" departLane="0" departPos="242.41216637689013" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c15" type="carRecorded" route="r1" depart="0" departLane="0" departPos="8.6529813990619" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c16" type="carRecorded" route="r1" depart="0" departLane="0" departPos="25.602427087084834" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c17" type="carRecorded" route="r1" depart="0" departLane="0" departPos="42.38302391114348" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c18" type="carRecorded" route="r1" depart="0" departLane="0" departPos="59.042034611441295" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c19" type="carRecorded" route="r1" depart="0" departLane="0" departPos="74.29606893934942" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c20" type="carRecorded" route="r1" depart="0" departLane="0" departPos="92.10719729417929" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c21" type="carRecorded" route="r1" depart="0" departLane="0" departPos="108.92937592167414" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c22" type="carRecorded" route="r1" depart="0" departLane="0" departPos="125.16699291760733" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c23" type="carRecorded" route="r1" depart="0" departLane="0" departPos="142.4630758691642" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c24" type="carRecorded" route="r1" depart="0" departLane="0" departPos="158.07331926514712" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c25" type="carRecorded" route="r1" depart="0" departLane="0" departPos="174.2700617792334" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c26" type="carRecorded" route="r1" depart="0" departLane="0" departPos="191.05246708549566" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c27" type="carRecorded" route="r1" depart="0" departLane="0" departPos="208.76448734158657" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c28" type="carRecorded" route="r1" depart="0" departLane="0" departPos="225.42073514682556" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c29" type="carRecorded" route="r1" depart="0" departLane="0" departPos="240.68097578581433" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c30" type="carRecorded" route="r2" depart="0" departLane="0" departPos="7.957517460808276" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c31" type="carRecorded" route="r2" depart="0" departLane="0" departPos="24.665026059796446" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c32" type="carRecorded" route="r2" depart="0" departLane="0" departPos="42.192967313230156" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c33" type="carRecorded" route="r2" depart="0" departLane="0" departPos="57.64227581790328" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c34" type="carRecorded" route="r2" depart="0" departLane="0" departPos="75.92323003133151" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c35" type="carRecorded" route="r2" depart="0" departLane="0" departPos="91.50070739728108" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c36" type="carRecorded" route="r2" depart="0" departLane="0" departPos="109.00637510195997" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c37" type="carRecorded" route="r2" depart="0" departLane="0" departPos="124.79935206890741" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c38" type="carRecorded" route="r2" depart="0" departLane="0" departPos="140.99166877120115" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c39" type="carRecorded" route="r2" depart="0" departLane="0" departPos="157.50616676947106" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c40" type="carRecorded" route="r2" depart="0" departLane="0" departPos="174.21332506903764" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c41" type="carRecorded" route="r2" depart="0" departLane="0" departPos="191.2988731520686" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c42" type="carRecorded" route="r2" depart="0" departLane="0" departPos="209.27751691695926" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c43" type="carRecorded" route="r2" depart="0" departLane="0" departPos="225.85119124208268" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c44" type="carRecorded" route="r2" depart="0" departLane="0" departPos="242.186222305211" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c45" type="carRecorded" route="r3" depart="0" departLane="0" departPos="9.35233512032778" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c46" type="carRecorded" route="r3" depart="0" departLane="0" departPos="25.9216996442899" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c47" type="carRecorded" route="r3" depart="0" departLane="0" departPos="41.486172715692646" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c48" type="carRecorded" route="r3" depart="0" departLane="0" departPos="58.49138069106266" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c49" type="carRecorded" route="r3" depart="0" departLane="0" departPos="75.86028255866222" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c50" type="carRecorded" route="r3" depart="0" departLane="0" departPos="91.09793900038449" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c51" type="carRecorded" route="r3" depart="0" departLane="0" departPos="108.97971853569152" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c52" type="carRecorded" route="r3" depart="0" departLane="0" departPos="124.94370699628575" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c53" type="carRecorded" route="r3" depart="0" departLane="0" departPos="141.83906673480442" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c54" type="carRecorded" route="r3" depart="0" departLane="0" departPos="157.9870729245929" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c55" type="carRecorded" route="r3" depart="0" departLane="0" departPos="175.22228359348446" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c56" type="carRecorded" route="r3" depart="0" departLane="0" departPos="191.16239811079595" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c57" type="carRecorded" route="r3" depart="0" departLane="0" departPos="208.18085760201643" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c58" type="carRecorded" route="r3" depart="0" departLane="0" departPos="225.44368486220037" departSpeed="10.699908757270585" insertionChecks="none"/>
+<vehicle id="c59" type="carRecorded" route="r3" depart="0" departLane="0" departPos="241.5435343587028" departSpeed="10.699908757270585" insertionChecks="none"/>
+</routes>

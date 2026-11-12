@@ -1,0 +1,8 @@
+<routes>
+<vType id="car" vClass="passenger" carFollowModel="IDM" length="4.4" width="1.9" minGap="2" accel="1" decel="1" tau="0.8" delta="4" stepping="0.2" maxSpeed="15" speedFactor="1" speedDev="0"/>
+<vType id="carRecorded" vClass="passenger" carFollowModel="IDM" length="4.4" width="1.9" minGap="2" accel="1" decel="1" tau="0.8" delta="4" stepping="0.2" maxSpeed="15" speedFactor="1" speedDev="0"><param key="has.fcd.device" value="true"/></vType>
+<route id="r" edges="main"/>
+<vehicle id="c0" type="carRecorded" route="r" depart="0" departLane="0" departPos="stop" departSpeed="0" insertionChecks="none"><stop lane="main_0" endPos="1000" duration="1000000"/></vehicle>
+<vehicle id="c1" type="carRecorded" route="r" depart="0" departLane="0" departPos="200" departSpeed="15" insertionChecks="none"/>
+<vehicle id="c2" type="carRecorded" route="r" depart="0" departLane="0" departPos="168.6" departSpeed="14" insertionChecks="none"/>
+</routes>

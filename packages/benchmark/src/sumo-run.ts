@@ -216,7 +216,7 @@ export interface SumoRunSummary {
   trajectories: Map<string, SumoTrajectoryPoint[]>;
   /** [time, cumulative arrived] when a summary period was asked for. */
   arrivedSeries: [number, number][];
-  /** Summary rows at which loaded != inserted + waiting or inserted != running + ended (T0.1 for SUMO). */
+  /** Summary rows at which inserted != running + ended (T0.1 for SUMO). */
   summaryConservationViolations: number;
   summaryRows: number;
   /** Negative speeds or positions beyond the lane seen in the recorded trajectories. */
@@ -335,9 +335,9 @@ export function runSumo(inputs: SumoInputs, options: SumoRunOptions): SumoRunSum
     for (const match of summary.matchAll(/<step\b[^>]*>/g)) {
       const row = match[0];
       arrivedSeries.push([numberAttribute(row, "time"), numberAttribute(row, "arrived")]);
-      const loaded = numberAttribute(row, "loaded");
+      // "loaded" also counts cars read from the route file whose departure time has not come, so it is not part of the identity.
       const insertedNow = numberAttribute(row, "inserted");
-      if (loaded !== insertedNow + numberAttribute(row, "waiting") || insertedNow !== numberAttribute(row, "running") + numberAttribute(row, "ended")) {
+      if (insertedNow !== numberAttribute(row, "running") + numberAttribute(row, "ended")) {
         summaryConservationViolations++;
       }
     }

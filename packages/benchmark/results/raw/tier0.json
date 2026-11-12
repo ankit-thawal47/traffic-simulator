@@ -1,0 +1,1502 @@
+[
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-0-s1",
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 1
+  },
+  "wallClockS": 0.955,
+  "result": {
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 1,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 560
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-0-s2",
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 2
+  },
+  "wallClockS": 0.963,
+  "result": {
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 2,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 587
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-0-s3",
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 3
+  },
+  "wallClockS": 0.965,
+  "result": {
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 3,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 609
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-0-s4",
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 4
+  },
+  "wallClockS": 0.905,
+  "result": {
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 4,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 585
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-0-s5",
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 5
+  },
+  "wallClockS": 0.959,
+  "result": {
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 5,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 582
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-0-s6",
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 6
+  },
+  "wallClockS": 0.908,
+  "result": {
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 6,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 599
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-0-s7",
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 7
+  },
+  "wallClockS": 0.949,
+  "result": {
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 7,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 605
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-0-s8",
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 8
+  },
+  "wallClockS": 0.909,
+  "result": {
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 8,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 573
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-0-s9",
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 9
+  },
+  "wallClockS": 0.882,
+  "result": {
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 9,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 547
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-0-s10",
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 10
+  },
+  "wallClockS": 0.954,
+  "result": {
+   "scenario": "one-road example (cars, 1,200/h)",
+   "seed": 10,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 617
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-1-s1",
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 1
+  },
+  "wallClockS": 4.063,
+  "result": {
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 1,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2963
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-1-s2",
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 2
+  },
+  "wallClockS": 4.015,
+  "result": {
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 2,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2872
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-1-s3",
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 3
+  },
+  "wallClockS": 4.208,
+  "result": {
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 3,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2998
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-1-s4",
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 4
+  },
+  "wallClockS": 3.589,
+  "result": {
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 4,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2861
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-1-s5",
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 5
+  },
+  "wallClockS": 3.725,
+  "result": {
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 5,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2969
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-1-s6",
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 6
+  },
+  "wallClockS": 3.925,
+  "result": {
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 6,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2891
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-1-s7",
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 7
+  },
+  "wallClockS": 3.826,
+  "result": {
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 7,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2895
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-1-s8",
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 8
+  },
+  "wallClockS": 4.316,
+  "result": {
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 8,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2915
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-1-s9",
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 9
+  },
+  "wallClockS": 4.018,
+  "result": {
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 9,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2937
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-1-s10",
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 10
+  },
+  "wallClockS": 4.447,
+  "result": {
+   "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
+   "seed": 10,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 3057
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-2-s1",
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 1
+  },
+  "wallClockS": 5.217,
+  "result": {
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 1,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2895
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-2-s2",
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 2
+  },
+  "wallClockS": 4.63,
+  "result": {
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 2,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2862
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-2-s3",
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 3
+  },
+  "wallClockS": 5.411,
+  "result": {
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 3,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2973
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-2-s4",
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 4
+  },
+  "wallClockS": 4.57,
+  "result": {
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 4,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2842
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-2-s5",
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 5
+  },
+  "wallClockS": 4.998,
+  "result": {
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 5,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2956
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-2-s6",
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 6
+  },
+  "wallClockS": 4.882,
+  "result": {
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 6,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2876
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-2-s7",
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 7
+  },
+  "wallClockS": 4.751,
+  "result": {
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 7,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2881
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-2-s8",
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 8
+  },
+  "wallClockS": 4.292,
+  "result": {
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 8,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2882
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-2-s9",
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 9
+  },
+  "wallClockS": 4.42,
+  "result": {
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 9,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2891
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-2-s10",
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 10
+  },
+  "wallClockS": 5.312,
+  "result": {
+   "scenario": "mixed-traffic example, lane discipline on",
+   "seed": 10,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 3042
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-3-s1",
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 1
+  },
+  "wallClockS": 12.171,
+  "result": {
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 1,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2335
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-3-s2",
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 2
+  },
+  "wallClockS": 12.425,
+  "result": {
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 2,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2342
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-3-s3",
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 3
+  },
+  "wallClockS": 12.359,
+  "result": {
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 3,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2436
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-3-s4",
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 4
+  },
+  "wallClockS": 12.667,
+  "result": {
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 4,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2485
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-3-s5",
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 5
+  },
+  "wallClockS": 15.433,
+  "result": {
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 5,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2413
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-3-s6",
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 6
+  },
+  "wallClockS": 12.14,
+  "result": {
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 6,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2340
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-3-s7",
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 7
+  },
+  "wallClockS": 14.834,
+  "result": {
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 7,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2378
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-3-s8",
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 8
+  },
+  "wallClockS": 13.088,
+  "result": {
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 8,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2469
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-3-s9",
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 9
+  },
+  "wallClockS": 13.782,
+  "result": {
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 9,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2440
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-3-s10",
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 10
+  },
+  "wallClockS": 13.041,
+  "result": {
+   "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
+   "seed": 10,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 2439
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-4-s1",
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 1
+  },
+  "wallClockS": 8.264,
+  "result": {
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 1,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1080
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-4-s2",
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 2
+  },
+  "wallClockS": 8.005,
+  "result": {
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 2,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1122
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-4-s3",
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 3
+  },
+  "wallClockS": 7.981,
+  "result": {
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 3,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1138
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-4-s4",
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 4
+  },
+  "wallClockS": 7.514,
+  "result": {
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 4,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1064
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-4-s5",
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 5
+  },
+  "wallClockS": 7.272,
+  "result": {
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 5,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1125
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-4-s6",
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 6
+  },
+  "wallClockS": 7.341,
+  "result": {
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 6,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1070
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-4-s7",
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 7
+  },
+  "wallClockS": 7.492,
+  "result": {
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 7,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1113
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-4-s8",
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 8
+  },
+  "wallClockS": 7.346,
+  "result": {
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 8,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1112
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-4-s9",
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 9
+  },
+  "wallClockS": 7.415,
+  "result": {
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 9,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1154
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-4-s10",
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 10
+  },
+  "wallClockS": 7.221,
+  "result": {
+   "scenario": "saturated, lane discipline on, with a stationary car",
+   "seed": 10,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1140
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-5-s1",
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 1
+  },
+  "wallClockS": 35.534,
+  "result": {
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 1,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 229,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1189
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-5-s2",
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 2
+  },
+  "wallClockS": 38.561,
+  "result": {
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 2,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 135,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1122
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-5-s3",
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 3
+  },
+  "wallClockS": 36.819,
+  "result": {
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 3,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 258,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1149
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-5-s4",
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 4
+  },
+  "wallClockS": 39.753,
+  "result": {
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 4,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1003
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-5-s5",
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 5
+  },
+  "wallClockS": 34.712,
+  "result": {
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 5,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 331,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1318
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-5-s6",
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 6
+  },
+  "wallClockS": 42.564,
+  "result": {
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 6,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 881
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-5-s7",
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 7
+  },
+  "wallClockS": 39.921,
+  "result": {
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 7,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 0,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1077
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-5-s8",
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 8
+  },
+  "wallClockS": 36.33,
+  "result": {
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 8,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 188,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1183
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-5-s9",
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 9
+  },
+  "wallClockS": 38.744,
+  "result": {
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 9,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 176,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1131
+  }
+ },
+ {
+  "job": {
+   "kind": "tier0",
+   "id": "tier0-5-s10",
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 10
+  },
+  "wallClockS": 38.272,
+  "result": {
+   "scenario": "lane closed by stationary cars (the T1.5 road)",
+   "seed": 10,
+   "durationS": 1800,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 9001,
+    "examples": []
+   },
+   "stuckVehicles": 42,
+   "repeatedIdentically": true,
+   "vehiclesThrough": 1194
+  }
+ }
+]

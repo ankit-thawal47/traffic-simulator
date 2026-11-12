@@ -1,0 +1,532 @@
+[
+ {
+  "job": {
+   "kind": "t1.5",
+   "id": "t1.5-s1",
+   "seed": 1
+  },
+  "wallClockS": 39.509,
+  "result": {
+   "seed": 1,
+   "departures": 4040,
+   "ours": {
+    "dischargePerHour": 2408,
+    "entered": 2161,
+    "waitingToEnter": 1879,
+    "tier0": {
+     "conservationViolations": 0,
+     "overlaps": 0,
+     "negativeSpeeds": 0,
+     "outsideRoad": 0,
+     "momentsChecked": 12001,
+     "examples": []
+    },
+    "stuckVehicles": 229,
+    "atWarmUp": {
+     "standingInClosedLane": 308,
+     "carsInOpenLanes": 240,
+     "meanSpeedOpenLanesMps": 6.5062716749828295
+    },
+    "laneChangesStarted": 17485
+   },
+   "sumo": {
+    "dischargePerHour": 3624,
+    "entered": 2739,
+    "waitingToEnter": 1301,
+    "repeatedIdentically": true,
+    "summaryConservationViolations": 0,
+    "summaryRows": 8,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "negativeSpeeds": 0,
+    "warningCount": 0,
+    "warnings": []
+   },
+   "sumoDepartSpeedMax": {
+    "dischargePerHour": 2648,
+    "entered": 1792,
+    "waitingToEnter": 2248,
+    "teleports": 0,
+    "collisions": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t1.5",
+   "id": "t1.5-s2",
+   "seed": 2
+  },
+  "wallClockS": 29.927,
+  "result": {
+   "seed": 2,
+   "departures": 3927,
+   "ours": {
+    "dischargePerHour": 2586,
+    "entered": 2094,
+    "waitingToEnter": 1833,
+    "tier0": {
+     "conservationViolations": 0,
+     "overlaps": 0,
+     "negativeSpeeds": 0,
+     "outsideRoad": 0,
+     "momentsChecked": 12001,
+     "examples": []
+    },
+    "stuckVehicles": 351,
+    "atWarmUp": {
+     "standingInClosedLane": 107,
+     "carsInOpenLanes": 455,
+     "meanSpeedOpenLanesMps": 1.5684813782283549
+    },
+    "laneChangesStarted": 18326
+   },
+   "sumo": {
+    "dischargePerHour": 3672,
+    "entered": 2759,
+    "waitingToEnter": 1168,
+    "repeatedIdentically": null,
+    "summaryConservationViolations": 0,
+    "summaryRows": 8,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "negativeSpeeds": 0,
+    "warningCount": 0,
+    "warnings": []
+   },
+   "sumoDepartSpeedMax": {
+    "dischargePerHour": 2648,
+    "entered": 1782,
+    "waitingToEnter": 2145,
+    "teleports": 0,
+    "collisions": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t1.5",
+   "id": "t1.5-s3",
+   "seed": 3
+  },
+  "wallClockS": 31.042,
+  "result": {
+   "seed": 3,
+   "departures": 4035,
+   "ours": {
+    "dischargePerHour": 2470,
+    "entered": 2170,
+    "waitingToEnter": 1865,
+    "tier0": {
+     "conservationViolations": 0,
+     "overlaps": 0,
+     "negativeSpeeds": 0,
+     "outsideRoad": 0,
+     "momentsChecked": 12001,
+     "examples": []
+    },
+    "stuckVehicles": 258,
+    "atWarmUp": {
+     "standingInClosedLane": 154,
+     "carsInOpenLanes": 410,
+     "meanSpeedOpenLanesMps": 2.2547144886641384
+    },
+    "laneChangesStarted": 18058
+   },
+   "sumo": {
+    "dischargePerHour": 3640,
+    "entered": 2776,
+    "waitingToEnter": 1259,
+    "repeatedIdentically": null,
+    "summaryConservationViolations": 0,
+    "summaryRows": 8,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "negativeSpeeds": 0,
+    "warningCount": 0,
+    "warnings": []
+   },
+   "sumoDepartSpeedMax": {
+    "dischargePerHour": 2648,
+    "entered": 1788,
+    "waitingToEnter": 2247,
+    "teleports": 0,
+    "collisions": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t1.5",
+   "id": "t1.5-s4",
+   "seed": 4
+  },
+  "wallClockS": 30.656,
+  "result": {
+   "seed": 4,
+   "departures": 3916,
+   "ours": {
+    "dischargePerHour": 2414,
+    "entered": 2022,
+    "waitingToEnter": 1894,
+    "tier0": {
+     "conservationViolations": 0,
+     "overlaps": 0,
+     "negativeSpeeds": 0,
+     "outsideRoad": 0,
+     "momentsChecked": 12001,
+     "examples": []
+    },
+    "stuckVehicles": 125,
+    "atWarmUp": {
+     "standingInClosedLane": 119,
+     "carsInOpenLanes": 427,
+     "meanSpeedOpenLanesMps": 1.6177328730497742
+    },
+    "laneChangesStarted": 13605
+   },
+   "sumo": {
+    "dischargePerHour": 3674,
+    "entered": 2800,
+    "waitingToEnter": 1116,
+    "repeatedIdentically": null,
+    "summaryConservationViolations": 0,
+    "summaryRows": 8,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "negativeSpeeds": 0,
+    "warningCount": 0,
+    "warnings": []
+   },
+   "sumoDepartSpeedMax": {
+    "dischargePerHour": 2644,
+    "entered": 1815,
+    "waitingToEnter": 2101,
+    "teleports": 0,
+    "collisions": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t1.5",
+   "id": "t1.5-s5",
+   "seed": 5
+  },
+  "wallClockS": 30.034,
+  "result": {
+   "seed": 5,
+   "departures": 4002,
+   "ours": {
+    "dischargePerHour": 2618,
+    "entered": 2342,
+    "waitingToEnter": 1660,
+    "tier0": {
+     "conservationViolations": 0,
+     "overlaps": 0,
+     "negativeSpeeds": 0,
+     "outsideRoad": 0,
+     "momentsChecked": 12001,
+     "examples": []
+    },
+    "stuckVehicles": 333,
+    "atWarmUp": {
+     "standingInClosedLane": 306,
+     "carsInOpenLanes": 248,
+     "meanSpeedOpenLanesMps": 6.203508837859939
+    },
+    "laneChangesStarted": 18002
+   },
+   "sumo": {
+    "dischargePerHour": 3618,
+    "entered": 2762,
+    "waitingToEnter": 1240,
+    "repeatedIdentically": null,
+    "summaryConservationViolations": 0,
+    "summaryRows": 8,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "negativeSpeeds": 0,
+    "warningCount": 0,
+    "warnings": []
+   },
+   "sumoDepartSpeedMax": {
+    "dischargePerHour": 2636,
+    "entered": 1785,
+    "waitingToEnter": 2217,
+    "teleports": 0,
+    "collisions": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t1.5",
+   "id": "t1.5-s6",
+   "seed": 6
+  },
+  "wallClockS": 30.518,
+  "result": {
+   "seed": 6,
+   "departures": 3917,
+   "ours": {
+    "dischargePerHour": 2284,
+    "entered": 1842,
+    "waitingToEnter": 2075,
+    "tier0": {
+     "conservationViolations": 0,
+     "overlaps": 0,
+     "negativeSpeeds": 0,
+     "outsideRoad": 0,
+     "momentsChecked": 12001,
+     "examples": []
+    },
+    "stuckVehicles": 198,
+    "atWarmUp": {
+     "standingInClosedLane": 155,
+     "carsInOpenLanes": 442,
+     "meanSpeedOpenLanesMps": 1.7782774688865526
+    },
+    "laneChangesStarted": 15737
+   },
+   "sumo": {
+    "dischargePerHour": 3676,
+    "entered": 2782,
+    "waitingToEnter": 1135,
+    "repeatedIdentically": null,
+    "summaryConservationViolations": 0,
+    "summaryRows": 8,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "negativeSpeeds": 0,
+    "warningCount": 0,
+    "warnings": []
+   },
+   "sumoDepartSpeedMax": {
+    "dischargePerHour": 2644,
+    "entered": 1782,
+    "waitingToEnter": 2135,
+    "teleports": 0,
+    "collisions": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t1.5",
+   "id": "t1.5-s7",
+   "seed": 7
+  },
+  "wallClockS": 31.098,
+  "result": {
+   "seed": 7,
+   "departures": 3919,
+   "ours": {
+    "dischargePerHour": 2294,
+    "entered": 2074,
+    "waitingToEnter": 1845,
+    "tier0": {
+     "conservationViolations": 0,
+     "overlaps": 0,
+     "negativeSpeeds": 0,
+     "outsideRoad": 0,
+     "momentsChecked": 12001,
+     "examples": []
+    },
+    "stuckVehicles": 117,
+    "atWarmUp": {
+     "standingInClosedLane": 77,
+     "carsInOpenLanes": 437,
+     "meanSpeedOpenLanesMps": 1.94558360651582
+    },
+    "laneChangesStarted": 12933
+   },
+   "sumo": {
+    "dischargePerHour": 3594,
+    "entered": 2768,
+    "waitingToEnter": 1151,
+    "repeatedIdentically": null,
+    "summaryConservationViolations": 0,
+    "summaryRows": 8,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "negativeSpeeds": 0,
+    "warningCount": 0,
+    "warnings": []
+   },
+   "sumoDepartSpeedMax": {
+    "dischargePerHour": 2638,
+    "entered": 1773,
+    "waitingToEnter": 2146,
+    "teleports": 0,
+    "collisions": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t1.5",
+   "id": "t1.5-s8",
+   "seed": 8
+  },
+  "wallClockS": 29.79,
+  "result": {
+   "seed": 8,
+   "departures": 4019,
+   "ours": {
+    "dischargePerHour": 2860,
+    "entered": 2121,
+    "waitingToEnter": 1898,
+    "tier0": {
+     "conservationViolations": 0,
+     "overlaps": 0,
+     "negativeSpeeds": 0,
+     "outsideRoad": 0,
+     "momentsChecked": 12001,
+     "examples": []
+    },
+    "stuckVehicles": 432,
+    "atWarmUp": {
+     "standingInClosedLane": 98,
+     "carsInOpenLanes": 443,
+     "meanSpeedOpenLanesMps": 1.7706214765847725
+    },
+    "laneChangesStarted": 21708
+   },
+   "sumo": {
+    "dischargePerHour": 3600,
+    "entered": 2765,
+    "waitingToEnter": 1254,
+    "repeatedIdentically": null,
+    "summaryConservationViolations": 0,
+    "summaryRows": 8,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "negativeSpeeds": 0,
+    "warningCount": 0,
+    "warnings": []
+   },
+   "sumoDepartSpeedMax": {
+    "dischargePerHour": 2648,
+    "entered": 1814,
+    "waitingToEnter": 2205,
+    "teleports": 0,
+    "collisions": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t1.5",
+   "id": "t1.5-s9",
+   "seed": 9
+  },
+  "wallClockS": 30.334,
+  "result": {
+   "seed": 9,
+   "departures": 3974,
+   "ours": {
+    "dischargePerHour": 2288,
+    "entered": 2155,
+    "waitingToEnter": 1819,
+    "tier0": {
+     "conservationViolations": 0,
+     "overlaps": 0,
+     "negativeSpeeds": 0,
+     "outsideRoad": 0,
+     "momentsChecked": 12001,
+     "examples": []
+    },
+    "stuckVehicles": 176,
+    "atWarmUp": {
+     "standingInClosedLane": 151,
+     "carsInOpenLanes": 385,
+     "meanSpeedOpenLanesMps": 2.7694907261458486
+    },
+    "laneChangesStarted": 14997
+   },
+   "sumo": {
+    "dischargePerHour": 3628,
+    "entered": 2790,
+    "waitingToEnter": 1184,
+    "repeatedIdentically": null,
+    "summaryConservationViolations": 0,
+    "summaryRows": 8,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "negativeSpeeds": 0,
+    "warningCount": 0,
+    "warnings": []
+   },
+   "sumoDepartSpeedMax": {
+    "dischargePerHour": 2646,
+    "entered": 1823,
+    "waitingToEnter": 2151,
+    "teleports": 0,
+    "collisions": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t1.5",
+   "id": "t1.5-s10",
+   "seed": 10
+  },
+  "wallClockS": 31.437,
+  "result": {
+   "seed": 10,
+   "departures": 4144,
+   "ours": {
+    "dischargePerHour": 2436,
+    "entered": 2108,
+    "waitingToEnter": 2036,
+    "tier0": {
+     "conservationViolations": 0,
+     "overlaps": 0,
+     "negativeSpeeds": 0,
+     "outsideRoad": 0,
+     "momentsChecked": 12001,
+     "examples": []
+    },
+    "stuckVehicles": 185,
+    "atWarmUp": {
+     "standingInClosedLane": 98,
+     "carsInOpenLanes": 416,
+     "meanSpeedOpenLanesMps": 2.108753494000441
+    },
+    "laneChangesStarted": 20797
+   },
+   "sumo": {
+    "dischargePerHour": 3674,
+    "entered": 2788,
+    "waitingToEnter": 1356,
+    "repeatedIdentically": null,
+    "summaryConservationViolations": 0,
+    "summaryRows": 8,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "negativeSpeeds": 0,
+    "warningCount": 0,
+    "warnings": []
+   },
+   "sumoDepartSpeedMax": {
+    "dischargePerHour": 2648,
+    "entered": 1776,
+    "waitingToEnter": 2368,
+    "teleports": 0,
+    "collisions": 0
+   }
+  }
+ }
+]

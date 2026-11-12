@@ -471,7 +471,7 @@ least Indian case; agreement with SUMO shows the implementation is sane, not tha
 | Runtime | Node ${meta?.node ?? "unknown"}; no browser is involved in these tiers |
 | Step | ${STEP_S} s in both engines; reference integrated at 0.001 s |
 | Seeds | 10 per stochastic test per engine (seeds 1 to 10), mean ± 95% confidence interval (Student's t), none dropped |
-| Work | ${meta ? `${num(meta.totalWallClockS / 3600, 1)} CPU-hours over ${meta.parallelJobs} parallel processes` : "unknown"} |
+| Work | ${meta ? `${meta.parallelJobs} parallel processes; no timing is reported (the machine slept during the run)` : "unknown"} |
 
 ## Results table
 

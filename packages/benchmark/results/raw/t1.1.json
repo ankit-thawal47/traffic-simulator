@@ -1,0 +1,35 @@
+[
+ {
+  "job": {
+   "kind": "t1.1",
+   "id": "t1.1"
+  },
+  "wallClockS": 1.812,
+  "result": {
+   "targetSpeedMps": 14.25,
+   "referenceS": 19.435734486617815,
+   "oursS": 19.269026700787943,
+   "sumoS": 19.26902607911283,
+   "ours": {
+    "tier0": {
+     "conservationViolations": 0,
+     "overlaps": 0,
+     "negativeSpeeds": 0,
+     "outsideRoad": 0,
+     "momentsChecked": 201,
+     "examples": []
+    },
+    "stuckVehicles": 0
+   },
+   "sumo": {
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "negativeSpeeds": 0,
+    "warningCount": 0,
+    "warnings": []
+   },
+   "sumoRepeatedIdentically": true
+  }
+ }
+]

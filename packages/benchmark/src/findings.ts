@@ -11,25 +11,27 @@ this section against them.
 T1.2 our engine can run, and in T1.3, our engine and SUMO differ from each other only in the last digits SUMO prints.
 Both reach 95% of desired speed 0.86% sooner than the 0.001 s reference, which is the error of a 0.2 s step. On the
 one-lane ring both sit on the equilibrium curve throughout the stable range, and both have the reference's capacity.
-Above the stable range both engines give the same flow as each other, a few percent below the ring integrated at
-0.001 s, the stop-and-go waves having grown a little further at the larger step.
+Above the stable range both engines give the same flow as each other, 2% to 14% below the ring integrated at 0.001 s:
+within the 600 s of a run the stop-and-go waves grow further at the 0.2 s step than at 0.001 s.
 
 **T1.2 could not be run on our engine.** Its interface has no vehicle with a prescribed speed. SUMO passes it. The part
 our engine can run (a leader that brakes to a stop behind a stationary car, with no restart) agrees with the reference
 to about 0.01 m/s, but it is not the standard's test and carries no verdict.
 
-**T1.4 passes, and says less than it seems to.** Every lane starts with the same number of cars, so in our engine no car
-has a reason to change lane (our cars spent no time between lanes at any density) and each lane behaves as the one-lane
-ring. SUMO moves its cars to the kerb lane when traffic is light, which lowers its flow per lane at the lowest
-densities, but not near capacity, so capacity per lane is the same in both engines for 1, 2 and 3 lanes. Cars-only
-capacity per lane does not fall as lanes are added, on the ring or on the open road.
+**T1.4 passes, and says less than it seems to.** Every lane starts with the same number of cars, so up to 80 veh/km per
+lane no car in our engine changes lane and each lane behaves as the one-lane ring. SUMO moves its cars to the kerb lane
+when traffic is light, which lowers its flow per lane at 10 and 20 veh/km by 1% to 2%, but not near capacity, so
+capacity per lane is the same in both engines for 1, 2 and 3 lanes. Cars-only capacity per lane does not fall as lanes
+are added, on the ring or on the open road. In stop-and-go traffic (90 veh/km and above) our cars do change lane, and
+our flow per lane is then lower than SUMO's, by up to 8% at 100 veh/km on three lanes: the same lane-change cost that
+shows on the open road below. Those densities are outside the stable range and carry no verdict.
 
 **T1.5 fails, and every run of our engine is flagged for stuck vehicles.** Our discharge flow past the lane drop is about
 a third below SUMO's, against a tolerance of 10%. What can be seen from outside the engine: cars in the lane that is
-closed ahead drive up to the stationary cars and stop; by the end of the warm-up that lane holds a long standing queue
-while the two open lanes beside it are still moving at near free speed. Many of the queued cars stand for more than
-300 s, which is what the stuck count shows. Over the run the queued cars do move over, in thousands of lane changes,
-and the two open lanes then carry between them little more than one lane's capacity. No SUMO car was teleported. Two
+closed ahead drive up to the stationary cars and stop; by the end of the warm-up that lane holds a standing queue of
+about 160 cars and the two open lanes upstream of the closure have slowed to about 3 m/s. Many of the queued cars stand
+for more than 300 s, which is what the stuck count shows. Over the run cars move over in some 17,000 lane changes, and
+the two open lanes carry between them little more than one lane's capacity. No SUMO car was teleported. Two
 cautions. Our lane drop is a lane filled with stationary cars, the only way the engine's interface can express one; it
 may be harsher than a real lane drop will be once the engine has one. And SUMO's own figure depends on how entering
 traffic is configured: with \`departSpeed="max"\` SUMO lets in too few cars to load the drop at all, and its lower figure

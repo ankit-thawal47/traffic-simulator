@@ -1,0 +1,59 @@
+[
+ {
+  "job": {
+   "kind": "t1.2-partial",
+   "id": "t1.2-partial"
+  },
+  "wallClockS": 1.32,
+  "result": {
+   "durationS": 120,
+   "reference": {
+    "leaderMinGapM": 1.7242731328768741,
+    "followerMinGapM": 1.7052024290970849
+   },
+   "ours": {
+    "leader": {
+     "durationS": 120,
+     "speedRmseMps": 0.006494910598090688,
+     "maxSpeedErrorMps": 0.029969006851987334,
+     "minGapM": 1.743029464764163
+    },
+    "follower": {
+     "durationS": 120,
+     "speedRmseMps": 0.009862442602090045,
+     "maxSpeedErrorMps": 0.04558895713203581,
+     "minGapM": 1.7269911672086664
+    },
+    "tier0": {
+     "conservationViolations": 0,
+     "overlaps": 0,
+     "negativeSpeeds": 0,
+     "outsideRoad": 0,
+     "momentsChecked": 601,
+     "examples": []
+    },
+    "stuckVehicles": 0
+   },
+   "sumo": {
+    "leader": {
+     "durationS": 120,
+     "speedRmseMps": 0.006494903851462873,
+     "maxSpeedErrorMps": 0.029968637599497416,
+     "minGapM": 1.7413629999999785
+    },
+    "follower": {
+     "durationS": 120,
+     "speedRmseMps": 0.009836935471726241,
+     "maxSpeedErrorMps": 0.045588672287329324,
+     "minGapM": 1.7267050000000381
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "negativeSpeeds": 0,
+    "warningCount": 0,
+    "warnings": []
+   }
+  }
+ }
+]

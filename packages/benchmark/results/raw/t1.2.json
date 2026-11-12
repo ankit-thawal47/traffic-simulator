@@ -1,0 +1,34 @@
+[
+ {
+  "job": {
+   "kind": "t1.2",
+   "id": "t1.2"
+  },
+  "wallClockS": 1.873,
+  "result": {
+   "profile": {
+    "cruiseMps": 12,
+    "cruiseS": 30,
+    "brakeMps2": 1.5,
+    "standS": 15,
+    "restartMps2": 1,
+    "finalCruiseS": 25
+   },
+   "referenceMinGapM": 1.693646773229375,
+   "ours": null,
+   "sumo": {
+    "durationS": 90,
+    "speedRmseMps": 0.021804978126032905,
+    "maxSpeedErrorMps": 0.05425035305968473,
+    "minGapM": 1.7218980000000101,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "negativeSpeeds": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "leaderSpeedRmseMps": 3.2518863159277886e-16
+   }
+  }
+ }
+]
