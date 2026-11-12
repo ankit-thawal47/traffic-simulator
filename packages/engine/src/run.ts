@@ -194,6 +194,11 @@ interface Vehicle {
   curve: TurningCurve | undefined;
   /** On a side road of a priority junction: refused, at the last letting in, for want of a large enough gap in main-road traffic. */
   waitingForGap: boolean;
+  /**
+   * Clearing after green: refused, on its approach's green, for want of free crossings while it stood at the
+   * front of its strips. Once the green has ended it may still be let in (letIn), until it is or gives up.
+   */
+  clearsAfterGreen: boolean;
 
   // Working values of one step.
   index: number;
@@ -752,6 +757,7 @@ export function createRun(input: RunInput): Run {
       order: 0,
       curve: undefined,
       waitingForGap: false,
+      clearsAfterGreen: false,
       index: 0,
       atQueue: false,
       speedCapMps: Math.min(assumptions.desiredSpeedMps, road.road.speedLimitMps),
@@ -1276,41 +1282,68 @@ export function createRun(input: RunInput): Run {
    * each is let in or refused from the state at the start of the step and the
    * vehicles let in before it. A vehicle is let in only after every vehicle
    * ahead of it in its strips, so the order of letting in is the order of going.
+   *
+   * Clearing after green (ours; not published): nobody is let in on amber or red,
+   * except a vehicle that stood at the front of its strips and was refused on its
+   * green for want of free crossings (a turner facing oncoming traffic that left
+   * no gap). After its green it asks first, and goes once the vehicles let in
+   * before it are clear of its path; until then no vehicle of another approach
+   * whose path crosses its own is let in, so the next green does not take its
+   * crossing first. It gives up, and waits for its next green, if the road beyond
+   * has no room for it.
    */
   function letIn(junction: JunctionState): void {
     const asking: Vehicle[] = [];
     const amberS = junction.junction.control === "signal" ? junction.junction.signalPlan.amberS : 0;
     for (const road of junction.approaches) {
-      // Nobody is let in on amber or red.
-      if (road.aspect.state !== "green") continue;
+      const afterGreen = road.aspect.state !== "green";
       for (const vehicle of road.vehicles) {
         vehicle.waitingForGap = false;
+        // On green it is found afresh each step, so what counts once the green ends is the last step of green.
+        if (!afterGreen) vehicle.clearsAfterGreen = false;
+        else if (!vehicle.clearsAfterGreen) continue;
         if (vehicle.place !== ON_ROAD || vehicle.admitted || vehicle.stationary || vehicle.shiftDirection !== 0) continue;
         if (!vehicle.ahead) continue;
         // A vehicle giving way to one waiting to sort does not ask to be let in.
         if (vehicle.givesWayGapM < Infinity) continue;
         const toStopLineM = road.lengthM - vehicle.positionM;
         if (toStopLineM > askingDistanceM(vehicle)) continue;
-        // It must be able to reach the stop line before the amber ends.
-        if (soonestS(vehicle, toStopLineM, vehicle.speedCapMps) > road.aspect.remainingS + amberS) continue;
+        // On green it must be able to reach the stop line before the amber ends.
+        if (!afterGreen && soonestS(vehicle, toStopLineM, vehicle.speedCapMps) > road.aspect.remainingS + amberS) continue;
         asking.push(vehicle);
       }
     }
+    // Those clearing after their green first.
     asking.sort(
-      (a, b) => a.road.lengthM - a.positionM - (b.road.lengthM - b.positionM) || a.id - b.id,
+      (a, b) =>
+        Number(b.clearsAfterGreen && b.road.aspect.state !== "green") - Number(a.clearsAfterGreen && a.road.aspect.state !== "green") ||
+        a.road.lengthM - a.positionM - (b.road.lengthM - b.positionM) ||
+        a.id - b.id,
     );
+    // Vehicles clearing after their green that are not let in yet, with their connection and line set while letting in lasts.
+    const clearing: Vehicle[] = [];
     for (const vehicle of asking) {
+      const afterGreen = vehicle.road.aspect.state !== "green";
       const connection = vehicle.ahead!;
       const curve = curveThrough(connection, vehicle.strip, vehicle.strips);
-      if (!curve) continue;
+      if (!curve) {
+        vehicle.clearsAfterGreen = false;
+        continue;
+      }
       if (!leadersLetIn(vehicle)) continue;
       if (!roomBeyond(vehicle, connection, vehicle.strip)) {
+        if (afterGreen) vehicle.clearsAfterGreen = false;
         // On a side road, room taken by main-road traffic still moving on is room still to come: waiting for a gap.
         if (junction.sideRoads?.has(vehicle.road)) vehicle.waitingForGap = roomTakenByMovingTraffic(vehicle, connection);
         continue;
       }
       vehicle.turning = connection;
       vehicle.curve = curve;
+      if (!afterGreen && crossesClearing(vehicle, clearing)) {
+        vehicle.turning = undefined;
+        vehicle.curve = undefined;
+        continue;
+      }
       // On a side road of a priority junction it goes only into a large enough gap in main-road traffic.
       if (junction.sideRoads?.has(vehicle.road) && !gapInMainRoad(vehicle, junction)) {
         vehicle.turning = undefined;
@@ -1319,14 +1352,33 @@ export function createRun(input: RunInput): Run {
         continue;
       }
       if (!crossingsWillBeFree(vehicle)) {
+        if (afterGreen) {
+          clearing.push(vehicle);
+          continue;
+        }
+        // Refused at the front of its strips on green: it may clear after its green.
+        if (vehicle.road.endsAt!.junction.control === "signal") vehicle.clearsAfterGreen = true;
         vehicle.turning = undefined;
         vehicle.curve = undefined;
         continue;
       }
       vehicle.admitted = true;
+      vehicle.clearsAfterGreen = false;
       vehicle.order = nextOrder++;
       junction.admitted.push(vehicle);
     }
+    for (const vehicle of clearing) {
+      vehicle.turning = undefined;
+      vehicle.curve = undefined;
+    }
+  }
+
+  /** Whether a vehicle asking on green, with its connection and line set, would cross the path of one clearing after its green. */
+  function crossesClearing(vehicle: Vehicle, clearing: Vehicle[]): boolean {
+    for (const other of clearing) {
+      if (other.road !== vehicle.road && firstCrossingPiece(vehicle, other, -1) !== NO_CROSSING) return true;
+    }
+    return false;
   }
 
   /** Whether every vehicle just ahead of this one in its strips, and still short of the stop line, has been let in. */

@@ -784,7 +784,7 @@ export const RULES: readonly Rule[] = [
   },
   {
     id: "rule.signal",
-    name: "Signals: a signal that is not green acts as a stopped vehicle at the stop line across the whole approach; a vehicle is let in only on green, and only if it can reach the stop line before the amber ends",
+    name: "Signals: a signal that is not green acts as a stopped vehicle at the stop line across the whole approach; a vehicle is let in only on green, and only if it can reach the stop line before the amber ends (except when clearing after green)",
     state: "our-choice",
     source:
       "Ours. Treating a red signal as a stopped vehicle is common practice in simulators; when a vehicle asks " +
@@ -798,6 +798,17 @@ export const RULES: readonly Rule[] = [
     source:
       "Ours; no source gives it. One order for the whole junction means vehicles inside it cannot end up waiting for each other in a ring.",
     note: "A turn across oncoming traffic therefore waits for a longer gap than a driver would take.",
+  },
+  {
+    id: "rule.clear-after-green",
+    name: "Clearing after green: a vehicle at the front of its strips refused on its green because the vehicles let in before it would not be clear of its path is let in after the green ends, once they are; until then no vehicle of another approach whose path crosses its own is let in. It gives up if the road beyond has no room",
+    state: "our-choice",
+    source:
+      "Ours; no source gives it. It stands for the driver who waits in the junction mouth to turn across oncoming " +
+      "traffic and goes when that traffic stops, as SUMO's permissive green lets a turning vehicle do. Without it a " +
+      "turner facing saturated oncoming traffic waited whole cycles: ticket 24 measured 705 s at the stop line and " +
+      "stuck vehicles released in benchmark test T2.4.",
+    note: "At most one vehicle a strip clears after each green, the one at the front.",
   },
   {
     id: "rule.crossing-paths",
@@ -818,8 +829,8 @@ export const RULES: readonly Rule[] = [
     name: "Turning: inside a junction a vehicle keeps the strips it entered in and follows its turning path; it enters the network in strips that lead onto its turn",
     state: "our-choice",
     source:
-      "Ours; no source gives it. Vehicles do not sort themselves by turn before the stop line, so a vehicle turning " +
-      "right from the left of an approach waits for the traffic beside it.",
+      "Ours; no source gives it. At a signal or priority junction a turn leaves from the lanes on its own side of the " +
+      "approach (turning lanes, in the junction values), so vehicles sort themselves by turn before the stop line.",
   },
   {
     id: "rule.levels",

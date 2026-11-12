@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createRun, type Demand, type RunInput } from "../src/index";
-import { ARMS, everyMovement, fourWay, oneApproachAtATime } from "./four-way";
+import { ARMS, everyMovement, fourWay, oneApproachAtATime, opposingApproachesTogether } from "./four-way";
 
 /** Every approach sends all its traffic straight on. */
 function straightOnOnly(vehiclesPerHourPerApproach: number, mixed: boolean): Demand {
@@ -30,4 +30,34 @@ describe("turning traffic at a saturated signal junction", () => {
       expect(turning / straight).toBeGreaterThan(laneDiscipline ? 0.9 : 0.7);
     });
   }
+
+  // Opposite approaches share a green (the plan of benchmark test T2.4) and every approach is saturated, so
+  // oncoming traffic leaves no gap during green. Ticket 24 measured right-turners standing at the stop line
+  // for 700 s (and stuck vehicles released) when nobody could be let in after the green.
+  it("lets a turner waiting at the stop line across oncoming traffic go after its green: nobody stands 300 s", () => {
+    for (const seed of [1, 2, 3]) {
+      const run = createRun({
+        network: fourWay({ signalPlan: opposingApproachesTogether(30, 3, 2) }),
+        demand: everyMovement(1500, false),
+        seed,
+        laneDiscipline: true,
+      });
+      const standingSince = new Map<number, number>();
+      let longestS = 0;
+      while (run.timeS < 1800 - 1e-9) {
+        run.step();
+        for (const vehicle of run.snapshot().vehicles) {
+          if (vehicle.speedMps >= 0.1) standingSince.delete(vehicle.id);
+          else if (!standingSince.has(vehicle.id)) standingSince.set(vehicle.id, run.timeS);
+          else longestS = Math.max(longestS, run.timeS - standingSince.get(vehicle.id)!);
+        }
+      }
+      expect({ seed, stoodUnder300S: longestS < 300, longestS: Math.round(longestS), stuck: run.results().stuckVehicles }).toEqual({
+        seed,
+        stoodUnder300S: true,
+        longestS: expect.any(Number),
+        stuck: 0,
+      });
+    }
+  });
 });
