@@ -12,7 +12,12 @@
  * overlap when their footprints do, whichever turning paths they are on. The
  * shape of a turning path comes from junction-geometry.ts, which the engine
  * uses too: the checks do not have their own idea of where a turning path runs.
+ *
+ * Where one road passes over another road or over a junction (a flyover),
+ * vehicles are also compared across the two: they overlap when they overlap on
+ * the plan and are on the same level (level-checks.ts).
  */
+import { createLevelCheck } from "./level-checks";
 import { createRun as createEngineRun } from "./run";
 import { roadLengthM } from "./geometry";
 import { convexShapesOverlap, createNetworkLayout, footprintInJunction, turningCurve } from "./junction-geometry";
@@ -38,6 +43,7 @@ const TOLERANCE_M = 1e-9;
 export function createConsistencyChecker(network: Network): ConsistencyChecker {
   const roads = new Map(network.roads.map((road) => [road.id, { widthM: road.widthM, lengthM: roadLengthM(road) }]));
   const layout = createNetworkLayout(network);
+  const levels = createLevelCheck(network, layout);
   const violations: ConsistencyViolation[] = [];
   let previous: { ids: Set<number>; highestId: number; results: Results } | undefined;
 
@@ -161,6 +167,9 @@ export function createConsistencyChecker(network: Network): ConsistencyChecker {
         }
       }
     }
+
+    // Where roads cover common ground without sharing a junction: no overlap unless on different levels.
+    for (const message of levels.overlaps(snapshot)) report("no-overlap", message);
 
     if (results.vehiclesOnNetwork !== snapshot.vehicles.length) {
       report(
