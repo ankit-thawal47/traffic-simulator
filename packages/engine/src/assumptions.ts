@@ -377,9 +377,9 @@ export const SIDEWAYS_ASSUMPTIONS = {
       "Our choice; not from a measurement. How far ahead a vehicle sees that a stationary vehicle blocks a strip: " +
       "within this distance it leaves the strip if it is in it and does not move into it if it is not. It is about " +
       "twice the 112 m in which a car stops comfortably from its desired speed (15 m/s at 1 m/s2), so that a vehicle " +
-      "has room to slow, fall in behind a gap and move across before it reaches the blockage, rather than at it. The " +
-      "result is not sensitive to the value: on benchmark test T1.5 (seed 1) the road discharged 2,912, 2,932 and " +
-      "2,958 vehicles an hour at 100, 200 and 400 m; at 50 m, 2,590.",
+      "has room to slow, fall in behind a gap and move across before it reaches the blockage, rather than at it. It " +
+      "was not chosen to make a test pass: on benchmark test T1.5 (mean of seeds 1 and 2) the road discharged 2,658, " +
+      "2,881, 2,915, 2,993 and 3,099 vehicles an hour at 50, 100, 200, 400 and 800 m, against SUMO's 3,640.",
   },
 } satisfies Record<string, Assumption>;
 
@@ -701,7 +701,8 @@ export const RULES: readonly Rule[] = [
       "rule vehicles queued behind a closed lane stood for minutes (about 240 a run stood 300 s or more in benchmark " +
       "test T1.5) while others moved into the closed lane beside them. It is not calibrated: with one lane of three " +
       "closed the road still discharges about a fifth less than SUMO does, because a vehicle that moves across from " +
-      "a stand holds both lanes for the whole of its sideways shift.",
+      "a stand holds both lanes for the whole of its sideways shift. A vehicle with no clear strips to go to (the " +
+      "road is blocked right across for its width) is left as it was.",
   },
   {
     id: "rule.route-choice",
