@@ -4,7 +4,7 @@
 
 **Blocked by:** 20
 
-**Status:** ready-for-agent
+**Status:** done (merged to integration branch)
 
 - [x] The importer runs in the browser and produces a network in the engine's format, with no engine change
 - [x] Every guessed value is listed and marked on screen, with the rule that produced it
