@@ -68,8 +68,12 @@ const CLOSE_UP_ALONG_M = 50;
 
 /** Where the close-up camera stands to look at a junction, in metres from its middle. */
 const JUNCTION_CLOSE_UP = { toTheEastM: 20, upM: 55, toTheSouthM: 55 };
-/** Where it stands to look at a junction with a flyover over it. */
-const FLYOVER_CLOSE_UP = { toTheEastM: 110, upM: 70, toTheSouthM: 130 };
+/**
+ * Where it stands to look at a junction with a flyover over it: from the side
+ * and above, so the deck is seen to be raised, and near enough that vehicles
+ * on it and queued beneath it are seen as vehicles and not as specks.
+ */
+const FLYOVER_CLOSE_UP = { toTheEastM: 62, upM: 44, toTheSouthM: 70 };
 
 /**
  * The view the views open with: close to the network's first road, 50 m from

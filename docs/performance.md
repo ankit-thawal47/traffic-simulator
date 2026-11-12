@@ -130,12 +130,23 @@ The engine ran flat out in a worker and posted after every step (300 steps, thre
 
 **If a later measurement misses the target**, the order of response suggested by these figures is: typed-array snapshots; seeds in parallel workers; and only then a smaller network or a shorter period.
 
+## After visual polish (ticket 21)
+
+Measured on 12 November 2026, same machine and Chrome, before and after the visual polish (vehicle shapes per class in four instanced batches, the sun's soft shadows cast by vehicles, flyovers and kerbs, sky, textured ground, kerbs and markings). `pnpm perf --quick --only browser --browsers headed-gpu,headed-gpu-uncapped --counts 3000 --speeds 16`: mixed traffic, about 3,000 vehicles in each run, 16× (the app's fastest), the unseen-seeds worker running, 2 s warm-up and 4 s measured per case, one repetition. The views open on the close-up of the first road, where shadows are on. Load average at the start: 10.8 before, 4.5 after. Tables: `docs/performance/measurement-2026-11-12-before-visual-polish.md` and `-after-visual-polish.md`.
+
+| Two views of about 3,000 vehicles, 16× | Speed achieved | Frames per second (display cap) | Frames per second (cap removed) | Drawing work per frame, ms |
+|---|---|---|---|---|
+| Before | 15.99× | 120.0 | 320 | 2.39 |
+| After | 16.00× | 120.0 | 223 | 2.76 |
+
+The target (two views of 3,000 vehicles at 16× at 30 frames a second or more) is still met, at the display's 120 Hz, with about seven times headroom with the cap removed. The polish costs about 30% of that headroom, almost all on the graphics card (the page's own work per frame rose by 0.4 ms). A view that falls below 40 frames a second with shadows on drops them for good, and shadows are not drawn when the camera is over 1,100 m from what it looks at, so a slower machine loses shadows before it loses frame rate. That fallback has not been seen to trigger here; a slower machine was not measured.
+
 ## What was not measured
 
 - Any traffic with signals, junctions, queues, filtering at a stop line, a flyover, route choice or stuck vehicles: the engine does not have them yet. Stopped, dense traffic may cost more per vehicle than the flowing traffic measured.
 - Any other machine. An M3 Pro is fast; a planner's laptop with integrated graphics was not measured.
 - Any browser other than Chrome 157.
-- A close camera, shadows, or detailed vehicle shapes. The camera was the app's default angled view of the whole network, so each vehicle covers few pixels.
+- In the 11 November measurement, a close camera, shadows, or detailed vehicle shapes. These were measured on 12 November (section "After visual polish"), briefly and once; a network with junctions, a flyover or the Hebbal corridor's buildings and trees was not.
 - The deployed site. The page measured was a production build served locally.
 - Memory use, battery power, and long runs (each view was measured for 10 seconds).
 - Whether the visible window was on a lit screen. The page reported itself visible and drew at the display's 120 Hz, but nobody was watching it.

@@ -1,6 +1,5 @@
 import {
   approachRoadIds,
-  junctionOutline,
   positionAlongRoad,
   roadLengthM,
   signalState,
@@ -9,6 +8,7 @@ import {
   type SignalState,
 } from "@traffic-simulator/engine";
 import * as THREE from "three";
+import { junctionSurface } from "./road-drawing";
 
 /** The colour each signal state is drawn in. */
 export const SIGNAL_COLOURS: Record<SignalState, string> = {
@@ -92,15 +92,14 @@ export function createJunctionDrawing(network: Network, surface: THREE.Material)
   const roads = new Map(network.roads.map((road) => [road.id, road]));
 
   for (const junction of network.junctions ?? []) {
-    // The surface: the outline round the ends of the junction's roads, laid flat.
-    const outline = junctionOutline(network, junction);
-    if (outline.length >= 3) {
-      const shape = new THREE.Shape(outline.map((point) => new THREE.Vector2(point.x, point.y)));
-      const geometry = new THREE.ShapeGeometry(shape);
-      // The shape is in the x-y plane; turned about x it lies on the ground with y pointing to -z.
-      geometry.rotateX(-Math.PI / 2);
+    // The surface: the ground swept by each turn, from the road it leaves to the road it joins.
+    const swept = junctionSurface(network, junction);
+    if (swept.length > 0) {
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute("position", new THREE.Float32BufferAttribute(swept, 3));
+      geometry.computeVertexNormals();
       const mesh = new THREE.Mesh(geometry, surface);
-      mesh.position.y = -0.01;
+      mesh.name = `junction-surface:${junction.id}`;
       objects.push(mesh);
       disposable.push(geometry);
     }

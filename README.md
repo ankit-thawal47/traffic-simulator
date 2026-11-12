@@ -2,7 +2,7 @@
 
 A what-if tool for Indian roads: a planner describes a road and a change to it, and compares how traffic behaves in each. Vocabulary is in `GLOSSARY.md`; decisions are in `docs/adr/`.
 
-So far: mixed traffic on one straight road. Two-wheelers, cars, auto-rickshaws and buses enter, share the road's width strip by strip, follow and pass one another, and leave, each drawn as a 3D box to its own size. Lane discipline is a setting of the engine's input: on, vehicles keep to lanes. The planner changes the road's width or its number of lanes in a proposal, and shares the scenario as a link or saves it as a file; baseline and proposal run together in two 3D views that share one camera and one clock, with results for both (among them the mean delay per vehicle class) and the change from the baseline.
+So far: mixed traffic on one straight road. Two-wheelers, cars, auto-rickshaws and buses enter, share the road's width strip by strip, follow and pass one another, and leave, each drawn to its own size with a shape for its class (a two-wheeler with its rider, a car, an auto-rickshaw, a bus), generated in code. Roads have kerbs, and lane and edge lines only where traffic keeps to lanes; the sun casts soft shadows while the camera is near enough to see them, and a view that cannot keep 40 frames a second with them drops them. Lane discipline is a setting of the engine's input: on, vehicles keep to lanes. The planner changes the road's width or its number of lanes in a proposal, and shares the scenario as a link or saves it as a file; baseline and proposal run together in two 3D views that share one camera and one clock, with results for both (among them the mean delay per vehicle class) and the change from the baseline.
 
 ## Layout
 

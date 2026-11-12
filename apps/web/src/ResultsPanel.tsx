@@ -22,7 +22,7 @@ export function ResultsPanel({
 }: {
   collected: FiveSeeds;
   networks: readonly Network[];
-  /** Names for a planner of the roads of a prepared corridor, whose ids come from OpenStreetMap. */
+  /** Names for a planner of the roads (road-names.ts), in place of their identifiers. */
   roadNames?: Readonly<Record<string, string>>;
 }) {
   const { plan } = collected;

@@ -14,6 +14,7 @@ import { CAMERA_FOV_DEGREES, RoadScene } from "./RoadScene";
 import type { RunCommand, RunFrame } from "./run-protocol";
 import { createBrowserStorage } from "./scenario-storage";
 import { createSharedCamera } from "./shared-camera";
+import { roadName, roadNamesFor } from "./road-names";
 import { useFiveSeeds } from "./use-five-seeds";
 import { legendFor, type ColourBy } from "./vehicle-colours";
 import { WATCH_SPEEDS, fasterSpeed, formatSpeed, slowerSpeed } from "./watch-clock";
@@ -35,8 +36,14 @@ export function App() {
   );
   // A prepared corridor shown on the page brings its attribution, its licence and its road names.
   const notice = useMemo(() => corridorNotice(corridorId), [corridorId]);
+  // Names a planner reads for the roads: the corridor's own, or made for a built network.
   const baselineInput = useMemo(() => resolveScenario(baseline), [baseline]);
   const proposalInput = useMemo(() => resolveScenario(proposal), [proposal]);
+  // Names a planner reads for the roads, for the results: the corridor's own, or made for a built network or an example.
+  const roadNames = useMemo(() => {
+    const names = roadNamesFor({ corridorId, layout });
+    return Object.fromEntries(network.roads.map((road) => [road.id, roadName(names, road.id)]));
+  }, [corridorId, layout, network]);
 
   const storage = useMemo(createBrowserStorage, []);
   // Counts the scenarios opened from a link or a file, so the change controls start afresh for each.
@@ -212,6 +219,8 @@ export function App() {
           <figcaption>Baseline · {baseline.name}</figcaption>
           <RoadScene
             network={baselineInput.network}
+            laneDiscipline={baselineInput.laneDiscipline}
+            withSurroundings={corridorId !== undefined}
             frames={baselineFrames}
             sharedCamera={sharedCamera}
             colourBy={colourBy}
@@ -223,6 +232,8 @@ export function App() {
           </figcaption>
           <RoadScene
             network={proposalInput.network}
+            laneDiscipline={proposalInput.laneDiscipline}
+            withSurroundings={corridorId !== undefined}
             frames={proposalFrames}
             sharedCamera={sharedCamera}
             colourBy={colourBy}
@@ -244,7 +255,7 @@ export function App() {
         <ResultsPanel
           collected={collected}
           networks={[baselineInput.network, proposalInput.network]}
-          roadNames={notice?.roadNames}
+          roadNames={roadNames}
         />
       </section>
     </main>

@@ -5,6 +5,7 @@ import { LostWidthControl } from "./LostWidthControl";
 import { RoadClosureControl } from "./RoadClosureControl";
 import { RoadLanesControl } from "./RoadLanesControl";
 import { RoadWidthControl } from "./RoadWidthControl";
+import { roadName, roadNamesFor } from "./road-names";
 
 /** What every change control is given: the proposal, and where to send the proposal with the change made. */
 export interface ChangeControlProps {
@@ -22,6 +23,7 @@ export function RoadChanges({ proposal, onChange }: ChangeControlProps) {
   const roads = proposal.network.roads;
   const [roadId, setRoadId] = useState(roads[0]?.id ?? "");
   const controls = { proposal, roadId, onChange };
+  const names = roadNamesFor(proposal);
 
   return (
     <fieldset className="change-group" data-testid="road-changes">
@@ -32,7 +34,7 @@ export function RoadChanges({ proposal, onChange }: ChangeControlProps) {
           <select data-testid="change-road" value={roadId} onChange={(event) => setRoadId(event.target.value)}>
             {roads.map((road) => (
               <option key={road.id} value={road.id}>
-                {road.id}
+                {roadName(names, road.id)}
               </option>
             ))}
           </select>
