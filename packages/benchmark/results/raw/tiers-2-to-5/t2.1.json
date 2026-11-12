@@ -4,7 +4,7 @@
    "kind": "t2.1",
    "id": "t2.1"
   },
-  "wallClockS": 1.005,
+  "wallClockS": 2.516,
   "result": {
    "reference": {
     "crossingsS": [
@@ -165,7 +165,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 0.216,
+    "wallClockS": 0.238,
     "internalLaneLengthM": 20
    },
    "junctionPathM": 20,

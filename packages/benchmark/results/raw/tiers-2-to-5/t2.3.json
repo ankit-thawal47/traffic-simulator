@@ -6,7 +6,7 @@
    "majorFlowPerHour": 200,
    "seed": 1
   },
-  "wallClockS": 4.733,
+  "wallClockS": 3.639,
   "result": {
    "majorFlowPerHour": 200,
    "seed": 1,
@@ -14,7 +14,7 @@
     "minorThroughPerHour": 1055,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.901
+    "wallClockS": 0.589
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -25,7 +25,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.698
+    "wallClockS": 2.405
    }
   }
  },
@@ -36,7 +36,7 @@
    "majorFlowPerHour": 200,
    "seed": 2
   },
-  "wallClockS": 4.511,
+  "wallClockS": 3.632,
   "result": {
    "majorFlowPerHour": 200,
    "seed": 2,
@@ -44,7 +44,7 @@
     "minorThroughPerHour": 994,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.816
+    "wallClockS": 0.616
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -55,7 +55,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.593
+    "wallClockS": 2.36
    }
   }
  },
@@ -66,7 +66,7 @@
    "majorFlowPerHour": 200,
    "seed": 3
   },
-  "wallClockS": 4.748,
+  "wallClockS": 3.683,
   "result": {
    "majorFlowPerHour": 200,
    "seed": 3,
@@ -74,7 +74,7 @@
     "minorThroughPerHour": 1013,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.855
+    "wallClockS": 0.601
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -85,7 +85,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.71
+    "wallClockS": 2.455
    }
   }
  },
@@ -96,7 +96,7 @@
    "majorFlowPerHour": 200,
    "seed": 4
   },
-  "wallClockS": 4.639,
+  "wallClockS": 3.539,
   "result": {
    "majorFlowPerHour": 200,
    "seed": 4,
@@ -104,7 +104,7 @@
     "minorThroughPerHour": 984,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.921
+    "wallClockS": 0.582
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -115,7 +115,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.595
+    "wallClockS": 2.311
    }
   }
  },
@@ -126,7 +126,7 @@
    "majorFlowPerHour": 200,
    "seed": 5
   },
-  "wallClockS": 4.625,
+  "wallClockS": 3.635,
   "result": {
    "majorFlowPerHour": 200,
    "seed": 5,
@@ -134,7 +134,7 @@
     "minorThroughPerHour": 1083,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.852
+    "wallClockS": 0.583
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -145,7 +145,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.636
+    "wallClockS": 2.38
    }
   }
  },
@@ -156,7 +156,7 @@
    "majorFlowPerHour": 200,
    "seed": 6
   },
-  "wallClockS": 4.815,
+  "wallClockS": 3.739,
   "result": {
    "majorFlowPerHour": 200,
    "seed": 6,
@@ -164,7 +164,7 @@
     "minorThroughPerHour": 1015,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.964
+    "wallClockS": 0.581
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -175,7 +175,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.707
+    "wallClockS": 2.52
    }
   }
  },
@@ -186,7 +186,7 @@
    "majorFlowPerHour": 200,
    "seed": 7
   },
-  "wallClockS": 3.897,
+  "wallClockS": 4.133,
   "result": {
    "majorFlowPerHour": 200,
    "seed": 7,
@@ -194,7 +194,7 @@
     "minorThroughPerHour": 996,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.514
+    "wallClockS": 0.61
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -205,7 +205,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.777
+    "wallClockS": 2.813
    }
   }
  },
@@ -216,7 +216,7 @@
    "majorFlowPerHour": 200,
    "seed": 8
   },
-  "wallClockS": 3.634,
+  "wallClockS": 3.803,
   "result": {
    "majorFlowPerHour": 200,
    "seed": 8,
@@ -224,7 +224,7 @@
     "minorThroughPerHour": 1052,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.51
+    "wallClockS": 0.546
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -235,7 +235,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.543
+    "wallClockS": 2.546
    }
   }
  },
@@ -246,7 +246,7 @@
    "majorFlowPerHour": 200,
    "seed": 9
   },
-  "wallClockS": 3.659,
+  "wallClockS": 4.073,
   "result": {
    "majorFlowPerHour": 200,
    "seed": 9,
@@ -254,7 +254,7 @@
     "minorThroughPerHour": 997,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.479
+    "wallClockS": 0.583
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -265,7 +265,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.594
+    "wallClockS": 2.545
    }
   }
  },
@@ -276,7 +276,7 @@
    "majorFlowPerHour": 200,
    "seed": 10
   },
-  "wallClockS": 3.678,
+  "wallClockS": 4.019,
   "result": {
    "majorFlowPerHour": 200,
    "seed": 10,
@@ -284,7 +284,7 @@
     "minorThroughPerHour": 1114,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.469
+    "wallClockS": 0.574
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -295,7 +295,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.646
+    "wallClockS": 2.517
    }
   }
  },
@@ -306,7 +306,7 @@
    "majorFlowPerHour": 400,
    "seed": 1
   },
-  "wallClockS": 4.001,
+  "wallClockS": 4.45,
   "result": {
    "majorFlowPerHour": 400,
    "seed": 1,
@@ -314,7 +314,7 @@
     "minorThroughPerHour": 803,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.504
+    "wallClockS": 0.618
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -325,7 +325,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.904
+    "wallClockS": 2.977
    }
   }
  },
@@ -336,7 +336,7 @@
    "majorFlowPerHour": 400,
    "seed": 2
   },
-  "wallClockS": 4.046,
+  "wallClockS": 4.34,
   "result": {
    "majorFlowPerHour": 400,
    "seed": 2,
@@ -344,7 +344,7 @@
     "minorThroughPerHour": 733,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.476
+    "wallClockS": 0.629
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -355,7 +355,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.973
+    "wallClockS": 2.925
    }
   }
  },
@@ -366,7 +366,7 @@
    "majorFlowPerHour": 400,
    "seed": 3
   },
-  "wallClockS": 4.019,
+  "wallClockS": 4.266,
   "result": {
    "majorFlowPerHour": 400,
    "seed": 3,
@@ -374,7 +374,7 @@
     "minorThroughPerHour": 731,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.556
+    "wallClockS": 0.655
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -385,7 +385,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.869
+    "wallClockS": 2.938
    }
   }
  },
@@ -396,7 +396,7 @@
    "majorFlowPerHour": 400,
    "seed": 4
   },
-  "wallClockS": 3.882,
+  "wallClockS": 4.079,
   "result": {
    "majorFlowPerHour": 400,
    "seed": 4,
@@ -404,7 +404,7 @@
     "minorThroughPerHour": 708,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.531
+    "wallClockS": 0.636
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -415,7 +415,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.76
+    "wallClockS": 2.83
    }
   }
  },
@@ -426,7 +426,7 @@
    "majorFlowPerHour": 400,
    "seed": 5
   },
-  "wallClockS": 3.731,
+  "wallClockS": 3.954,
   "result": {
    "majorFlowPerHour": 400,
    "seed": 5,
@@ -434,7 +434,7 @@
     "minorThroughPerHour": 772,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.485
+    "wallClockS": 0.59
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -445,7 +445,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.67
+    "wallClockS": 2.731
    }
   }
  },
@@ -456,7 +456,7 @@
    "majorFlowPerHour": 400,
    "seed": 6
   },
-  "wallClockS": 3.901,
+  "wallClockS": 4.134,
   "result": {
    "majorFlowPerHour": 400,
    "seed": 6,
@@ -464,7 +464,7 @@
     "minorThroughPerHour": 727,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.547
+    "wallClockS": 0.615
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -475,7 +475,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.789
+    "wallClockS": 2.932
    }
   }
  },
@@ -486,7 +486,7 @@
    "majorFlowPerHour": 400,
    "seed": 7
   },
-  "wallClockS": 3.974,
+  "wallClockS": 4.177,
   "result": {
    "majorFlowPerHour": 400,
    "seed": 7,
@@ -494,7 +494,7 @@
     "minorThroughPerHour": 726,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.576
+    "wallClockS": 0.664
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -505,7 +505,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.836
+    "wallClockS": 2.889
    }
   }
  },
@@ -516,7 +516,7 @@
    "majorFlowPerHour": 400,
    "seed": 8
   },
-  "wallClockS": 3.671,
+  "wallClockS": 3.854,
   "result": {
    "majorFlowPerHour": 400,
    "seed": 8,
@@ -524,7 +524,7 @@
     "minorThroughPerHour": 809,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.567
+    "wallClockS": 0.621
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -535,7 +535,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 2.501
+    "wallClockS": 2.607
    }
   }
  },
@@ -546,7 +546,7 @@
    "majorFlowPerHour": 400,
    "seed": 9
   },
-  "wallClockS": 4.974,
+  "wallClockS": 4.839,
   "result": {
    "majorFlowPerHour": 400,
    "seed": 9,
@@ -554,7 +554,7 @@
     "minorThroughPerHour": 767,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.524
+    "wallClockS": 0.633
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -565,7 +565,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.834
+    "wallClockS": 3.516
    }
   }
  },
@@ -576,7 +576,7 @@
    "majorFlowPerHour": 400,
    "seed": 10
   },
-  "wallClockS": 5.074,
+  "wallClockS": 4.889,
   "result": {
    "majorFlowPerHour": 400,
    "seed": 10,
@@ -584,7 +584,7 @@
     "minorThroughPerHour": 796,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.495
+    "wallClockS": 0.55
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -595,7 +595,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.971
+    "wallClockS": 3.683
    }
   }
  },
@@ -606,7 +606,7 @@
    "majorFlowPerHour": 600,
    "seed": 1
   },
-  "wallClockS": 5.297,
+  "wallClockS": 5.239,
   "result": {
    "majorFlowPerHour": 600,
    "seed": 1,
@@ -614,7 +614,7 @@
     "minorThroughPerHour": 598,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.596
+    "wallClockS": 0.623
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -625,7 +625,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 4.098
+    "wallClockS": 3.932
    }
   }
  },
@@ -636,7 +636,7 @@
    "majorFlowPerHour": 600,
    "seed": 2
   },
-  "wallClockS": 5.35,
+  "wallClockS": 5.508,
   "result": {
    "majorFlowPerHour": 600,
    "seed": 2,
@@ -644,7 +644,7 @@
     "minorThroughPerHour": 521,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.609
+    "wallClockS": 0.672
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -655,7 +655,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 4.149
+    "wallClockS": 4.12
    }
   }
  },
@@ -666,7 +666,7 @@
    "majorFlowPerHour": 600,
    "seed": 3
   },
-  "wallClockS": 5.427,
+  "wallClockS": 5.201,
   "result": {
    "majorFlowPerHour": 600,
    "seed": 3,
@@ -674,7 +674,7 @@
     "minorThroughPerHour": 489,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.588
+    "wallClockS": 0.655
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -685,7 +685,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 4.194
+    "wallClockS": 3.805
    }
   }
  },
@@ -696,7 +696,7 @@
    "majorFlowPerHour": 600,
    "seed": 4
   },
-  "wallClockS": 5.333,
+  "wallClockS": 5.332,
   "result": {
    "majorFlowPerHour": 600,
    "seed": 4,
@@ -704,7 +704,7 @@
     "minorThroughPerHour": 509,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.638
+    "wallClockS": 0.753
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -715,7 +715,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.962
+    "wallClockS": 3.864
    }
   }
  },
@@ -726,7 +726,7 @@
    "majorFlowPerHour": 600,
    "seed": 5
   },
-  "wallClockS": 5.347,
+  "wallClockS": 5.31,
   "result": {
    "majorFlowPerHour": 600,
    "seed": 5,
@@ -734,7 +734,7 @@
     "minorThroughPerHour": 571,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.654
+    "wallClockS": 0.701
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -745,7 +745,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.875
+    "wallClockS": 3.889
    }
   }
  },
@@ -756,7 +756,7 @@
    "majorFlowPerHour": 600,
    "seed": 6
   },
-  "wallClockS": 5.654,
+  "wallClockS": 5.78,
   "result": {
    "majorFlowPerHour": 600,
    "seed": 6,
@@ -764,7 +764,7 @@
     "minorThroughPerHour": 497,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.708
+    "wallClockS": 0.782
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -775,7 +775,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 4.255
+    "wallClockS": 4.266
    }
   }
  },
@@ -786,7 +786,7 @@
    "majorFlowPerHour": 600,
    "seed": 7
   },
-  "wallClockS": 5.578,
+  "wallClockS": 5.689,
   "result": {
    "majorFlowPerHour": 600,
    "seed": 7,
@@ -794,7 +794,7 @@
     "minorThroughPerHour": 487,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.817
+    "wallClockS": 0.884
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -805,7 +805,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 4.101
+    "wallClockS": 4.086
    }
   }
  },
@@ -816,7 +816,7 @@
    "majorFlowPerHour": 600,
    "seed": 8
   },
-  "wallClockS": 5.289,
+  "wallClockS": 5.413,
   "result": {
    "majorFlowPerHour": 600,
    "seed": 8,
@@ -824,7 +824,7 @@
     "minorThroughPerHour": 597,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.713
+    "wallClockS": 0.819
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -835,7 +835,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.902
+    "wallClockS": 3.868
    }
   }
  },
@@ -846,7 +846,7 @@
    "majorFlowPerHour": 600,
    "seed": 9
   },
-  "wallClockS": 5.215,
+  "wallClockS": 5.495,
   "result": {
    "majorFlowPerHour": 600,
    "seed": 9,
@@ -854,7 +854,7 @@
     "minorThroughPerHour": 567,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.732
+    "wallClockS": 0.858
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -865,7 +865,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.81
+    "wallClockS": 3.913
    }
   }
  },
@@ -876,7 +876,7 @@
    "majorFlowPerHour": 600,
    "seed": 10
   },
-  "wallClockS": 5.296,
+  "wallClockS": 5.644,
   "result": {
    "majorFlowPerHour": 600,
    "seed": 10,
@@ -884,7 +884,7 @@
     "minorThroughPerHour": 568,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.703
+    "wallClockS": 0.8
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -895,7 +895,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.905
+    "wallClockS": 4.106
    }
   }
  },
@@ -906,7 +906,7 @@
    "majorFlowPerHour": 800,
    "seed": 1
   },
-  "wallClockS": 5.451,
+  "wallClockS": 6.435,
   "result": {
    "majorFlowPerHour": 800,
    "seed": 1,
@@ -914,7 +914,7 @@
     "minorThroughPerHour": 425,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.704
+    "wallClockS": 0.739
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -925,7 +925,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 4.036
+    "wallClockS": 4.718
    }
   }
  },
@@ -936,7 +936,7 @@
    "majorFlowPerHour": 800,
    "seed": 2
   },
-  "wallClockS": 5.136,
+  "wallClockS": 6.392,
   "result": {
    "majorFlowPerHour": 800,
    "seed": 2,
@@ -944,7 +944,7 @@
     "minorThroughPerHour": 355,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.672
+    "wallClockS": 0.854
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -955,7 +955,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.811
+    "wallClockS": 4.769
    }
   }
  },
@@ -966,7 +966,7 @@
    "majorFlowPerHour": 800,
    "seed": 3
   },
-  "wallClockS": 5.186,
+  "wallClockS": 6.233,
   "result": {
    "majorFlowPerHour": 800,
    "seed": 3,
@@ -974,7 +974,7 @@
     "minorThroughPerHour": 340,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.684
+    "wallClockS": 0.801
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -985,7 +985,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.862
+    "wallClockS": 4.667
    }
   }
  },
@@ -996,7 +996,7 @@
    "majorFlowPerHour": 800,
    "seed": 4
   },
-  "wallClockS": 5.067,
+  "wallClockS": 6.143,
   "result": {
    "majorFlowPerHour": 800,
    "seed": 4,
@@ -1004,7 +1004,7 @@
     "minorThroughPerHour": 373,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.65
+    "wallClockS": 0.777
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1015,7 +1015,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.743
+    "wallClockS": 4.518
    }
   }
  },
@@ -1026,7 +1026,7 @@
    "majorFlowPerHour": 800,
    "seed": 5
   },
-  "wallClockS": 5.002,
+  "wallClockS": 6.002,
   "result": {
    "majorFlowPerHour": 800,
    "seed": 5,
@@ -1034,7 +1034,7 @@
     "minorThroughPerHour": 403,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.659
+    "wallClockS": 0.769
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1045,7 +1045,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.694
+    "wallClockS": 4.469
    }
   }
  },
@@ -1056,7 +1056,7 @@
    "majorFlowPerHour": 800,
    "seed": 6
   },
-  "wallClockS": 5.173,
+  "wallClockS": 6.046,
   "result": {
    "majorFlowPerHour": 800,
    "seed": 6,
@@ -1064,7 +1064,7 @@
     "minorThroughPerHour": 328,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.75
+    "wallClockS": 0.878
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1075,7 +1075,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.764
+    "wallClockS": 4.445
    }
   }
  },
@@ -1086,7 +1086,7 @@
    "majorFlowPerHour": 800,
    "seed": 7
   },
-  "wallClockS": 5.502,
+  "wallClockS": 5.203,
   "result": {
    "majorFlowPerHour": 800,
    "seed": 7,
@@ -1094,7 +1094,7 @@
     "minorThroughPerHour": 325,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 1.026
+    "wallClockS": 0.939
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1105,7 +1105,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.68
+    "wallClockS": 3.552
    }
   }
  },
@@ -1116,7 +1116,7 @@
    "majorFlowPerHour": 800,
    "seed": 8
   },
-  "wallClockS": 5.205,
+  "wallClockS": 4.757,
   "result": {
    "majorFlowPerHour": 800,
    "seed": 8,
@@ -1124,7 +1124,7 @@
     "minorThroughPerHour": 428,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.965
+    "wallClockS": 0.733
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1135,7 +1135,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.471
+    "wallClockS": 3.322
    }
   }
  },
@@ -1146,7 +1146,7 @@
    "majorFlowPerHour": 800,
    "seed": 9
   },
-  "wallClockS": 5.277,
+  "wallClockS": 4.594,
   "result": {
    "majorFlowPerHour": 800,
    "seed": 9,
@@ -1154,7 +1154,7 @@
     "minorThroughPerHour": 400,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 1.081
+    "wallClockS": 0.666
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1165,7 +1165,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.473
+    "wallClockS": 3.27
    }
   }
  },
@@ -1176,7 +1176,7 @@
    "majorFlowPerHour": 800,
    "seed": 10
   },
-  "wallClockS": 5.541,
+  "wallClockS": 5.07,
   "result": {
    "majorFlowPerHour": 800,
    "seed": 10,
@@ -1184,7 +1184,7 @@
     "minorThroughPerHour": 395,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 1.111
+    "wallClockS": 0.678
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1195,7 +1195,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 3.709
+    "wallClockS": 3.483
    }
   }
  },
@@ -1206,7 +1206,7 @@
    "majorFlowPerHour": 1000,
    "seed": 1
   },
-  "wallClockS": 5.526,
+  "wallClockS": 5.546,
   "result": {
    "majorFlowPerHour": 1000,
    "seed": 1,
@@ -1214,7 +1214,7 @@
     "minorThroughPerHour": 292,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 1.138
+    "wallClockS": 0.678
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1231,7 +1231,7 @@
      "Warning: Vehicle 'v120' ends teleporting on edge 'east-out', time=3120.000.",
      "Warning: Teleporting vehicle 'v122'; waited too long (yield), lane='south-in_0', time=3463.400."
     ],
-    "wallClockS": 3.703
+    "wallClockS": 3.687
    }
   }
  },
@@ -1242,7 +1242,7 @@
    "majorFlowPerHour": 1000,
    "seed": 2
   },
-  "wallClockS": 5.38,
+  "wallClockS": 5.656,
   "result": {
    "majorFlowPerHour": 1000,
    "seed": 2,
@@ -1250,7 +1250,7 @@
     "minorThroughPerHour": 245,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 1.16
+    "wallClockS": 0.735
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1267,7 +1267,7 @@
      "Warning: Vehicle 'v16' ends teleporting on edge 'east-out', time=1013.400.",
      "Warning: Teleporting vehicle 'v49'; waited too long (yield), lane='south-in_0', time=2297.400."
     ],
-    "wallClockS": 3.52
+    "wallClockS": 3.958
    }
   }
  },
@@ -1278,7 +1278,7 @@
    "majorFlowPerHour": 1000,
    "seed": 3
   },
-  "wallClockS": 5.714,
+  "wallClockS": 6.835,
   "result": {
    "majorFlowPerHour": 1000,
    "seed": 3,
@@ -1286,7 +1286,7 @@
     "minorThroughPerHour": 206,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.725
+    "wallClockS": 1.238
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1302,7 +1302,7 @@
      "Warning: Teleporting vehicle 'v52'; waited too long (yield), lane='south-in_0', time=2108.000.",
      "Warning: Vehicle 'v52' ends teleporting on edge 'west-out', time=2108.000."
     ],
-    "wallClockS": 4.215
+    "wallClockS": 4.729
    }
   }
  },
@@ -1313,7 +1313,7 @@
    "majorFlowPerHour": 1000,
    "seed": 4
   },
-  "wallClockS": 5.669,
+  "wallClockS": 6.639,
   "result": {
    "majorFlowPerHour": 1000,
    "seed": 4,
@@ -1321,7 +1321,7 @@
     "minorThroughPerHour": 265,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.727
+    "wallClockS": 1.197
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1337,7 +1337,7 @@
      "Warning: Teleporting vehicle 'v55'; waited too long (yield), lane='south-in_0', time=2343.800.",
      "Warning: Vehicle 'v55' ends teleporting on edge 'east-out', time=2343.800."
     ],
-    "wallClockS": 4.228
+    "wallClockS": 4.56
    }
   }
  },
@@ -1348,7 +1348,7 @@
    "majorFlowPerHour": 1000,
    "seed": 5
   },
-  "wallClockS": 5.361,
+  "wallClockS": 6.529,
   "result": {
    "majorFlowPerHour": 1000,
    "seed": 5,
@@ -1356,7 +1356,7 @@
     "minorThroughPerHour": 271,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.662
+    "wallClockS": 1.161
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1372,7 +1372,7 @@
      "Warning: Teleporting vehicle 'v135'; waited too long (yield), lane='south-in_0', time=3713.000.",
      "Warning: Vehicle 'v135' ends teleporting on edge 'west-out', time=3713.000."
     ],
-    "wallClockS": 4.024
+    "wallClockS": 4.457
    }
   }
  },
@@ -1383,7 +1383,7 @@
    "majorFlowPerHour": 1000,
    "seed": 6
   },
-  "wallClockS": 5.815,
+  "wallClockS": 6.584,
   "result": {
    "majorFlowPerHour": 1000,
    "seed": 6,
@@ -1391,7 +1391,7 @@
     "minorThroughPerHour": 185,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.794
+    "wallClockS": 1.073
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1408,7 +1408,7 @@
      "Warning: Vehicle 'v36' ends teleporting on edge 'west-out', time=2082.600.",
      "Warning: Teleporting vehicle 'v67'; waited too long (yield), lane='south-in_0', time=3222.600."
     ],
-    "wallClockS": 4.226
+    "wallClockS": 4.489
    }
   }
  },
@@ -1419,7 +1419,7 @@
    "majorFlowPerHour": 1000,
    "seed": 7
   },
-  "wallClockS": 5.896,
+  "wallClockS": 6.902,
   "result": {
    "majorFlowPerHour": 1000,
    "seed": 7,
@@ -1427,7 +1427,7 @@
     "minorThroughPerHour": 192,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.842
+    "wallClockS": 1.068
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1441,7 +1441,7 @@
      "Warning: Teleporting vehicle 'v2'; waited too long (yield), lane='south-in_0', time=473.600.",
      "Warning: Vehicle 'v2' ends teleporting on edge 'west-out', time=474.600."
     ],
-    "wallClockS": 4.325
+    "wallClockS": 4.561
    }
   }
  },
@@ -1452,7 +1452,7 @@
    "majorFlowPerHour": 1000,
    "seed": 8
   },
-  "wallClockS": 5.604,
+  "wallClockS": 6.583,
   "result": {
    "majorFlowPerHour": 1000,
    "seed": 8,
@@ -1460,7 +1460,7 @@
     "minorThroughPerHour": 274,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.731
+    "wallClockS": 1.092
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1477,7 +1477,7 @@
      "Warning: Vehicle 'v16' ends teleporting on edge 'east-out', time=733.200.",
      "Warning: Teleporting vehicle 'v98'; waited too long (yield), lane='south-in_0', time=2601.400."
     ],
-    "wallClockS": 4.119
+    "wallClockS": 4.229
    }
   }
  },
@@ -1488,7 +1488,7 @@
    "majorFlowPerHour": 1000,
    "seed": 9
   },
-  "wallClockS": 6.337,
+  "wallClockS": 6.636,
   "result": {
    "majorFlowPerHour": 1000,
    "seed": 9,
@@ -1496,7 +1496,7 @@
     "minorThroughPerHour": 244,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.915
+    "wallClockS": 1.751
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1507,7 +1507,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 4.689
+    "wallClockS": 3.927
    }
   }
  },
@@ -1518,7 +1518,7 @@
    "majorFlowPerHour": 1000,
    "seed": 10
   },
-  "wallClockS": 6.38,
+  "wallClockS": 6.497,
   "result": {
    "majorFlowPerHour": 1000,
    "seed": 10,
@@ -1526,7 +1526,7 @@
     "minorThroughPerHour": 274,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.835
+    "wallClockS": 1.563
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1537,7 +1537,7 @@
     "emergencyBraking": 0,
     "warningCount": 0,
     "warnings": [],
-    "wallClockS": 4.836
+    "wallClockS": 4.103
    }
   }
  },
@@ -1548,7 +1548,7 @@
    "majorFlowPerHour": 1200,
    "seed": 1
   },
-  "wallClockS": 6.357,
+  "wallClockS": 6.434,
   "result": {
    "majorFlowPerHour": 1200,
    "seed": 1,
@@ -1556,7 +1556,7 @@
     "minorThroughPerHour": 161,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.841
+    "wallClockS": 1.621
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1573,7 +1573,7 @@
      "Warning: Vehicle 'v45' ends teleporting on edge 'west-out', time=2178.600.",
      "Warning: Teleporting vehicle 'v55'; waited too long (yield), lane='south-in_0', time=2890.000."
     ],
-    "wallClockS": 4.617
+    "wallClockS": 3.867
    }
   }
  },
@@ -1584,7 +1584,7 @@
    "majorFlowPerHour": 1200,
    "seed": 2
   },
-  "wallClockS": 6.217,
+  "wallClockS": 6.342,
   "result": {
    "majorFlowPerHour": 1200,
    "seed": 2,
@@ -1592,7 +1592,7 @@
     "minorThroughPerHour": 129,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.882
+    "wallClockS": 1.596
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1609,7 +1609,7 @@
      "Warning: Vehicle 'v9' ends teleporting on edge 'west-out', time=1198.200.",
      "Warning: Teleporting vehicle 'v55'; waited too long (yield), lane='south-in_0', time=3378.400."
     ],
-    "wallClockS": 4.403
+    "wallClockS": 3.886
    }
   }
  },
@@ -1620,7 +1620,7 @@
    "majorFlowPerHour": 1200,
    "seed": 3
   },
-  "wallClockS": 6.184,
+  "wallClockS": 6.139,
   "result": {
    "majorFlowPerHour": 1200,
    "seed": 3,
@@ -1628,7 +1628,7 @@
     "minorThroughPerHour": 141,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.846
+    "wallClockS": 1.583
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1645,7 +1645,7 @@
      "Warning: Vehicle 'v36' ends teleporting on edge 'east-out', time=1750.000.",
      "Warning: Teleporting vehicle 'v52'; waited too long (yield), lane='south-in_0', time=2463.800."
     ],
-    "wallClockS": 4.424
+    "wallClockS": 3.793
    }
   }
  },
@@ -1656,7 +1656,7 @@
    "majorFlowPerHour": 1200,
    "seed": 4
   },
-  "wallClockS": 6.023,
+  "wallClockS": 5.981,
   "result": {
    "majorFlowPerHour": 1200,
    "seed": 4,
@@ -1664,7 +1664,7 @@
     "minorThroughPerHour": 184,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.921
+    "wallClockS": 1.51
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1681,7 +1681,7 @@
      "Warning: Vehicle 'v15' ends teleporting on edge 'east-out', time=874.400.",
      "Warning: Teleporting vehicle 'v43'; waited too long (yield), lane='south-in_0', time=2052.000."
     ],
-    "wallClockS": 4.255
+    "wallClockS": 3.722
    }
   }
  },
@@ -1692,7 +1692,7 @@
    "majorFlowPerHour": 1200,
    "seed": 5
   },
-  "wallClockS": 7.369,
+  "wallClockS": 6.111,
   "result": {
    "majorFlowPerHour": 1200,
    "seed": 5,
@@ -1700,7 +1700,7 @@
     "minorThroughPerHour": 171,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.79
+    "wallClockS": 0.99
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1717,7 +1717,7 @@
      "Warning: Vehicle 'v29' ends teleporting on edge 'west-out', time=1644.600.",
      "Warning: Teleporting vehicle 'v51'; waited too long (yield), lane='south-in_0', time=2642.400."
     ],
-    "wallClockS": 5.796
+    "wallClockS": 4.267
    }
   }
  },
@@ -1728,7 +1728,7 @@
    "majorFlowPerHour": 1200,
    "seed": 6
   },
-  "wallClockS": 7.618,
+  "wallClockS": 6.119,
   "result": {
    "majorFlowPerHour": 1200,
    "seed": 6,
@@ -1736,7 +1736,7 @@
     "minorThroughPerHour": 83,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.945
+    "wallClockS": 0.984
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1753,7 +1753,7 @@
      "Warning: Vehicle 'v15' ends teleporting on edge 'east-out', time=1092.000.",
      "Warning: Teleporting vehicle 'v20'; waited too long (yield), lane='south-in_0', time=1737.600."
     ],
-    "wallClockS": 5.847
+    "wallClockS": 4.322
    }
   }
  },
@@ -1764,7 +1764,7 @@
    "majorFlowPerHour": 1200,
    "seed": 7
   },
-  "wallClockS": 7.729,
+  "wallClockS": 6.127,
   "result": {
    "majorFlowPerHour": 1200,
    "seed": 7,
@@ -1772,7 +1772,7 @@
     "minorThroughPerHour": 79,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.921
+    "wallClockS": 1.054
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1789,7 +1789,7 @@
      "Warning: Vehicle 'v46' ends teleporting on edge 'east-out', time=2135.600.",
      "Warning: Teleporting vehicle 'v58'; waited too long (yield), lane='south-in_0', time=2696.200."
     ],
-    "wallClockS": 5.958
+    "wallClockS": 4.296
    }
   }
  },
@@ -1800,7 +1800,7 @@
    "majorFlowPerHour": 1200,
    "seed": 8
   },
-  "wallClockS": 7.54,
+  "wallClockS": 6.015,
   "result": {
    "majorFlowPerHour": 1200,
    "seed": 8,
@@ -1808,7 +1808,7 @@
     "minorThroughPerHour": 200,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.888
+    "wallClockS": 1.119
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1824,7 +1824,7 @@
      "Warning: Teleporting vehicle 'v88'; waited too long (yield), lane='south-in_0', time=3683.800.",
      "Warning: Vehicle 'v88' ends teleporting on edge 'west-out', time=3683.800."
     ],
-    "wallClockS": 5.766
+    "wallClockS": 4.108
    }
   }
  },
@@ -1835,7 +1835,7 @@
    "majorFlowPerHour": 1200,
    "seed": 9
   },
-  "wallClockS": 7.423,
+  "wallClockS": 5.757,
   "result": {
    "majorFlowPerHour": 1200,
    "seed": 9,
@@ -1843,7 +1843,7 @@
     "minorThroughPerHour": 181,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.879
+    "wallClockS": 0.884
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1859,7 +1859,7 @@
      "Warning: Teleporting vehicle 'v24'; waited too long (yield), lane='south-in_0', time=1191.200.",
      "Warning: Vehicle 'v24' ends teleporting on edge 'west-out', time=1191.200."
     ],
-    "wallClockS": 5.658
+    "wallClockS": 4.033
    }
   }
  },
@@ -1870,7 +1870,7 @@
    "majorFlowPerHour": 1200,
    "seed": 10
   },
-  "wallClockS": 7.617,
+  "wallClockS": 6.026,
   "result": {
    "majorFlowPerHour": 1200,
    "seed": 10,
@@ -1878,7 +1878,7 @@
     "minorThroughPerHour": 150,
     "stuckVehicles": 0,
     "conservationViolations": 0,
-    "wallClockS": 0.953
+    "wallClockS": 0.989
    },
    "oursNotRunnable": null,
    "sumo": {
@@ -1895,7 +1895,7 @@
      "Warning: Vehicle 'v18' ends teleporting on edge 'west-out', time=1253.000.",
      "Warning: Teleporting vehicle 'v48'; waited too long (yield), lane='south-in_0', time=2263.600."
     ],
-    "wallClockS": 5.823
+    "wallClockS": 4.249
    }
   }
  }

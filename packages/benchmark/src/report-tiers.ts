@@ -8,7 +8,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { VEHICLE_CLASSES, type VehicleClass } from "@traffic-simulator/engine";
 import { CHENNAI_TYPES } from "./chennai";
-import { FINDINGS_TIERS, NOT_IDENTICAL, PROPOSED_AMENDMENTS } from "./findings-tiers";
+import { FINDINGS_TIERS, NOT_IDENTICAL, PROPOSED_AMENDMENTS, RUNS_NOTE } from "./findings-tiers";
 import {
   carCriticalGapS,
   gapAcceptanceCapacity,
@@ -760,9 +760,7 @@ ${table(
 
 ${runsTable}
 
-The parts marked "uncommitted changes" ran from the working tree before its harness was committed; the jobs' code that ran is
-that of commit \`4838f76\` (afterwards only the document's text and findings changed). The engine is the same in every part.
-Machine time in all: about 6.5 minutes of wall clock for Tiers 2 to 4 at six processes, 10.4 minutes for Tier 5.
+${RUNS_NOTE.trim()}
 
 ## Results table
 

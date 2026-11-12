@@ -1,92 +1,78 @@
 /**
- * What the runs of Tiers 2 to 5 on 2026-11-12 showed, written by hand after reading their tables.
+ * What the runs of Tiers 2 to 5 showed, written by hand after reading their tables: as of the re-run of Tiers 2, 3 and T4.6
+ * after ticket 24 (the first run's findings alone are in docs/benchmark-results-2026-11-12-tiers-2-to-5.md).
  * report-tiers.ts includes these texts as they are. If the tables are rebuilt from a later run,
  * re-read them against it.
  */
+export const RUNS_NOTE = `
+Two runs are in this document. The first (dates 2026-11-12, engine \`6c2bc94\`) ran every part; the parts marked "uncommitted
+changes" ran from the working tree before its harness was committed, and the jobs' code that ran is that of commit \`4838f76\`.
+The second (date 2026-11-12-after-ticket-24, engine \`34ef8ee\`) re-ran T2.1 to T2.4, Tier 3 and T4.6 for both engines after
+ticket 24 changed how turning traffic is let into junctions; "uncommitted changes" there are measurement scripts outside the
+engine and the harness. Every row of T2.1 to T2.4, Tier 3 and T4.6 is from the second run; T4.1 to T4.5 and Tier 5 are still
+from the first. SUMO and its inputs are the same in both. Machine time of the second run: about 4 minutes of wall clock at six
+processes.
+`;
+
 export const FINDINGS_TIERS = `
 Written by hand against the runs described here. If the tables are rebuilt from a later run, re-read this section against them.
+The findings of the first run alone are in [benchmark-results-2026-11-12-tiers-2-to-5.md](benchmark-results-2026-11-12-tiers-2-to-5.md).
 
-**What was run.** Every test of Tiers 2 to 5 in the standard, with these exceptions and changes: T4.1 to T4.4 with demand at the
-observed rate rather than the observed arrivals; T4.6 without filtering, which is not built; T5.1 in Node only, not in a browser.
-In all: 1 + 80 + 60 + 10 jobs for Tier 2, 10 for Tier 3, 2 + 20 + 10 + 10 for Tier 4 (each job one seed through both engines)
-and 12 measurements for Tier 5; ten seeds per stochastic test per engine, none dropped. Tiers 2 to 4 ran six processes at a time
-on a machine shared with other work (load average 4 to 22 at the starts); Tier 5 one process at a time, but the machine's
-load average was 15 to 32 while it ran, so its timings are slower than an idle machine would give, for both engines alike.
-Ticket 08 (priority junction) was merged before the run, so T2.3 ran for both engines.
+**What changed between the runs (ticket 24).** Two rules in the engine, after measuring where discharge was lost at a saturated
+four-way junction and beneath the flyover (the measurements are in ticket 24). (1) Turning lanes: on an approach that also goes
+straight on, a turn leaves from the half of the lanes on its own side (\`turnLaneShare\` 0.5; straight on from any lane). Before,
+a turner could stand in the far lane and cross the traffic beside it from its own approach, so the two lanes discharged one after
+the other. (2) Clearing after green: a vehicle at the front of its strips refused on its green because traffic let in before it
+would cross its path (a turner facing oncoming traffic that left no gap) is let in after the green once that traffic has passed,
+and no crossing traffic of the next phase is let in ahead of it. Before, nobody was let in after the green, so such a turner
+waited whole cycles.
 
-**T2.1 passes for both, and the two engines agree to 0.2%.** Saturation flow 1,670 veh/h ours, 1,667 SUMO, 1,710 the IDM
-reference through the same red and green (-2.3% and -2.5%). How the queue was formed matters more than either engine: a queue
-standing at exactly the standstill gap discharges at 1,992 veh/h in the reference, one that closed up during a 90 s red at 1,710.
+**T2.1, T2.2 and T2.3 are unchanged, bit for bit.** One lane and no turning lanes to choose (T2.1, T2.2), and a priority junction
+with one-lane roads where a turn already had the whole road and no signal (T2.3): neither rule applies. What was found in the first
+run stands: T2.1 passes for both (ours 1,670 veh/h, SUMO 1,667, the IDM reference 1,710). T2.2 fails for both against Webster
+(ours 34% to 97% above it up to 90% of capacity, SUMO 53% to 452%); Webster counts queueing, not the 16 s a stop costs with
+a = b = 1 m/s², and the capacity fed to it (732 veh/h) is above what either engine carries (ours 675, SUMO 624); see amendment 2.
+T2.3 passes against the formula at 200 veh/h only (ours 1,030 against 1,176). The remaining gap and its cause, measured for ticket 24:
+a side-road car is let in only if the next main-road vehicle's lag is at least its accepted gap (4.6 s) **and** at least the
+time it needs to be clear of the crossing plus the 1 s margin; from rest at a = 1 m/s² a car needs about 7 s to clear a
+crossing of both main-road lanes and its own length, so the gap it really needs is about 8 s, not 4.6 s. Letting a side-road car
+go ahead of main-road vehicles already let in, when the gap allows, was tried on a copy of the engine and raised side-road capacity
+by 2% to 10% only (563 to 583 veh/h at 600 veh/h on the main road, 269 to 296 at 1,000), so it was not kept. SUMO is further
+from the formula than ours at every flow.
 
-**T2.2 fails for both engines against Webster, at every demand.** Ours is 34% to 97% above Webster's delay up to 90% of capacity,
-SUMO 53% to 452%; ours is the nearer at every share. Two things stand between the engines and the formula, and neither was tuned
-away. First, Webster counts queueing, not the time lost slowing down and speeding up, and with the car's a = b = 1 m/s² a stop
-costs about 16 s on top of the time stood (8.5 s to accelerate from rest, worked out from the IDM; about 7.5 s to brake): at 30%
-of capacity, where queues are short, ours is 5 s above Webster and SUMO 7.5 s. Second, the capacity fed to Webster
-(732 veh/h, from the reference's saturation flow and green + amber - start-up lost time) is more than either engine carries: in
-the 130% runs ours let through 675 veh/h and SUMO 624, so at 90% both are close to or past their own capacity and the delay
-grows without bound. Ours against SUMO is within 15% only at 30% of capacity. SUMO's lower capacity goes with its cars stopping at
-the amber when they can: it braked as an emergency 115 times in the 80 runs, and the 108 warnings kept (the first five of a run)
-are all on the approach lane.
+**T2.4 now passes: no stuck vehicle in 10 runs (10 in 7 of 10 before), and ours carries more than SUMO.** 2,025 ± 29 vehicles
+through in 30 minutes against 1,300 ± 66 before; SUMO 1,408 ± 7. The stuck vehicles before were right-turners that stood at the
+stop line facing saturated oncoming traffic until released; clearing after green lets one through after each green.
+On the same set-up in the engine's own test fixture (\`packages/engine/perf/t24-standing.ts\`, seeds 1 to 10), the
+longest any vehicle stood on end fell from 133 to 757 s a seed (9 of 10 seeds with vehicles standing 300 s or more, up to 125 of
+them) to 64 to 76 s (none). Ours now carries 44% more than SUMO. Not established here why SUMO carries less;
+its right-turners wait inside the junction on a permissive green and hold their lane, and its lane changes to the turning lanes
+are its own (see "where SUMO could not be made identical", 3 and 4).
 
-**T2.3: side-road capacity falls with main-road flow in both engines, as it must; against the formula ours passes at
-200 veh/h only, SUMO nowhere.** Ours: 1,030 veh/h at 200 down to 148 at 1,200; SUMO: 742 down to 53 (with 57 teleports of side-road
-cars that waited 300 s, at the two highest flows). The formula, with tc = 4.6 s and tf = 0.6 tc, gives 1,176 down to 682. The
-formula's inputs are a choice (amendment 3); with them both engines fall far faster than it as the main road gets busier, SUMO
-most. SUMO's caution follows from the car's comfortable deceleration of 1 m/s²: SUMO's junction model does not send a side-road
-car if a main-road car would have to brake harder than that.
+**Tier 3: the junction beneath the flyover now carries what SUMO does; flows, travel times and queues still fail as wholes, and the
+flyover share now fails.** Cross traffic got in at 579 and 596 veh/h (west-in, east-in) against SUMO's 589 and 596 (before: 452 and
+361); those four approaches' queues are within 25% of SUMO's (before: 2 of 12 approaches in all, now 4 of 12); travel times that
+crossed the junction beneath, 2 to 3 times SUMO's before, are now within 25% of SUMO's or below it (for example west-in to east-out
+257 s against 208 s, before 463 s; east-in to west-out 196 s against 203 s, before 462 s). Our engine released no stuck vehicle
+(11 in 8 of 10 runs before). What still fails, and why:
+- *T3.1 (16 of 20 links, 80%; 85% needed)*: the four failing links are now south-in, north-in, north-out and south-out, the
+  junction route of the through traffic. With the junction beneath discharging as well as SUMO's, more through traffic takes it:
+  ours sends 15% and 16% of through traffic beneath the flyover (T3.4: 84.3% and 85.2% over it), SUMO 8% and 2%. That is route
+  choice (Kirchhoff split, smallest share 5%, against SUMO's all-or-nothing rerouting at insertion; "where SUMO could not be made
+  identical", 6), and it also fails T3.4 now (by 8.0 and 13.2 points; it passed before, when the junction route was slow enough to
+  push nearly all through traffic over the flyover).
+- *T3.2 (4 of 16 pairs within 15%)*: ours is now faster than SUMO on most pairs, by 19% to 77%. SUMO is congested at the
+  downstream junction (it teleported 119 vehicles in 5 of 10 runs and braked as an emergency 1,003 times; its north-exit approach is
+  queued to its full 200 m, ours to 77 m), so pairs through that junction take SUMO longer.
+- *T3.3 (4 of 12 approaches within 25%)*: the four approaches of the junction beneath pass; the downstream junction's approaches
+  and the flyover's merges are queued in SUMO and hardly in ours (the same congestion).
 
-**T2.4 fails for ours: 10 stuck vehicles in 7 of 10 runs; SUMO had no teleport.** At a junction where opposite approaches share a
-green and turns cross oncoming traffic, our engine released 10 stuck vehicles, in 7 of the 10 runs. It
-also carried 8% less: 1,300 vehicles through in 30 minutes against SUMO's 1,408.
+**T4.6 is not worse: 4,258 ± 62 PCU/h, against 4,244 ± 48 before (Indo-HCM 5,040; pass).** One approach straight on, so neither
+rule applies; the difference is within the confidence intervals. Since ticket 06 the engine filters two-wheelers at a red by
+default, so this run is with filtering: the "without two-wheeler filtering (not built)" wording of the T4.6 row and details is
+the harness's own and out of date. T4.1 to T4.5 have no junction and were not re-run. Tiers 0 and 1 have no scenario with a junction.
 
-**Tier 3 fails on three of four measures; the flyover share passes.** Through traffic split the same way in both engines (96%
-over the flyover each way in ours, 92% and 98% in SUMO: within 5 points). Everything at the junctions differs. The junction
-beneath the flyover (one approach at a time, 20 s each) carries much less in ours: its approaches are queued to their full
-200 m, its cross traffic got in at 452 and 361 veh/h against SUMO's 589 and 596 (demand 600), and travel times through it are
-two to three times SUMO's. GEH is under 5 on 16 of 20 links (80%; 85% needed), the four failures all at that junction; 2 of 16
-origin-destination pairs are within 15%; 2 of 12 queued approaches within 25%. SUMO is not well either: it teleported 119
-vehicles in 5 of 10 runs and braked as an emergency 1,003 times (of the warnings kept, the first five a run, most are at or in
-the downstream junction), and its northbound approach to the downstream junction is queued to its full 200 m while ours is
-not (57 m). Ours released 11 stuck vehicles in 8 of 10 runs. The junction rules are where the
-engine is weakest, as T2.2, T2.4 and Tier 3 all show: less is let through each green when turning traffic is in the queue.
-
-**Tier 4: neither engine wins outright.** On the Chennai section the cars, auto-rickshaws and buses of both engines are within
-15% of the field's speeds (ours the nearer in all three); both engines' two-wheelers are too fast (ours +41%, SUMO +21%: ours
-at 16.4 m/s, near their desired speed of 18 m/s). Throughput is within 3% for both, as it must be when the demand is
-the observed flow. Sideways positions are nearer the field's in ours for every class (earth mover's distance 0.8 to 1.5 m,
-SUMO's 1.4 to 3.3 m); speed minute by minute is nearer in SUMO (RMSE 1.97 m/s, ours 2.96). The data itself has a problem: its
-speed column is half the speed its positions give, and the figures the paper reports are that column; against it both engines
-are more than 100% too fast. Mid-block capacity (T4.5) is far above Indo-HCM's 2,700 PCU/h in both engines (ours 5,298, +96%;
-SUMO 8,625, +220%): ours took in 8,867 vehicles an hour (5,982 of them two-wheelers) and SUMO 14,450 (9,740), where the
-standard's figure would be about 4,500 of this mix; ours is the nearer. The signal approach (T4.6) passes for
-both: ours 4,244 PCU/h (-16%), SUMO 5,472 (+9%, the nearer), against Indo-HCM's 5,040, ours without filtering. The Indo-HCM values
-used are secondary.
-
-**Tier 5: our engine was faster than SUMO in every measurement, which is the opposite of what was expected, and the scenario
-is the reason to read it with care.** Cars in lanes: 626, 190 and 47 times real time at 1,000, 5,000 and 20,000 vehicles in
-Node, against SUMO's 122, 43 and 7. Mixed traffic: ours 433, 122 and 31; SUMO's sublane model 2.3, 0.4 and 0.1 (slower than real
-time from 5,000 vehicles). The scenario is the lightest there is: uniform traffic on straight roads, nobody needing to brake,
-change lane or cross a junction, so it measures the cost of a step with little happening. SUMO evaluates its lane-change model
-for every vehicle every step whatever happens; how much of our lead survives junctions and congestion is not measured here
-(in the Tier 3 jobs, six at a time on the loaded machine and with the harness's measuring work included in both, our engine took
-13.8 s of wall clock on average for the 70 simulated minutes and SUMO 15.7 s). Peak memory is higher for ours at every size (96 to 148 MB, of which most is Node and tsx
-themselves) than SUMO's (52 to 131 MB). The machine was loaded (load average 15 to 32) throughout, for both engines alike; the
-figures would be higher on an idle machine. Feature coverage is SUMO's by a wide margin, as expected. The browser worker was not
-measured.
-
-**Against the outcome expected in advance (standard, section 5):**
-
-- *Lose all of Tier 5*: not so in this scenario. Lost on feature coverage (by a wide margin) and on peak memory; faster than
-  SUMO at every size measured, in lanes and in mixed traffic, on a scenario with little happening (see above).
-- *Match Tiers 0 and 1*: not part of this run (see the Tier 0 and 1 results).
-- *Tiers 2 and 3 uncertain; junction logic weakest*: as expected. The single-lane discharge matches SUMO and the IDM; everything
-  with turning traffic in the queue does not: T2.2 fails against Webster (both engines), T2.3 below the formula above 200 veh/h,
-  T2.4 has stuck vehicles in ours and none in SUMO, Tier 3 fails on flows, travel times and queues.
-- *Tier 4 unknown*: split. Ours is nearer the field in T4.1 (three classes of four), T4.2, T4.3 (all four classes) and T4.5; SUMO
-  in T4.1 for two-wheelers, T4.4 and T4.6. Both fail T4.5 by a wide margin and pass T4.6.
-- *Might be ahead at T4.6 (filtering)*: not tested, as filtering is not built. Without it ours is further from Indo-HCM than SUMO.
-- *Deployment in a browser*: not a simulation-quality claim and not measured here.
+**Tier 5** was not re-run; its findings are those of the first run.
 `;
 
 export const NOT_IDENTICAL = `
@@ -99,10 +85,14 @@ export const NOT_IDENTICAL = `
    stops at the stop line itself (ours stands its standstill gap, 2 m, short of it), and a SUMO car facing amber stops if it can,
    sometimes by emergency braking (counted in the stuck-vehicle table).
 3. **Turns across oncoming traffic** (T2.4, the downstream junction of Tier 3). SUMO gives them a permissive green ('g') and its
-   junction model makes them yield to oncoming traffic; ours lets vehicles into the junction in one order, the first let in going
-   first where paths cross, with no rule that oncoming traffic goes first.
+   junction model makes them yield to oncoming traffic; a turning car waits inside the junction. Ours lets vehicles into the
+   junction in one order, the first let in going first where paths cross, with no rule that oncoming traffic goes first and no
+   waiting inside the junction; since ticket 24 a vehicle at the front of its strips refused on its green for crossing traffic is
+   let in after the green once that traffic has passed (clearing after green).
 4. **Lanes at a junction.** SUMO's netconvert decides which lanes lead to which exits (left lane left, and so on) and its cars
-   change lane to reach them; ours lets a vehicle turn from strips that lead onto its turn, chosen when it enters the network.
+   change lane to reach them. Ours, since ticket 24: on an approach that also goes straight on, a turn leaves from the half of
+   the lanes on its own side (straight on from any); a vehicle enters the network in strips that lead onto its turn, or sorts
+   to them on the way.
 5. **Priority junction (T2.3).** SUMO's junction model with its defaults decides when a side-road car may go: it looks at
    whether main-road vehicles would have to brake, with each vehicle's own braking ability (decel = 1 m/s² for the car here, from
    our assumptions table, which makes SUMO cautious). Ours: an accepted gap of 4.6 s to the next main-road vehicle's arrival at
