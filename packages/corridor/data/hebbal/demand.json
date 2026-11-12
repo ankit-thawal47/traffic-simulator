@@ -54,6 +54,46 @@
       { "from": "City", "to": "any", "pcuPerHour": 7335, "note": "Not city-bound: uses the airport-bound flyover and its ramps." }
     ]
   },
+  "wholeNetwork": {
+    "evidence": {
+      "state": "assumed",
+      "source": "The flows above, put on the roads of the whole network. The published volume of each flow is kept in publishedVehiclesPerHour. The default demand of the corridor is each of them times defaultScale.value."
+    },
+    "forkSplit": {
+      "evidence": {
+        "state": "assumed",
+        "source": "ASSUMED, no source: not published in anything read. Of the city-bound traffic at the fork ahead of the Ganga Nagar flyover, 80% is taken to go over the flyover, 10% straight on along the service road beyond the CBI Road junction, 5% left into CBI Road towards RT Nagar and 5% right beneath the flyover. Reason: the flyover has 3 lanes and the service road 2, and through traffic to the city has no reason to leave the flyover; the service road serves local destinations."
+      },
+      "shares": { "ganganagar-flyover": 0.8, "cbi-service-south-out": 0.1, "cbi-road-east-out": 0.05, "cbi-cross-west": 0.05 }
+    },
+    "cbiRoad": {
+      "evidence": {
+        "state": "assumed",
+        "source": "ASSUMED, no source: no count at the CBI Road junction was found. 300 vehicles per hour from RT Nagar along CBI Road, 200 of them on towards the city along the service road and 100 straight on beneath the flyover, so that the junction's second phase has traffic. A planner should set these when counts are known."
+      },
+      "flows": [
+        { "entryRoadId": "cbi-road-west-in", "exitRoadId": "cbi-service-south-out", "vehiclesPerHour": 200 },
+        { "entryRoadId": "cbi-road-west-in", "exitRoadId": "cbi-cross-west", "vehiclesPerHour": 100 }
+      ]
+    },
+    "entries": {
+      "Airport": "airport-entry",
+      "Tumkur": "tumkur-in",
+      "K.R. Puram": "krpuram-entry"
+    },
+    "exits": {
+      "Tumkur": "tumkur-out",
+      "Airport": "airport-out",
+      "K.R. Puram": "krpuram-out"
+    },
+    "defaultScale": {
+      "value": 0.3,
+      "evidence": {
+        "state": "assumed",
+        "source": "OUR CHOICE, not a measurement of traffic. The model cannot carry the published volumes: run for an hour in mixed traffic (seed 1, 2026-11-12), the published volumes (18,080 vehicles per hour on the corridor's roads) put 10,355 through, with 6,655 still waiting to enter at the end and the three Hebbal approaches full (394 m, 300 m and 299 m). The default demand is the published volumes times 0.3, the largest scale tried (in steps of 0.05) at which only one signal approach fills: the ground road from the airport, which has the least green (37 s of 160), peaks at 96 m of 394, and the Outer Ring Road from K.R. Puram at 63 m of 299. The Outer Ring Road from Tumkur Road fills its 300 m at every scale from 0.2 up, and not at 0.15. The assumed CBI Road flows are not scaled. Candidate reasons the model carries less than the counts: the signal plan dates from 2010 and the junction now runs other timings or adaptive control; the published plan gives green to movements and the network format to whole approaches, so A's left turn loses phase 3 and B's left turn phase 1, and C's right turn was added to phase 2 where it crosses B's straight traffic; vehicles do not sort by turn before the stop line and a later vehicle never goes before an earlier one; widths are lanes x 3.5 m, assumed; the volumes are 2019 counts in PCU turned into vehicles with an assumed 0.969, and which road each movement uses today is our reading of the map; the count may include movements outside the modelled roads; and the engine's junction discharge is not yet calibrated against a measured saturation flow. Use the demand scale control to try other levels, up to 1 for the published volumes."
+      }
+    }
+  },
   "vehicleMix": {
     "evidence": {
       "state": "assumed",

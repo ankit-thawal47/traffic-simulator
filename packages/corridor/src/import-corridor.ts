@@ -48,7 +48,8 @@ export function importCorridor(osm: OsmExtract, corrections: Corrections): Impor
   const junctions: Junction[] = [];
   for (const junction of corrections.junctions) {
     const sound = checkJunction(junction, byId, extract, project, problems);
-    if (sound && junction.control === "signal" && junction.signalPlan) {
+    // A junction whose roads must be set back from the node is only in the whole network, which sets them back.
+    if (sound && junction.control === "signal" && junction.signalPlan && !junction.setBackM) {
       junctions.push({
         id: junction.id,
         control: "signal",

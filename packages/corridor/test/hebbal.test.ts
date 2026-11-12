@@ -20,11 +20,9 @@ describe("the Hebbal corridor, city-bound", () => {
     expect(committed.attribution).toBe("© OpenStreetMap contributors");
   });
 
-  it("carries the flyover and ramps as raised roads, outside the ground-level network", () => {
+  it("carries the flyover and ramps as raised roads", () => {
     const raised = corridor.roads.filter((road) => road.level === "raised").map((road) => road.id);
     expect(raised).toEqual(["flyover-main", "krpuram-ramp", "city-ramp-two-lane", "city-ramp", "tumkur-loop", "ganganagar-flyover"]);
-    const inNetwork = new Set(corridor.groundNetwork.roads.map((road) => road.id));
-    for (const id of raised) expect(inNetwork.has(id)).toBe(false);
   });
 
   it("meets end to end: each road of the city-bound path starts at the node the one before ends at", () => {
@@ -42,9 +40,7 @@ describe("the Hebbal corridor, city-bound", () => {
   });
 
   it("has the signal junction beneath the flyover, on the published peak plan of 160 s", () => {
-    const [junction] = corridor.groundNetwork.junctions!;
-    expect(corridor.groundNetwork.junctions).toHaveLength(1);
-    expect(junction!.id).toBe("hebbal");
+    const junction = corridor.network.junctions!.find((one) => one.id === "hebbal");
     expect(junction!.connections).toHaveLength(7);
     if (!junction || junction.control !== "signal") throw new Error("the Hebbal junction should be a signal junction");
     const plan = junction.signalPlan;
@@ -54,9 +50,44 @@ describe("the Hebbal corridor, city-bound", () => {
     expect(plan.phases.map((phase) => phase.greenS + plan.amberS)).toEqual([40, 60, 50, 10]);
   });
 
-  it("runs at ground level for five minutes with the consistency checks passing", () => {
-    const report = checkRunConsistency({ network: corridor.groundNetwork, demand: corridor.groundDemand, seed: 1 }, { durationS: 300 });
-    expect(report.violations).toEqual([]);
-    expect(report.results.vehiclesThrough).toBeGreaterThan(100);
+  describe("as one network", () => {
+    const network = corridor.network;
+    const roadIds = () => network.roads.map((road) => road.id);
+
+    it("has every road, ground-level and raised, with the flyovers and ramps raised", () => {
+      const raised = network.roads.filter((road) => road.points.some((point) => (point.z ?? 0) > 0)).map((road) => road.id);
+      expect(network.formatVersion).toBe(4);
+      expect(raised.sort()).toEqual(["city-ramp", "city-ramp-two-lane", "ganganagar-flyover", "hebbal-flyover", "krpuram-ramp", "tumkur-loop"]);
+      for (const road of network.roads) for (const point of road.points) expect(point.z ?? 0).toBeLessThanOrEqual(6);
+    });
+
+    it("has the Hebbal junction on its published plan and the CBI Road junction on an assumed plan", () => {
+      const signals = network.junctions!.filter((junction) => junction.control === "signal").map((junction) => junction.id);
+      expect(signals).toEqual(["hebbal", "cbi-road"]);
+      const cbi = corridor.junctions.find((junction) => junction.id === "cbi-road")!;
+      expect(cbi.evidence!.control!.state).toBe("assumed");
+    });
+
+    it("has the diverges, merges and the fork as junctions with no signal", () => {
+      const none = network.junctions!.filter((junction) => junction.control === "none").map((junction) => junction.id);
+      for (const id of ["airport-diverge", "krpuram-diverge", "tumkur-loop-merge", "city-ramp-merge", "ganganagar-fork"]) {
+        expect(none).toContain(id);
+      }
+    });
+
+    it("names every road for a planner", () => {
+      for (const id of roadIds()) expect(corridor.roadNames[id], id).toBeTruthy();
+      expect(corridor.roadNames["airport-entry"]).toBe("Bellary Road from the airport");
+    });
+
+    it("says how it departs from what OpenStreetMap draws", () => {
+      expect(corridor.adjustments.length).toBeGreaterThan(5);
+    });
+
+    it("runs whole for five minutes, at the default demand, with the consistency checks passing", () => {
+      const report = checkRunConsistency({ network, demand: corridor.demand, seed: 1 }, { durationS: 300 });
+      expect(report.violations).toEqual([]);
+      expect(report.results.vehiclesThrough).toBeGreaterThan(200);
+    });
   });
 });

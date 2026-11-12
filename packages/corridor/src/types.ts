@@ -174,6 +174,12 @@ export interface NetworkCorrections {
    */
   roads: NetworkRoadCorrection[];
   joins: JoinCorrection[];
+  /**
+   * Roads OpenStreetMap draws closer to another road than half of both their
+   * widths, on the same level: `roadId` is moved away from `fromRoadId`,
+   * point by point, just far enough. Applied after the joins.
+   */
+  keepApart?: { roadId: string; fromRoadId: string; reason: string }[];
 }
 
 export interface NetworkRoadCorrection {
@@ -182,6 +188,13 @@ export interface NetworkRoadCorrection {
   name: string;
   /** The checked roads it is made of, in the direction of travel. */
   parts: string[];
+}
+
+interface SideBySide {
+  shared: SharedSection;
+  /** The least length of the one wide road at this join, in place of the network's (say why in `reason`). */
+  sideBySideMinM?: number;
+  reason: string;
 }
 
 /** The one wide road made where a road divides or roads join. */
@@ -201,8 +214,8 @@ export interface SharedSection {
  * the road that leaves the node. Continue: one road simply follows another.
  */
 export type JoinCorrection =
-  | { id: string; kind: "diverge"; fromRoadId?: string; mainRoadId: string; otherRoadId: string; shared: SharedSection; reason: string }
-  | { id: string; kind: "merge"; mainRoadId: string; otherRoadId: string; ontoRoadId?: string; shared: SharedSection; reason: string }
+  | ({ id: string; kind: "diverge"; fromRoadId?: string; mainRoadId: string; otherRoadId: string } & SideBySide)
+  | ({ id: string; kind: "merge"; mainRoadId: string; otherRoadId: string; ontoRoadId?: string } & SideBySide)
   | { id: string; kind: "continue"; fromRoadId: string; toRoadId: string; reason: string };
 
 /** A road of the corridor after import, whatever its level. */

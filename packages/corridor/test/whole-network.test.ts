@@ -177,7 +177,28 @@ describe("the whole network of a corridor", () => {
     expect(report.results.vehiclesThrough).toBeGreaterThan(40);
   });
 
-  it("where roads join, puts them side by side before one road as wide as both", () => {
+  it("uses a join's own least length for the one wide road where it gives one", () => {
+    const network = networkOf(
+      corrections([road("main", [12]), road("ramp", [31], { lanes: 2, widthM: 7 })], {
+        joins: [
+          {
+            id: "join",
+            kind: "merge",
+            mainRoadId: "main",
+            otherRoadId: "ramp",
+            shared: { id: "join-section", name: "Where the roads join" },
+            sideBySideMinM: 20,
+            reason: "test",
+          },
+        ],
+      }),
+    );
+
+    // The ramp comes in at 1 in 5 (sine 0.196): half of both widths (8.75 m) apart 44.6 m from the node, found to the next metre.
+    expect(roadLengthM(byId(network, "join-section"))).toBeCloseTo(45, 3);
+  });
+
+  it("where roads join onto a road narrower than both, ends them side by side with the road beyond across both", () => {
     const input = corrections(
       [road("main", [12]), road("ramp", [31], { lanes: 2, widthM: 7 }), road("out", [40])],
       {
@@ -198,12 +219,24 @@ describe("the whole network of a corridor", () => {
     const network = corridor.network!;
 
     expect(corridor.problems).toEqual([]);
-    const section = byId(network, "join-section");
-    expect(section).toMatchObject({ widthM: 17.5, lanes: 5 });
-    expect(section.points.at(-1)).toEqual({ x: 3.5, y: 890.56 });
+    expect(network.roads.map((one) => one.id)).toEqual(["main", "ramp", "out"]);
+    // The ramp comes in at 1 in 5, so the two are side by side from 50 m before the node; with 12 m for the paths, they end 62 m before it.
+    expect(byId(network, "main").points.at(-1)).toEqual({ x: 0, y: 828.56 });
     expect(byId(network, "ramp").points.at(-1)).toEqual({ x: 8.75, y: 828.56 });
-    expect(byId(network, "out").points[0]).toEqual({ x: 0, y: 902.56 });
-    expect(network.junctions!.map((junction) => junction.id)).toEqual(["join", "join-out"]);
+    // The road beyond starts 12 m on, centred on the line between them (half the main road's width over), so each leads onto half of it.
+    expect(byId(network, "out").points[0]).toEqual({ x: 5.25, y: 840.56 });
+    expect(byId(network, "out").points.at(-1)).toEqual({ x: 0, y: 1113.2 });
+    expect(network.junctions).toEqual([
+      {
+        id: "join",
+        control: "none",
+        connections: [
+          { fromRoadId: "main", toRoadId: "out" },
+          { fromRoadId: "ramp", toRoadId: "out" },
+        ],
+      },
+    ]);
+    expect(corridor.adjustments.join("\n")).toContain('"out" starts');
 
     const report = checkRunConsistency(
       {
@@ -259,6 +292,30 @@ describe("the whole network of a corridor", () => {
     expect(corridor.network!.junctions).toEqual([
       { id: "lights", control: "signal", connections: [{ fromRoadId: "in", toRoadId: "on" }], signalPlan: plan },
     ]);
+  });
+
+  it("moves a road drawn too close to another just far enough for both widths, and says how far", () => {
+    // Way 50 runs beside way 10, 0.00005 degrees (5.566 m) east of it: closer than half of both widths (8.75 m).
+    const besides: OsmExtract = {
+      elements: [
+        ...extract.elements,
+        { type: "node", id: 91, lat: 0, lon: 0.00005 },
+        { type: "node", id: 92, lat: 0.002, lon: 0.00005 },
+        { type: "way", id: 50, nodes: [91, 92], tags: { highway: "trunk", oneway: "yes" } },
+      ],
+    };
+    const corridor = importCorridor(
+      besides,
+      corrections([road("main", [10]), road("beside", [50], { lanes: 2, widthM: 7 })], {
+        keepApart: [{ roadId: "beside", fromRoadId: "main", reason: "test" }],
+      }),
+    );
+
+    expect(corridor.problems).toEqual([]);
+    const beside = byId(corridor.network!, "beside");
+    for (const point of beside.points) expect(point.x).toBeCloseTo(8.75, 2);
+    expect(byId(corridor.network!, "main").points.every((point) => point.x === 0)).toBe(true);
+    expect(corridor.adjustments.join("\n")).toContain('"beside" is moved up to 3.2 m away from "main"');
   });
 
   it("reports parts of one road that differ in lanes, width or speed limit", () => {

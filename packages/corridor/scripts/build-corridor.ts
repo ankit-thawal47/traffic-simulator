@@ -10,6 +10,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { roadLengthM } from "@traffic-simulator/engine";
 import { prepareCorridor } from "../src/prepared-corridor";
 
 const name = process.argv[2] ?? "hebbal";
@@ -22,8 +23,12 @@ if (problems.length > 0) {
   process.exit(1);
 }
 writeFileSync(join(dir, "corridor.json"), JSON.stringify(corridor, null, 1) + "\n");
-for (const road of corridor.roads) {
-  console.log(`${road.level.padEnd(6)} ${road.id.padEnd(22)} ${road.lengthM.toFixed(0).padStart(5)} m  ${road.lanes} lanes  ${road.widthM} m`);
+for (const road of corridor.network.roads) {
+  const highest = Math.max(...road.points.map((point) => point.z ?? 0));
+  console.log(
+    `${road.id.padEnd(22)} ${roadLengthM(road).toFixed(0).padStart(5)} m  ${road.lanes} lanes  ${road.widthM} m  ` +
+      `${highest > 0 ? `raised to ${highest} m` : "ground"}  ${corridor.roadNames[road.id]}`,
+  );
 }
-const total = (level: string) => corridor.roads.filter((r) => r.level === level).reduce((sum, r) => sum + r.lengthM, 0);
-console.log(`ground ${total("ground").toFixed(0)} m, raised ${total("raised").toFixed(0)} m, ${corridor.groundNetwork.junctions?.length ?? 0} signal junction(s) in the ground network`);
+console.log(`${corridor.network.junctions?.length ?? 0} junctions; ${corridor.demand.flows.length} flows`);
+for (const adjustment of corridor.adjustments) console.log(`- ${adjustment}`);

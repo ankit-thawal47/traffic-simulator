@@ -984,7 +984,7 @@
   },
   {
    "id": "krpuram-out",
-   "name": "Outer Ring Road eastbound towards K.R. Puram, from the junction",
+   "name": "Outer Ring Road eastbound towards K.R. Puram, from the junction (first 130 m: beyond it OpenStreetMap draws the ramp from K.R. Puram towards the city 3.4 to 5 m from this carriageway, closer than their widths allow, and this road is only an exit of the corridor)",
    "level": "ground",
    "points": [
     {
@@ -996,35 +996,18 @@
      "y": -14.104
     },
     {
-     "x": 210.715,
-     "y": -48.825
-    },
-    {
-     "x": 340.657,
-     "y": -90.503
-    },
-    {
-     "x": 353.628,
-     "y": -93.898
-    },
-    {
-     "x": 379.547,
-     "y": -99.175
-    },
-    {
-     "x": 400.173,
-     "y": -98.752
+     "x": 202.059,
+     "y": -46.374
     }
    ],
-   "lengthM": 335.9486091400779,
+   "lengthM": 129.99999999999997,
    "widthM": 10.5,
    "lanes": 3,
    "speedLimitMps": 16.666666666666668,
    "wayIds": [
     36987770
    ],
-   "fromNodeId": 430127641,
-   "toNodeId": 352930062
+   "fromNodeId": 430127641
   },
   {
    "id": "airport-out",
@@ -1572,7 +1555,8 @@
   {
    "id": "cbi-road",
    "name": "Bellary Road service road x CBI Road, beneath the Ganga Nagar flyover: the next junction downstream of where the Hebbal flyover lands",
-   "control": "unconfirmed",
+   "control": "signal",
+   "setBackM": 10,
    "connections": [
     {
      "fromRoadId": "cbi-service-in",
@@ -1600,31 +1584,53 @@
      "movement": "straight on, beneath the flyover"
     }
    ],
+   "signalPlan": {
+    "phases": [
+     {
+      "greenRoadIds": [
+       "cbi-service-in"
+      ],
+      "greenS": 40
+     },
+     {
+      "greenRoadIds": [
+       "cbi-road-west-in"
+      ],
+      "greenS": 20
+     }
+    ],
+    "amberS": 3,
+    "allRedS": 2
+   },
    "evidence": {
     "control": {
-     "state": "not-reached",
-     "source": "Whether this junction has signals is not known. The OpenStreetMap extract fetched 2026-11-12 has no traffic_signals node here; the OpenCity set of 124 Bengaluru Traffic Police signal sheets has none for it (list read 2026-11-12); the junction is hidden beneath the flyover deck in the imagery."
+     "state": "assumed",
+     "source": "ASSUMED: a fixed-time signal. Whether this junction has signals is not known. The OpenStreetMap extract fetched 2026-11-12 has no traffic_signals node here; the OpenCity set of 124 Bengaluru Traffic Police signal sheets has none for it (list read 2026-11-12); the junction is hidden beneath the flyover deck in the imagery. Tried again on 2026-11-12: a web search for the junction's signal timing found only city-wide news of adaptive signals (110 junctions approved in September 2025; 169 in BATCS phase 1), none naming this junction. Taken as a signal because the engine has no give-way control for crossing movements, and because a junction on the service road of a national highway beneath a flyover, crossed by a road to RT Nagar, is the kind that is signalled in Bengaluru. If it is in fact uncontrolled or police-controlled, this plan is wrong."
     },
     "connections": {
      "state": "confirmed",
      "source": "From the ways of the OpenStreetMap extract fetched 2026-11-12 meeting at node 582566933."
+    },
+    "signalPlan": {
+     "state": "assumed",
+     "source": "ASSUMED, no source: two phases, the service road (city-bound) 40 s green, CBI Road from RT Nagar 20 s green, 3 s amber and 2 s all-red after each: a 70 s cycle. The service road gets twice the green of CBI Road because it carries the city-bound traffic the corridor is about; 70 s is a short cycle for a small two-phase junction. Not a published plan."
+    },
+    "stopLines": {
+     "state": "assumed",
+     "source": "OpenStreetMap draws all five roads to node 582566933 with no traffic_signals node, so there is no stop line in the data. The importer sets every road back 10 m from the node (the setBackM of this junction), to give turns room."
     }
    }
   }
  ],
- "groundNetwork": {
-  "formatVersion": 3,
+ "network": {
+  "formatVersion": 4,
   "roads": [
    {
-    "id": "flyover-approach",
+    "id": "hebbal-flyover",
     "points": [
      {
-      "x": 137.046,
-      "y": 490.242
-     },
-     {
-      "x": 109.316,
-      "y": 435.116
+      "x": 109.192,
+      "y": 434.851
      },
      {
       "x": 101.084,
@@ -1645,15 +1651,97 @@
      {
       "x": 82.551,
       "y": 339.927
-     }
-    ],
-    "widthM": 10.5,
-    "lanes": 3,
-    "speedLimitMps": 16.666666666666668
-   },
-   {
-    "id": "bellary-landing",
-    "points": [
+     },
+     {
+      "x": 74.601,
+      "y": 268.76,
+      "z": 2.864
+     },
+     {
+      "x": 71.261,
+      "y": 245.271,
+      "z": 3.813
+     },
+     {
+      "x": 67.043,
+      "y": 221.505,
+      "z": 4.779
+     },
+     {
+      "x": 59.635,
+      "y": 191.89,
+      "z": 6
+     },
+     {
+      "x": 58.041,
+      "y": 185.515,
+      "z": 6
+     },
+     {
+      "x": 48.043,
+      "y": 152.931,
+      "z": 6
+     },
+     {
+      "x": 38.9,
+      "y": 126.983,
+      "z": 6
+     },
+     {
+      "x": 32.892,
+      "y": 113.224,
+      "z": 6
+     },
+     {
+      "x": 16.799,
+      "y": 76.722,
+      "z": 6
+     },
+     {
+      "x": -11.203,
+      "y": 15.396,
+      "z": 6
+     },
+     {
+      "x": -19.466,
+      "y": -3.729,
+      "z": 6
+     },
+     {
+      "x": -30.637,
+      "y": -31.604,
+      "z": 6
+     },
+     {
+      "x": -48.097,
+      "y": -90.147,
+      "z": 6
+     },
+     {
+      "x": -53.953,
+      "y": -111.587,
+      "z": 6
+     },
+     {
+      "x": -84.727,
+      "y": -220.281,
+      "z": 6
+     },
+     {
+      "x": -95.792,
+      "y": -259.364,
+      "z": 4.375
+     },
+     {
+      "x": -99.87,
+      "y": -275.361,
+      "z": 3.715
+     },
+     {
+      "x": -103.243,
+      "y": -293.083,
+      "z": 2.993
+     },
      {
       "x": -114.185,
       "y": -367.111
@@ -1687,12 +1775,8 @@
       "y": -582.805
      },
      {
-      "x": -142.056,
-      "y": -691.576
-     },
-     {
-      "x": -142.945,
-      "y": -711.034
+      "x": -141.004,
+      "y": -641.065
      }
     ],
     "widthM": 10.5,
@@ -1703,12 +1787,20 @@
     "id": "bellary-south",
     "points": [
      {
-      "x": -142.945,
-      "y": -711.034
+      "x": -136.005,
+      "y": -653.172
      },
      {
-      "x": -143.108,
-      "y": -714.708
+      "x": -136.808,
+      "y": -691.729
+     },
+     {
+      "x": -137.7,
+      "y": -711.274
+     },
+     {
+      "x": -146.035,
+      "y": -730.766
      },
      {
       "x": -146.73,
@@ -1795,8 +1887,8 @@
       "y": -1497.12
      },
      {
-      "x": -473.376,
-      "y": -1589.427
+      "x": -468.948,
+      "y": -1578.274
      }
     ],
     "widthM": 10.5,
@@ -1804,19 +1896,19 @@
     "speedLimitMps": 16.666666666666668
    },
    {
-    "id": "krpuram-ramp-ground",
+    "id": "krpuram-ramp",
     "points": [
      {
-      "x": 355.439,
-      "y": -106.088
+      "x": 295.538,
+      "y": -81.294
      },
      {
-      "x": 345.537,
-      "y": -98.373
+      "x": 290.786,
+      "y": -79.738
      },
      {
-      "x": 329.802,
-      "y": -92.785
+      "x": 271.912,
+      "y": -73.117
      },
      {
       "x": 248.021,
@@ -1825,6 +1917,46 @@
      {
       "x": 210.563,
       "y": -53.367
+     },
+     {
+      "x": 166.793,
+      "y": -39.986,
+      "z": 1.831
+     },
+     {
+      "x": 66.524,
+      "y": -11.525,
+      "z": 6
+     },
+     {
+      "x": 40.473,
+      "y": -4.13,
+      "z": 6
+     },
+     {
+      "x": 36.363,
+      "y": -3.763,
+      "z": 6
+     },
+     {
+      "x": 32.589,
+      "y": -3.34,
+      "z": 6
+     },
+     {
+      "x": 28.3,
+      "y": -3.241,
+      "z": 6
+     },
+     {
+      "x": 2.044,
+      "y": 5.027,
+      "z": 6
+     },
+     {
+      "x": 0.094,
+      "y": 0.423,
+      "z": 6
      }
     ],
     "widthM": 7,
@@ -1832,19 +1964,364 @@
     "speedLimitMps": 8.333333333333334
    },
    {
-    "id": "city-ramp-landing",
+    "id": "city-ramp-two-lane",
     "points": [
      {
-      "x": -128.609,
-      "y": -618.661
+      "x": -7.81,
+      "y": -9.261,
+      "z": 6
      },
      {
-      "x": -133.467,
-      "y": -698.255
+      "x": -13.662,
+      "y": -23.072,
+      "z": 6
      },
      {
-      "x": -142.945,
-      "y": -711.034
+      "x": -23.675,
+      "y": -40.487,
+      "z": 6
+     },
+     {
+      "x": -24.943,
+      "y": -44.817,
+      "z": 6
+     },
+     {
+      "x": -25.299,
+      "y": -45.913,
+      "z": 6
+     }
+    ],
+    "widthM": 7,
+    "lanes": 2,
+    "speedLimitMps": 8.333333333333334
+   },
+   {
+    "id": "city-ramp",
+    "points": [
+     {
+      "x": -27.486,
+      "y": -57.776,
+      "z": 6
+     },
+     {
+      "x": -30.229,
+      "y": -66.976,
+      "z": 6
+     },
+     {
+      "x": -32.973,
+      "y": -76.176,
+      "z": 6
+     },
+     {
+      "x": -35.717,
+      "y": -85.376,
+      "z": 6
+     },
+     {
+      "x": -38.404,
+      "y": -94.511,
+      "z": 6
+     },
+     {
+      "x": -40.931,
+      "y": -103.761,
+      "z": 6
+     },
+     {
+      "x": -43.457,
+      "y": -113.01,
+      "z": 6
+     },
+     {
+      "x": -46.069,
+      "y": -122.286,
+      "z": 6
+     },
+     {
+      "x": -48.746,
+      "y": -131.74,
+      "z": 6
+     },
+     {
+      "x": -51.423,
+      "y": -141.194,
+      "z": 6
+     },
+     {
+      "x": -54.099,
+      "y": -150.648,
+      "z": 6
+     },
+     {
+      "x": -56.776,
+      "y": -160.102,
+      "z": 6
+     },
+     {
+      "x": -59.452,
+      "y": -169.555,
+      "z": 6
+     },
+     {
+      "x": -62.129,
+      "y": -179.009,
+      "z": 6
+     },
+     {
+      "x": -64.806,
+      "y": -188.463,
+      "z": 6
+     },
+     {
+      "x": -67.482,
+      "y": -197.917,
+      "z": 6
+     },
+     {
+      "x": -70.159,
+      "y": -207.371,
+      "z": 6
+     },
+     {
+      "x": -72.835,
+      "y": -216.825,
+      "z": 6
+     },
+     {
+      "x": -75.512,
+      "y": -226.278,
+      "z": 6
+     },
+     {
+      "x": -78.189,
+      "y": -235.732,
+      "z": 6
+     },
+     {
+      "x": -80.674,
+      "y": -245.24,
+      "z": 6
+     },
+     {
+      "x": -82.952,
+      "y": -254.807,
+      "z": 6
+     },
+     {
+      "x": -85.229,
+      "y": -264.374,
+      "z": 6
+     },
+     {
+      "x": -86.818,
+      "y": -273.283,
+      "z": 6
+     },
+     {
+      "x": -88.407,
+      "y": -282.193,
+      "z": 6
+     },
+     {
+      "x": -89.995,
+      "y": -291.102,
+      "z": 6
+     },
+     {
+      "x": -91.584,
+      "y": -300.011,
+      "z": 6
+     },
+     {
+      "x": -93.173,
+      "y": -308.921,
+      "z": 6
+     },
+     {
+      "x": -94.762,
+      "y": -317.83,
+      "z": 6
+     },
+     {
+      "x": -96.034,
+      "y": -327.642,
+      "z": 6
+     },
+     {
+      "x": -97.306,
+      "y": -337.453,
+      "z": 6
+     },
+     {
+      "x": -98.578,
+      "y": -347.265,
+      "z": 6
+     },
+     {
+      "x": -99.851,
+      "y": -357.077,
+      "z": 6
+     },
+     {
+      "x": -101.123,
+      "y": -366.888,
+      "z": 6
+     },
+     {
+      "x": -102.395,
+      "y": -376.7,
+      "z": 6
+     },
+     {
+      "x": -103.667,
+      "y": -386.512,
+      "z": 6
+     },
+     {
+      "x": -104.939,
+      "y": -396.323,
+      "z": 6
+     },
+     {
+      "x": -106.211,
+      "y": -406.135,
+      "z": 6
+     },
+     {
+      "x": -107.483,
+      "y": -415.947,
+      "z": 6
+     },
+     {
+      "x": -108.755,
+      "y": -425.758,
+      "z": 6
+     },
+     {
+      "x": -110.028,
+      "y": -435.57,
+      "z": 6
+     },
+     {
+      "x": -111.3,
+      "y": -445.381,
+      "z": 6
+     },
+     {
+      "x": -112.572,
+      "y": -455.193,
+      "z": 6
+     },
+     {
+      "x": -113.844,
+      "y": -465.005,
+      "z": 6
+     },
+     {
+      "x": -115.116,
+      "y": -474.816,
+      "z": 6
+     },
+     {
+      "x": -116.388,
+      "y": -484.628,
+      "z": 6
+     },
+     {
+      "x": -117.337,
+      "y": -491.946,
+      "z": 6
+     },
+     {
+      "x": -117.66,
+      "y": -494.44,
+      "z": 5.899
+     },
+     {
+      "x": -118.932,
+      "y": -504.251,
+      "z": 5.504
+     },
+     {
+      "x": -120.205,
+      "y": -514.063,
+      "z": 5.108
+     },
+     {
+      "x": -121.477,
+      "y": -523.875,
+      "z": 4.712
+     },
+     {
+      "x": -122.749,
+      "y": -533.686,
+      "z": 4.316
+     },
+     {
+      "x": -124.021,
+      "y": -543.498,
+      "z": 3.921
+     },
+     {
+      "x": -124.577,
+      "y": -552.606,
+      "z": 3.556
+     },
+     {
+      "x": -125.133,
+      "y": -561.714,
+      "z": 3.191
+     },
+     {
+      "x": -125.689,
+      "y": -570.822,
+      "z": 2.826
+     },
+     {
+      "x": -126.245,
+      "y": -579.93,
+      "z": 2.461
+     },
+     {
+      "x": -126.801,
+      "y": -589.038,
+      "z": 2.096
+     },
+     {
+      "x": -127.357,
+      "y": -598.146,
+      "z": 1.731
+     },
+     {
+      "x": -127.913,
+      "y": -607.254,
+      "z": 1.366
+     },
+     {
+      "x": -128.469,
+      "y": -616.362,
+      "z": 1.001
+     },
+     {
+      "x": -129.113,
+      "y": -623.003,
+      "z": 0.734
+     },
+     {
+      "x": -129.757,
+      "y": -629.644,
+      "z": 0.467
+     },
+     {
+      "x": -130.402,
+      "y": -636.285,
+      "z": 0.2
+     },
+     {
+      "x": -130.506,
+      "y": -641.284
      }
     ],
     "widthM": 10.5,
@@ -1883,8 +2360,8 @@
       "y": 17.666
      },
      {
-      "x": 168.951,
-      "y": 45.218
+      "x": 164.863,
+      "y": 40.826
      }
     ],
     "widthM": 7,
@@ -1892,59 +2369,491 @@
     "speedLimitMps": 16.666666666666668
    },
    {
+    "id": "tumkur-loop",
+    "points": [
+     {
+      "x": 172.725,
+      "y": 49.883
+     },
+     {
+      "x": 178.722,
+      "y": 57.296,
+      "z": 0.381
+     },
+     {
+      "x": 181.472,
+      "y": 61.827,
+      "z": 0.593
+     },
+     {
+      "x": 184.221,
+      "y": 66.358,
+      "z": 0.805
+     },
+     {
+      "x": 186.118,
+      "y": 71.055,
+      "z": 1.008
+     },
+     {
+      "x": 188.016,
+      "y": 75.753,
+      "z": 1.211
+     },
+     {
+      "x": 189.274,
+      "y": 81.163,
+      "z": 1.433
+     },
+     {
+      "x": 190.532,
+      "y": 86.574,
+      "z": 1.655
+     },
+     {
+      "x": 191.01,
+      "y": 91.851,
+      "z": 1.867
+     },
+     {
+      "x": 191.487,
+      "y": 97.127,
+      "z": 2.079
+     },
+     {
+      "x": 191.042,
+      "y": 106.589,
+      "z": 2.458
+     },
+     {
+      "x": 189.654,
+      "y": 113.791,
+      "z": 2.751
+     },
+     {
+      "x": 188.114,
+      "y": 120.715,
+      "z": 3.035
+     },
+     {
+      "x": 186.298,
+      "y": 125.446,
+      "z": 3.238
+     },
+     {
+      "x": 184.481,
+      "y": 130.178,
+      "z": 3.44
+     },
+     {
+      "x": 180.393,
+      "y": 138.226,
+      "z": 3.801
+     },
+     {
+      "x": 175.621,
+      "y": 145.774,
+      "z": 4.159
+     },
+     {
+      "x": 169.775,
+      "y": 152.475,
+      "z": 4.514
+     },
+     {
+      "x": 165.719,
+      "y": 155.976,
+      "z": 4.729
+     },
+     {
+      "x": 161.664,
+      "y": 159.477,
+      "z": 4.943
+     },
+     {
+      "x": 157.185,
+      "y": 162.327,
+      "z": 5.155
+     },
+     {
+      "x": 152.706,
+      "y": 165.177,
+      "z": 5.368
+     },
+     {
+      "x": 146.427,
+      "y": 167.465,
+      "z": 5.635
+     },
+     {
+      "x": 140.147,
+      "y": 169.752,
+      "z": 5.902
+     },
+     {
+      "x": 137.757,
+      "y": 170.248,
+      "z": 6
+     },
+     {
+      "x": 134.834,
+      "y": 170.854,
+      "z": 6
+     },
+     {
+      "x": 129.52,
+      "y": 171.956,
+      "z": 6
+     },
+     {
+      "x": 123.122,
+      "y": 171.956,
+      "z": 6
+     },
+     {
+      "x": 116.723,
+      "y": 171.956,
+      "z": 6
+     },
+     {
+      "x": 107.429,
+      "y": 171.166,
+      "z": 6
+     },
+     {
+      "x": 102.468,
+      "y": 169.858,
+      "z": 6
+     },
+     {
+      "x": 97.506,
+      "y": 168.55,
+      "z": 6
+     },
+     {
+      "x": 88.212,
+      "y": 164.999,
+      "z": 6
+     },
+     {
+      "x": 82.031,
+      "y": 161.509,
+      "z": 6
+     },
+     {
+      "x": 75.849,
+      "y": 158.019,
+      "z": 6
+     },
+     {
+      "x": 71.43,
+      "y": 154.012,
+      "z": 6
+     },
+     {
+      "x": 67.01,
+      "y": 150.004,
+      "z": 6
+     },
+     {
+      "x": 62.634,
+      "y": 145.011,
+      "z": 6
+     },
+     {
+      "x": 58.258,
+      "y": 140.018,
+      "z": 6
+     },
+     {
+      "x": 54.17,
+      "y": 134.074,
+      "z": 6
+     },
+     {
+      "x": 50.081,
+      "y": 128.129,
+      "z": 6
+     },
+     {
+      "x": 46.687,
+      "y": 121.333,
+      "z": 6
+     },
+     {
+      "x": 43.292,
+      "y": 114.537,
+      "z": 6
+     },
+     {
+      "x": 40.035,
+      "y": 107.736,
+      "z": 6
+     },
+     {
+      "x": 36.995,
+      "y": 100.84,
+      "z": 6
+     },
+     {
+      "x": 33.955,
+      "y": 93.944,
+      "z": 6
+     },
+     {
+      "x": 30.914,
+      "y": 87.048,
+      "z": 6
+     },
+     {
+      "x": 27.211,
+      "y": 78.648,
+      "z": 6
+     },
+     {
+      "x": 23.463,
+      "y": 70.25,
+      "z": 6
+     },
+     {
+      "x": 19.651,
+      "y": 61.902,
+      "z": 6
+     },
+     {
+      "x": 15.839,
+      "y": 53.554,
+      "z": 6
+     },
+     {
+      "x": 12.027,
+      "y": 45.205,
+      "z": 6
+     },
+     {
+      "x": 8.215,
+      "y": 36.857,
+      "z": 6
+     },
+     {
+      "x": 4.403,
+      "y": 28.509,
+      "z": 6
+     },
+     {
+      "x": 0.812,
+      "y": 20.06,
+      "z": 6
+     },
+     {
+      "x": -2.77,
+      "y": 11.607,
+      "z": 6
+     },
+     {
+      "x": -6.352,
+      "y": 3.154,
+      "z": 6
+     }
+    ],
+    "widthM": 7,
+    "lanes": 2,
+    "speedLimitMps": 8.333333333333334
+   },
+   {
     "id": "airport-ground-in",
     "points": [
      {
-      "x": 137.046,
-      "y": 490.242
+      "x": 117.109,
+      "y": 431.127
      },
      {
-      "x": 136.894,
-      "y": 474.869
+      "x": 114.981,
+      "y": 426.602
+     },
+     {
+      "x": 113.625,
+      "y": 419.979
+     },
+     {
+      "x": 112.27,
+      "y": 413.356
+     },
+     {
+      "x": 110.915,
+      "y": 406.733
      },
      {
       "x": 108.524,
       "y": 400.463
      },
      {
+      "x": 108.725,
+      "y": 394.179
+     },
+     {
       "x": 108.925,
       "y": 387.895
      },
      {
-      "x": 91.476,
-      "y": 346.695
+      "x": 105.435,
+      "y": 379.655
      },
      {
-      "x": 80.154,
-      "y": 257.483
+      "x": 101.945,
+      "y": 371.415
+     },
+     {
+      "x": 98.456,
+      "y": 363.175
+     },
+     {
+      "x": 94.966,
+      "y": 354.935
+     },
+     {
+      "x": 92.41,
+      "y": 346.553
+     },
+     {
+      "x": 90.994,
+      "y": 336.696
+     },
+     {
+      "x": 89.885,
+      "y": 326.767
+     },
+     {
+      "x": 88.776,
+      "y": 316.838
+     },
+     {
+      "x": 87.667,
+      "y": 306.909
+     },
+     {
+      "x": 86.558,
+      "y": 296.98
+     },
+     {
+      "x": 85.449,
+      "y": 287.05
+     },
+     {
+      "x": 84.339,
+      "y": 277.121
+     },
+     {
+      "x": 83.209,
+      "y": 267.14
+     },
+     {
+      "x": 81.802,
+      "y": 257.249
+     },
+     {
+      "x": 80.458,
+      "y": 247.793
+     },
+     {
+      "x": 78.914,
+      "y": 238.318
+     },
+     {
+      "x": 77.246,
+      "y": 228.922
+     },
+     {
+      "x": 75.559,
+      "y": 219.496
+     },
+     {
+      "x": 73.721,
+      "y": 210.162
+     },
+     {
+      "x": 72.435,
+      "y": 200.698
+     },
+     {
+      "x": 71.148,
+      "y": 191.234
+     },
+     {
+      "x": 69.862,
+      "y": 181.77
+     },
+     {
+      "x": 68.575,
+      "y": 172.305
+     },
+     {
+      "x": 67.289,
+      "y": 162.841
      },
      {
       "x": 66.002,
       "y": 153.377
      },
      {
+      "x": 64.315,
+      "y": 145.83
+     },
+     {
       "x": 62.629,
       "y": 138.282
+     },
+     {
+      "x": 60.747,
+      "y": 132.382
      },
      {
       "x": 58.866,
       "y": 126.482
      },
      {
+      "x": 56.654,
+      "y": 120.86
+     },
+     {
       "x": 54.441,
       "y": 115.238
+     },
+     {
+      "x": 51.172,
+      "y": 110.001
      },
      {
       "x": 47.902,
       "y": 104.763
      },
      {
+      "x": 44.139,
+      "y": 98.34
+     },
+     {
+      "x": 40.375,
+      "y": 91.917
+     },
+     {
       "x": 36.612,
       "y": 85.494
      },
      {
+      "x": 32.878,
+      "y": 79.29
+     },
+     {
+      "x": 29.143,
+      "y": 73.085
+     },
+     {
       "x": 25.409,
       "y": 66.881
+     },
+     {
+      "x": 22.568,
+      "y": 60.876
      },
      {
       "x": 19.727,
@@ -2011,16 +2920,8 @@
     "id": "krpuram-in",
     "points": [
      {
-      "x": 355.439,
-      "y": -106.088
-     },
-     {
-      "x": 341.893,
-      "y": -104.863
-     },
-     {
-      "x": 316.799,
-      "y": -97.461
+      "x": 292.816,
+      "y": -89.61
      },
      {
       "x": 212.743,
@@ -2135,32 +3036,64 @@
     "id": "krpuram-out",
     "points": [
      {
-      "x": 77.508,
-      "y": -9.473
+      "x": 78.539,
+      "y": -5.839
      },
      {
-      "x": 88.092,
-      "y": -14.104
+      "x": 84.045,
+      "y": -7.402
      },
      {
-      "x": 210.715,
-      "y": -48.825
+      "x": 89.551,
+      "y": -8.965
      },
      {
-      "x": 340.657,
-      "y": -90.503
+      "x": 99.046,
+      "y": -11.66
      },
      {
-      "x": 353.628,
-      "y": -93.898
+      "x": 108.542,
+      "y": -14.356
      },
      {
-      "x": 379.547,
-      "y": -99.175
+      "x": 118.037,
+      "y": -17.051
      },
      {
-      "x": 400.173,
-      "y": -98.752
+      "x": 127.533,
+      "y": -19.746
+     },
+     {
+      "x": 137.028,
+      "y": -22.442
+     },
+     {
+      "x": 146.524,
+      "y": -25.137
+     },
+     {
+      "x": 156.019,
+      "y": -27.832
+     },
+     {
+      "x": 165.515,
+      "y": -30.527
+     },
+     {
+      "x": 175.077,
+      "y": -33.369
+     },
+     {
+      "x": 184.514,
+      "y": -36.254
+     },
+     {
+      "x": 193.951,
+      "y": -39.139
+     },
+     {
+      "x": 203.389,
+      "y": -42.024
      }
     ],
     "widthM": 10.5,
@@ -2224,19 +3157,55 @@
     "speedLimitMps": 11.11111111111111
    },
    {
+    "id": "ganganagar-flyover",
+    "points": [
+     {
+      "x": -497.575,
+      "y": -1646.411
+     },
+     {
+      "x": -520.117,
+      "y": -1711.645,
+      "z": 2.761
+     },
+     {
+      "x": -542.915,
+      "y": -1789.35,
+      "z": 6
+     },
+     {
+      "x": -548.986,
+      "y": -1810.041,
+      "z": 5.14
+     },
+     {
+      "x": -565.134,
+      "y": -1871.979,
+      "z": 2.579
+     },
+     {
+      "x": -578.549,
+      "y": -1935.053
+     }
+    ],
+    "widthM": 10.5,
+    "lanes": 3,
+    "speedLimitMps": 16.666666666666668
+   },
+   {
     "id": "cbi-service-in",
     "points": [
      {
-      "x": -460.514,
-      "y": -1594.948
+      "x": -489.305,
+      "y": -1649.269
      },
      {
-      "x": -479.373,
-      "y": -1628.879
+      "x": -490.938,
+      "y": -1653.994
      },
      {
-      "x": -494.328,
-      "y": -1667.329
+      "x": -496.362,
+      "y": -1673.341
      },
      {
       "x": -503.872,
@@ -2255,8 +3224,8 @@
       "y": -1759.491
      },
      {
-      "x": -525.117,
-      "y": -1769.643
+      "x": -522.46,
+      "y": -1760.002
      }
     ],
     "widthM": 7,
@@ -2267,8 +3236,56 @@
     "id": "cbi-service-south-out",
     "points": [
      {
-      "x": -525.117,
-      "y": -1769.643
+      "x": -527.823,
+      "y": -1779.27
+     },
+     {
+      "x": -530.408,
+      "y": -1788.469
+     },
+     {
+      "x": -532.994,
+      "y": -1797.669
+     },
+     {
+      "x": -535.58,
+      "y": -1806.868
+     },
+     {
+      "x": -538.165,
+      "y": -1816.068
+     },
+     {
+      "x": -540.751,
+      "y": -1825.267
+     },
+     {
+      "x": -543.337,
+      "y": -1834.467
+     },
+     {
+      "x": -545.922,
+      "y": -1843.666
+     },
+     {
+      "x": -548.508,
+      "y": -1852.866
+     },
+     {
+      "x": -551.093,
+      "y": -1862.065
+     },
+     {
+      "x": -553.679,
+      "y": -1871.265
+     },
+     {
+      "x": -556.265,
+      "y": -1880.464
+     },
+     {
+      "x": -558.85,
+      "y": -1889.664
      },
      {
       "x": -561.436,
@@ -2279,16 +3296,32 @@
       "y": -1905.32
      },
      {
-      "x": -571.229,
-      "y": -1937.313
+      "x": -564.987,
+      "y": -1913.347
      },
      {
-      "x": -572.085,
-      "y": -1940.708
+      "x": -566.702,
+      "y": -1921.413
+     },
+     {
+      "x": -568.418,
+      "y": -1929.48
+     },
+     {
+      "x": -570.188,
+      "y": -1937.634
+     },
+     {
+      "x": -571.963,
+      "y": -1940.814
      },
      {
       "x": -572.975,
       "y": -1944.092
+     },
+     {
+      "x": -574.487,
+      "y": -1949.914
      },
      {
       "x": -576,
@@ -2303,8 +3336,8 @@
     "id": "cbi-road-east-out",
     "points": [
      {
-      "x": -524.625,
-      "y": -1767.963
+      "x": -515.027,
+      "y": -1770.771
      },
      {
       "x": -478.436,
@@ -2379,8 +3412,8 @@
       "y": -1784.84
      },
      {
-      "x": -525.608,
-      "y": -1771.323
+      "x": -516.01,
+      "y": -1774.131
      }
     ],
     "widthM": 3.5,
@@ -2391,8 +3424,8 @@
     "id": "cbi-cross-west",
     "points": [
      {
-      "x": -525.117,
-      "y": -1769.643
+      "x": -534.769,
+      "y": -1767.028
      },
      {
       "x": -561.23,
@@ -2402,6 +3435,70 @@
     "widthM": 7,
     "lanes": 2,
     "speedLimitMps": 11.11111111111111
+   },
+   {
+    "id": "airport-entry",
+    "points": [
+     {
+      "x": 140.173,
+      "y": 488.669
+     },
+     {
+      "x": 117.704,
+      "y": 444.002
+     }
+    ],
+    "widthM": 17.5,
+    "lanes": 5,
+    "speedLimitMps": 16.666666666666668
+   },
+   {
+    "id": "krpuram-entry",
+    "points": [
+     {
+      "x": 355.754,
+      "y": -102.602
+     },
+     {
+      "x": 342.656,
+      "y": -101.447
+     },
+     {
+      "x": 317.822,
+      "y": -94.114
+     },
+     {
+      "x": 305.309,
+      "y": -90.017
+     }
+    ],
+    "widthM": 17.5,
+    "lanes": 5,
+    "speedLimitMps": 16.666666666666668
+   },
+   {
+    "id": "fork-section",
+    "points": [
+     {
+      "x": -470.229,
+      "y": -1590.958
+     },
+     {
+      "x": -475.366,
+      "y": -1601.516
+     },
+     {
+      "x": -486.668,
+      "y": -1625.535
+     },
+     {
+      "x": -490.348,
+      "y": -1636.212
+     }
+    ],
+    "widthM": 17.5,
+    "lanes": 5,
+    "speedLimitMps": 16.666666666666668
    }
   ],
   "junctions": [
@@ -2467,40 +3564,309 @@
      "amberS": 3,
      "allRedS": 0
     }
+   },
+   {
+    "id": "cbi-road",
+    "control": "signal",
+    "connections": [
+     {
+      "fromRoadId": "cbi-service-in",
+      "toRoadId": "cbi-service-south-out"
+     },
+     {
+      "fromRoadId": "cbi-service-in",
+      "toRoadId": "cbi-road-east-out"
+     },
+     {
+      "fromRoadId": "cbi-service-in",
+      "toRoadId": "cbi-cross-west"
+     },
+     {
+      "fromRoadId": "cbi-road-west-in",
+      "toRoadId": "cbi-service-south-out"
+     },
+     {
+      "fromRoadId": "cbi-road-west-in",
+      "toRoadId": "cbi-cross-west"
+     }
+    ],
+    "signalPlan": {
+     "phases": [
+      {
+       "greenRoadIds": [
+        "cbi-service-in"
+       ],
+       "greenS": 40
+      },
+      {
+       "greenRoadIds": [
+        "cbi-road-west-in"
+       ],
+       "greenS": 20
+      }
+     ],
+     "amberS": 3,
+     "allRedS": 2
+    }
+   },
+   {
+    "id": "airport-diverge",
+    "control": "none",
+    "connections": [
+     {
+      "fromRoadId": "airport-entry",
+      "toRoadId": "hebbal-flyover"
+     },
+     {
+      "fromRoadId": "airport-entry",
+      "toRoadId": "airport-ground-in"
+     }
+    ]
+   },
+   {
+    "id": "krpuram-diverge",
+    "control": "none",
+    "connections": [
+     {
+      "fromRoadId": "krpuram-entry",
+      "toRoadId": "krpuram-in"
+     },
+     {
+      "fromRoadId": "krpuram-entry",
+      "toRoadId": "krpuram-ramp"
+     }
+    ]
+   },
+   {
+    "id": "tumkur-loop-foot",
+    "control": "none",
+    "connections": [
+     {
+      "fromRoadId": "tumkur-loop-ground",
+      "toRoadId": "tumkur-loop"
+     }
+    ]
+   },
+   {
+    "id": "tumkur-loop-merge",
+    "control": "none",
+    "connections": [
+     {
+      "fromRoadId": "tumkur-loop",
+      "toRoadId": "city-ramp-two-lane"
+     },
+     {
+      "fromRoadId": "krpuram-ramp",
+      "toRoadId": "city-ramp-two-lane"
+     }
+    ]
+   },
+   {
+    "id": "city-ramp-widens",
+    "control": "none",
+    "connections": [
+     {
+      "fromRoadId": "city-ramp-two-lane",
+      "toRoadId": "city-ramp"
+     }
+    ]
+   },
+   {
+    "id": "city-ramp-merge",
+    "control": "none",
+    "connections": [
+     {
+      "fromRoadId": "hebbal-flyover",
+      "toRoadId": "bellary-south"
+     },
+     {
+      "fromRoadId": "city-ramp",
+      "toRoadId": "bellary-south"
+     }
+    ]
+   },
+   {
+    "id": "ganganagar-fork-in",
+    "control": "none",
+    "connections": [
+     {
+      "fromRoadId": "bellary-south",
+      "toRoadId": "fork-section"
+     }
+    ]
+   },
+   {
+    "id": "ganganagar-fork",
+    "control": "none",
+    "connections": [
+     {
+      "fromRoadId": "fork-section",
+      "toRoadId": "ganganagar-flyover"
+     },
+     {
+      "fromRoadId": "fork-section",
+      "toRoadId": "cbi-service-in"
+     }
+    ]
    }
   ]
  },
- "groundDemand": {
+ "roadNames": {
+  "hebbal-flyover": "Hebbal flyover",
+  "bellary-south": "Bellary Road towards Ganga Nagar",
+  "krpuram-ramp": "Ramp from K.R. Puram towards the city",
+  "city-ramp-two-lane": "Ramp towards the city, after the loop joins",
+  "city-ramp": "Ramp towards the city, down to Bellary Road",
+  "tumkur-loop-ground": "From the junction to the loop towards the city",
+  "tumkur-loop": "Loop from Tumkur Road towards the city",
+  "airport-ground-in": "Ground road from the airport",
+  "tumkur-in": "Outer Ring Road from Tumkur Road",
+  "krpuram-in": "Outer Ring Road from K.R. Puram",
+  "tumkur-out": "Outer Ring Road towards Tumkur Road",
+  "krpuram-out": "Outer Ring Road towards K.R. Puram",
+  "airport-out": "Ground road towards the airport",
+  "ganganagar-flyover": "Ganga Nagar flyover",
+  "cbi-service-in": "Service road to CBI Road",
+  "cbi-service-south-out": "Service road beyond CBI Road",
+  "cbi-road-east-out": "CBI Road towards RT Nagar",
+  "cbi-road-west-in": "CBI Road from RT Nagar",
+  "cbi-cross-west": "CBI Road beneath the Ganga Nagar flyover",
+  "airport-entry": "Bellary Road from the airport",
+  "krpuram-entry": "Outer Ring Road from K.R. Puram",
+  "fork-section": "Bellary Road before the Ganga Nagar flyover"
+ },
+ "adjustments": [
+  "Road \"hebbal-flyover\" is \"flyover-approach\", \"flyover-main\", \"bellary-landing\" end to end, as one road.",
+  "Road \"krpuram-ramp\" is \"krpuram-ramp-ground\", \"krpuram-ramp\" end to end, as one road.",
+  "Road \"city-ramp\" is \"city-ramp\", \"city-ramp-landing\" end to end, as one road.",
+  "Junction \"cbi-road\": OpenStreetMap draws its roads to one node. Each is cut back 10 m from it, so that the stop lines stand back and the turns have room.",
+  "Join \"airport-diverge\": for 50 m from the node, \"hebbal-flyover\" and \"airport-ground-in\" are one road, \"airport-entry\", 17.5 m wide with 5 lanes, on the line of \"hebbal-flyover\" moved 3.5 m towards \"airport-ground-in\". (As drawn, their centre lines are half of both widths apart 34 m from the node; the least length is 50 m.) \"hebbal-flyover\" starts 12 m beyond it on its own line. \"airport-ground-in\" starts exactly beside it, 2.9 m from the line OpenStreetMap draws, and is on that line again within 25 m. Where the ground-level road to the junction leaves Bellary Road and the flyover approach begins (node 332955193). The corridor starts here, so this wide road is where traffic from the airport enters. OpenStreetMap has 3 lanes on the way before the node (971335104) and 3 + 2 after it; the entry has the 5 after it.",
+  "Join \"krpuram-diverge\": for 53 m from the node, \"krpuram-in\" and \"krpuram-ramp\" are one road, \"krpuram-entry\", 17.5 m wide with 5 lanes, on the line of \"krpuram-in\" moved 3.5 m towards \"krpuram-ramp\". (As drawn, their centre lines are half of both widths apart 53 m from the node; the least length is 50 m.) \"krpuram-in\" starts 12 m beyond it on its own line. \"krpuram-ramp\" starts exactly beside it, 0.1 m from the line OpenStreetMap draws, and is on that line again within 25 m. Where the ramp towards the city leaves the Outer Ring Road westbound (node 11442861631). Traffic from K.R. Puram enters here. OpenStreetMap has 3 lanes before the node and 3 + 2 after it.",
+  "Join \"tumkur-loop-foot\": \"tumkur-loop-ground\" ends 6 m before the node and \"tumkur-loop\" starts 6 m after it. Where the loop from Tumkur Road begins to rise (node 1729002754): the speed limit drops from 60 to 30 km/h (OpenStreetMap maxspeed).",
+  "Join \"tumkur-loop-merge\": \"tumkur-loop\" and \"krpuram-ramp\" end side by side 27 m before the node, \"krpuram-ramp\" 9.8 m from the line OpenStreetMap draws. \"city-ramp-two-lane\" starts 12 m on, across the line between them (so each leads onto part of its width), and is on its own line again 20 m past the node. (As drawn, the two are half of both widths apart 14 m from the node; the least length is 15 m.) Where the loop from Tumkur Road joins the ramp from K.R. Puram (node 13052245188), both raised: 2 + 2 lanes onto 2. The loop is the main road here because it runs straight on into the ramp beyond (heading 157 degrees west of north against 154), while the ramp from K.R. Puram curves in (127). The loop curves in: drawn, the two are side by side 14 m from the node, so the wide road here is at least 15 m, not 50 m; with 50 m the end of the ramp from K.R. Puram would be moved far off its line.",
+  "Join \"city-ramp-widens\": \"city-ramp-two-lane\" ends 6 m before the node and \"city-ramp\" starts 6 m after it. Where the ramp towards the city widens from 2 lanes to 3 (node 13052245195, OpenStreetMap lanes).",
+  "Join \"city-ramp-merge\": \"hebbal-flyover\" and \"city-ramp\" end side by side 70 m before the node, \"city-ramp\" 0.5 m from the line OpenStreetMap draws. \"bellary-south\" starts 12 m on, across the line between them (so each leads onto part of its width), and is on its own line again 20 m past the node. (As drawn, the two are half of both widths apart 58 m from the node; the least length is 50 m.) Where the three-lane ramp towards the city joins Bellary Road (node 13052245180): 3 + 3 lanes onto 3.",
+  "Join \"ganganagar-fork\": for 50 m from the node, \"ganganagar-flyover\" and \"cbi-service-in\" are one road, \"fork-section\", 17.5 m wide with 5 lanes, on the line of \"ganganagar-flyover\" moved 3.5 m towards \"cbi-service-in\". (As drawn, their centre lines are half of both widths apart 0 m from the node; the least length is 50 m.) \"ganganagar-flyover\" starts 12 m beyond it on its own line. \"cbi-service-in\" starts exactly beside it, 1.9 m from the line OpenStreetMap draws, and is on that line again within 25 m. \"bellary-south\" is cut back 12 m from the node. Where city-bound traffic goes over on the Ganga Nagar flyover or down to the CBI Road junction (node 582566943). OpenStreetMap joins the service road to it by 11 m of way 327073709, which is left out: the service road starts beside the flyover instead.",
+  "\"airport-ground-in\" is moved up to 1.8 m away from \"hebbal-flyover\", wherever OpenStreetMap draws the two closer than half of both widths (8.8 m). Both on the ground beside the rising flyover approach for about 150 m after the diverge, drawn 6.9 to 8 m apart against the 8.75 m their widths need (3 lanes at 3.5 m, assumed, and about 7 m from imagery). The ground road is moved, not the flyover, because its width is the measured one and the flyover line carries the deck.",
+  "\"city-ramp\" is moved up to 5.2 m away from \"hebbal-flyover\", wherever OpenStreetMap draws the two closer than half of both widths (10.5 m). The two raised carriageways run side by side for about 200 m before they come down to Bellary Road, drawn as little as 5.4 m apart against the 10.5 m their widths need (3 lanes at 3.5 m each, assumed). OpenStreetMap places them less than one carriageway apart, so its lines are not exact here; both are at the deck height, so they would otherwise share space. The ramp is moved, not the flyover.",
+  "\"krpuram-out\" is moved up to 5.3 m away from \"krpuram-ramp\", wherever OpenStreetMap draws the two closer than half of both widths (8.8 m). The ramp from K.R. Puram rises on an embankment (way 1446941081, embankment=yes) in the middle of the Outer Ring Road, drawn 3.4 to 5 m from the eastbound carriageway against the 8.75 m their widths need. The exit road is moved, not the ramp, because the ramp carries city-bound traffic and the exit only leaves the corridor.",
+  "\"tumkur-loop\" is moved up to 1.6 m away from \"hebbal-flyover\", wherever OpenStreetMap draws the two closer than half of both widths (8.8 m). The loop from Tumkur Road runs beside the flyover deck at the same height for a short stretch before it joins the ramp, drawn slightly closer than half of both widths.",
+  "\"cbi-service-south-out\" is moved up to 1.1 m away from \"ganganagar-flyover\", wherever OpenStreetMap draws the two closer than half of both widths (8.8 m). Where the Ganga Nagar flyover comes down, the service road beside it is drawn slightly closer than half of both widths.",
+  "Heights: OpenStreetMap has none. Each raised road rises 4 m in 100 m from the ground at each of its ends until it is 6 m up."
+ ],
+ "demand": {
   "flows": [
    {
-    "entryRoadId": "airport-ground-in",
+    "entryRoadId": "airport-entry",
     "exitRoadId": "tumkur-out",
-    "vehiclesPerHour": 2982
+    "vehiclesPerHour": 895,
+    "publishedVehiclesPerHour": 2982
    },
    {
     "entryRoadId": "tumkur-in",
     "exitRoadId": "airport-out",
-    "vehiclesPerHour": 1318
+    "vehiclesPerHour": 395,
+    "publishedVehiclesPerHour": 1318
    },
    {
     "entryRoadId": "tumkur-in",
     "exitRoadId": "krpuram-out",
-    "vehiclesPerHour": 2755
+    "vehiclesPerHour": 827,
+    "publishedVehiclesPerHour": 2755
    },
    {
     "entryRoadId": "tumkur-in",
-    "exitRoadId": "tumkur-loop-ground",
-    "vehiclesPerHour": 1090
+    "exitRoadId": "ganganagar-flyover",
+    "vehiclesPerHour": 262,
+    "publishedVehiclesPerHour": 872
    },
    {
-    "entryRoadId": "krpuram-in",
+    "entryRoadId": "tumkur-in",
+    "exitRoadId": "cbi-service-south-out",
+    "vehiclesPerHour": 33,
+    "publishedVehiclesPerHour": 109
+   },
+   {
+    "entryRoadId": "tumkur-in",
+    "exitRoadId": "cbi-road-east-out",
+    "vehiclesPerHour": 16,
+    "publishedVehiclesPerHour": 55
+   },
+   {
+    "entryRoadId": "tumkur-in",
+    "exitRoadId": "cbi-cross-west",
+    "vehiclesPerHour": 16,
+    "publishedVehiclesPerHour": 55
+   },
+   {
+    "entryRoadId": "krpuram-entry",
     "exitRoadId": "tumkur-out",
-    "vehiclesPerHour": 2890
+    "vehiclesPerHour": 867,
+    "publishedVehiclesPerHour": 2890
    },
    {
-    "entryRoadId": "krpuram-in",
+    "entryRoadId": "krpuram-entry",
     "exitRoadId": "airport-out",
-    "vehiclesPerHour": 1051
+    "vehiclesPerHour": 315,
+    "publishedVehiclesPerHour": 1051
+   },
+   {
+    "entryRoadId": "airport-entry",
+    "exitRoadId": "ganganagar-flyover",
+    "vehiclesPerHour": 902,
+    "publishedVehiclesPerHour": 3007
+   },
+   {
+    "entryRoadId": "airport-entry",
+    "exitRoadId": "cbi-service-south-out",
+    "vehiclesPerHour": 113,
+    "publishedVehiclesPerHour": 376
+   },
+   {
+    "entryRoadId": "airport-entry",
+    "exitRoadId": "cbi-road-east-out",
+    "vehiclesPerHour": 56,
+    "publishedVehiclesPerHour": 188
+   },
+   {
+    "entryRoadId": "airport-entry",
+    "exitRoadId": "cbi-cross-west",
+    "vehiclesPerHour": 56,
+    "publishedVehiclesPerHour": 188
+   },
+   {
+    "entryRoadId": "krpuram-entry",
+    "exitRoadId": "ganganagar-flyover",
+    "vehiclesPerHour": 464,
+    "publishedVehiclesPerHour": 1547
+   },
+   {
+    "entryRoadId": "krpuram-entry",
+    "exitRoadId": "cbi-service-south-out",
+    "vehiclesPerHour": 58,
+    "publishedVehiclesPerHour": 193
+   },
+   {
+    "entryRoadId": "krpuram-entry",
+    "exitRoadId": "cbi-road-east-out",
+    "vehiclesPerHour": 29,
+    "publishedVehiclesPerHour": 97
+   },
+   {
+    "entryRoadId": "krpuram-entry",
+    "exitRoadId": "cbi-cross-west",
+    "vehiclesPerHour": 29,
+    "publishedVehiclesPerHour": 97
+   },
+   {
+    "entryRoadId": "cbi-road-west-in",
+    "exitRoadId": "cbi-service-south-out",
+    "vehiclesPerHour": 200
+   },
+   {
+    "entryRoadId": "cbi-road-west-in",
+    "exitRoadId": "cbi-cross-west",
+    "vehiclesPerHour": 100
    }
   ],
   "vehicleMix": {
@@ -2508,6 +3874,13 @@
    "car": 0.488,
    "auto-rickshaw": 0.081,
    "bus": 0.035
+  }
+ },
+ "demandScale": {
+  "value": 0.3,
+  "evidence": {
+   "state": "assumed",
+   "source": "OUR CHOICE, not a measurement of traffic. The model cannot carry the published volumes: run for an hour in mixed traffic (seed 1, 2026-11-12), the published volumes (18,080 vehicles per hour on the corridor's roads) put 10,355 through, with 6,655 still waiting to enter at the end and the three Hebbal approaches full (394 m, 300 m and 299 m). The default demand is the published volumes times 0.3, the largest scale tried (in steps of 0.05) at which only one signal approach fills: the ground road from the airport, which has the least green (37 s of 160), peaks at 96 m of 394, and the Outer Ring Road from K.R. Puram at 63 m of 299. The Outer Ring Road from Tumkur Road fills its 300 m at every scale from 0.2 up, and not at 0.15. The assumed CBI Road flows are not scaled. Candidate reasons the model carries less than the counts: the signal plan dates from 2010 and the junction now runs other timings or adaptive control; the published plan gives green to movements and the network format to whole approaches, so A's left turn loses phase 3 and B's left turn phase 1, and C's right turn was added to phase 2 where it crosses B's straight traffic; vehicles do not sort by turn before the stop line and a later vehicle never goes before an earlier one; widths are lanes x 3.5 m, assumed; the volumes are 2019 counts in PCU turned into vehicles with an assumed 0.969, and which road each movement uses today is our reading of the map; the count may include movements outside the modelled roads; and the engine's junction discharge is not yet calibrated against a measured saturation flow. Use the demand scale control to try other levels, up to 1 for the published volumes."
   }
  }
 }

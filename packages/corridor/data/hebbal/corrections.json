@@ -11,6 +11,7 @@
     {
       "id": "flyover-approach",
       "name": "Bellary Road city-bound, from where the ground-level road leaves it up to the start of the flyover deck",
+      "shortName": "Bellary Road to the Hebbal flyover",
       "wayIds": [
         377832181
       ],
@@ -52,6 +53,7 @@
     {
       "id": "flyover-main",
       "name": "Hebbal flyover, city-bound deck over the junction",
+      "shortName": "Hebbal flyover",
       "wayIds": [
         377832186,
         377832182,
@@ -113,6 +115,7 @@
     {
       "id": "bellary-landing",
       "name": "Bellary Road city-bound, from where the flyover lands to where the ramp from the Outer Ring Road joins",
+      "shortName": "Bellary Road where the Hebbal flyover lands",
       "wayIds": [
         1278555480,
         377832174
@@ -162,6 +165,7 @@
     {
       "id": "bellary-south",
       "name": "Bellary Road city-bound, from the ramp merge to the fork ahead of the Ganga Nagar flyover",
+      "shortName": "Bellary Road towards Ganga Nagar",
       "wayIds": [
         377832174,
         377832185,
@@ -220,6 +224,7 @@
     {
       "id": "krpuram-ramp-ground",
       "name": "Ramp from the Outer Ring Road (from K.R. Puram) towards the city: the part on the ground",
+      "shortName": "Ramp from K.R. Puram towards the city",
       "wayIds": [
         1422977939,
         1446941081
@@ -268,6 +273,7 @@
     {
       "id": "krpuram-ramp",
       "name": "Ramp from K.R. Puram towards the city: raised, up to where the loop from Tumkur Road joins",
+      "shortName": "Ramp from K.R. Puram towards the city",
       "wayIds": [
         1420425473
       ],
@@ -312,6 +318,7 @@
     {
       "id": "city-ramp-two-lane",
       "name": "Ramp towards the city after the loop from Tumkur Road has joined, two lanes",
+      "shortName": "Ramp towards the city, after the loop joins",
       "wayIds": [
         1420425473
       ],
@@ -356,6 +363,7 @@
     {
       "id": "city-ramp",
       "name": "Ramp towards the city, three lanes, down to Bellary Road",
+      "shortName": "Ramp towards the city, down to Bellary Road",
       "wayIds": [
         1422993566
       ],
@@ -399,6 +407,7 @@
     {
       "id": "city-ramp-landing",
       "name": "Ramp towards the city: the part on the ground, joining Bellary Road",
+      "shortName": "Ramp towards the city, down to Bellary Road",
       "wayIds": [
         1422977938,
         1423056973
@@ -447,6 +456,7 @@
     {
       "id": "tumkur-loop-ground",
       "name": "From the junction (Outer Ring Road eastbound, from Tumkur Road) to the foot of the loop towards the city",
+      "shortName": "From the junction to the loop towards the city",
       "wayIds": [
         36987760
       ],
@@ -488,6 +498,7 @@
     {
       "id": "tumkur-loop",
       "name": "Loop from the Outer Ring Road (from Tumkur Road) up to the ramp towards the city",
+      "shortName": "Loop from Tumkur Road towards the city",
       "wayIds": [
         377832176,
         1460084785
@@ -540,6 +551,7 @@
     {
       "id": "airport-ground-in",
       "name": "Ground-level road from the airport side (BTP road A, from Devanahalli; OpenStreetMap name Tumkur Road Exit), to its stop line",
+      "shortName": "Ground road from the airport",
       "wayIds": [
         1278555484,
         1278555482,
@@ -593,6 +605,7 @@
     {
       "id": "tumkur-in",
       "name": "Outer Ring Road eastbound from Tumkur Road (BTP road B, from BEL Circle), last 300 m to its stop line",
+      "shortName": "Outer Ring Road from Tumkur Road",
       "wayIds": [
         379857264,
         1382087678
@@ -643,6 +656,7 @@
     {
       "id": "krpuram-in",
       "name": "Outer Ring Road westbound from K.R. Puram (BTP road C, from Nagavara), from where the city ramp leaves it to its stop line",
+      "shortName": "Outer Ring Road from K.R. Puram",
       "wayIds": [
         376649537,
         1453501628,
@@ -699,6 +713,7 @@
     {
       "id": "tumkur-out",
       "name": "Outer Ring Road westbound towards Tumkur Road, first 300 m from the junction",
+      "shortName": "Outer Ring Road towards Tumkur Road",
       "wayIds": [
         1382087677,
         369786367
@@ -747,10 +762,12 @@
     },
     {
       "id": "krpuram-out",
-      "name": "Outer Ring Road eastbound towards K.R. Puram, from the junction",
+      "name": "Outer Ring Road eastbound towards K.R. Puram, from the junction (first 130 m: beyond it OpenStreetMap draws the ramp from K.R. Puram towards the city 3.4 to 5 m from this carriageway, closer than their widths allow, and this road is only an exit of the corridor)",
+      "shortName": "Outer Ring Road towards K.R. Puram",
       "wayIds": [
         36987770
       ],
+      "keepFirstM": 130,
       "level": "ground",
       "lanes": 3,
       "widthM": 10.5,
@@ -788,6 +805,7 @@
     {
       "id": "airport-out",
       "name": "Ground-level road towards the airport (OpenStreetMap name Srinagar - Kanyakumari Highway), first 300 m from the junction",
+      "shortName": "Ground road towards the airport",
       "wayIds": [
         376530259
       ],
@@ -830,6 +848,7 @@
     {
       "id": "ganganagar-flyover",
       "name": "Ganga Nagar flyover city-bound, over the CBI Road junction, with its short approaches",
+      "shortName": "Ganga Nagar flyover",
       "wayIds": [
         1314600702,
         377832180,
@@ -887,6 +906,7 @@
     {
       "id": "cbi-service-in",
       "name": "Ground-level road beside the Ganga Nagar flyover, city-bound, to the CBI Road junction. Fed from Bellary Road at node 582566943 (11 m of way 327073709) and from the service road, way 238204954, which is outside the extent",
+      "shortName": "Service road to CBI Road",
       "wayIds": [
         1158590090,
         377832183,
@@ -936,6 +956,7 @@
     {
       "id": "cbi-service-south-out",
       "name": "Ground-level road beside the Ganga Nagar flyover, city-bound, leaving the CBI Road junction",
+      "shortName": "Service road beyond CBI Road",
       "wayIds": [
         238030317
       ],
@@ -975,6 +996,7 @@
     {
       "id": "cbi-road-east-out",
       "name": "CBI Road eastbound towards RT Nagar, first 200 m from the junction (one direction of a two-way way)",
+      "shortName": "CBI Road towards RT Nagar",
       "wayIds": [
         503306660
       ],
@@ -1017,6 +1039,7 @@
     {
       "id": "cbi-road-west-in",
       "name": "CBI Road westbound from RT Nagar, last 200 m to the junction (the other direction of the same two-way way)",
+      "shortName": "CBI Road from RT Nagar",
       "wayIds": [
         503306660
       ],
@@ -1060,6 +1083,7 @@
     {
       "id": "cbi-cross-west",
       "name": "Link beneath the Ganga Nagar flyover from the junction to the Bellary Road service road on the far side (OpenStreetMap name CBI Road)",
+      "shortName": "CBI Road beneath the Ganga Nagar flyover",
       "wayIds": [
         45738145
       ],
@@ -1314,7 +1338,8 @@
     {
       "id": "cbi-road",
       "name": "Bellary Road service road x CBI Road, beneath the Ganga Nagar flyover: the next junction downstream of where the Hebbal flyover lands",
-      "control": "unconfirmed",
+      "control": "signal",
+      "setBackM": 10,
       "connections": [
         {
           "fromRoadId": "cbi-service-in",
@@ -1342,16 +1367,195 @@
           "movement": "straight on, beneath the flyover"
         }
       ],
+      "signalPlan": {
+        "phases": [
+          {
+            "greenRoadIds": [
+              "cbi-service-in"
+            ],
+            "greenS": 40
+          },
+          {
+            "greenRoadIds": [
+              "cbi-road-west-in"
+            ],
+            "greenS": 20
+          }
+        ],
+        "amberS": 3,
+        "allRedS": 2
+      },
       "evidence": {
         "control": {
-          "state": "not-reached",
-          "source": "Whether this junction has signals is not known. The OpenStreetMap extract fetched 2026-11-12 has no traffic_signals node here; the OpenCity set of 124 Bengaluru Traffic Police signal sheets has none for it (list read 2026-11-12); the junction is hidden beneath the flyover deck in the imagery."
+          "state": "assumed",
+          "source": "ASSUMED: a fixed-time signal. Whether this junction has signals is not known. The OpenStreetMap extract fetched 2026-11-12 has no traffic_signals node here; the OpenCity set of 124 Bengaluru Traffic Police signal sheets has none for it (list read 2026-11-12); the junction is hidden beneath the flyover deck in the imagery. Tried again on 2026-11-12: a web search for the junction's signal timing found only city-wide news of adaptive signals (110 junctions approved in September 2025; 169 in BATCS phase 1), none naming this junction. Taken as a signal because the engine has no give-way control for crossing movements, and because a junction on the service road of a national highway beneath a flyover, crossed by a road to RT Nagar, is the kind that is signalled in Bengaluru. If it is in fact uncontrolled or police-controlled, this plan is wrong."
         },
         "connections": {
           "state": "confirmed",
           "source": "From the ways of the OpenStreetMap extract fetched 2026-11-12 meeting at node 582566933."
+        },
+        "signalPlan": {
+          "state": "assumed",
+          "source": "ASSUMED, no source: two phases, the service road (city-bound) 40 s green, CBI Road from RT Nagar 20 s green, 3 s amber and 2 s all-red after each: a 70 s cycle. The service road gets twice the green of CBI Road because it carries the city-bound traffic the corridor is about; 70 s is a short cycle for a small two-phase junction. Not a published plan."
+        },
+        "stopLines": {
+          "state": "assumed",
+          "source": "OpenStreetMap draws all five roads to node 582566933 with no traffic_signals node, so there is no stop line in the data. The importer sets every road back 10 m from the node (the setBackM of this junction), to give turns room."
         }
       }
     }
-  ]
+  ],
+  "network": {
+    "deckHeightM": 6,
+    "rampGradient": 0.04,
+    "joinGapM": 12,
+    "sideBySideMinM": 50,
+    "evidence": {
+      "deckHeightM": {
+        "state": "assumed",
+        "source": "OpenStreetMap has no heights: every raised way has bridge=yes and layer=1 and nothing more. 6 m is a usual clearance of 5.5 m for a road over a national highway plus the depth of a deck; not measured. Used for drawing and for the consistency checks (two vehicles 3 m or more apart in height do not meet)."
+      },
+      "rampGradient": {
+        "state": "assumed",
+        "source": "4 m in 100 m, a usual ramp gradient for an urban flyover; not measured. OpenStreetMap marks as raised only the ways that are bridges, so a raised road starts to rise where its bridge ways begin."
+      },
+      "joinGapM": {
+        "state": "assumed",
+        "source": "The engine needs room between the end of one road and the start of the next for the path between them, at least the length of a bus (10.1 m). 12 m is our choice."
+      },
+      "sideBySideMinM": {
+        "state": "assumed",
+        "source": "Where a road divides or roads join, the engine needs the roads side by side. OpenStreetMap draws them to one node, so for the first stretch they would lie on top of each other. They are one road, as wide as both, for as long as their drawn widths would overlap, and at least 50 m (our choice) so that vehicles have room to move across."
+      }
+    },
+    "roads": [
+      {
+        "id": "hebbal-flyover",
+        "name": "Hebbal flyover",
+        "parts": [
+          "flyover-approach",
+          "flyover-main",
+          "bellary-landing"
+        ]
+      },
+      {
+        "id": "krpuram-ramp",
+        "name": "Ramp from K.R. Puram towards the city",
+        "parts": [
+          "krpuram-ramp-ground",
+          "krpuram-ramp"
+        ]
+      },
+      {
+        "id": "city-ramp",
+        "name": "Ramp towards the city, down to Bellary Road",
+        "parts": [
+          "city-ramp",
+          "city-ramp-landing"
+        ]
+      }
+    ],
+    "joins": [
+      {
+        "id": "airport-diverge",
+        "kind": "diverge",
+        "mainRoadId": "hebbal-flyover",
+        "otherRoadId": "airport-ground-in",
+        "shared": {
+          "id": "airport-entry",
+          "name": "Bellary Road from the airport"
+        },
+        "reason": "Where the ground-level road to the junction leaves Bellary Road and the flyover approach begins (node 332955193). The corridor starts here, so this wide road is where traffic from the airport enters. OpenStreetMap has 3 lanes on the way before the node (971335104) and 3 + 2 after it; the entry has the 5 after it."
+      },
+      {
+        "id": "krpuram-diverge",
+        "kind": "diverge",
+        "mainRoadId": "krpuram-in",
+        "otherRoadId": "krpuram-ramp",
+        "shared": {
+          "id": "krpuram-entry",
+          "name": "Outer Ring Road from K.R. Puram"
+        },
+        "reason": "Where the ramp towards the city leaves the Outer Ring Road westbound (node 11442861631). Traffic from K.R. Puram enters here. OpenStreetMap has 3 lanes before the node and 3 + 2 after it."
+      },
+      {
+        "id": "tumkur-loop-foot",
+        "kind": "continue",
+        "fromRoadId": "tumkur-loop-ground",
+        "toRoadId": "tumkur-loop",
+        "reason": "Where the loop from Tumkur Road begins to rise (node 1729002754): the speed limit drops from 60 to 30 km/h (OpenStreetMap maxspeed)."
+      },
+      {
+        "id": "tumkur-loop-merge",
+        "kind": "merge",
+        "mainRoadId": "tumkur-loop",
+        "otherRoadId": "krpuram-ramp",
+        "ontoRoadId": "city-ramp-two-lane",
+        "shared": {
+          "id": "tumkur-merge",
+          "name": "Ramp towards the city where the loop from Tumkur Road joins"
+        },
+        "sideBySideMinM": 15,
+        "reason": "Where the loop from Tumkur Road joins the ramp from K.R. Puram (node 13052245188), both raised: 2 + 2 lanes onto 2. The loop is the main road here because it runs straight on into the ramp beyond (heading 157 degrees west of north against 154), while the ramp from K.R. Puram curves in (127). The loop curves in: drawn, the two are side by side 14 m from the node, so the wide road here is at least 15 m, not 50 m; with 50 m the end of the ramp from K.R. Puram would be moved far off its line."
+      },
+      {
+        "id": "city-ramp-widens",
+        "kind": "continue",
+        "fromRoadId": "city-ramp-two-lane",
+        "toRoadId": "city-ramp",
+        "reason": "Where the ramp towards the city widens from 2 lanes to 3 (node 13052245195, OpenStreetMap lanes)."
+      },
+      {
+        "id": "city-ramp-merge",
+        "kind": "merge",
+        "mainRoadId": "hebbal-flyover",
+        "otherRoadId": "city-ramp",
+        "ontoRoadId": "bellary-south",
+        "shared": {
+          "id": "landing-merge",
+          "name": "Bellary Road where the ramp from the Outer Ring Road joins"
+        },
+        "reason": "Where the three-lane ramp towards the city joins Bellary Road (node 13052245180): 3 + 3 lanes onto 3."
+      },
+      {
+        "id": "ganganagar-fork",
+        "kind": "diverge",
+        "fromRoadId": "bellary-south",
+        "mainRoadId": "ganganagar-flyover",
+        "otherRoadId": "cbi-service-in",
+        "shared": {
+          "id": "fork-section",
+          "name": "Bellary Road before the Ganga Nagar flyover"
+        },
+        "reason": "Where city-bound traffic goes over on the Ganga Nagar flyover or down to the CBI Road junction (node 582566943). OpenStreetMap joins the service road to it by 11 m of way 327073709, which is left out: the service road starts beside the flyover instead."
+      }
+    ],
+    "keepApart": [
+      {
+        "roadId": "airport-ground-in",
+        "fromRoadId": "hebbal-flyover",
+        "reason": "Both on the ground beside the rising flyover approach for about 150 m after the diverge, drawn 6.9 to 8 m apart against the 8.75 m their widths need (3 lanes at 3.5 m, assumed, and about 7 m from imagery). The ground road is moved, not the flyover, because its width is the measured one and the flyover line carries the deck."
+      },
+      {
+        "roadId": "city-ramp",
+        "fromRoadId": "hebbal-flyover",
+        "reason": "The two raised carriageways run side by side for about 200 m before they come down to Bellary Road, drawn as little as 5.4 m apart against the 10.5 m their widths need (3 lanes at 3.5 m each, assumed). OpenStreetMap places them less than one carriageway apart, so its lines are not exact here; both are at the deck height, so they would otherwise share space. The ramp is moved, not the flyover."
+      },
+      {
+        "roadId": "krpuram-out",
+        "fromRoadId": "krpuram-ramp",
+        "reason": "The ramp from K.R. Puram rises on an embankment (way 1446941081, embankment=yes) in the middle of the Outer Ring Road, drawn 3.4 to 5 m from the eastbound carriageway against the 8.75 m their widths need. The exit road is moved, not the ramp, because the ramp carries city-bound traffic and the exit only leaves the corridor."
+      },
+      {
+        "roadId": "tumkur-loop",
+        "fromRoadId": "hebbal-flyover",
+        "reason": "The loop from Tumkur Road runs beside the flyover deck at the same height for a short stretch before it joins the ramp, drawn slightly closer than half of both widths."
+      },
+      {
+        "roadId": "cbi-service-south-out",
+        "fromRoadId": "ganganagar-flyover",
+        "reason": "Where the Ganga Nagar flyover comes down, the service road beside it is drawn slightly closer than half of both widths."
+      }
+    ]
+  }
 }

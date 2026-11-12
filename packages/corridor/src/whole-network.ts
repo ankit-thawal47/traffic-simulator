@@ -142,6 +142,10 @@ interface Divided {
   apartAfterM: number;
   /** How far the start of the other road lies from the line OpenStreetMap draws. */
   movedM: number;
+  /** The main road's own line for the stretch where the two are one road. */
+  mainNear: Line;
+  /** Which side of the main road the other lies on: +1 to its left, -1 to its right. */
+  side: number;
 }
 
 /**
@@ -153,7 +157,7 @@ function divided(
   what: string,
   main: Working,
   other: Working,
-  settings: NetworkCorrections,
+  settings: { sideBySideMinM: number; joinGapM: number },
   problems: string[],
 ): Divided | undefined {
   const apartM = (main.widthM + other.widthM) / 2;
@@ -191,6 +195,8 @@ function divided(
     sharedM,
     apartAfterM,
     movedM: nearestOn(other.line.points, first).distanceM,
+    mainNear: sharedLine,
+    side,
   };
 }
 
@@ -315,11 +321,34 @@ export function wholeNetwork(
     const merge = join.kind === "merge";
     // A merge is a diverge seen from the other end.
     const outward = (road: Working): Working => (merge ? { ...road, line: reversed(road.line) } : road);
-    const result = divided(what, outward(main), outward(other), settings, problems);
+    const leastM = join.sideBySideMinM ?? settings.sideBySideMinM;
+    const result = divided(what, outward(main), outward(other), { sideBySideMinM: leastM, joinGapM: gapM }, problems);
     if (!result) continue;
     const inward = (line: Line): Line => (merge ? reversed(line) : line);
     main.line = inward(result.main);
     other.line = inward(result.other);
+    if (merge && beyond && beyond.widthM < main.widthM + other.widthM) {
+      // Onto a road narrower than both: no wide road between. The road beyond starts across the line between the two, so
+      // each leads onto part of it and the engine lets vehicles in first come, first served; it is back on its own line 20 m past the node.
+      const between = inward({ points: movedLeft(result.mainNear.points, (result.side * main.widthM) / 2), raised: result.mainNear.raised });
+      const rest = slice(beyond.line, BLEND_M, lengthOf(beyond.line.points));
+      beyond.line = { points: [...between.points, ...rest.points], raised: [...between.raised, rest.raised[0]!, ...rest.raised] };
+      junctions.push({
+        id: join.id,
+        control: "none",
+        connections: [
+          { fromRoadId: main.id, toRoadId: beyond.id },
+          { fromRoadId: other.id, toRoadId: beyond.id },
+        ],
+      });
+      adjustments.push(
+        `${what}: "${main.id}" and "${other.id}" end side by side ${metres(result.sharedM + gapM)} m before the node, "${other.id}" ` +
+          `${metres(result.movedM)} m from the line OpenStreetMap draws. "${beyond.id}" starts ${metres(gapM)} m on, across the line between them ` +
+          `(so each leads onto part of its width), and is on its own line again ${metres(BLEND_M)} m past the node. ` +
+          `(As drawn, the two are half of both widths apart ${metres(result.apartAfterM)} m from the node; the least length is ${metres(leastM)} m.) ${join.reason}`,
+      );
+      continue;
+    }
     const shared: Working = {
       id: join.shared.id,
       name: join.shared.name,
@@ -360,11 +389,23 @@ export function wholeNetwork(
     adjustments.push(
       `${what}: for ${metres(result.sharedM)} m ${nearNode}, "${main.id}" and "${other.id}" are one road, "${shared.id}", ` +
         `${metres(shared.widthM)} m wide with ${shared.lanes} lanes, on the line of "${main.id}" moved ${metres(other.widthM / 2)} m towards "${other.id}". ` +
-        `(As drawn, their centre lines are half of both widths apart ${metres(result.apartAfterM)} m from the node; the least length is ${metres(settings.sideBySideMinM)} m.) ` +
+        `(As drawn, their centre lines are half of both widths apart ${metres(result.apartAfterM)} m from the node; the least length is ${metres(leastM)} m.) ` +
         `"${main.id}" ${begins} ${metres(gapM)} m ${awayFrom} it on its own line. "${other.id}" ${begins} exactly beside it, ` +
         `${metres(result.movedM)} m from the line OpenStreetMap draws, and is on that line again within ${LEAD_IN_M + BLEND_M} m.` +
         (beyond ? ` "${beyond.id}" is cut back ${metres(gapM)} m from the node.` : "") +
         ` ${join.reason}`,
+    );
+  }
+
+  for (const apart of settings.keepApart ?? []) {
+    const what = `Keeping "${apart.roadId}" apart from "${apart.fromRoadId}"`;
+    const road = get(what, apart.roadId);
+    const from = get(what, apart.fromRoadId);
+    if (!road || !from) continue;
+    const movedM = keepApart(road, from);
+    adjustments.push(
+      `"${road.id}" is moved up to ${metres(movedM)} m away from "${from.id}", wherever OpenStreetMap draws the two closer than ` +
+        `half of both widths (${metres((road.widthM + from.widthM) / 2)} m). ${apart.reason}`,
     );
   }
 
@@ -388,6 +429,45 @@ export function wholeNetwork(
     );
   }
   return { network, roadNames: Object.fromEntries(roads.map((road) => [road.id, road.name])), adjustments };
+}
+
+/** How finely a road moved away from another is followed, in metres. */
+const KEEP_APART_STEP_M = 10;
+
+/**
+ * Moves `road` away from `from` wherever their centre lines are closer than
+ * half of both widths: each point (with points added every 10 m) goes
+ * straight away from the nearest place on `from`, just far enough. Gives the
+ * furthest any point moved.
+ */
+function keepApart(road: Working, from: Working): number {
+  const needM = (road.widthM + from.widthM) / 2;
+  const points: Point[] = [];
+  const raised: boolean[] = [];
+  for (let i = 1; i < road.line.points.length; i++) {
+    const a = road.line.points[i - 1]!;
+    const b = road.line.points[i]!;
+    const pieces = Math.max(1, Math.ceil(stretch(a, b) / KEEP_APART_STEP_M));
+    if (i === 1) points.push(a);
+    for (let k = 1; k <= pieces; k++) {
+      points.push({ x: a.x + ((b.x - a.x) * k) / pieces, y: a.y + ((b.y - a.y) * k) / pieces });
+      raised.push(road.line.raised[i - 1]!);
+    }
+  }
+  let mostM = 0;
+  road.line = {
+    raised,
+    points: points.map((point) => {
+      const nearest = nearestOn(from.line.points, point);
+      const shortM = needM - nearest.distanceM;
+      if (shortM <= 1e-6 || nearest.distanceM < 1e-6) return point;
+      const on = placeAt(from.line.points, nearest.alongM).point;
+      mostM = Math.max(mostM, shortM);
+      const scale = needM / nearest.distanceM;
+      return { x: on.x + (point.x - on.x) * scale, y: on.y + (point.y - on.y) * scale };
+    }),
+  };
+  return mostM;
 }
 
 /**
