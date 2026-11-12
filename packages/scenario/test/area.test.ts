@@ -1,8 +1,10 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { importArea, type ImportedArea, type OsmElement } from "@traffic-simulator/corridor";
 import {
   areaBaseline,
   areaInLink,
+  LINK_LENGTH_LIMIT,
   readScenario,
   scenarioFromLink,
   scenarioFromText,
@@ -116,6 +118,20 @@ describe("a scenario on an imported area", () => {
       const outcome = scenarioFromLink(link.value, { importedArea: changed.value });
       expect(outcome).toEqual({ ok: false, message: expect.stringMatching(/not in the network.*OpenStreetMap may have changed/) });
     });
+  });
+
+  it("shares a real area far too large for a link by its bounds alone (Koramangala, from the committed extract)", () => {
+    const extract = JSON.parse(readFileSync(new URL("../../corridor/data/areas/koramangala/osm-extract.json", import.meta.url), "utf8"));
+    const area = importArea(extract);
+    if (!area.ok) throw new Error(area.message);
+    const scenario = withAreaRoad(areaBaseline(area.value), area.value.network.roads[0]!.id, { lanes: 3 });
+
+    const text = scenarioToText(scenario);
+    const link = scenarioToLink(scenario, PAGE);
+    if (!text.ok || !link.ok) throw new Error("not saved");
+    expect(text.value.length).toBeGreaterThan(20 * LINK_LENGTH_LIMIT);
+    expect(link.value.length).toBeLessThan(LINK_LENGTH_LIMIT);
+    expect(opened(scenarioFromLink(link.value, { importedArea: area.value }))).toEqual(scenario);
   });
 
   describe("saved as a file", () => {
