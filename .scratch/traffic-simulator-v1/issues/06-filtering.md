@@ -4,7 +4,7 @@
 
 **Blocked by:** 04, 05
 
-**Status:** ready-for-agent
+**Status:** partly done (merged; 4 of 5 criteria; filtering moves two-wheelers to the front but changes delay by only 1 to 2%, both classes the same way)
 
 - [x] At a red signal, two-wheelers advance through gaps wide enough for them
 - [x] Larger vehicle classes do not filter
