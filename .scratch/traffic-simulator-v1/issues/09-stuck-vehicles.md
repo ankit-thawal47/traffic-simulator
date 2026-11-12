@@ -4,7 +4,7 @@
 
 **Blocked by:** 04
 
-**Status:** ready-for-agent
+**Status:** done (merged to integration branch)
 
 - [x] A vehicle that has been unable to move for a set time while blocked by a cycle of other vehicles is detected
 - [x] One vehicle is released, and each release is counted
