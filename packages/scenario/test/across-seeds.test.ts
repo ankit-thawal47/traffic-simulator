@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { Results, VehicleClassDelay } from "@traffic-simulator/engine";
 import { acrossSeeds, compareAcrossSeeds } from "../src/index";
 
-const noVehicles: VehicleClassDelay = { vehicles: 0, vehiclesThrough: 0, meanDelayS: null, totalDelayS: 0 };
+const noVehicles: VehicleClassDelay = { vehicles: 0, vehiclesThrough: 0, stuckVehicles: 0, meanDelayS: null, totalDelayS: 0 };
 
 /** The results of one seed: vehicles through, and the mean delay of cars (null for no cars). */
 function seedResults(vehiclesThrough: number, carDelayS: number | null): Results {
@@ -12,12 +12,13 @@ function seedResults(vehiclesThrough: number, carDelayS: number | null): Results
     vehiclesThrough,
     vehiclesOnNetwork: 0,
     vehiclesWaitingToEnter: 0,
+    stuckVehicles: 0,
     delayByVehicleClass: {
       "two-wheeler": noVehicles,
       car:
         carDelayS === null
           ? noVehicles
-          : { vehicles: 100, vehiclesThrough: 100, meanDelayS: carDelayS, totalDelayS: 100 * carDelayS },
+          : { vehicles: 100, vehiclesThrough: 100, stuckVehicles: 0, meanDelayS: carDelayS, totalDelayS: 100 * carDelayS },
       "auto-rickshaw": noVehicles,
       bus: noVehicles,
     },

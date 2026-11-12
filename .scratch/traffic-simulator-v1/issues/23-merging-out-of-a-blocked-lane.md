@@ -4,12 +4,13 @@
 
 **Blocked by:** 07 (the flyover's ramp merge is the same situation; build on whatever merge rule it lands)
 
-**Status:** ready-for-agent
+**Status:** partly done (merged: no stuck vehicles, T1.5 improved from -32% to -19.5% of SUMO; still outside the 10% tolerance; ring tests not fully re-run)
 
-- [ ] The cause is established inside the engine, with evidence, before anything is changed
-- [ ] Benchmark test T1.5 is re-run with ten seeds; discharge is within 10% of SUMO's, or the remaining difference is reported with its cause
-- [ ] No vehicle stands for 300 s or more in the T1.5 scenario or in the Tier 0 "lane closed" scenario
-- [ ] Capacity per lane with the Bengaluru vehicle mix and lane discipline on is re-measured for 1, 2 and 3 lanes and reported
+- [x] The cause is established inside the engine, with evidence, before anything is changed
+- [x] Benchmark test T1.5 is re-run with ten seeds; discharge is within 10% of SUMO's, or the remaining difference is reported with its cause
+- [x] No vehicle stands for 300 s or more in the T1.5 scenario or in the Tier 0 "lane closed" scenario
+- [x] Capacity per lane with the Bengaluru vehicle mix and lane discipline on is re-measured for 1, 2 and 3 lanes and reported
 - [ ] Tier 0 and the rest of Tier 1 are re-run and still pass; no tolerance is changed
-- [ ] Any new rule or constant is in the assumptions table as our choice, with the reason
-- [ ] Consistency checks pass at saturating demand, several seeds, a simulated hour
+  (Not fully: Tier 0, T1.1, the T1.2 part and the open road were re-run and pass or are identical; the 450 ring jobs of T1.3/T1.4 were not, only 6 of them, identical. See docs/benchmark-results-2026-11-12-after-ticket-23.md.)
+- [x] Any new rule or constant is in the assumptions table as our choice, with the reason
+- [x] Consistency checks pass at saturating demand, several seeds, a simulated hour

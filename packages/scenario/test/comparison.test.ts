@@ -2,10 +2,10 @@ import { describe, expect, it } from "vitest";
 import type { Results, VehicleClassDelay } from "@traffic-simulator/engine";
 import { SMALLEST_BASELINE_FOR_PERCENT, compareResults, formatChange, type Measure } from "../src/index";
 
-const noVehicles: VehicleClassDelay = { vehicles: 0, vehiclesThrough: 0, meanDelayS: null, totalDelayS: 0 };
+const noVehicles: VehicleClassDelay = { vehicles: 0, vehiclesThrough: 0, stuckVehicles: 0, meanDelayS: null, totalDelayS: 0 };
 const delays = (twoWheelerS: number, carS: number): Results["delayByVehicleClass"] => ({
-  "two-wheeler": { vehicles: 120, vehiclesThrough: 110, meanDelayS: twoWheelerS, totalDelayS: 120 * twoWheelerS },
-  car: { vehicles: 90, vehiclesThrough: 80, meanDelayS: carS, totalDelayS: 90 * carS },
+  "two-wheeler": { vehicles: 120, vehiclesThrough: 110, stuckVehicles: 0, meanDelayS: twoWheelerS, totalDelayS: 120 * twoWheelerS },
+  car: { vehicles: 90, vehiclesThrough: 80, stuckVehicles: 0, meanDelayS: carS, totalDelayS: 90 * carS },
   "auto-rickshaw": noVehicles,
   bus: noVehicles,
 });
@@ -16,6 +16,7 @@ const baseline: Results = {
   vehiclesThrough: 200,
   vehiclesOnNetwork: 10,
   vehiclesWaitingToEnter: 0,
+  stuckVehicles: 0,
   delayByVehicleClass: delays(4, 10),
   longestQueueByApproach: {},
 };
@@ -25,6 +26,7 @@ const proposal: Results = {
   vehiclesThrough: 150,
   vehiclesOnNetwork: 40,
   vehiclesWaitingToEnter: 20,
+  stuckVehicles: 0,
   delayByVehicleClass: delays(5, 25),
   longestQueueByApproach: {},
 };
@@ -55,8 +57,24 @@ describe("comparing a proposal's results against the baseline's", () => {
       "mean-delay-car",
       "mean-delay-auto-rickshaw",
       "mean-delay-bus",
+      "stuck-vehicles",
     ]);
     expect(compareResults(baseline, baseline).map((row) => row.id)).toEqual(ids);
+  });
+
+  it("gives the stuck vehicles as an absolute number and as a change from the baseline", () => {
+    const rows = compareResults(baseline, { ...proposal, vehiclesOnNetwork: 37, stuckVehicles: 3 });
+
+    expect(rows.find((row) => row.id === "stuck-vehicles")).toEqual({
+      id: "stuck-vehicles",
+      name: "Stuck vehicles",
+      unit: "vehicles",
+      baseline: 0,
+      proposal: 3,
+      change: 3,
+      changePercent: null,
+      estimateLabel: "Uncalibrated estimate",
+    });
   });
 
   it("every result carries the uncalibrated estimate label", () => {

@@ -1,13 +1,13 @@
 {
- "date": "2026-11-12",
- "gitCommit": "3b4e33ba3eb5e5c9c4daf7631107dab492f9837f",
- "engineCommit": "706f72f06cafa878be15106d54d94dfb04a32966",
+ "date": "2026-11-12, after ticket 23",
+ "gitCommit": "74af853147fc1e28d9ffe3f6eb97a58488982d66",
+ "engineCommit": "84bef6471d145425f8fae4a497c1dfbc8321388c",
  "gitDirty": false,
  "sumoVersion": "Eclipse SUMO sumo 1.28.0",
  "sumoPinned": "1.28.0",
  "sumoEnv": "~/.cache/traffic-simulator/sumo-1.28.0",
  "machine": "Apple M3 Pro, 12 cores, 18 GB, darwin 27.0.0 arm64",
  "node": "v22.7.0",
- "parallelJobs": 10,
- "totalWallClockS": 338726
+ "parallelJobs": 5,
+ "totalWallClockS": 338213
 }

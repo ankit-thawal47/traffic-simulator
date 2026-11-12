@@ -7,6 +7,7 @@ import {
   ROUTE_CHOICE_ASSUMPTIONS,
   SIDEWAYS_ASSUMPTIONS,
   STEP_SECONDS,
+  STUCK_VEHICLE_ASSUMPTIONS,
   VEHICLE_CLASSES,
   VEHICLE_CLASS_ASSUMPTIONS,
   type ListedAssumption,
@@ -67,12 +68,13 @@ describe("the list of assumptions shown to the planner", () => {
     }
   });
 
-  it("groups them by vehicle class, then those shared, those for junctions, those for route choice, the vehicle mix, then the rules", () => {
+  it("groups them by vehicle class, then those shared, those for junctions, those for route choice, those for stuck vehicles, the vehicle mix, then the rules", () => {
     expect(listAssumptions().map((group) => group.id)).toEqual([
       ...VEHICLE_CLASSES,
       "shared",
       "junctions",
       "route-choice",
+      "stuck-vehicles",
       "vehicle-mix",
       "rules",
     ]);
@@ -87,9 +89,19 @@ describe("the list of assumptions shown to the planner", () => {
       expect(listed(`routeChoice.${name}`).state).toBe("our-choice");
       expect(listed(`routeChoice.${name}`).source.length).toBeGreaterThan(80);
     }
-    for (const rule of ["rule.route-choice", "rule.diverge-and-merge", "rule.levels", "rule.sorting"]) {
+    for (const rule of ["rule.route-choice", "rule.diverge-and-merge", "rule.levels", "rule.sorting", "rule.blocked-strip"]) {
       expect(listed(rule).state).toBe("our-choice");
     }
+  });
+
+  it("has how slow and for how long a vehicle stands before it is a stuck vehicle, each marked as our choice with its reason", () => {
+    expect(listed("stuck.standingBelowMps").value).toBe(0.1);
+    expect(listed("stuck.stuckAfterS").value).toBe(300);
+    for (const name of Object.keys(STUCK_VEHICLE_ASSUMPTIONS)) {
+      expect(listed(`stuck.${name}`).state).toBe("our-choice");
+      expect(listed(`stuck.${name}`).source.length).toBeGreaterThan(80);
+    }
+    expect(listed("rule.stuck-vehicles").state).toBe("our-choice");
   });
 
   it("has every assumption the engine uses at junctions, as the engine has it, each marked as our choice", () => {

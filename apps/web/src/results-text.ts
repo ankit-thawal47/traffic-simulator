@@ -19,6 +19,22 @@ export function formatAcrossSeeds(figure: AcrossSeeds): string {
   return `${formatNumber(figure.average)} (${formatNumber(figure.lowest)} to ${formatNumber(figure.highest)})`;
 }
 
+/**
+ * A note for the results when any seed of either scenario had a stuck vehicle
+ * (ADR 0005: a headline result, not a hidden repair); null when none did.
+ */
+export function stuckVehiclesNote(baseline: AcrossSeeds, proposal: AcrossSeeds): string | null {
+  const locked = [baseline.highest !== null && baseline.highest > 0 && "the baseline", proposal.highest !== null && proposal.highest > 0 && "the proposal"].filter(
+    (name): name is string => typeof name === "string",
+  );
+  if (locked.length === 0) return null;
+  const which = locked.join(" and ");
+  return (
+    `${which[0]!.toUpperCase()}${which.slice(1)} locked up: in at least one seed vehicles could not move and were released by force ` +
+    `(stuck vehicles). ${locked.length > 1 ? "Their" : "Its"} figures are less reliable.`
+  );
+}
+
 /** Where the watched run is: in its warm-up, or how far into the hour the results cover. */
 export function formatClock(watched: WatchedRun, plan: RunPlan): string {
   if (watched.warmingUp) {

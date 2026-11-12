@@ -26,18 +26,18 @@ const VEHICLE_CLASS_PLURALS: Record<VehicleClass, string> = {
 
 /**
  * The fixed result set (ADR 0005), in the order it is shown: vehicles through,
- * mean travel time, mean delay per vehicle class, longest queue per approach,
- * stuck vehicles. A measure is added here for every scenario, or not at all.
+ * mean travel time, mean delay per vehicle class, stuck vehicles, longest queue
+ * per approach. A measure is added here for every scenario, or not at all.
  *
  * Only what the engine reports so far is here. Mean travel time belongs after
- * vehicles through; stuck vehicles belong at the end. Each joins as one more
- * entry when the engine comes to report it. The engine's other counts
- * (entered, on the network, waiting to enter) are not part of the set, so they
- * are not results.
+ * vehicles through, and joins as one more entry when the engine comes to
+ * report it. The engine's other counts (entered, on the network, waiting to
+ * enter) are not part of the set, so they are not results.
  *
  * These are the measures every network has. The longest queue per approach is
  * one measure for each approach of the network, so it cannot be listed here:
- * measuresFor() adds those after these.
+ * measuresFor() adds those after these. Stuck vehicles come before the queues
+ * rather than after them so that the row is in the same place for every network.
  */
 export const MEASURES: readonly Measure[] = [
   { id: "vehicles-through", name: "Vehicles through", unit: "vehicles", value: (results) => results.vehiclesThrough },
@@ -49,6 +49,8 @@ export const MEASURES: readonly Measure[] = [
       value: (results) => results.delayByVehicleClass[vehicleClass].meanDelayS,
     }),
   ),
+  // Vehicles the run released by force because they locked with others; above zero, the run is less reliable.
+  { id: "stuck-vehicles", name: "Stuck vehicles", unit: "vehicles", value: (results) => results.stuckVehicles },
 ];
 
 /**

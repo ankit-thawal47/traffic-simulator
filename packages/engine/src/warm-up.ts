@@ -6,14 +6,14 @@ import type { QueueLength, Results, VehicleClassDelay } from "./types";
  * the warm-up and the moment of `atEnd`. Both arguments are what results()
  * gave, which counts from the start of the run.
  *
- * Counts (vehicles through, vehicles entered) are a difference. Time is the
+ * Counts (vehicles through, vehicles entered, stuck vehicles) are a difference. Time is the
  * length of the period. For each vehicle class:
  *  - the delay is the delay added after the warm-up, by every vehicle of the
  *    class: one produced during the warm-up counts only with the delay it
  *    gained afterwards;
  *  - the vehicles the mean is over are those that were there after the warm-up:
  *    every vehicle the demand has produced, less those that had already left
- *    the network when the warm-up ended;
+ *    the network when the warm-up ended (through, or released as stuck vehicles);
  *  - the mean is the one divided by the other. It cannot be had from the two
  *    means alone, which is why results carry the total delay.
  */
@@ -22,11 +22,12 @@ export function resultsExcludingWarmUp(atEndOfWarmUp: Results, atEnd: Results): 
   for (const vehicleClass of VEHICLE_CLASSES) {
     const before = atEndOfWarmUp.delayByVehicleClass[vehicleClass];
     const after = atEnd.delayByVehicleClass[vehicleClass];
-    const vehicles = after.vehicles - before.vehiclesThrough;
+    const vehicles = after.vehicles - before.vehiclesThrough - before.stuckVehicles;
     const totalDelayS = after.totalDelayS - before.totalDelayS;
     delayByVehicleClass[vehicleClass] = {
       vehicles,
       vehiclesThrough: after.vehiclesThrough - before.vehiclesThrough,
+      stuckVehicles: after.stuckVehicles - before.stuckVehicles,
       meanDelayS: vehicles > 0 ? totalDelayS / vehicles : null,
       totalDelayS,
     };
@@ -46,6 +47,7 @@ export function resultsExcludingWarmUp(atEndOfWarmUp: Results, atEnd: Results): 
     timeS: atEnd.timeS - atEndOfWarmUp.timeS,
     vehiclesEntered: atEnd.vehiclesEntered - atEndOfWarmUp.vehiclesEntered,
     vehiclesThrough: atEnd.vehiclesThrough - atEndOfWarmUp.vehiclesThrough,
+    stuckVehicles: atEnd.stuckVehicles - atEndOfWarmUp.stuckVehicles,
     // How things stand at the end, not counts over a period: given as they are.
     vehiclesOnNetwork: atEnd.vehiclesOnNetwork,
     vehiclesWaitingToEnter: atEnd.vehiclesWaitingToEnter,

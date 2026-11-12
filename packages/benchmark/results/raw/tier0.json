@@ -6,7 +6,7 @@
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 1
   },
-  "wallClockS": 0.955,
+  "wallClockS": 0.434,
   "result": {
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 1,
@@ -31,7 +31,7 @@
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 2
   },
-  "wallClockS": 0.963,
+  "wallClockS": 0.454,
   "result": {
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 2,
@@ -56,7 +56,7 @@
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 3
   },
-  "wallClockS": 0.965,
+  "wallClockS": 0.452,
   "result": {
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 3,
@@ -81,7 +81,7 @@
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 4
   },
-  "wallClockS": 0.905,
+  "wallClockS": 0.464,
   "result": {
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 4,
@@ -106,7 +106,7 @@
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 5
   },
-  "wallClockS": 0.959,
+  "wallClockS": 0.455,
   "result": {
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 5,
@@ -131,7 +131,7 @@
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 6
   },
-  "wallClockS": 0.908,
+  "wallClockS": 0.43,
   "result": {
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 6,
@@ -156,7 +156,7 @@
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 7
   },
-  "wallClockS": 0.949,
+  "wallClockS": 0.459,
   "result": {
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 7,
@@ -181,7 +181,7 @@
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 8
   },
-  "wallClockS": 0.909,
+  "wallClockS": 0.422,
   "result": {
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 8,
@@ -206,7 +206,7 @@
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 9
   },
-  "wallClockS": 0.882,
+  "wallClockS": 0.42,
   "result": {
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 9,
@@ -231,7 +231,7 @@
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 10
   },
-  "wallClockS": 0.954,
+  "wallClockS": 0.449,
   "result": {
    "scenario": "one-road example (cars, 1,200/h)",
    "seed": 10,
@@ -256,7 +256,7 @@
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 1
   },
-  "wallClockS": 4.063,
+  "wallClockS": 1.657,
   "result": {
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 1,
@@ -281,7 +281,7 @@
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 2
   },
-  "wallClockS": 4.015,
+  "wallClockS": 1.628,
   "result": {
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 2,
@@ -306,7 +306,7 @@
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 3
   },
-  "wallClockS": 4.208,
+  "wallClockS": 1.697,
   "result": {
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 3,
@@ -331,7 +331,7 @@
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 4
   },
-  "wallClockS": 3.589,
+  "wallClockS": 1.594,
   "result": {
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 4,
@@ -356,7 +356,7 @@
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 5
   },
-  "wallClockS": 3.725,
+  "wallClockS": 1.645,
   "result": {
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 5,
@@ -381,7 +381,7 @@
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 6
   },
-  "wallClockS": 3.925,
+  "wallClockS": 1.808,
   "result": {
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 6,
@@ -406,7 +406,7 @@
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 7
   },
-  "wallClockS": 3.826,
+  "wallClockS": 1.841,
   "result": {
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 7,
@@ -431,7 +431,7 @@
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 8
   },
-  "wallClockS": 4.316,
+  "wallClockS": 1.849,
   "result": {
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 8,
@@ -456,7 +456,7 @@
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 9
   },
-  "wallClockS": 4.018,
+  "wallClockS": 1.861,
   "result": {
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 9,
@@ -481,7 +481,7 @@
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 10
   },
-  "wallClockS": 4.447,
+  "wallClockS": 1.983,
   "result": {
    "scenario": "mixed-traffic example (4 classes, 6,000/h, mixed traffic)",
    "seed": 10,
@@ -506,7 +506,7 @@
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 1
   },
-  "wallClockS": 5.217,
+  "wallClockS": 2.33,
   "result": {
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 1,
@@ -531,7 +531,7 @@
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 2
   },
-  "wallClockS": 4.63,
+  "wallClockS": 2.119,
   "result": {
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 2,
@@ -556,7 +556,7 @@
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 3
   },
-  "wallClockS": 5.411,
+  "wallClockS": 2.376,
   "result": {
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 3,
@@ -581,7 +581,7 @@
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 4
   },
-  "wallClockS": 4.57,
+  "wallClockS": 1.982,
   "result": {
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 4,
@@ -606,7 +606,7 @@
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 5
   },
-  "wallClockS": 4.998,
+  "wallClockS": 2.261,
   "result": {
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 5,
@@ -631,7 +631,7 @@
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 6
   },
-  "wallClockS": 4.882,
+  "wallClockS": 2.253,
   "result": {
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 6,
@@ -656,7 +656,7 @@
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 7
   },
-  "wallClockS": 4.751,
+  "wallClockS": 2.125,
   "result": {
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 7,
@@ -681,7 +681,7 @@
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 8
   },
-  "wallClockS": 4.292,
+  "wallClockS": 1.97,
   "result": {
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 8,
@@ -706,7 +706,7 @@
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 9
   },
-  "wallClockS": 4.42,
+  "wallClockS": 2.037,
   "result": {
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 9,
@@ -731,7 +731,7 @@
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 10
   },
-  "wallClockS": 5.312,
+  "wallClockS": 2.394,
   "result": {
    "scenario": "mixed-traffic example, lane discipline on",
    "seed": 10,
@@ -756,7 +756,7 @@
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 1
   },
-  "wallClockS": 12.171,
+  "wallClockS": 5.325,
   "result": {
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 1,
@@ -771,7 +771,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 2335
+   "vehiclesThrough": 3198
   }
  },
  {
@@ -781,7 +781,7 @@
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 2
   },
-  "wallClockS": 12.425,
+  "wallClockS": 5.593,
   "result": {
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 2,
@@ -796,7 +796,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 2342
+   "vehiclesThrough": 3217
   }
  },
  {
@@ -806,7 +806,7 @@
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 3
   },
-  "wallClockS": 12.359,
+  "wallClockS": 5.66,
   "result": {
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 3,
@@ -821,7 +821,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 2436
+   "vehiclesThrough": 3186
   }
  },
  {
@@ -831,7 +831,7 @@
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 4
   },
-  "wallClockS": 12.667,
+  "wallClockS": 5.54,
   "result": {
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 4,
@@ -846,7 +846,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 2485
+   "vehiclesThrough": 3200
   }
  },
  {
@@ -856,7 +856,7 @@
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 5
   },
-  "wallClockS": 15.433,
+  "wallClockS": 5.3,
   "result": {
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 5,
@@ -871,7 +871,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 2413
+   "vehiclesThrough": 3030
   }
  },
  {
@@ -881,7 +881,7 @@
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 6
   },
-  "wallClockS": 12.14,
+  "wallClockS": 5.604,
   "result": {
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 6,
@@ -896,7 +896,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 2340
+   "vehiclesThrough": 3043
   }
  },
  {
@@ -906,7 +906,7 @@
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 7
   },
-  "wallClockS": 14.834,
+  "wallClockS": 5.64,
   "result": {
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 7,
@@ -921,7 +921,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 2378
+   "vehiclesThrough": 3248
   }
  },
  {
@@ -931,7 +931,7 @@
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 8
   },
-  "wallClockS": 13.088,
+  "wallClockS": 5.63,
   "result": {
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 8,
@@ -946,7 +946,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 2469
+   "vehiclesThrough": 3320
   }
  },
  {
@@ -956,7 +956,7 @@
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 9
   },
-  "wallClockS": 13.782,
+  "wallClockS": 5.927,
   "result": {
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 9,
@@ -971,7 +971,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 2440
+   "vehiclesThrough": 3219
   }
  },
  {
@@ -981,7 +981,7 @@
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 10
   },
-  "wallClockS": 13.041,
+  "wallClockS": 5.634,
   "result": {
    "scenario": "saturated mixed traffic (12,000/h, 500 m x 10.5 m) with a stationary car",
    "seed": 10,
@@ -996,7 +996,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 2439
+   "vehiclesThrough": 3041
   }
  },
  {
@@ -1006,7 +1006,7 @@
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 1
   },
-  "wallClockS": 8.264,
+  "wallClockS": 2.801,
   "result": {
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 1,
@@ -1021,7 +1021,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1080
+   "vehiclesThrough": 2246
   }
  },
  {
@@ -1031,7 +1031,7 @@
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 2
   },
-  "wallClockS": 8.005,
+  "wallClockS": 2.866,
   "result": {
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 2,
@@ -1046,7 +1046,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1122
+   "vehiclesThrough": 2250
   }
  },
  {
@@ -1056,7 +1056,7 @@
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 3
   },
-  "wallClockS": 7.981,
+  "wallClockS": 2.843,
   "result": {
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 3,
@@ -1071,7 +1071,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1138
+   "vehiclesThrough": 2226
   }
  },
  {
@@ -1081,7 +1081,7 @@
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 4
   },
-  "wallClockS": 7.514,
+  "wallClockS": 2.814,
   "result": {
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 4,
@@ -1096,7 +1096,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1064
+   "vehiclesThrough": 2228
   }
  },
  {
@@ -1106,7 +1106,7 @@
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 5
   },
-  "wallClockS": 7.272,
+  "wallClockS": 2.89,
   "result": {
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 5,
@@ -1121,7 +1121,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1125
+   "vehiclesThrough": 2272
   }
  },
  {
@@ -1131,7 +1131,7 @@
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 6
   },
-  "wallClockS": 7.341,
+  "wallClockS": 2.912,
   "result": {
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 6,
@@ -1146,7 +1146,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1070
+   "vehiclesThrough": 2288
   }
  },
  {
@@ -1156,7 +1156,7 @@
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 7
   },
-  "wallClockS": 7.492,
+  "wallClockS": 3.095,
   "result": {
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 7,
@@ -1171,7 +1171,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1113
+   "vehiclesThrough": 2233
   }
  },
  {
@@ -1181,7 +1181,7 @@
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 8
   },
-  "wallClockS": 7.346,
+  "wallClockS": 3.112,
   "result": {
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 8,
@@ -1196,7 +1196,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1112
+   "vehiclesThrough": 2239
   }
  },
  {
@@ -1206,7 +1206,7 @@
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 9
   },
-  "wallClockS": 7.415,
+  "wallClockS": 3.133,
   "result": {
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 9,
@@ -1221,7 +1221,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1154
+   "vehiclesThrough": 2289
   }
  },
  {
@@ -1231,7 +1231,7 @@
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 10
   },
-  "wallClockS": 7.221,
+  "wallClockS": 3.08,
   "result": {
    "scenario": "saturated, lane discipline on, with a stationary car",
    "seed": 10,
@@ -1246,7 +1246,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1140
+   "vehiclesThrough": 2220
   }
  },
  {
@@ -1256,7 +1256,7 @@
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 1
   },
-  "wallClockS": 35.534,
+  "wallClockS": 25.969,
   "result": {
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 1,
@@ -1269,9 +1269,9 @@
     "momentsChecked": 9001,
     "examples": []
    },
-   "stuckVehicles": 229,
+   "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1189
+   "vehiclesThrough": 1290
   }
  },
  {
@@ -1281,7 +1281,7 @@
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 2
   },
-  "wallClockS": 38.561,
+  "wallClockS": 26.242,
   "result": {
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 2,
@@ -1294,9 +1294,9 @@
     "momentsChecked": 9001,
     "examples": []
    },
-   "stuckVehicles": 135,
+   "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1122
+   "vehiclesThrough": 1288
   }
  },
  {
@@ -1306,7 +1306,7 @@
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 3
   },
-  "wallClockS": 36.819,
+  "wallClockS": 25.999,
   "result": {
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 3,
@@ -1319,9 +1319,9 @@
     "momentsChecked": 9001,
     "examples": []
    },
-   "stuckVehicles": 258,
+   "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1149
+   "vehiclesThrough": 1317
   }
  },
  {
@@ -1331,7 +1331,7 @@
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 4
   },
-  "wallClockS": 39.753,
+  "wallClockS": 26.245,
   "result": {
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 4,
@@ -1346,7 +1346,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1003
+   "vehiclesThrough": 1296
   }
  },
  {
@@ -1356,7 +1356,7 @@
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 5
   },
-  "wallClockS": 34.712,
+  "wallClockS": 26.124,
   "result": {
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 5,
@@ -1369,9 +1369,9 @@
     "momentsChecked": 9001,
     "examples": []
    },
-   "stuckVehicles": 331,
+   "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1318
+   "vehiclesThrough": 1306
   }
  },
  {
@@ -1381,7 +1381,7 @@
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 6
   },
-  "wallClockS": 42.564,
+  "wallClockS": 25.724,
   "result": {
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 6,
@@ -1396,7 +1396,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 881
+   "vehiclesThrough": 1321
   }
  },
  {
@@ -1406,7 +1406,7 @@
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 7
   },
-  "wallClockS": 39.921,
+  "wallClockS": 25.617,
   "result": {
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 7,
@@ -1421,7 +1421,7 @@
    },
    "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1077
+   "vehiclesThrough": 1349
   }
  },
  {
@@ -1431,7 +1431,7 @@
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 8
   },
-  "wallClockS": 36.33,
+  "wallClockS": 25.885,
   "result": {
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 8,
@@ -1444,9 +1444,9 @@
     "momentsChecked": 9001,
     "examples": []
    },
-   "stuckVehicles": 188,
+   "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1183
+   "vehiclesThrough": 1262
   }
  },
  {
@@ -1456,7 +1456,7 @@
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 9
   },
-  "wallClockS": 38.744,
+  "wallClockS": 25.967,
   "result": {
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 9,
@@ -1469,9 +1469,9 @@
     "momentsChecked": 9001,
     "examples": []
    },
-   "stuckVehicles": 176,
+   "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1131
+   "vehiclesThrough": 1298
   }
  },
  {
@@ -1481,7 +1481,7 @@
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 10
   },
-  "wallClockS": 38.272,
+  "wallClockS": 25.699,
   "result": {
    "scenario": "lane closed by stationary cars (the T1.5 road)",
    "seed": 10,
@@ -1494,9 +1494,9 @@
     "momentsChecked": 9001,
     "examples": []
    },
-   "stuckVehicles": 42,
+   "stuckVehicles": 0,
    "repeatedIdentically": true,
-   "vehiclesThrough": 1194
+   "vehiclesThrough": 1320
   }
  }
 ]

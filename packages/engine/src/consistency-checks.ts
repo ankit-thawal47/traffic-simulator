@@ -177,10 +177,12 @@ export function createConsistencyChecker(network: Network): ConsistencyChecker {
         `Results count ${results.vehiclesOnNetwork} vehicles on the network; the snapshot has ${snapshot.vehicles.length}`,
       );
     }
-    if (results.vehiclesEntered !== results.vehiclesThrough + results.vehiclesOnNetwork) {
+    // A stuck vehicle is taken off the network and counted as one (stuck-vehicles.ts): it is accounted for, not lost.
+    if (results.vehiclesEntered !== results.vehiclesThrough + results.vehiclesOnNetwork + results.stuckVehicles) {
       report(
         "no-vehicle-lost",
-        `Entered ${results.vehiclesEntered} is not through ${results.vehiclesThrough} plus on the network ${results.vehiclesOnNetwork}`,
+        `Entered ${results.vehiclesEntered} is not through ${results.vehiclesThrough} plus on the network ` +
+          `${results.vehiclesOnNetwork} plus stuck ${results.stuckVehicles}`,
       );
     }
     let highestId = previous?.highestId ?? 0;
@@ -188,8 +190,13 @@ export function createConsistencyChecker(network: Network): ConsistencyChecker {
       let gone = 0;
       for (const id of previous.ids) if (!ids.has(id)) gone++;
       const countedThrough = results.vehiclesThrough - previous.results.vehiclesThrough;
-      if (gone !== countedThrough) {
-        report("no-vehicle-lost", `${gone} vehicles left the snapshot but ${countedThrough} were counted through`);
+      const countedStuck = results.stuckVehicles - previous.results.stuckVehicles;
+      if (countedStuck < 0) report("no-vehicle-lost", `The count of stuck vehicles went down by ${-countedStuck}`);
+      if (gone !== countedThrough + countedStuck) {
+        report(
+          "no-vehicle-lost",
+          `${gone} vehicles left the snapshot but ${countedThrough} were counted through and ${countedStuck} as stuck`,
+        );
       }
       let arrived = 0;
       for (const id of ids) {

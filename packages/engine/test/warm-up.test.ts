@@ -107,6 +107,6 @@ describe("results that exclude the warm-up", () => {
 
     const results = resultsExcludingWarmUp(atEndOfWarmUp, run.results());
 
-    expect(results.delayByVehicleClass.bus).toEqual({ vehicles: 0, vehiclesThrough: 0, meanDelayS: null, totalDelayS: 0 });
+    expect(results.delayByVehicleClass.bus).toEqual({ vehicles: 0, vehiclesThrough: 0, stuckVehicles: 0, meanDelayS: null, totalDelayS: 0 });
   });
 });

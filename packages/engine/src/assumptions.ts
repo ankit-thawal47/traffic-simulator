@@ -369,6 +369,18 @@ export const SIDEWAYS_ASSUMPTIONS = {
       "The hardest braking a sideways shift may cause the vehicle behind. The authors chose the value for simulations " +
       "of lane changing on a two-lane motorway; it was not measured, and not chosen for Indian roads.",
   },
+  blockedSightM: {
+    value: 200,
+    unit: "m",
+    state: "our-choice",
+    source:
+      "Our choice; not from a measurement. How far ahead a vehicle sees that a stationary vehicle blocks a strip: " +
+      "within this distance it leaves the strip if it is in it and does not move into it if it is not. It is about " +
+      "twice the 112 m in which a car stops comfortably from its desired speed (15 m/s at 1 m/s2), so that a vehicle " +
+      "has room to slow, fall in behind a gap and move across before it reaches the blockage, rather than at it. It " +
+      "was not chosen to make a test pass: on benchmark test T1.5 (mean of seeds 1 and 2) the road discharged 2,658, " +
+      "2,881, 2,915, 2,993 and 3,099 vehicles an hour at 50, 100, 200, 400 and 800 m, against SUMO's 3,640.",
+  },
 } satisfies Record<string, Assumption>;
 
 /** Assumptions about how vehicles behave at junctions. All are our own choices; none comes from a measurement. */
@@ -479,6 +491,40 @@ export const ROUTE_CHOICE_ASSUMPTIONS = {
       "route's travel time on empty roads at the speed limits.",
   },
 } satisfies Record<string, Assumption>;
+
+/**
+ * When a vehicle counts as a stuck vehicle and is released (stuck-vehicles.ts). Both are our own
+ * choices, taken from the defaults of SUMO, which handles locks the same way.
+ */
+export const STUCK_VEHICLE_ASSUMPTIONS = {
+  standingBelowMps: {
+    value: 0.1,
+    unit: "m/s",
+    state: "our-choice",
+    source:
+      "Our choice, the same as SUMO's (a vehicle slower than 0.1 m/s is waiting; SUMO documentation, \"Why Vehicles " +
+      "are teleporting\"). Slow enough that a vehicle creeping up in a queue is not standing, fast enough that one " +
+      "held at rest by the following rule's last few millimetres is.",
+  },
+  stuckAfterS: {
+    value: 300,
+    unit: "s",
+    state: "our-choice",
+    source:
+      "Our choice, SUMO's default time-to-teleport (300 s). Longer than any red in the example signal plans and long " +
+      "enough that a vehicle refused at a busy junction for a few cycles is not taken for a stuck one; short enough " +
+      "that a lock is released several times within a simulated hour rather than spoiling the rest of the run. " +
+      "Time held at a red or amber signal, or behind a stationary vehicle with no way round, does not count towards it.",
+    note:
+      "Not a measurement of anything: no source says how long a real lock lasts before someone moves. A lower value " +
+      "would release more often and sooner; the count is reported so the planner can see when it happened at all.",
+  },
+} satisfies Record<string, Assumption>;
+
+const STUCK_VEHICLE_NAMES: Record<keyof typeof STUCK_VEHICLE_ASSUMPTIONS, string> = {
+  standingBelowMps: "Speed below which a vehicle is standing",
+  stuckAfterS: "Time a vehicle at the front of its queue must stand, not held by a signal or a stationary vehicle, before it is released as a stuck vehicle",
+};
 
 const ROUTE_CHOICE_NAMES: Record<keyof typeof ROUTE_CHOICE_ASSUMPTIONS, string> = {
   travelTimePower: "How strongly the faster route is preferred: a route's share falls with its measured travel time to this power",
@@ -668,9 +714,45 @@ export const RULES: readonly Rule[] = [
       "flyover, or out of a junction) counts a shift towards its strips as a gain. If it is still on the wrong side at " +
       "the junction it waits: at the stop line if it has to move right, 15 m short of it if it has to move left, so " +
       "that two such vehicles are never level, each where the other needs to go. Vehicles behind it in the strip it " +
-      "would enter next treat it as the vehicle ahead, if they can still stop comfortably, and a vehicle giving way " +
+      "would enter next treat it as the vehicle ahead, if they can still stop comfortably (whatever they are " +
+      "following in their own strips), and a vehicle giving way " +
       "does not ask to be let into the junction. Without this rule a road where traffic has to cross over before a " +
       "diverge locked within minutes. It is not calibrated: how much a weaving section carries is not to be relied on.",
+  },
+  {
+    id: "rule.blocked-strip",
+    name: "Leaving a blocked strip: a vehicle with a stationary vehicle ahead in its strips moves across to strips that are clear, falling in behind the traffic there, and no vehicle moves into strips that are blocked ahead",
+    state: "our-choice",
+    source:
+      "Ours; no source gives it. It is sorting for the way on applied to a road that is blocked part of the way " +
+      "across (a lane closed by parked or broken-down vehicles): within the distance at which a blocked strip is " +
+      "seen, a vehicle in it counts a shift towards the nearest clear strips as a gain (the same amount as when " +
+      "sorting), and a vehicle in clear strips does not shift into blocked ones. While it still has to get across, " +
+      "it also follows the vehicle that would be ahead of it in the strip it would enter next, as far as slowing " +
+      "comfortably allows, so that it comes level with a gap while moving. One that has slowed to queue speed is " +
+      "given way to as at a junction: vehicles behind it in the strip it would enter next treat it as the vehicle " +
+      "ahead if they can still stop comfortably, also when they are following another vehicle at speed. Without the " +
+      "rule vehicles queued behind a closed lane stood for minutes (about 240 a run stood 300 s or more in benchmark " +
+      "test T1.5) while others moved into the closed lane beside them. It is not calibrated: with one lane of three " +
+      "closed the road still discharges about a fifth less than SUMO does, because a vehicle that moves across from " +
+      "a stand holds both lanes for the whole of its sideways shift. A vehicle with no clear strips to go to (the " +
+      "road is blocked right across for its width) is left as it was.",
+  },
+  {
+    id: "rule.stuck-vehicles",
+    name: "Stuck vehicles: a vehicle at the front of its queue that has stood for 300 s, not held by a red or amber signal and not behind a stationary vehicle it has no way round, is taken off the network and counted as a stuck vehicle",
+    state: "our-choice",
+    source:
+      "Ours, after SUMO's teleporting (SUMO documentation, \"Why Vehicles are teleporting\"), which also acts on a " +
+      "vehicle at the front of its lane that has waited for 300 s. A vehicle standing behind another vehicle that is " +
+      "standing is queued, and its time restarts; so a long queue behind a lock loses only the vehicle at its front, " +
+      "and the rest move up. Every lock has a vehicle at the front of a queue in it, because a vehicle only follows " +
+      "one further along the same road. Where SUMO puts the vehicle back further along its route, we take it off the " +
+      "network: it is not counted through, and its delay up to that moment stays in the mean delay of its vehicle " +
+      "class (so the mean delay is understated when vehicles are stuck). One vehicle is released at a time, and after " +
+      "a release every vehicle's time restarts, so the vehicles freed by it have time to move before another is " +
+      "released. Stationary vehicles (breakdowns) are never released. It does not catch a lock whose vehicles keep " +
+      "creeping forward, or a vehicle that stands behind another standing one far ahead of it in its strips.",
   },
   {
     id: "rule.route-choice",
@@ -728,6 +810,7 @@ const SHARED_NAMES: Record<keyof typeof TIME_ASSUMPTIONS | keyof typeof SIDEWAYS
   gainThresholdMps2: "Gain in acceleration needed for a sideways shift",
   politeness: "Weight given to the braking a sideways shift causes the vehicle behind (0 = none, 1 = as much as one's own gain)",
   safeBrakingMps2: "Hardest braking a sideways shift may cause the vehicle behind",
+  blockedSightM: "Leaving a blocked strip: how far ahead a vehicle sees that a stationary vehicle blocks a strip",
 };
 
 /**
@@ -784,6 +867,18 @@ export function listAssumptions(): AssumptionGroup[] {
     }),
   };
 
+  const stuckGroup: AssumptionGroup = {
+    id: "stuck-vehicles",
+    title: "Stuck vehicles",
+    about:
+      "When vehicles lock each other so that none can move, one is taken off the network and counted as a stuck " +
+      "vehicle. None of these comes from a measurement.",
+    assumptions: (Object.keys(STUCK_VEHICLE_NAMES) as (keyof typeof STUCK_VEHICLE_NAMES)[]).map((name) => {
+      const { value, unit, state, source, note } = (STUCK_VEHICLE_ASSUMPTIONS as Record<string, Assumption>)[name]!;
+      return { id: `stuck.${name}`, name: STUCK_VEHICLE_NAMES[name], value, unit, state, source, note };
+    }),
+  };
+
   const mixGroup: AssumptionGroup = {
     id: "vehicle-mix",
     title: "Vehicle mix for a Bengaluru arterial",
@@ -806,5 +901,5 @@ export function listAssumptions(): AssumptionGroup[] {
     assumptions: RULES.map(({ id, name, state, source, note }) => ({ id, name, value: null, unit: "", state, source, note })),
   };
 
-  return [...perClass, sharedGroup, junctionGroup, routeChoiceGroup, mixGroup, rulesGroup];
+  return [...perClass, sharedGroup, junctionGroup, routeChoiceGroup, stuckGroup, mixGroup, rulesGroup];
 }
