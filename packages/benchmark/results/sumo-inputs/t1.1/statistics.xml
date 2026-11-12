@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-11T22:04:25.578831+05:30 by Eclipse SUMO sumo 1.28.0
+<!-- generated on 2026-11-12T10:34:29.692517+05:30 by Eclipse SUMO sumo 1.28.0
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -46,7 +46,7 @@
 -->
 
 <statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
-    <performance clockBegin="1794414865.593" clockEnd="1794414865.595" clockDuration="0.002" traciDuration="0.000" realTimeFactor="20100.000000" vehicleUpdatesPerSecond="0.000000" personUpdatesPerSecond="0.000000" begin="0.000" end="40.200" duration="40.200"/>
+    <performance clockBegin="1794459869.693" clockEnd="1794459869.693" clockDuration="0.000" traciDuration="0.000" realTimeFactor="-1.000000" vehicleUpdatesPerSecond="-1.000000" personUpdatesPerSecond="-1.000000" begin="0.000" end="40.200" duration="40.200"/>
     <vehicles loaded="1" inserted="1" running="1" waiting="0"/>
     <teleports total="0" jam="0" yield="0" wrongLane="0"/>
     <safety collisions="0" emergencyStops="0" emergencyBraking="0"/>

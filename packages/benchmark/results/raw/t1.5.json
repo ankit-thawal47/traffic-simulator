@@ -5,14 +5,14 @@
    "id": "t1.5-s1",
    "seed": 1
   },
-  "wallClockS": 39.509,
+  "wallClockS": 50.241,
   "result": {
    "seed": 1,
    "departures": 4040,
    "ours": {
-    "dischargePerHour": 2408,
-    "entered": 2161,
-    "waitingToEnter": 1879,
+    "dischargePerHour": 2880,
+    "entered": 2356,
+    "waitingToEnter": 1684,
     "tier0": {
      "conservationViolations": 0,
      "overlaps": 0,
@@ -21,13 +21,13 @@
      "momentsChecked": 12001,
      "examples": []
     },
-    "stuckVehicles": 229,
+    "stuckVehicles": 0,
     "atWarmUp": {
-     "standingInClosedLane": 308,
-     "carsInOpenLanes": 240,
-     "meanSpeedOpenLanesMps": 6.5062716749828295
+     "standingInClosedLane": 156,
+     "carsInOpenLanes": 395,
+     "meanSpeedOpenLanesMps": 2.4739682635877047
     },
-    "laneChangesStarted": 17485
+    "laneChangesStarted": 3125
    },
    "sumo": {
     "dischargePerHour": 3624,
@@ -58,14 +58,14 @@
    "id": "t1.5-s2",
    "seed": 2
   },
-  "wallClockS": 29.927,
+  "wallClockS": 37.433,
   "result": {
    "seed": 2,
    "departures": 3927,
    "ours": {
-    "dischargePerHour": 2586,
-    "entered": 2094,
-    "waitingToEnter": 1833,
+    "dischargePerHour": 2950,
+    "entered": 2353,
+    "waitingToEnter": 1574,
     "tier0": {
      "conservationViolations": 0,
      "overlaps": 0,
@@ -74,13 +74,13 @@
      "momentsChecked": 12001,
      "examples": []
     },
-    "stuckVehicles": 351,
+    "stuckVehicles": 0,
     "atWarmUp": {
-     "standingInClosedLane": 107,
-     "carsInOpenLanes": 455,
-     "meanSpeedOpenLanesMps": 1.5684813782283549
+     "standingInClosedLane": 179,
+     "carsInOpenLanes": 392,
+     "meanSpeedOpenLanesMps": 2.47451866750172
     },
-    "laneChangesStarted": 18326
+    "laneChangesStarted": 4677
    },
    "sumo": {
     "dischargePerHour": 3672,
@@ -111,14 +111,14 @@
    "id": "t1.5-s3",
    "seed": 3
   },
-  "wallClockS": 31.042,
+  "wallClockS": 39.596,
   "result": {
    "seed": 3,
    "departures": 4035,
    "ours": {
-    "dischargePerHour": 2470,
-    "entered": 2170,
-    "waitingToEnter": 1865,
+    "dischargePerHour": 2968,
+    "entered": 2355,
+    "waitingToEnter": 1680,
     "tier0": {
      "conservationViolations": 0,
      "overlaps": 0,
@@ -127,13 +127,13 @@
      "momentsChecked": 12001,
      "examples": []
     },
-    "stuckVehicles": 258,
+    "stuckVehicles": 0,
     "atWarmUp": {
-     "standingInClosedLane": 154,
-     "carsInOpenLanes": 410,
-     "meanSpeedOpenLanesMps": 2.2547144886641384
+     "standingInClosedLane": 135,
+     "carsInOpenLanes": 405,
+     "meanSpeedOpenLanesMps": 2.431252271088241
     },
-    "laneChangesStarted": 18058
+    "laneChangesStarted": 4911
    },
    "sumo": {
     "dischargePerHour": 3640,
@@ -164,14 +164,14 @@
    "id": "t1.5-s4",
    "seed": 4
   },
-  "wallClockS": 30.656,
+  "wallClockS": 37.587,
   "result": {
    "seed": 4,
    "departures": 3916,
    "ours": {
-    "dischargePerHour": 2414,
-    "entered": 2022,
-    "waitingToEnter": 1894,
+    "dischargePerHour": 2950,
+    "entered": 2311,
+    "waitingToEnter": 1605,
     "tier0": {
      "conservationViolations": 0,
      "overlaps": 0,
@@ -180,13 +180,13 @@
      "momentsChecked": 12001,
      "examples": []
     },
-    "stuckVehicles": 125,
+    "stuckVehicles": 0,
     "atWarmUp": {
-     "standingInClosedLane": 119,
-     "carsInOpenLanes": 427,
-     "meanSpeedOpenLanesMps": 1.6177328730497742
+     "standingInClosedLane": 124,
+     "carsInOpenLanes": 385,
+     "meanSpeedOpenLanesMps": 2.0450889263294223
     },
-    "laneChangesStarted": 13605
+    "laneChangesStarted": 3628
    },
    "sumo": {
     "dischargePerHour": 3674,
@@ -217,14 +217,14 @@
    "id": "t1.5-s5",
    "seed": 5
   },
-  "wallClockS": 30.034,
+  "wallClockS": 39.669,
   "result": {
    "seed": 5,
    "departures": 4002,
    "ours": {
-    "dischargePerHour": 2618,
-    "entered": 2342,
-    "waitingToEnter": 1660,
+    "dischargePerHour": 2920,
+    "entered": 2373,
+    "waitingToEnter": 1629,
     "tier0": {
      "conservationViolations": 0,
      "overlaps": 0,
@@ -233,13 +233,13 @@
      "momentsChecked": 12001,
      "examples": []
     },
-    "stuckVehicles": 333,
+    "stuckVehicles": 0,
     "atWarmUp": {
-     "standingInClosedLane": 306,
-     "carsInOpenLanes": 248,
-     "meanSpeedOpenLanesMps": 6.203508837859939
+     "standingInClosedLane": 228,
+     "carsInOpenLanes": 354,
+     "meanSpeedOpenLanesMps": 3.128137330397491
     },
-    "laneChangesStarted": 18002
+    "laneChangesStarted": 4596
    },
    "sumo": {
     "dischargePerHour": 3618,
@@ -270,14 +270,14 @@
    "id": "t1.5-s6",
    "seed": 6
   },
-  "wallClockS": 30.518,
+  "wallClockS": 20.957,
   "result": {
    "seed": 6,
    "departures": 3917,
    "ours": {
-    "dischargePerHour": 2284,
-    "entered": 1842,
-    "waitingToEnter": 2075,
+    "dischargePerHour": 2930,
+    "entered": 2406,
+    "waitingToEnter": 1511,
     "tier0": {
      "conservationViolations": 0,
      "overlaps": 0,
@@ -286,13 +286,13 @@
      "momentsChecked": 12001,
      "examples": []
     },
-    "stuckVehicles": 198,
+    "stuckVehicles": 0,
     "atWarmUp": {
-     "standingInClosedLane": 155,
-     "carsInOpenLanes": 442,
-     "meanSpeedOpenLanesMps": 1.7782774688865526
+     "standingInClosedLane": 136,
+     "carsInOpenLanes": 376,
+     "meanSpeedOpenLanesMps": 2.8589973553970918
     },
-    "laneChangesStarted": 15737
+    "laneChangesStarted": 4546
    },
    "sumo": {
     "dischargePerHour": 3676,
@@ -323,14 +323,14 @@
    "id": "t1.5-s7",
    "seed": 7
   },
-  "wallClockS": 31.098,
+  "wallClockS": 20.797,
   "result": {
    "seed": 7,
    "departures": 3919,
    "ours": {
-    "dischargePerHour": 2294,
-    "entered": 2074,
-    "waitingToEnter": 1845,
+    "dischargePerHour": 2952,
+    "entered": 2402,
+    "waitingToEnter": 1517,
     "tier0": {
      "conservationViolations": 0,
      "overlaps": 0,
@@ -339,13 +339,13 @@
      "momentsChecked": 12001,
      "examples": []
     },
-    "stuckVehicles": 117,
+    "stuckVehicles": 0,
     "atWarmUp": {
-     "standingInClosedLane": 77,
-     "carsInOpenLanes": 437,
-     "meanSpeedOpenLanesMps": 1.94558360651582
+     "standingInClosedLane": 119,
+     "carsInOpenLanes": 390,
+     "meanSpeedOpenLanesMps": 2.7515795062718365
     },
-    "laneChangesStarted": 12933
+    "laneChangesStarted": 4633
    },
    "sumo": {
     "dischargePerHour": 3594,
@@ -376,14 +376,14 @@
    "id": "t1.5-s8",
    "seed": 8
   },
-  "wallClockS": 29.79,
+  "wallClockS": 19.512,
   "result": {
    "seed": 8,
    "departures": 4019,
    "ours": {
-    "dischargePerHour": 2860,
-    "entered": 2121,
-    "waitingToEnter": 1898,
+    "dischargePerHour": 2888,
+    "entered": 2316,
+    "waitingToEnter": 1703,
     "tier0": {
      "conservationViolations": 0,
      "overlaps": 0,
@@ -392,13 +392,13 @@
      "momentsChecked": 12001,
      "examples": []
     },
-    "stuckVehicles": 432,
+    "stuckVehicles": 0,
     "atWarmUp": {
-     "standingInClosedLane": 98,
-     "carsInOpenLanes": 443,
-     "meanSpeedOpenLanesMps": 1.7706214765847725
+     "standingInClosedLane": 123,
+     "carsInOpenLanes": 369,
+     "meanSpeedOpenLanesMps": 2.986079483838891
     },
-    "laneChangesStarted": 21708
+    "laneChangesStarted": 4015
    },
    "sumo": {
     "dischargePerHour": 3600,
@@ -429,14 +429,14 @@
    "id": "t1.5-s9",
    "seed": 9
   },
-  "wallClockS": 30.334,
+  "wallClockS": 19.35,
   "result": {
    "seed": 9,
    "departures": 3974,
    "ours": {
-    "dischargePerHour": 2288,
-    "entered": 2155,
-    "waitingToEnter": 1819,
+    "dischargePerHour": 2930,
+    "entered": 2353,
+    "waitingToEnter": 1621,
     "tier0": {
      "conservationViolations": 0,
      "overlaps": 0,
@@ -445,13 +445,13 @@
      "momentsChecked": 12001,
      "examples": []
     },
-    "stuckVehicles": 176,
+    "stuckVehicles": 0,
     "atWarmUp": {
-     "standingInClosedLane": 151,
-     "carsInOpenLanes": 385,
-     "meanSpeedOpenLanesMps": 2.7694907261458486
+     "standingInClosedLane": 152,
+     "carsInOpenLanes": 357,
+     "meanSpeedOpenLanesMps": 3.469955254546036
     },
-    "laneChangesStarted": 14997
+    "laneChangesStarted": 3770
    },
    "sumo": {
     "dischargePerHour": 3628,
@@ -482,14 +482,14 @@
    "id": "t1.5-s10",
    "seed": 10
   },
-  "wallClockS": 31.437,
+  "wallClockS": 18.017,
   "result": {
    "seed": 10,
    "departures": 4144,
    "ours": {
-    "dischargePerHour": 2436,
-    "entered": 2108,
-    "waitingToEnter": 2036,
+    "dischargePerHour": 2924,
+    "entered": 2412,
+    "waitingToEnter": 1732,
     "tier0": {
      "conservationViolations": 0,
      "overlaps": 0,
@@ -498,13 +498,13 @@
      "momentsChecked": 12001,
      "examples": []
     },
-    "stuckVehicles": 185,
+    "stuckVehicles": 0,
     "atWarmUp": {
-     "standingInClosedLane": 98,
-     "carsInOpenLanes": 416,
-     "meanSpeedOpenLanesMps": 2.108753494000441
+     "standingInClosedLane": 153,
+     "carsInOpenLanes": 417,
+     "meanSpeedOpenLanesMps": 2.097034698548866
     },
-    "laneChangesStarted": 20797
+    "laneChangesStarted": 5128
    },
    "sumo": {
     "dischargePerHour": 3674,
