@@ -1,0 +1,119 @@
+{
+  "formatVersion": 4,
+  "name": "Hebbal, a fifth more traffic",
+  "corridorId": "hebbal-city-bound",
+  "unbuiltRoadIds": [],
+  "changes": [
+    {
+      "kind": "demand-scale",
+      "factor": 1.2
+    }
+  ],
+  "demand": {
+    "flows": [
+      {
+        "entryRoadId": "airport-entry",
+        "exitRoadId": "tumkur-out",
+        "vehiclesPerHour": 895
+      },
+      {
+        "entryRoadId": "tumkur-in",
+        "exitRoadId": "airport-out",
+        "vehiclesPerHour": 395
+      },
+      {
+        "entryRoadId": "tumkur-in",
+        "exitRoadId": "krpuram-out",
+        "vehiclesPerHour": 827
+      },
+      {
+        "entryRoadId": "tumkur-in",
+        "exitRoadId": "ganganagar-flyover",
+        "vehiclesPerHour": 262
+      },
+      {
+        "entryRoadId": "tumkur-in",
+        "exitRoadId": "cbi-service-south-out",
+        "vehiclesPerHour": 33
+      },
+      {
+        "entryRoadId": "tumkur-in",
+        "exitRoadId": "cbi-road-east-out",
+        "vehiclesPerHour": 16
+      },
+      {
+        "entryRoadId": "tumkur-in",
+        "exitRoadId": "cbi-cross-west",
+        "vehiclesPerHour": 16
+      },
+      {
+        "entryRoadId": "krpuram-entry",
+        "exitRoadId": "tumkur-out",
+        "vehiclesPerHour": 867
+      },
+      {
+        "entryRoadId": "krpuram-entry",
+        "exitRoadId": "airport-out",
+        "vehiclesPerHour": 315
+      },
+      {
+        "entryRoadId": "airport-entry",
+        "exitRoadId": "ganganagar-flyover",
+        "vehiclesPerHour": 902
+      },
+      {
+        "entryRoadId": "airport-entry",
+        "exitRoadId": "cbi-service-south-out",
+        "vehiclesPerHour": 113
+      },
+      {
+        "entryRoadId": "airport-entry",
+        "exitRoadId": "cbi-road-east-out",
+        "vehiclesPerHour": 56
+      },
+      {
+        "entryRoadId": "airport-entry",
+        "exitRoadId": "cbi-cross-west",
+        "vehiclesPerHour": 56
+      },
+      {
+        "entryRoadId": "krpuram-entry",
+        "exitRoadId": "ganganagar-flyover",
+        "vehiclesPerHour": 464
+      },
+      {
+        "entryRoadId": "krpuram-entry",
+        "exitRoadId": "cbi-service-south-out",
+        "vehiclesPerHour": 58
+      },
+      {
+        "entryRoadId": "krpuram-entry",
+        "exitRoadId": "cbi-road-east-out",
+        "vehiclesPerHour": 29
+      },
+      {
+        "entryRoadId": "krpuram-entry",
+        "exitRoadId": "cbi-cross-west",
+        "vehiclesPerHour": 29
+      },
+      {
+        "entryRoadId": "cbi-road-west-in",
+        "exitRoadId": "cbi-service-south-out",
+        "vehiclesPerHour": 200
+      },
+      {
+        "entryRoadId": "cbi-road-west-in",
+        "exitRoadId": "cbi-cross-west",
+        "vehiclesPerHour": 100
+      }
+    ],
+    "vehicleMix": {
+      "two-wheeler": 0.395,
+      "car": 0.488,
+      "auto-rickshaw": 0.081,
+      "bus": 0.035
+    }
+  },
+  "laneDiscipline": false,
+  "seed": 2
+}

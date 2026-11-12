@@ -1,4 +1,6 @@
 import type { Scenario } from "@traffic-simulator/scenario";
+import { useState } from "react";
+import { Builder } from "./Builder";
 import { ChangesList } from "./ChangesList";
 import { DemandScaleControl } from "./DemandScaleControl";
 import { EXAMPLES } from "./examples";
@@ -12,11 +14,14 @@ import { SignalTimingControl } from "./SignalTimingControl";
 import { VehicleMixControl } from "./VehicleMixControl";
 
 /**
- * The proposal: where the planner starts from an example, makes each kind of
+ * The proposal: where the planner starts from an example or builds a network
+ * from building blocks (the builder), makes each kind of
  * change, reads the list of changes and undoes any one, and saves and shares.
  * Every control hands the proposal with its change made to onPropose, which
  * makes the change only if the engine will run the result.
  */
+const BUILDER = "builder";
+
 export function ProposalPanel({
   proposal,
   opened,
@@ -35,19 +40,23 @@ export function ProposalPanel({
   onOpen: (scenario: Scenario) => void;
 }) {
   const controls = { proposal, onChange: onPropose };
+  // The builder is picked where an example is; it stays open while the planner builds.
+  const [building, setBuilding] = useState(false);
+  const picked = building || proposal.layout !== undefined ? BUILDER : EXAMPLES.find((example) => example.scenario.name === proposal.name)?.id ?? "";
 
   return (
     <section className="proposal" aria-label="Proposal">
       <h2>Proposal</h2>
       <div className="change-control">
         <label>
-          Start from an example
+          Start from an example, or build a network
           <select
             data-testid="example"
             className="wide"
-            value={EXAMPLES.find((example) => example.scenario.name === proposal.name)?.id ?? ""}
+            value={picked}
             onChange={(event) => {
               const example = EXAMPLES.find((one) => one.id === event.target.value);
+              setBuilding(event.target.value === BUILDER);
               if (example) onOpen(example.scenario);
             }}
           >
@@ -59,9 +68,11 @@ export function ProposalPanel({
                 {example.scenario.name}
               </option>
             ))}
+            <option value={BUILDER}>Build from building blocks…</option>
           </select>
         </label>
       </div>
+      {picked === BUILDER && <Builder key={`builder-${opened}`} from={proposal.layout} onBuild={onOpen} />}
 
       <h3>Changes from the baseline</h3>
       <ChangesList {...controls} />

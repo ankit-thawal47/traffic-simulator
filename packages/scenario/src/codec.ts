@@ -55,11 +55,15 @@ function toWrite(scenario: Scenario, cannot: string): Outcome<Saved> {
   return checked.ok ? { ok: true, value: asSaved(checked.value) } : checked;
 }
 
-/** What is saved of a scenario: all of it, but a scenario on a prepared corridor names it by id and leaves its network out. */
+/**
+ * What is saved of a scenario: all of it, but a scenario on a prepared
+ * corridor names it by id, and a scenario on a built network carries its
+ * layout; both leave their network out.
+ */
 type Saved = Omit<Scenario, "network"> & { network?: Scenario["network"] };
 
 function asSaved(scenario: Scenario): Saved {
-  if (scenario.corridorId === undefined) return scenario;
+  if (scenario.corridorId === undefined && scenario.layout === undefined) return scenario;
   const { network: _network, ...rest } = scenario;
   return rest;
 }

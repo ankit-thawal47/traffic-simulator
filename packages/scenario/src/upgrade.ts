@@ -22,4 +22,6 @@ export const UPGRADE_STEPS: Record<number, (older: Saved) => Saved> = {
   2: (version2) => ({ ...version2, formatVersion: 3, unbuiltRoadIds: [] }),
   // Version 3 always carried its network: none named a prepared corridor.
   3: (version3) => ({ ...version3, formatVersion: 4 }),
+  // Version 4 had no builder: every scenario carried its network or named a corridor.
+  4: (version4) => ({ ...version4, formatVersion: 5 }),
 };

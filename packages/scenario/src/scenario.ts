@@ -15,6 +15,7 @@ import {
   type Road,
   type VehicleMix,
 } from "@traffic-simulator/engine";
+import type { Layout } from "./builder";
 
 /**
  * The current version of the scenario description. It counts changes to this
@@ -29,11 +30,14 @@ import {
  *    rate, vehicle mix, demand scale, lost width and lane discipline.
  * 4. a scenario may name a prepared corridor (`corridorId`) instead of
  *    carrying its network; it is saved without the network.
+ * 5. a scenario may carry a layout of building blocks (`layout`) instead of
+ *    its network; it is saved without the network, which is built from the
+ *    layout again when it is read.
  *
  * A new version raises this number, adds one upgrade step (upgrade.ts) and
  * one saved example (test/fixtures); older links and files keep loading.
  */
-export const SCENARIO_FORMAT_VERSION = 4;
+export const SCENARIO_FORMAT_VERSION = 5;
 
 /** Set the usable width of one road, named by its stable identifier. */
 export interface RoadWidthChange {
@@ -187,6 +191,12 @@ export interface Scenario {
    * again when it is read.
    */
   corridorId?: string;
+  /**
+   * The building blocks the network was built from, if it was built
+   * (builder.ts). A scenario with a layout is saved without its network, and
+   * its network is built from the layout again when it is read.
+   */
+  layout?: Layout;
   /** The network as it is today. Changes are never written into it; they stay in `changes`. */
   network: Network;
   /**
@@ -370,6 +380,8 @@ export function createBaseline(description: {
   name: string;
   /** The prepared corridor `network` is the network of, if it is one. */
   corridorId?: string;
+  /** The building blocks `network` was built from, if it was built. */
+  layout?: Layout;
   network: Network;
   demand: Demand;
   seed: number;
@@ -382,6 +394,7 @@ export function createBaseline(description: {
     formatVersion: SCENARIO_FORMAT_VERSION,
     name: description.name,
     ...(description.corridorId === undefined ? {} : { corridorId: description.corridorId }),
+    ...(description.layout === undefined ? {} : { layout: description.layout }),
     network: description.network,
     unbuiltRoadIds: description.unbuiltRoadIds ?? [],
     changes: [],

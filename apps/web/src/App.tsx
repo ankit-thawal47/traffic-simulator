@@ -28,10 +28,10 @@ export function App() {
   // One scenario description holds the whole comparison: it is the proposal, and the baseline is the same
   // description without its changes. It is what a link or a file saves.
   const [proposal, setProposal] = useState(exampleScenario);
-  const { name, corridorId, network, unbuiltRoadIds, demand, laneDiscipline, seed } = proposal;
+  const { name, corridorId, layout, network, unbuiltRoadIds, demand, laneDiscipline, seed } = proposal;
   const baseline = useMemo(
-    () => baselineOf({ ...exampleScenario, name, corridorId, network, unbuiltRoadIds, demand, laneDiscipline, seed }),
-    [name, corridorId, network, unbuiltRoadIds, demand, laneDiscipline, seed],
+    () => baselineOf({ ...exampleScenario, name, corridorId, layout, network, unbuiltRoadIds, demand, laneDiscipline, seed }),
+    [name, corridorId, layout, network, unbuiltRoadIds, demand, laneDiscipline, seed],
   );
   // A prepared corridor shown on the page brings its attribution, its licence and its road names.
   const notice = useMemo(() => corridorNotice(corridorId), [corridorId]);

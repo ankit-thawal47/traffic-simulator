@@ -1,0 +1,191 @@
+{
+  "formatVersion": 4,
+  "name": "Priority T, one lane fewer on the side road",
+  "network": {
+    "formatVersion": 5,
+    "roads": [
+      {
+        "id": "south-in",
+        "points": [
+          {
+            "x": -3.5,
+            "y": -215
+          },
+          {
+            "x": -3.5,
+            "y": -15
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "south-out",
+        "points": [
+          {
+            "x": 3.5,
+            "y": -15
+          },
+          {
+            "x": 3.5,
+            "y": -215
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "west-in",
+        "points": [
+          {
+            "x": -215,
+            "y": 3.5
+          },
+          {
+            "x": -15,
+            "y": 3.5
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "east-out",
+        "points": [
+          {
+            "x": 15,
+            "y": 3.5
+          },
+          {
+            "x": 215,
+            "y": 3.5
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "east-in",
+        "points": [
+          {
+            "x": 215,
+            "y": -3.5
+          },
+          {
+            "x": 15,
+            "y": -3.5
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "west-out",
+        "points": [
+          {
+            "x": -15,
+            "y": -3.5
+          },
+          {
+            "x": -215,
+            "y": -3.5
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      }
+    ],
+    "junctions": [
+      {
+        "id": "tee",
+        "control": "priority",
+        "connections": [
+          {
+            "fromRoadId": "west-in",
+            "toRoadId": "east-out"
+          },
+          {
+            "fromRoadId": "west-in",
+            "toRoadId": "south-out"
+          },
+          {
+            "fromRoadId": "east-in",
+            "toRoadId": "west-out"
+          },
+          {
+            "fromRoadId": "east-in",
+            "toRoadId": "south-out"
+          },
+          {
+            "fromRoadId": "south-in",
+            "toRoadId": "west-out"
+          },
+          {
+            "fromRoadId": "south-in",
+            "toRoadId": "east-out"
+          }
+        ],
+        "mainRoadIds": [
+          "west-in",
+          "east-in"
+        ]
+      }
+    ]
+  },
+  "unbuiltRoadIds": [],
+  "changes": [
+    {
+      "kind": "road-lanes",
+      "roadId": "south-in",
+      "lanes": 1
+    }
+  ],
+  "demand": {
+    "flows": [
+      {
+        "entryRoadId": "west-in",
+        "exitRoadId": "east-out",
+        "vehiclesPerHour": 500
+      },
+      {
+        "entryRoadId": "west-in",
+        "exitRoadId": "south-out",
+        "vehiclesPerHour": 100
+      },
+      {
+        "entryRoadId": "east-in",
+        "exitRoadId": "west-out",
+        "vehiclesPerHour": 500
+      },
+      {
+        "entryRoadId": "east-in",
+        "exitRoadId": "south-out",
+        "vehiclesPerHour": 100
+      },
+      {
+        "entryRoadId": "south-in",
+        "exitRoadId": "west-out",
+        "vehiclesPerHour": 150
+      },
+      {
+        "entryRoadId": "south-in",
+        "exitRoadId": "east-out",
+        "vehiclesPerHour": 150
+      }
+    ],
+    "vehicleMix": {
+      "two-wheeler": 0.65,
+      "car": 0.22,
+      "auto-rickshaw": 0.055,
+      "bus": 0.04
+    }
+  },
+  "laneDiscipline": false,
+  "seed": 4
+}
