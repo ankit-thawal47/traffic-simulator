@@ -258,6 +258,29 @@ h3 {
   gap: 8px;
 }
 
+.builder {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0 12px;
+  padding: 8px 10px;
+  border: 1px solid #9fb3bd;
+  border-radius: 6px;
+  background: #f4f8fa;
+}
+
+.proposal ol.builder-blocks {
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.builder-block-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
 .change-group {
   display: grid;
   gap: 8px;
