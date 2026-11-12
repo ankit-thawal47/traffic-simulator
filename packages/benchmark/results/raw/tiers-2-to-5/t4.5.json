@@ -1,0 +1,402 @@
+[
+ {
+  "job": {
+   "kind": "t4.5",
+   "id": "t4.5-s1",
+   "seed": 1
+  },
+  "wallClockS": 58.175,
+  "result": {
+   "seed": 1,
+   "ours": {
+    "vehiclesPerHour": 8740,
+    "pcuPerHour": 5280.6,
+    "byClassPerHour": {
+     "car": 2024,
+     "two-wheeler": 5858,
+     "auto-rickshaw": 488,
+     "bus": 370
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.385
+   },
+   "sumo": {
+    "vehiclesPerHour": 14264,
+    "pcuPerHour": 8591.36,
+    "byClassPerHour": {
+     "two-wheeler": 9534,
+     "auto-rickshaw": 824,
+     "car": 3314,
+     "bus": 592
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 55.385
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.5",
+   "id": "t4.5-s2",
+   "seed": 2
+  },
+  "wallClockS": 59.242,
+  "result": {
+   "seed": 2,
+   "ours": {
+    "vehiclesPerHour": 8914,
+    "pcuPerHour": 5287.32,
+    "byClassPerHour": {
+     "car": 2090,
+     "two-wheeler": 6000,
+     "bus": 354,
+     "auto-rickshaw": 470
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.282
+   },
+   "sumo": {
+    "vehiclesPerHour": 14552,
+    "pcuPerHour": 8537.6,
+    "byClassPerHour": {
+     "two-wheeler": 9816,
+     "car": 3344,
+     "auto-rickshaw": 832,
+     "bus": 560
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 56.751
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.5",
+   "id": "t4.5-s3",
+   "seed": 3
+  },
+  "wallClockS": 58.206,
+  "result": {
+   "seed": 3,
+   "ours": {
+    "vehiclesPerHour": 9018,
+    "pcuPerHour": 5395.719999999999,
+    "byClassPerHour": {
+     "two-wheeler": 6076,
+     "auto-rickshaw": 502,
+     "car": 2066,
+     "bus": 374
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.359
+   },
+   "sumo": {
+    "vehiclesPerHour": 14402,
+    "pcuPerHour": 8681.32,
+    "byClassPerHour": {
+     "car": 3288,
+     "bus": 614,
+     "two-wheeler": 9698,
+     "auto-rickshaw": 802
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 55.523
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.5",
+   "id": "t4.5-s4",
+   "seed": 4
+  },
+  "wallClockS": 58.582,
+  "result": {
+   "seed": 4,
+   "ours": {
+    "vehiclesPerHour": 8816,
+    "pcuPerHour": 5266.44,
+    "byClassPerHour": {
+     "auto-rickshaw": 492,
+     "two-wheeler": 5916,
+     "car": 2050,
+     "bus": 358
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.336
+   },
+   "sumo": {
+    "vehiclesPerHour": 14456,
+    "pcuPerHour": 8633.92,
+    "byClassPerHour": {
+     "auto-rickshaw": 802,
+     "car": 3270,
+     "two-wheeler": 9780,
+     "bus": 604
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 55.916
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.5",
+   "id": "t4.5-s5",
+   "seed": 5
+  },
+  "wallClockS": 58.783,
+  "result": {
+   "seed": 5,
+   "ours": {
+    "vehiclesPerHour": 8912,
+    "pcuPerHour": 5281.76,
+    "byClassPerHour": {
+     "two-wheeler": 6070,
+     "bus": 372,
+     "car": 1940,
+     "auto-rickshaw": 530
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.282
+   },
+   "sumo": {
+    "vehiclesPerHour": 14490,
+    "pcuPerHour": 8642,
+    "byClassPerHour": {
+     "two-wheeler": 9784,
+     "car": 3262,
+     "auto-rickshaw": 844,
+     "bus": 600
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 56.203
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.5",
+   "id": "t4.5-s6",
+   "seed": 6
+  },
+  "wallClockS": 58.865,
+  "result": {
+   "seed": 6,
+   "ours": {
+    "vehiclesPerHour": 8986,
+    "pcuPerHour": 5221,
+    "byClassPerHour": {
+     "two-wheeler": 6062,
+     "car": 2110,
+     "bus": 330,
+     "auto-rickshaw": 484
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.424
+   },
+   "sumo": {
+    "vehiclesPerHour": 14520,
+    "pcuPerHour": 8560.16,
+    "byClassPerHour": {
+     "car": 3328,
+     "two-wheeler": 9806,
+     "bus": 572,
+     "auto-rickshaw": 814
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 56.246
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.5",
+   "id": "t4.5-s7",
+   "seed": 7
+  },
+  "wallClockS": 43.045,
+  "result": {
+   "seed": 7,
+   "ours": {
+    "vehiclesPerHour": 8722,
+    "pcuPerHour": 5315.32,
+    "byClassPerHour": {
+     "car": 1942,
+     "two-wheeler": 5900,
+     "bus": 394,
+     "auto-rickshaw": 486
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.34
+   },
+   "sumo": {
+    "vehiclesPerHour": 14276,
+    "pcuPerHour": 8650.56,
+    "byClassPerHour": {
+     "two-wheeler": 9562,
+     "car": 3268,
+     "bus": 612,
+     "auto-rickshaw": 834
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 40.453
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.5",
+   "id": "t4.5-s8",
+   "seed": 8
+  },
+  "wallClockS": 43.816,
+  "result": {
+   "seed": 8,
+   "ours": {
+    "vehiclesPerHour": 8860,
+    "pcuPerHour": 5320.84,
+    "byClassPerHour": {
+     "bus": 378,
+     "two-wheeler": 5990,
+     "car": 1990,
+     "auto-rickshaw": 502
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.349
+   },
+   "sumo": {
+    "vehiclesPerHour": 14434,
+    "pcuPerHour": 8694,
+    "byClassPerHour": {
+     "bus": 620,
+     "two-wheeler": 9730,
+     "car": 3206,
+     "auto-rickshaw": 878
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 41.449
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.5",
+   "id": "t4.5-s9",
+   "seed": 9
+  },
+  "wallClockS": 44.173,
+  "result": {
+   "seed": 9,
+   "ours": {
+    "vehiclesPerHour": 8858,
+    "pcuPerHour": 5291.6,
+    "byClassPerHour": {
+     "two-wheeler": 6036,
+     "car": 1952,
+     "bus": 380,
+     "auto-rickshaw": 490
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.37
+   },
+   "sumo": {
+    "vehiclesPerHour": 14606,
+    "pcuPerHour": 8615.64,
+    "byClassPerHour": {
+     "two-wheeler": 9954,
+     "car": 3214,
+     "auto-rickshaw": 840,
+     "bus": 598
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 41.839
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.5",
+   "id": "t4.5-s10",
+   "seed": 10
+  },
+  "wallClockS": 43.533,
+  "result": {
+   "seed": 10,
+   "ours": {
+    "vehiclesPerHour": 8848,
+    "pcuPerHour": 5323.92,
+    "byClassPerHour": {
+     "auto-rickshaw": 472,
+     "bus": 364,
+     "car": 2096,
+     "two-wheeler": 5916
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.355
+   },
+   "sumo": {
+    "vehiclesPerHour": 14498,
+    "pcuPerHour": 8645.92,
+    "byClassPerHour": {
+     "two-wheeler": 9736,
+     "car": 3408,
+     "bus": 584,
+     "auto-rickshaw": 770
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 41.135
+   }
+  }
+ }
+]

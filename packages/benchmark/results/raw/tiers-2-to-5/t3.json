@@ -1,0 +1,2784 @@
+[
+ {
+  "job": {
+   "kind": "t3",
+   "id": "t3-s1",
+   "seed": 1
+  },
+  "wallClockS": 31.447,
+  "result": {
+   "seed": 1,
+   "ours": {
+    "flowByRoad": {
+     "south-entry": 1796,
+     "south-in": 335,
+     "flyover-north": 1454,
+     "north-out": 137,
+     "north-exit": 1592,
+     "north-entry": 1927,
+     "north-in": 366,
+     "flyover-south": 1556,
+     "south-out": 108,
+     "south-exit": 1658,
+     "west-in": 436,
+     "east-out": 608,
+     "east-in": 315,
+     "west-out": 544,
+     "far-north-out": 1638,
+     "far-north-in": 1853,
+     "far-west-in": 353,
+     "far-east-out": 219,
+     "far-east-in": 351,
+     "far-west-out": 279
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 448.625,
+      "vehicles": 8
+     },
+     "east-in>south-exit": {
+      "meanS": 470.1500000000001,
+      "vehicles": 4
+     },
+     "east-in>west-out": {
+      "meanS": 441.7352941176469,
+      "vehicles": 238
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 557.5882352941178,
+      "vehicles": 51
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 481.2618644067798,
+      "vehicles": 236
+     },
+     "far-north-in>east-out": {
+      "meanS": 603.6366972477065,
+      "vehicles": 109
+     },
+     "far-north-in>south-exit": {
+      "meanS": 118.97094821788836,
+      "vehicles": 1487
+     },
+     "far-north-in>west-out": {
+      "meanS": 636.0630769230769,
+      "vehicles": 130
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 264.4230414746544,
+      "vehicles": 217
+     },
+     "far-west-in>south-exit": {
+      "meanS": 383.85352112676077,
+      "vehicles": 71
+     },
+     "south-entry>east-out": {
+      "meanS": 501.6475247524753,
+      "vehicles": 101
+     },
+     "south-entry>far-north-out": {
+      "meanS": 109.86621253405991,
+      "vehicles": 1468
+     },
+     "south-entry>west-out": {
+      "meanS": 461.80000000000007,
+      "vehicles": 118
+     },
+     "west-in>east-out": {
+      "meanS": 488.22477341389674,
+      "vehicles": 331
+     },
+     "west-in>far-north-out": {
+      "meanS": 559.6425531914894,
+      "vehicles": 47
+     },
+     "west-in>south-exit": {
+      "meanS": 700.22,
+      "vehicles": 10
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 43.83029952792091,
+     "north-out": 0,
+     "flyover-north": 0,
+     "north-entry": 135.70109738071565,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 179.77148216642547,
+     "north-in": 179.89298801386994,
+     "west-in": 200,
+     "east-in": 200,
+     "north-exit": 55.69353705519463,
+     "far-north-in": 86.44403243019492,
+     "far-west-in": 200,
+     "far-east-in": 199.98344857007757
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1411,
+      "junction": 57
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1430,
+      "junction": 57
+     }
+    },
+    "stuckVehicles": 1,
+    "conservationViolations": 0,
+    "wallClockS": 17.548,
+    "engineOwnLongestQueueByApproach": {
+     "south-entry": 50.112773834834,
+     "south-in": 179.9881510020194,
+     "flyover-north": 0,
+     "north-out": 0,
+     "north-exit": 56.20551720391924,
+     "north-entry": 135.70109738071565,
+     "north-in": 179.9088189080564,
+     "flyover-south": 0,
+     "south-out": 0,
+     "west-in": 199.98315029697216,
+     "east-in": 199.98315700320885,
+     "far-north-in": 86.91250156148374,
+     "far-west-in": 199.98317439876598,
+     "far-east-in": 199.98344857007757
+    },
+    "waitingToEnter": 531
+   },
+   "sumo": {
+    "flowByRoad": {
+     "south-entry": 1796,
+     "south-in": 318,
+     "flyover-north": 1477,
+     "north-out": 252,
+     "north-exit": 1740,
+     "north-entry": 1961,
+     "north-in": 346,
+     "flyover-south": 1644,
+     "south-out": 221,
+     "south-exit": 1858,
+     "west-in": 588,
+     "east-out": 653,
+     "east-in": 589,
+     "west-out": 679,
+     "far-north-out": 1811,
+     "far-north-in": 1857,
+     "far-west-in": 411,
+     "far-east-out": 305,
+     "far-east-in": 397,
+     "far-west-out": 315
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 209.2231578947368,
+      "vehicles": 95
+     },
+     "east-in>south-exit": {
+      "meanS": 171.25747126436778,
+      "vehicles": 87
+     },
+     "east-in>west-out": {
+      "meanS": 160.32657534246587,
+      "vehicles": 365
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 282.5325000000001,
+      "vehicles": 80
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 85.93779264214048,
+      "vehicles": 299
+     },
+     "far-north-in>east-out": {
+      "meanS": 168.66993006993,
+      "vehicles": 143
+     },
+     "far-north-in>south-exit": {
+      "meanS": 145.11274182788534,
+      "vehicles": 1499
+     },
+     "far-north-in>west-out": {
+      "meanS": 148.6833333333332,
+      "vehicles": 156
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 81.39326599326594,
+      "vehicles": 297
+     },
+     "far-west-in>south-exit": {
+      "meanS": 509.1022222222223,
+      "vehicles": 90
+     },
+     "south-entry>east-out": {
+      "meanS": 84.86229508196713,
+      "vehicles": 122
+     },
+     "south-entry>far-north-out": {
+      "meanS": 123.00980258679385,
+      "vehicles": 1469
+     },
+     "south-entry>west-out": {
+      "meanS": 99.1098591549296,
+      "vehicles": 142
+     },
+     "west-in>east-out": {
+      "meanS": 164.3888888888888,
+      "vehicles": 360
+     },
+     "west-in>far-north-out": {
+      "meanS": 213.09072164948458,
+      "vehicles": 97
+     },
+     "west-in>south-exit": {
+      "meanS": 169.43720930232556,
+      "vehicles": 86
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 0,
+     "north-out": 0,
+     "flyover-north": 54.548900000000025,
+     "north-entry": 20.555499999999988,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 79.34880000000001,
+     "north-in": 91.70400000000001,
+     "west-in": 141.0291,
+     "east-in": 116.5588,
+     "north-exit": 202.3218,
+     "far-north-in": 199.9,
+     "far-west-in": 105.01360000000001,
+     "far-east-in": 79.8049
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1423,
+      "junction": 46
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1462,
+      "junction": 37
+     }
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 114,
+    "warningCount": 114,
+    "warnings": [
+     "Warning: Vehicle 'v38' performs emergency braking on lane ':downstream_7_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=72.000.",
+     "Warning: Vehicle 'v135' performs emergency braking on lane 'far-north-in_2' with decel=9.0000, wished=1.0000, severity=1.0001, time=110.000.",
+     "Warning: Vehicle 'v130' performs emergency braking on lane ':cross_3_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=123.000.",
+     "Warning: Vehicle 'v65' performs emergency braking on lane ':cross_11_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=148.000.",
+     "Warning: Vehicle 'v159' performs emergency braking on lane 'north-exit_3' with decel=9.0000, wished=1.0000, severity=1.0001, time=180.000."
+    ],
+    "wallClockS": 12.662,
+    "waiting": 0,
+    "teleportsJam": 0,
+    "teleportsYield": 0,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t3",
+   "id": "t3-s2",
+   "seed": 2
+  },
+  "wallClockS": 37.617,
+  "result": {
+   "seed": 2,
+   "ours": {
+    "flowByRoad": {
+     "south-entry": 1757,
+     "south-in": 374,
+     "flyover-north": 1379,
+     "north-out": 124,
+     "north-exit": 1502,
+     "north-entry": 1836,
+     "north-in": 375,
+     "flyover-south": 1466,
+     "south-out": 115,
+     "south-exit": 1578,
+     "west-in": 475,
+     "east-out": 656,
+     "east-in": 420,
+     "west-out": 679,
+     "far-north-out": 1555,
+     "far-north-in": 1799,
+     "far-west-in": 365,
+     "far-east-out": 275,
+     "far-east-in": 374,
+     "far-west-out": 274
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 423.24000000000007,
+      "vehicles": 5
+     },
+     "east-in>south-exit": {
+      "meanS": 510.6166666666666,
+      "vehicles": 12
+     },
+     "east-in>west-out": {
+      "meanS": 510.1840707964611,
+      "vehicles": 339
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 636.9300000000002,
+      "vehicles": 60
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 509.64160000000027,
+      "vehicles": 250
+     },
+     "far-north-in>east-out": {
+      "meanS": 636.1041322314051,
+      "vehicles": 121
+     },
+     "far-north-in>south-exit": {
+      "meanS": 114.60573426573409,
+      "vehicles": 1430
+     },
+     "far-north-in>west-out": {
+      "meanS": 627.9850746268655,
+      "vehicles": 134
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 420.45658914728705,
+      "vehicles": 258
+     },
+     "far-west-in>south-exit": {
+      "meanS": 604.893023255814,
+      "vehicles": 43
+     },
+     "south-entry>east-out": {
+      "meanS": 434.42830188679244,
+      "vehicles": 106
+     },
+     "south-entry>far-north-out": {
+      "meanS": 111.42816702052367,
+      "vehicles": 1413
+     },
+     "south-entry>west-out": {
+      "meanS": 444.3971223021584,
+      "vehicles": 139
+     },
+     "west-in>east-out": {
+      "meanS": 443.60213333333286,
+      "vehicles": 375
+     },
+     "west-in>far-north-out": {
+      "meanS": 525.7357142857143,
+      "vehicles": 28
+     },
+     "west-in>south-exit": {
+      "meanS": 483.53846153846155,
+      "vehicles": 13
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 31.48616333329587,
+     "north-out": 0,
+     "flyover-north": 0,
+     "north-entry": 67.98281049307747,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 179.36286195164612,
+     "north-in": 179.59383901326885,
+     "west-in": 199.98322674323572,
+     "east-in": 200,
+     "north-exit": 56.14003344607078,
+     "far-north-in": 67.91140326811325,
+     "far-west-in": 199.98316564769374,
+     "far-east-in": 200
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1341,
+      "junction": 72
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1379,
+      "junction": 51
+     }
+    },
+    "stuckVehicles": 1,
+    "conservationViolations": 0,
+    "wallClockS": 16.768,
+    "engineOwnLongestQueueByApproach": {
+     "south-entry": 31.819952599567728,
+     "south-in": 179.3628619516461,
+     "flyover-north": 0,
+     "north-out": 0,
+     "north-exit": 56.37177268401541,
+     "north-entry": 68.59848597258028,
+     "north-in": 179.93638387048046,
+     "flyover-south": 0,
+     "south-out": 0,
+     "west-in": 199.98322674323572,
+     "east-in": 199.9831145619542,
+     "far-north-in": 68.5535562844868,
+     "far-west-in": 199.98317240634424,
+     "far-east-in": 199.98316434238865
+    },
+    "waitingToEnter": 434
+   },
+   "sumo": {
+    "flowByRoad": {
+     "south-entry": 1758,
+     "south-in": 450,
+     "flyover-north": 1306,
+     "north-out": 341,
+     "north-exit": 1643,
+     "north-entry": 1763,
+     "north-in": 367,
+     "flyover-south": 1422,
+     "south-out": 233,
+     "south-exit": 1639,
+     "west-in": 609,
+     "east-out": 642,
+     "east-in": 614,
+     "west-out": 714,
+     "far-north-out": 1714,
+     "far-north-in": 1702,
+     "far-west-in": 407,
+     "far-east-out": 319,
+     "far-east-in": 396,
+     "far-west-out": 309
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 351.87435897435904,
+      "vehicles": 78
+     },
+     "east-in>south-exit": {
+      "meanS": 238.8449438202247,
+      "vehicles": 89
+     },
+     "east-in>west-out": {
+      "meanS": 221.9896103896103,
+      "vehicles": 385
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 904.9161290322583,
+      "vehicles": 62
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 131.58169491525422,
+      "vehicles": 295
+     },
+     "far-north-in>east-out": {
+      "meanS": 279.9028571428572,
+      "vehicles": 140
+     },
+     "far-north-in>south-exit": {
+      "meanS": 233.38229407236324,
+      "vehicles": 1299
+     },
+     "far-north-in>west-out": {
+      "meanS": 200.57615894039736,
+      "vehicles": 151
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 163.19999999999993,
+      "vehicles": 304
+     },
+     "far-west-in>south-exit": {
+      "meanS": 459.9373134328359,
+      "vehicles": 67
+     },
+     "south-entry>east-out": {
+      "meanS": 180.9234782608695,
+      "vehicles": 115
+     },
+     "south-entry>far-north-out": {
+      "meanS": 226.09617021276605,
+      "vehicles": 1410
+     },
+     "south-entry>west-out": {
+      "meanS": 184.50000000000006,
+      "vehicles": 144
+     },
+     "west-in>east-out": {
+      "meanS": 241.4459459459459,
+      "vehicles": 370
+     },
+     "west-in>far-north-out": {
+      "meanS": 390.33195876288664,
+      "vehicles": 97
+     },
+     "west-in>south-exit": {
+      "meanS": 242.95402298850567,
+      "vehicles": 87
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 129.7351,
+     "north-out": 13.045100000000014,
+     "flyover-north": 141.7257,
+     "north-entry": 32.00820000000001,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 184.3311,
+     "north-in": 111.6473,
+     "west-in": 190.1501,
+     "east-in": 183.821,
+     "north-exit": 203.8264,
+     "far-north-in": 199.9,
+     "far-west-in": 168.4614,
+     "far-east-in": 199.9
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1253,
+      "junction": 157
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1254,
+      "junction": 45
+     }
+    },
+    "teleports": 14,
+    "collisions": 0,
+    "emergencyBraking": 102,
+    "warningCount": 130,
+    "warnings": [
+     "Warning: Vehicle 'v114' performs emergency braking on lane 'east-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=95.000.",
+     "Warning: Vehicle 'v216' performs emergency braking on lane ':downstream_7_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=214.800.",
+     "Warning: Vehicle 'v280' performs emergency braking on lane ':cross_3_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=223.000.",
+     "Warning: Vehicle 'v359' performs emergency braking on lane 'far-north-in_2' with decel=9.0000, wished=1.0000, severity=1.0001, time=250.000.",
+     "Warning: Vehicle 'v278' performs emergency braking on lane ':downstream_11_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=263.000."
+    ],
+    "wallClockS": 18.947,
+    "waiting": 146,
+    "teleportsJam": 8,
+    "teleportsYield": 6,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t3",
+   "id": "t3-s3",
+   "seed": 3
+  },
+  "wallClockS": 30.465,
+  "result": {
+   "seed": 3,
+   "ours": {
+    "flowByRoad": {
+     "south-entry": 1817,
+     "south-in": 375,
+     "flyover-north": 1407,
+     "north-out": 135,
+     "north-exit": 1544,
+     "north-entry": 1808,
+     "north-in": 358,
+     "flyover-south": 1449,
+     "south-out": 93,
+     "south-exit": 1542,
+     "west-in": 443,
+     "east-out": 645,
+     "east-in": 315,
+     "west-out": 564,
+     "far-north-out": 1633,
+     "far-north-in": 1722,
+     "far-west-in": 374,
+     "far-east-out": 273,
+     "far-east-in": 387,
+     "far-west-out": 265
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 478.2,
+      "vehicles": 6
+     },
+     "east-in>south-exit": {
+      "meanS": 402.6666666666667,
+      "vehicles": 3
+     },
+     "east-in>west-out": {
+      "meanS": 436.82530612244915,
+      "vehicles": 245
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 404.82197802197805,
+      "vehicles": 91
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 389.90938775510205,
+      "vehicles": 245
+     },
+     "far-north-in>east-out": {
+      "meanS": 660.8770642201835,
+      "vehicles": 109
+     },
+     "far-north-in>south-exit": {
+      "meanS": 119.71857246904604,
+      "vehicles": 1373
+     },
+     "far-north-in>west-out": {
+      "meanS": 685.2166666666669,
+      "vehicles": 120
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 321.4511450381679,
+      "vehicles": 262
+     },
+     "far-west-in>south-exit": {
+      "meanS": 483.5227272727271,
+      "vehicles": 88
+     },
+     "south-entry>east-out": {
+      "meanS": 614.1846153846153,
+      "vehicles": 117
+     },
+     "south-entry>far-north-out": {
+      "meanS": 118.38055555555557,
+      "vehicles": 1440
+     },
+     "south-entry>west-out": {
+      "meanS": 575.1249999999999,
+      "vehicles": 136
+     },
+     "west-in>east-out": {
+      "meanS": 458.8524495677236,
+      "vehicles": 347
+     },
+     "west-in>far-north-out": {
+      "meanS": 508.3025641025642,
+      "vehicles": 39
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 155.11528144526844,
+     "north-out": 0,
+     "flyover-north": 0,
+     "north-entry": 113.44757755334489,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 179.20890815227804,
+     "north-in": 179.6103603622793,
+     "west-in": 200,
+     "east-in": 200,
+     "north-exit": 56.15258807576233,
+     "far-north-in": 62.37759209380359,
+     "far-west-in": 184.34760228035427,
+     "far-east-in": 200
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1377,
+      "junction": 63
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1319,
+      "junction": 54
+     }
+    },
+    "stuckVehicles": 2,
+    "conservationViolations": 0,
+    "wallClockS": 16.976,
+    "engineOwnLongestQueueByApproach": {
+     "south-entry": 155.1152814452684,
+     "south-in": 179.59445897715747,
+     "flyover-north": 0,
+     "north-out": 0,
+     "north-exit": 56.43233541376591,
+     "north-entry": 113.8349732959571,
+     "north-in": 179.98113895369062,
+     "flyover-south": 0,
+     "south-out": 0,
+     "west-in": 199.98316556574267,
+     "east-in": 199.98315164513508,
+     "far-north-in": 62.3775920938036,
+     "far-west-in": 185.04990237737678,
+     "far-east-in": 199.98406983874233
+    },
+    "waitingToEnter": 434
+   },
+   "sumo": {
+    "flowByRoad": {
+     "south-entry": 1817,
+     "south-in": 337,
+     "flyover-north": 1487,
+     "north-out": 201,
+     "north-exit": 1695,
+     "north-entry": 1835,
+     "north-in": 334,
+     "flyover-south": 1525,
+     "south-out": 198,
+     "south-exit": 1727,
+     "west-in": 572,
+     "east-out": 707,
+     "east-in": 613,
+     "west-out": 709,
+     "far-north-out": 1813,
+     "far-north-in": 1722,
+     "far-west-in": 374,
+     "far-east-out": 282,
+     "far-east-in": 387,
+     "far-west-out": 288
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 275.84347826086963,
+      "vehicles": 92
+     },
+     "east-in>south-exit": {
+      "meanS": 217.85591397849475,
+      "vehicles": 93
+     },
+     "east-in>west-out": {
+      "meanS": 212.30594594594595,
+      "vehicles": 370
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 318.7777777777777,
+      "vehicles": 99
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 77.77410071942445,
+      "vehicles": 278
+     },
+     "far-north-in>east-out": {
+      "meanS": 144.73655172413794,
+      "vehicles": 145
+     },
+     "far-north-in>south-exit": {
+      "meanS": 109.2275761973875,
+      "vehicles": 1378
+     },
+     "far-north-in>west-out": {
+      "meanS": 123.83496503496497,
+      "vehicles": 143
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 78.99407407407412,
+      "vehicles": 270
+     },
+     "far-west-in>south-exit": {
+      "meanS": 266.96666666666664,
+      "vehicles": 90
+     },
+     "south-entry>east-out": {
+      "meanS": 89.99863945578235,
+      "vehicles": 147
+     },
+     "south-entry>far-north-out": {
+      "meanS": 110.4707988980716,
+      "vehicles": 1452
+     },
+     "south-entry>west-out": {
+      "meanS": 92.46666666666665,
+      "vehicles": 168
+     },
+     "west-in>east-out": {
+      "meanS": 214.86876640419948,
+      "vehicles": 381
+     },
+     "west-in>far-north-out": {
+      "meanS": 261.6067415730337,
+      "vehicles": 89
+     },
+     "west-in>south-exit": {
+      "meanS": 231.01794871794874,
+      "vehicles": 78
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 0,
+     "north-out": 0,
+     "flyover-north": 35.727,
+     "north-entry": 0,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 55.06550000000001,
+     "north-in": 80.1478,
+     "west-in": 147.078,
+     "east-in": 171.8158,
+     "north-exit": 202.61440000000002,
+     "far-north-in": 128.8663,
+     "far-west-in": 68.12530000000001,
+     "far-east-in": 94.79010000000001
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1446,
+      "junction": 6
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1363,
+      "junction": 15
+     }
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 106,
+    "warningCount": 106,
+    "warnings": [
+     "Warning: Vehicle 'v12' performs emergency braking on lane ':downstream_7_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=72.600.",
+     "Warning: Vehicle 'v393' performs emergency braking on lane ':downstream_17_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=284.600.",
+     "Warning: Vehicle 'v440' performs emergency braking on lane 'east-in_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=295.000.",
+     "Warning: Vehicle 'v306' performs emergency braking on lane ':downstream_1_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=329.000.",
+     "Warning: Vehicle 'v312' performs emergency braking on lane ':downstream_1_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=329.200."
+    ],
+    "wallClockS": 12.297,
+    "waiting": 2,
+    "teleportsJam": 0,
+    "teleportsYield": 0,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t3",
+   "id": "t3-s4",
+   "seed": 4
+  },
+  "wallClockS": 30.339,
+  "result": {
+   "seed": 4,
+   "ours": {
+    "flowByRoad": {
+     "south-entry": 1752,
+     "south-in": 371,
+     "flyover-north": 1387,
+     "north-out": 157,
+     "north-exit": 1540,
+     "north-entry": 1866,
+     "north-in": 365,
+     "flyover-south": 1480,
+     "south-out": 106,
+     "south-exit": 1577,
+     "west-in": 449,
+     "east-out": 621,
+     "east-in": 321,
+     "west-out": 559,
+     "far-north-out": 1597,
+     "far-north-in": 1792,
+     "far-west-in": 367,
+     "far-east-out": 243,
+     "far-east-in": 396,
+     "far-west-out": 276
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 603.95,
+      "vehicles": 4
+     },
+     "east-in>south-exit": {
+      "meanS": 501.8999999999999,
+      "vehicles": 6
+     },
+     "east-in>west-out": {
+      "meanS": 475.35284552845474,
+      "vehicles": 246
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 481.4926829268294,
+      "vehicles": 82
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 499.95984555984586,
+      "vehicles": 259
+     },
+     "far-north-in>east-out": {
+      "meanS": 668.7343283582088,
+      "vehicles": 134
+     },
+     "far-north-in>south-exit": {
+      "meanS": 119.55102909865161,
+      "vehicles": 1409
+     },
+     "far-north-in>west-out": {
+      "meanS": 654.4495575221237,
+      "vehicles": 113
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 383.7528384279476,
+      "vehicles": 229
+     },
+     "far-west-in>south-exit": {
+      "meanS": 503.38630136986296,
+      "vehicles": 73
+     },
+     "south-entry>east-out": {
+      "meanS": 375.41355932203385,
+      "vehicles": 118
+     },
+     "south-entry>far-north-out": {
+      "meanS": 108.42057142857144,
+      "vehicles": 1400
+     },
+     "south-entry>west-out": {
+      "meanS": 391.1422535211268,
+      "vehicles": 142
+     },
+     "west-in>east-out": {
+      "meanS": 469.5886075949368,
+      "vehicles": 316
+     },
+     "west-in>far-north-out": {
+      "meanS": 538.009375,
+      "vehicles": 64
+     },
+     "west-in>south-exit": {
+      "meanS": 545.6,
+      "vehicles": 9
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 7.114882041826343,
+     "north-out": 0,
+     "flyover-north": 0,
+     "north-entry": 141.39909466221363,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 166.51284055574962,
+     "north-in": 179.63833672035886,
+     "west-in": 200,
+     "east-in": 200,
+     "north-exit": 69.54697994009027,
+     "far-north-in": 92.85007916786331,
+     "far-west-in": 200,
+     "far-east-in": 200
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1332,
+      "junction": 68
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1357,
+      "junction": 52
+     }
+    },
+    "stuckVehicles": 1,
+    "conservationViolations": 0,
+    "wallClockS": 17.913,
+    "engineOwnLongestQueueByApproach": {
+     "south-entry": 7.282028228483313,
+     "south-in": 166.78029767214915,
+     "flyover-north": 0,
+     "north-out": 0,
+     "north-exit": 69.54697994009027,
+     "north-entry": 142.1962965382291,
+     "north-in": 179.85925015693564,
+     "flyover-south": 0,
+     "south-out": 0,
+     "west-in": 199.98285328237012,
+     "east-in": 199.98269824673858,
+     "far-north-in": 93.08658562624404,
+     "far-west-in": 199.98291780153667,
+     "far-east-in": 199.98313848627535
+    },
+    "waitingToEnter": 446
+   },
+   "sumo": {
+    "flowByRoad": {
+     "south-entry": 1752,
+     "south-in": 328,
+     "flyover-north": 1430,
+     "north-out": 219,
+     "north-exit": 1643,
+     "north-entry": 1868,
+     "north-in": 319,
+     "flyover-south": 1570,
+     "south-out": 195,
+     "south-exit": 1763,
+     "west-in": 559,
+     "east-out": 682,
+     "east-in": 596,
+     "west-out": 694,
+     "far-north-out": 1715,
+     "far-north-in": 1792,
+     "far-west-in": 428,
+     "far-east-out": 323,
+     "far-east-in": 397,
+     "far-west-out": 301
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 202.690243902439,
+      "vehicles": 82
+     },
+     "east-in>south-exit": {
+      "meanS": 178.08387096774186,
+      "vehicles": 93
+     },
+     "east-in>west-out": {
+      "meanS": 154.003217158177,
+      "vehicles": 373
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 406.04130434782604,
+      "vehicles": 92
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 77.35719298245613,
+      "vehicles": 285
+     },
+     "far-north-in>east-out": {
+      "meanS": 136.30823529411768,
+      "vehicles": 170
+     },
+     "far-north-in>south-exit": {
+      "meanS": 116.65017717930557,
+      "vehicles": 1411
+     },
+     "far-north-in>west-out": {
+      "meanS": 124.42999999999992,
+      "vehicles": 140
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 76.89517684887458,
+      "vehicles": 311
+     },
+     "far-west-in>south-exit": {
+      "meanS": 379.9221052631579,
+      "vehicles": 95
+     },
+     "south-entry>east-out": {
+      "meanS": 91.49402985074622,
+      "vehicles": 134
+     },
+     "south-entry>far-north-out": {
+      "meanS": 116.15124378109465,
+      "vehicles": 1407
+     },
+     "south-entry>west-out": {
+      "meanS": 102.4352941176471,
+      "vehicles": 153
+     },
+     "west-in>east-out": {
+      "meanS": 110.20335195530731,
+      "vehicles": 358
+     },
+     "west-in>far-north-out": {
+      "meanS": 158.63541666666669,
+      "vehicles": 96
+     },
+     "west-in>south-exit": {
+      "meanS": 130.7522727272728,
+      "vehicles": 88
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 0,
+     "north-out": 0,
+     "flyover-north": 141.6994,
+     "north-entry": 8.427899999999989,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 103.956,
+     "north-in": 67.3459,
+     "west-in": 79.6764,
+     "east-in": 135.0713,
+     "north-exit": 203.00300000000001,
+     "far-north-in": 147.0601,
+     "far-west-in": 94.47290000000001,
+     "far-east-in": 98.3974
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1371,
+      "junction": 36
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1408,
+      "junction": 3
+     }
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 80,
+    "warningCount": 80,
+    "warnings": [
+     "Warning: Vehicle 'v148' performs emergency braking on lane 'far-north-in_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=110.000.",
+     "Warning: Vehicle 'v236' performs emergency braking on lane 'far-north-in_3' with decel=9.0000, wished=1.0000, severity=1.0001, time=180.000.",
+     "Warning: Vehicle 'v334' performs emergency braking on lane 'west-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=270.000.",
+     "Warning: Vehicle 'v492' performs emergency braking on lane 'far-east-in_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=345.000.",
+     "Warning: Vehicle 'v352' performs emergency braking on lane 'north-exit_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=390.000."
+    ],
+    "wallClockS": 10.995,
+    "waiting": 0,
+    "teleportsJam": 0,
+    "teleportsYield": 0,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t3",
+   "id": "t3-s5",
+   "seed": 5
+  },
+  "wallClockS": 42.965,
+  "result": {
+   "seed": 5,
+   "ours": {
+    "flowByRoad": {
+     "south-entry": 1794,
+     "south-in": 365,
+     "flyover-north": 1428,
+     "north-out": 123,
+     "north-exit": 1553,
+     "north-entry": 1738,
+     "north-in": 387,
+     "flyover-south": 1348,
+     "south-out": 126,
+     "south-exit": 1478,
+     "west-in": 429,
+     "east-out": 609,
+     "east-in": 297,
+     "west-out": 556,
+     "far-north-out": 1604,
+     "far-north-in": 1694,
+     "far-west-in": 335,
+     "far-east-out": 242,
+     "far-east-in": 374,
+     "far-west-out": 292
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 457.4,
+      "vehicles": 4
+     },
+     "east-in>south-exit": {
+      "meanS": 489.2750000000001,
+      "vehicles": 8
+     },
+     "east-in>west-out": {
+      "meanS": 436.47603305785117,
+      "vehicles": 242
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 728.6086956521741,
+      "vehicles": 46
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 484.55757575757605,
+      "vehicles": 264
+     },
+     "far-north-in>east-out": {
+      "meanS": 482.86296296296325,
+      "vehicles": 108
+     },
+     "far-north-in>south-exit": {
+      "meanS": 113.14717261904757,
+      "vehicles": 1344
+     },
+     "far-north-in>west-out": {
+      "meanS": 499.24732824427485,
+      "vehicles": 131
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 531.1383259911898,
+      "vehicles": 227
+     },
+     "far-west-in>south-exit": {
+      "meanS": 1014.8139534883722,
+      "vehicles": 43
+     },
+     "south-entry>east-out": {
+      "meanS": 467.8767999999999,
+      "vehicles": 125
+     },
+     "south-entry>far-north-out": {
+      "meanS": 112.01045392022019,
+      "vehicles": 1454
+     },
+     "south-entry>west-out": {
+      "meanS": 474.2434108527134,
+      "vehicles": 129
+     },
+     "west-in>east-out": {
+      "meanS": 489.49506172839494,
+      "vehicles": 324
+     },
+     "west-in>far-north-out": {
+      "meanS": 560.2545454545453,
+      "vehicles": 44
+     },
+     "west-in>south-exit": {
+      "meanS": 601.625,
+      "vehicles": 8
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 31.496993852810128,
+     "north-out": 0,
+     "flyover-north": 0,
+     "north-entry": 68.12835358227272,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 179.17373591903038,
+     "north-in": 179.20547133092205,
+     "west-in": 200,
+     "east-in": 200,
+     "north-exit": 61.87066598503207,
+     "far-north-in": 62.31701693292745,
+     "far-west-in": 200,
+     "far-east-in": 200
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1396,
+      "junction": 58
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1282,
+      "junction": 62
+     }
+    },
+    "stuckVehicles": 2,
+    "conservationViolations": 0,
+    "wallClockS": 17.444,
+    "engineOwnLongestQueueByApproach": {
+     "south-entry": 31.742463949473432,
+     "south-in": 179.241950708564,
+     "flyover-north": 0,
+     "north-out": 0,
+     "north-exit": 67.7329867869696,
+     "north-entry": 68.86848064154921,
+     "north-in": 179.45918695218796,
+     "flyover-south": 0,
+     "south-out": 0,
+     "west-in": 199.9830605830962,
+     "east-in": 199.9831211570288,
+     "far-north-in": 62.335238867184245,
+     "far-west-in": 199.98364919409474,
+     "far-east-in": 199.98318690155529
+    },
+    "waitingToEnter": 597
+   },
+   "sumo": {
+    "flowByRoad": {
+     "south-entry": 1794,
+     "south-in": 512,
+     "flyover-north": 1282,
+     "north-out": 426,
+     "north-exit": 1700,
+     "north-entry": 1676,
+     "north-in": 354,
+     "flyover-south": 1328,
+     "south-out": 257,
+     "south-exit": 1562,
+     "west-in": 605,
+     "east-out": 644,
+     "east-in": 608,
+     "west-out": 676,
+     "far-north-out": 1757,
+     "far-north-in": 1641,
+     "far-west-in": 395,
+     "far-east-out": 299,
+     "far-east-in": 381,
+     "far-west-out": 295
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 413.74947368421067,
+      "vehicles": 95
+     },
+     "east-in>south-exit": {
+      "meanS": 280.4786516853932,
+      "vehicles": 89
+     },
+     "east-in>west-out": {
+      "meanS": 271.1085872576178,
+      "vehicles": 361
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 874.8999999999999,
+      "vehicles": 64
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 166.64701754385968,
+      "vehicles": 285
+     },
+     "far-north-in>east-out": {
+      "meanS": 400.8218750000002,
+      "vehicles": 128
+     },
+     "far-north-in>south-exit": {
+      "meanS": 250.07028753993558,
+      "vehicles": 1252
+     },
+     "far-north-in>west-out": {
+      "meanS": 314.56447368421067,
+      "vehicles": 152
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 285.54482758620685,
+      "vehicles": 290
+     },
+     "far-west-in>south-exit": {
+      "meanS": 1101.6999999999998,
+      "vehicles": 64
+     },
+     "south-entry>east-out": {
+      "meanS": 391.8289855072464,
+      "vehicles": 138
+     },
+     "south-entry>far-north-out": {
+      "meanS": 353.57470950102555,
+      "vehicles": 1463
+     },
+     "south-entry>west-out": {
+      "meanS": 384.42361111111126,
+      "vehicles": 144
+     },
+     "west-in>east-out": {
+      "meanS": 174.4110192837466,
+      "vehicles": 363
+     },
+     "west-in>far-north-out": {
+      "meanS": 370.6700000000001,
+      "vehicles": 100
+     },
+     "west-in>south-exit": {
+      "meanS": 187.668817204301,
+      "vehicles": 93
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 184.9,
+     "north-out": 177.87,
+     "flyover-north": 404.1781,
+     "north-entry": 15.292899999999998,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 184.15030000000002,
+     "north-in": 165.41320000000002,
+     "west-in": 165.1133,
+     "east-in": 190.5517,
+     "north-exit": 204.0901,
+     "far-north-in": 199.9,
+     "far-west-in": 199.9,
+     "far-east-in": 199.9
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1253,
+      "junction": 210
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1191,
+      "junction": 61
+     }
+    },
+    "teleports": 14,
+    "collisions": 0,
+    "emergencyBraking": 115,
+    "warningCount": 143,
+    "warnings": [
+     "Warning: Vehicle 'v73' performs emergency braking on lane 'far-east-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=65.000.",
+     "Warning: Vehicle 'v115' performs emergency braking on lane ':cross_11_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=148.000.",
+     "Warning: Vehicle 'v262' performs emergency braking on lane 'far-north-in_2' with decel=9.0000, wished=1.0000, severity=1.0001, time=180.000.",
+     "Warning: Vehicle 'v201' performs emergency braking on lane ':downstream_1_2' with decel=9.0000, wished=1.0000, severity=1.0001, time=214.000.",
+     "Warning: Vehicle 'v282' performs emergency braking on lane ':downstream_11_2' with decel=9.0000, wished=1.0000, severity=1.0001, time=214.600."
+    ],
+    "wallClockS": 23.988,
+    "waiting": 96,
+    "teleportsJam": 9,
+    "teleportsYield": 5,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t3",
+   "id": "t3-s6",
+   "seed": 6
+  },
+  "wallClockS": 34.091,
+  "result": {
+   "seed": 6,
+   "ours": {
+    "flowByRoad": {
+     "south-entry": 1793,
+     "south-in": 355,
+     "flyover-north": 1395,
+     "north-out": 158,
+     "north-exit": 1546,
+     "north-entry": 1832,
+     "north-in": 363,
+     "flyover-south": 1458,
+     "south-out": 116,
+     "south-exit": 1583,
+     "west-in": 467,
+     "east-out": 625,
+     "east-in": 324,
+     "west-out": 545,
+     "far-north-out": 1623,
+     "far-north-in": 1758,
+     "far-west-in": 311,
+     "far-east-out": 185,
+     "far-east-in": 413,
+     "far-west-out": 288
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 566.4857142857144,
+      "vehicles": 7
+     },
+     "east-in>south-exit": {
+      "meanS": 461.36666666666673,
+      "vehicles": 6
+     },
+     "east-in>west-out": {
+      "meanS": 442.078048780488,
+      "vehicles": 246
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 505.46111111111105,
+      "vehicles": 72
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 517.1646209386289,
+      "vehicles": 277
+     },
+     "far-north-in>east-out": {
+      "meanS": 535.107142857143,
+      "vehicles": 112
+     },
+     "far-north-in>south-exit": {
+      "meanS": 114.49007741027437,
+      "vehicles": 1421
+     },
+     "far-north-in>west-out": {
+      "meanS": 557.4904347826088,
+      "vehicles": 115
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 561.4654970760236,
+      "vehicles": 171
+     },
+     "far-west-in>south-exit": {
+      "meanS": 805.641095890411,
+      "vehicles": 73
+     },
+     "south-entry>east-out": {
+      "meanS": 638.8457142857146,
+      "vehicles": 105
+     },
+     "south-entry>far-north-out": {
+      "meanS": 118.05810526315778,
+      "vehicles": 1425
+     },
+     "south-entry>west-out": {
+      "meanS": 605.267175572519,
+      "vehicles": 131
+     },
+     "west-in>east-out": {
+      "meanS": 443.1333333333333,
+      "vehicles": 345
+     },
+     "west-in>far-north-out": {
+      "meanS": 532.0869565217394,
+      "vehicles": 69
+     },
+     "west-in>south-exit": {
+      "meanS": 561.4,
+      "vehicles": 4
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 147.69916259586782,
+     "north-out": 0,
+     "flyover-north": 0,
+     "north-entry": 74.37015354662717,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 179.57053789970936,
+     "north-in": 179.34334656745943,
+     "west-in": 200,
+     "east-in": 200,
+     "north-exit": 49.95987532071242,
+     "far-north-in": 68.23396872846928,
+     "far-west-in": 200,
+     "far-east-in": 200
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1364,
+      "junction": 61
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1361,
+      "junction": 60
+     }
+    },
+    "stuckVehicles": 1,
+    "conservationViolations": 0,
+    "wallClockS": 17.723,
+    "engineOwnLongestQueueByApproach": {
+     "south-entry": 148.1568153960294,
+     "south-in": 179.99112620517107,
+     "flyover-north": 0,
+     "north-out": 0,
+     "north-exit": 56.33640745152209,
+     "north-entry": 74.60416343851304,
+     "north-in": 179.64019463814057,
+     "flyover-south": 0,
+     "south-out": 0,
+     "west-in": 199.98305521038733,
+     "east-in": 199.98317441424328,
+     "far-north-in": 68.23396872846928,
+     "far-west-in": 199.9831546485714,
+     "far-east-in": 199.98316687318083
+    },
+    "waitingToEnter": 512
+   },
+   "sumo": {
+    "flowByRoad": {
+     "south-entry": 1792,
+     "south-in": 436,
+     "flyover-north": 1323,
+     "north-out": 275,
+     "north-exit": 1514,
+     "north-entry": 1556,
+     "north-in": 274,
+     "flyover-south": 1300,
+     "south-out": 220,
+     "south-exit": 1536,
+     "west-in": 591,
+     "east-out": 644,
+     "east-in": 582,
+     "west-out": 673,
+     "far-north-out": 1471,
+     "far-north-in": 1593,
+     "far-west-in": 426,
+     "far-east-out": 280,
+     "far-east-in": 413,
+     "far-west-out": 275
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 281.92941176470595,
+      "vehicles": 85
+     },
+     "east-in>south-exit": {
+      "meanS": 219.6659574468085,
+      "vehicles": 94
+     },
+     "east-in>west-out": {
+      "meanS": 212.6920110192837,
+      "vehicles": 363
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 488.38441558441576,
+      "vehicles": 77
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 115.80962962962964,
+      "vehicles": 270
+     },
+     "far-north-in>east-out": {
+      "meanS": 166.59482758620683,
+      "vehicles": 116
+     },
+     "far-north-in>south-exit": {
+      "meanS": 156.5281840591618,
+      "vehicles": 1217
+     },
+     "far-north-in>west-out": {
+      "meanS": 155.41746031746027,
+      "vehicles": 126
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 97.28686131386864,
+      "vehicles": 274
+     },
+     "far-west-in>south-exit": {
+      "meanS": 622.5950617283952,
+      "vehicles": 81
+     },
+     "south-entry>east-out": {
+      "meanS": 138.9411764705883,
+      "vehicles": 136
+     },
+     "south-entry>far-north-out": {
+      "meanS": 169.66622185154293,
+      "vehicles": 1199
+     },
+     "south-entry>west-out": {
+      "meanS": 134.07250000000002,
+      "vehicles": 160
+     },
+     "west-in>east-out": {
+      "meanS": 214.82433862433868,
+      "vehicles": 378
+     },
+     "west-in>far-north-out": {
+      "meanS": 330.1417721518988,
+      "vehicles": 79
+     },
+     "west-in>south-exit": {
+      "meanS": 226.3540229885057,
+      "vehicles": 87
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 68.5794,
+     "north-out": 12.814199999999994,
+     "flyover-north": 269.82089999999994,
+     "north-entry": 0,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 184.1368,
+     "north-in": 67.14750000000001,
+     "west-in": 171.6781,
+     "east-in": 153.3882,
+     "north-exit": 203.8951,
+     "far-north-in": 199.9,
+     "far-west-in": 199.9,
+     "far-east-in": 186.37
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1129,
+      "junction": 70
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1192,
+      "junction": 25
+     }
+    },
+    "teleports": 11,
+    "collisions": 0,
+    "emergencyBraking": 82,
+    "warningCount": 104,
+    "warnings": [
+     "Warning: Vehicle 'v60' performs emergency braking on lane 'far-east-in_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=65.000.",
+     "Warning: Vehicle 'v110' performs emergency braking on lane ':cross_3_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=123.000.",
+     "Warning: Vehicle 'v24' performs emergency braking on lane ':downstream_1_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=180.800.",
+     "Warning: Vehicle 'v196' performs emergency braking on lane ':downstream_1_3' with decel=9.0000, wished=1.0000, severity=1.0001, time=214.400.",
+     "Warning: Vehicle 'v421' performs emergency braking on lane 'east-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=295.000."
+    ],
+    "wallClockS": 14.738,
+    "waiting": 181,
+    "teleportsJam": 8,
+    "teleportsYield": 3,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t3",
+   "id": "t3-s7",
+   "seed": 7
+  },
+  "wallClockS": 30.93,
+  "result": {
+   "seed": 7,
+   "ours": {
+    "flowByRoad": {
+     "south-entry": 1770,
+     "south-in": 359,
+     "flyover-north": 1376,
+     "north-out": 104,
+     "north-exit": 1482,
+     "north-entry": 1860,
+     "north-in": 348,
+     "flyover-south": 1471,
+     "south-out": 93,
+     "south-exit": 1569,
+     "west-in": 462,
+     "east-out": 688,
+     "east-in": 322,
+     "west-out": 554,
+     "far-north-out": 1517,
+     "far-north-in": 1823,
+     "far-west-in": 297,
+     "far-east-out": 212,
+     "far-east-in": 322,
+     "far-west-out": 245
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 380,
+      "vehicles": 4
+     },
+     "east-in>south-exit": {
+      "meanS": 499.8999999999999,
+      "vehicles": 6
+     },
+     "east-in>west-out": {
+      "meanS": 423.7225806451607,
+      "vehicles": 248
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 860.3526315789474,
+      "vehicles": 38
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 590.32036199095,
+      "vehicles": 221
+     },
+     "far-north-in>east-out": {
+      "meanS": 808.4460317460316,
+      "vehicles": 126
+     },
+     "far-north-in>south-exit": {
+      "meanS": 120.74706288873543,
+      "vehicles": 1447
+     },
+     "far-north-in>west-out": {
+      "meanS": 769.2857142857146,
+      "vehicles": 105
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 410.3577319587629,
+      "vehicles": 194
+     },
+     "far-west-in>south-exit": {
+      "meanS": 740.1421052631581,
+      "vehicles": 38
+     },
+     "south-entry>east-out": {
+      "meanS": 589.033870967742,
+      "vehicles": 124
+     },
+     "south-entry>far-north-out": {
+      "meanS": 109.11407942238269,
+      "vehicles": 1385
+     },
+     "south-entry>west-out": {
+      "meanS": 609.7022556390978,
+      "vehicles": 133
+     },
+     "west-in>east-out": {
+      "meanS": 451.71420911528156,
+      "vehicles": 373
+     },
+     "west-in>far-north-out": {
+      "meanS": 533.6923076923077,
+      "vehicles": 39
+     },
+     "west-in>south-exit": {
+      "meanS": 722,
+      "vehicles": 2
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 117.59178215774067,
+     "north-out": 0,
+     "flyover-north": 0,
+     "north-entry": 198.62566853773734,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 179.9046887178483,
+     "north-in": 179.6078149224655,
+     "west-in": 200,
+     "east-in": 200,
+     "north-exit": 55.95622531305417,
+     "far-north-in": 62.274672387409986,
+     "far-west-in": 200,
+     "far-east-in": 200
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1341,
+      "junction": 44
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1395,
+      "junction": 52
+     }
+    },
+    "stuckVehicles": 2,
+    "conservationViolations": 0,
+    "wallClockS": 9.138,
+    "engineOwnLongestQueueByApproach": {
+     "south-entry": 117.59178215774067,
+     "south-in": 179.92813346050366,
+     "flyover-north": 0,
+     "north-out": 0,
+     "north-exit": 56.22084707385039,
+     "north-entry": 199.24801948970932,
+     "north-in": 179.80448499559705,
+     "flyover-south": 0,
+     "south-out": 0,
+     "west-in": 199.98316801267706,
+     "east-in": 199.983135109802,
+     "far-north-in": 66.80461660103398,
+     "far-west-in": 199.98316019176082,
+     "far-east-in": 199.98307775554323
+    },
+    "waitingToEnter": 613
+   },
+   "sumo": {
+    "flowByRoad": {
+     "south-entry": 1729,
+     "south-in": 507,
+     "flyover-north": 1130,
+     "north-out": 365,
+     "north-exit": 1438,
+     "north-entry": 1494,
+     "north-in": 319,
+     "flyover-south": 1190,
+     "south-out": 195,
+     "south-exit": 1382,
+     "west-in": 599,
+     "east-out": 678,
+     "east-in": 600,
+     "west-out": 659,
+     "far-north-out": 1430,
+     "far-north-in": 1512,
+     "far-west-in": 406,
+     "far-east-out": 306,
+     "far-east-in": 369,
+     "far-west-out": 250
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 399.24871794871785,
+      "vehicles": 78
+     },
+     "east-in>south-exit": {
+      "meanS": 206.30495049504947,
+      "vehicles": 101
+     },
+     "east-in>west-out": {
+      "meanS": 191.92869080779934,
+      "vehicles": 359
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 939.4877192982456,
+      "vehicles": 57
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 269.71983805668015,
+      "vehicles": 247
+     },
+     "far-north-in>east-out": {
+      "meanS": 382.6535211267606,
+      "vehicles": 142
+     },
+     "far-north-in>south-exit": {
+      "meanS": 245.64912923923023,
+      "vehicles": 1091
+     },
+     "far-north-in>west-out": {
+      "meanS": 331.581560283688,
+      "vehicles": 141
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 303.4738675958189,
+      "vehicles": 287
+     },
+     "far-west-in>south-exit": {
+      "meanS": 581.8145454545454,
+      "vehicles": 55
+     },
+     "south-entry>east-out": {
+      "meanS": 305.0551181102362,
+      "vehicles": 127
+     },
+     "south-entry>far-north-out": {
+      "meanS": 429.6066838046273,
+      "vehicles": 1167
+     },
+     "south-entry>west-out": {
+      "meanS": 292.60312500000003,
+      "vehicles": 128
+     },
+     "west-in>east-out": {
+      "meanS": 296.77552083333353,
+      "vehicles": 384
+     },
+     "west-in>far-north-out": {
+      "meanS": 641.8696629213485,
+      "vehicles": 89
+     },
+     "west-in>south-exit": {
+      "meanS": 313.7868421052631,
+      "vehicles": 76
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 184.9,
+     "north-out": 179.6325,
+     "flyover-north": 404.3476,
+     "north-entry": 80.91600000000001,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 184.3068,
+     "north-in": 183.7511,
+     "west-in": 199.86270000000002,
+     "east-in": 199.8822,
+     "north-exit": 204.1618,
+     "far-north-in": 199.9,
+     "far-west-in": 199.9,
+     "far-east-in": 199.9
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 983,
+      "junction": 184
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1079,
+      "junction": 12
+     }
+    },
+    "teleports": 41,
+    "collisions": 0,
+    "emergencyBraking": 92,
+    "warningCount": 174,
+    "warnings": [
+     "Warning: Vehicle 'v150' performs emergency braking on lane ':downstream_7_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=143.000.",
+     "Warning: Vehicle 'v150' performs emergency braking on lane ':downstream_7_0' with decel=8.9996, wished=1.0000, severity=1.0001, time=169.800.",
+     "Warning: Vehicle 'v234' performs emergency braking on lane 'far-east-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=205.000.",
+     "Warning: Vehicle 'v66' performs emergency braking on lane ':downstream_1_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=259.000.",
+     "Warning: Vehicle 'v67' performs emergency braking on lane ':downstream_1_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=269.000."
+    ],
+    "wallClockS": 20.461,
+    "waiting": 391,
+    "teleportsJam": 33,
+    "teleportsYield": 8,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t3",
+   "id": "t3-s8",
+   "seed": 8
+  },
+  "wallClockS": 35.141,
+  "result": {
+   "seed": 8,
+   "ours": {
+    "flowByRoad": {
+     "south-entry": 1739,
+     "south-in": 349,
+     "flyover-north": 1391,
+     "north-out": 133,
+     "north-exit": 1522,
+     "north-entry": 1885,
+     "north-in": 360,
+     "flyover-south": 1512,
+     "south-out": 107,
+     "south-exit": 1616,
+     "west-in": 452,
+     "east-out": 649,
+     "east-in": 416,
+     "west-out": 643,
+     "far-north-out": 1591,
+     "far-north-in": 1814,
+     "far-west-in": 372,
+     "far-east-out": 252,
+     "far-east-in": 431,
+     "far-west-out": 323
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 823.125,
+      "vehicles": 8
+     },
+     "east-in>south-exit": {
+      "meanS": 498.5,
+      "vehicles": 6
+     },
+     "east-in>west-out": {
+      "meanS": 524.7721068249265,
+      "vehicles": 337
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 337.1733333333334,
+      "vehicles": 75
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 324.80327868852476,
+      "vehicles": 305
+     },
+     "far-north-in>east-out": {
+      "meanS": 587.3827586206894,
+      "vehicles": 116
+     },
+     "far-north-in>south-exit": {
+      "meanS": 115.81263736263757,
+      "vehicles": 1456
+     },
+     "far-north-in>west-out": {
+      "meanS": 597.6383333333334,
+      "vehicles": 120
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 250.73500000000007,
+      "vehicles": 240
+     },
+     "far-west-in>south-exit": {
+      "meanS": 371.95820895522405,
+      "vehicles": 67
+     },
+     "south-entry>east-out": {
+      "meanS": 590.7009523809527,
+      "vehicles": 105
+     },
+     "south-entry>far-north-out": {
+      "meanS": 120.5062631949332,
+      "vehicles": 1421
+     },
+     "south-entry>west-out": {
+      "meanS": 589.1299999999999,
+      "vehicles": 120
+     },
+     "west-in>east-out": {
+      "meanS": 450.9223140495866,
+      "vehicles": 363
+     },
+     "west-in>far-north-out": {
+      "meanS": 491.27096774193546,
+      "vehicles": 31
+     },
+     "west-in>south-exit": {
+      "meanS": 1061.15,
+      "vehicles": 4
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 67.32777578593104,
+     "north-out": 0,
+     "flyover-north": 0,
+     "north-entry": 116.79909601279655,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 179.3431861118332,
+     "north-in": 179.31992719045442,
+     "west-in": 200,
+     "east-in": 200,
+     "north-exit": 55.66600555311708,
+     "far-north-in": 80.75247608388784,
+     "far-west-in": 199.98277051089315,
+     "far-east-in": 200
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1355,
+      "junction": 66
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1394,
+      "junction": 62
+     }
+    },
+    "stuckVehicles": 1,
+    "conservationViolations": 0,
+    "wallClockS": 8.221,
+    "engineOwnLongestQueueByApproach": {
+     "south-entry": 68.22480580764675,
+     "south-in": 179.6670655207781,
+     "flyover-north": 0,
+     "north-out": 0,
+     "north-exit": 56.31485867468291,
+     "north-entry": 117.49346083376061,
+     "north-in": 179.9530687406666,
+     "flyover-south": 0,
+     "south-out": 0,
+     "west-in": 199.9827437378156,
+     "east-in": 199.98321395145285,
+     "far-north-in": 80.75247608388784,
+     "far-west-in": 199.98277051089315,
+     "far-east-in": 199.98312054662168
+    },
+    "waitingToEnter": 354
+   },
+   "sumo": {
+    "flowByRoad": {
+     "south-entry": 1739,
+     "south-in": 528,
+     "flyover-north": 1212,
+     "north-out": 432,
+     "north-exit": 1644,
+     "north-entry": 1574,
+     "north-in": 325,
+     "flyover-south": 1249,
+     "south-out": 186,
+     "south-exit": 1410,
+     "west-in": 585,
+     "east-out": 672,
+     "east-in": 608,
+     "west-out": 677,
+     "far-north-out": 1778,
+     "far-north-in": 1499,
+     "far-west-in": 393,
+     "far-east-out": 317,
+     "far-east-in": 409,
+     "far-west-out": 333
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 452.22823529411767,
+      "vehicles": 85
+     },
+     "east-in>south-exit": {
+      "meanS": 231.72747252747246,
+      "vehicles": 91
+     },
+     "east-in>west-out": {
+      "meanS": 225.20486486486485,
+      "vehicles": 370
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 1138.468085106383,
+      "vehicles": 47
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 379.99348534201965,
+      "vehicles": 307
+     },
+     "far-north-in>east-out": {
+      "meanS": 418.98405797101447,
+      "vehicles": 138
+     },
+     "far-north-in>south-exit": {
+      "meanS": 246.39811142587317,
+      "vehicles": 1059
+     },
+     "far-north-in>west-out": {
+      "meanS": 309.1552447552448,
+      "vehicles": 143
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 370.6687074829931,
+      "vehicles": 294
+     },
+     "far-west-in>south-exit": {
+      "meanS": 1210.4901960784318,
+      "vehicles": 51
+     },
+     "south-entry>east-out": {
+      "meanS": 557.2672268907563,
+      "vehicles": 119
+     },
+     "south-entry>far-north-out": {
+      "meanS": 514.4067368421063,
+      "vehicles": 1425
+     },
+     "south-entry>west-out": {
+      "meanS": 528.3544117647056,
+      "vehicles": 136
+     },
+     "west-in>east-out": {
+      "meanS": 286.24562334217495,
+      "vehicles": 377
+     },
+     "west-in>far-north-out": {
+      "meanS": 531.22,
+      "vehicles": 80
+     },
+     "west-in>south-exit": {
+      "meanS": 303.0361445783132,
+      "vehicles": 83
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 184.9,
+     "north-out": 178.89350000000002,
+     "flyover-north": 404.39259999999996,
+     "north-entry": 26.077999999999996,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 184.29,
+     "north-in": 183.33100000000002,
+     "west-in": 199.8222,
+     "east-in": 184.2697,
+     "north-exit": 204.0405,
+     "far-north-in": 199.9,
+     "far-west-in": 199.9,
+     "far-east-in": 199.9
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1166,
+      "junction": 259
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1058,
+      "junction": 1
+     }
+    },
+    "teleports": 39,
+    "collisions": 0,
+    "emergencyBraking": 115,
+    "warningCount": 193,
+    "warnings": [
+     "Warning: Vehicle 'v122' performs emergency braking on lane 'far-north-in_3' with decel=9.0000, wished=1.0000, severity=1.0001, time=110.000.",
+     "Warning: Vehicle 'v75' performs emergency braking on lane ':cross_11_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=148.000.",
+     "Warning: Vehicle 'v231' performs emergency braking on lane ':cross_3_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=223.000.",
+     "Warning: Vehicle 'v266' performs emergency braking on lane 'north-exit_3' with decel=9.0000, wished=1.0000, severity=1.0001, time=250.000.",
+     "Warning: Vehicle 'v218' performs emergency braking on lane ':downstream_7_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=250.200."
+    ],
+    "wallClockS": 25.255,
+    "waiting": 361,
+    "teleportsJam": 28,
+    "teleportsYield": 11,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t3",
+   "id": "t3-s9",
+   "seed": 9
+  },
+  "wallClockS": 17.64,
+  "result": {
+   "seed": 9,
+   "ours": {
+    "flowByRoad": {
+     "south-entry": 1796,
+     "south-in": 359,
+     "flyover-north": 1398,
+     "north-out": 113,
+     "north-exit": 1518,
+     "north-entry": 1836,
+     "north-in": 372,
+     "flyover-south": 1473,
+     "south-out": 153,
+     "south-exit": 1620,
+     "west-in": 453,
+     "east-out": 633,
+     "east-in": 476,
+     "west-out": 693,
+     "far-north-out": 1595,
+     "far-north-in": 1782,
+     "far-west-in": 381,
+     "far-east-out": 251,
+     "far-east-in": 398,
+     "far-west-out": 276
+    },
+    "travelTimeByOd": {
+     "east-in>south-exit": {
+      "meanS": 467.29361702127676,
+      "vehicles": 47
+     },
+     "east-in>west-out": {
+      "meanS": 429.389589041096,
+      "vehicles": 365
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 324.3882352941176,
+      "vehicles": 85
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 295.6795454545454,
+      "vehicles": 264
+     },
+     "far-north-in>east-out": {
+      "meanS": 471.491891891892,
+      "vehicles": 111
+     },
+     "far-north-in>south-exit": {
+      "meanS": 112.99295774647904,
+      "vehicles": 1420
+     },
+     "far-north-in>west-out": {
+      "meanS": 460.78947368421063,
+      "vehicles": 133
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 252.69539748953972,
+      "vehicles": 239
+     },
+     "far-west-in>south-exit": {
+      "meanS": 411.9923076923077,
+      "vehicles": 78
+     },
+     "south-entry>east-out": {
+      "meanS": 587.7796610169495,
+      "vehicles": 118
+     },
+     "south-entry>far-north-out": {
+      "meanS": 114.1479915433403,
+      "vehicles": 1419
+     },
+     "south-entry>west-out": {
+      "meanS": 576.2697674418607,
+      "vehicles": 129
+     },
+     "west-in>east-out": {
+      "meanS": 476.2224719101123,
+      "vehicles": 356
+     },
+     "west-in>far-north-out": {
+      "meanS": 595.3655172413793,
+      "vehicles": 29
+     },
+     "west-in>south-exit": {
+      "meanS": 591.66,
+      "vehicles": 10
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 129.54409803242737,
+     "north-out": 0,
+     "flyover-north": 0,
+     "north-entry": 31.520373868773326,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 179.455653727696,
+     "north-in": 179.165964581712,
+     "west-in": 200,
+     "east-in": 200,
+     "north-exit": 56.11875071653861,
+     "far-north-in": 66.09981425452449,
+     "far-west-in": 199.9831098521223,
+     "far-east-in": 190.7678775371898
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1364,
+      "junction": 55
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1353,
+      "junction": 67
+     }
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 7.809,
+    "engineOwnLongestQueueByApproach": {
+     "south-entry": 130.16917118350776,
+     "south-in": 179.65291854013395,
+     "flyover-north": 0,
+     "north-out": 0,
+     "north-exit": 56.356486147244084,
+     "north-entry": 31.768443089039664,
+     "north-in": 179.59680750567802,
+     "flyover-south": 0,
+     "south-out": 0,
+     "west-in": 199.9831734607605,
+     "east-in": 199.98316049180974,
+     "far-north-in": 66.7484282585666,
+     "far-west-in": 199.98311030729792,
+     "far-east-in": 191.58746460825498
+    },
+    "waitingToEnter": 306
+   },
+   "sumo": {
+    "flowByRoad": {
+     "south-entry": 1795,
+     "south-in": 323,
+     "flyover-north": 1469,
+     "north-out": 192,
+     "north-exit": 1662,
+     "north-entry": 1845,
+     "north-in": 300,
+     "flyover-south": 1556,
+     "south-out": 212,
+     "south-exit": 1764,
+     "west-in": 606,
+     "east-out": 671,
+     "east-in": 611,
+     "west-out": 704,
+     "far-north-out": 1714,
+     "far-north-in": 1782,
+     "far-west-in": 389,
+     "far-east-out": 299,
+     "far-east-in": 398,
+     "far-west-out": 307
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 312.0838709677419,
+      "vehicles": 93
+     },
+     "east-in>south-exit": {
+      "meanS": 255.6177777777778,
+      "vehicles": 90
+     },
+     "east-in>west-out": {
+      "meanS": 261.4509589041094,
+      "vehicles": 365
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 409.0183908045975,
+      "vehicles": 87
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 80.3403389830509,
+      "vehicles": 295
+     },
+     "far-north-in>east-out": {
+      "meanS": 138.0732824427481,
+      "vehicles": 131
+     },
+     "far-north-in>south-exit": {
+      "meanS": 127.60125698324022,
+      "vehicles": 1432
+     },
+     "far-north-in>west-out": {
+      "meanS": 135.40129870129869,
+      "vehicles": 154
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 79.89090909090909,
+      "vehicles": 286
+     },
+     "far-west-in>south-exit": {
+      "meanS": 304.55681818181824,
+      "vehicles": 88
+     },
+     "south-entry>east-out": {
+      "meanS": 91.32278481012654,
+      "vehicles": 158
+     },
+     "south-entry>far-north-out": {
+      "meanS": 122.09893541518804,
+      "vehicles": 1409
+     },
+     "south-entry>west-out": {
+      "meanS": 89.27643312101908,
+      "vehicles": 157
+     },
+     "west-in>east-out": {
+      "meanS": 239.60387811634362,
+      "vehicles": 361
+     },
+     "west-in>far-north-out": {
+      "meanS": 286.74418604651163,
+      "vehicles": 86
+     },
+     "west-in>south-exit": {
+      "meanS": 254.92571428571426,
+      "vehicles": 105
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 0,
+     "north-out": 0,
+     "flyover-north": 29.39169999999998,
+     "north-entry": 12.904700000000014,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 55.37380000000001,
+     "north-in": 54.722100000000005,
+     "west-in": 199.5902,
+     "east-in": 199.7224,
+     "north-exit": 195.13,
+     "far-north-in": 161.5307,
+     "far-west-in": 88.9492,
+     "far-east-in": 92.76830000000001
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1409,
+      "junction": 0
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1422,
+      "junction": 10
+     }
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 112,
+    "warningCount": 112,
+    "warnings": [
+     "Warning: Vehicle 'v41' performs emergency braking on lane 'far-north-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=40.000.",
+     "Warning: Vehicle 'v76' performs emergency braking on lane 'far-east-in_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=65.000.",
+     "Warning: Vehicle 'v163' performs emergency braking on lane ':downstream_11_3' with decel=9.0000, wished=1.0000, severity=1.0001, time=144.400.",
+     "Warning: Vehicle 'v194' performs emergency braking on lane ':downstream_1_2' with decel=9.0000, wished=1.0000, severity=1.0001, time=214.200.",
+     "Warning: Vehicle 'v340' performs emergency braking on lane 'far-north-in_2' with decel=9.0000, wished=1.0000, severity=1.0001, time=250.000."
+    ],
+    "wallClockS": 8.932,
+    "waiting": 10,
+    "teleportsJam": 0,
+    "teleportsYield": 0,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t3",
+   "id": "t3-s10",
+   "seed": 10
+  },
+  "wallClockS": 18.192,
+  "result": {
+   "seed": 10,
+   "ours": {
+    "flowByRoad": {
+     "south-entry": 1863,
+     "south-in": 366,
+     "flyover-north": 1457,
+     "north-out": 148,
+     "north-exit": 1609,
+     "north-entry": 1802,
+     "north-in": 337,
+     "flyover-south": 1476,
+     "south-out": 149,
+     "south-exit": 1624,
+     "west-in": 452,
+     "east-out": 647,
+     "east-in": 400,
+     "west-out": 553,
+     "far-north-out": 1667,
+     "far-north-in": 1757,
+     "far-west-in": 419,
+     "far-east-out": 329,
+     "far-east-in": 249,
+     "far-west-out": 151
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 802.0000000000001,
+      "vehicles": 1
+     },
+     "east-in>south-exit": {
+      "meanS": 567.8545454545457,
+      "vehicles": 44
+     },
+     "east-in>west-out": {
+      "meanS": 503.8206185567011,
+      "vehicles": 291
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 557.4244897959184,
+      "vehicles": 49
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 519.9220588235295,
+      "vehicles": 136
+     },
+     "far-north-in>east-out": {
+      "meanS": 470.37593984962376,
+      "vehicles": 133
+     },
+     "far-north-in>south-exit": {
+      "meanS": 109.96296809986156,
+      "vehicles": 1442
+     },
+     "far-north-in>west-out": {
+      "meanS": 491.5479166666666,
+      "vehicles": 96
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 459.684887459807,
+      "vehicles": 311
+     },
+     "far-west-in>south-exit": {
+      "meanS": 749.8409090909091,
+      "vehicles": 44
+     },
+     "south-entry>east-out": {
+      "meanS": 506.3175572519087,
+      "vehicles": 131
+     },
+     "south-entry>far-north-out": {
+      "meanS": 116.15143047238837,
+      "vehicles": 1503
+     },
+     "south-entry>west-out": {
+      "meanS": 499.2666666666665,
+      "vehicles": 105
+     },
+     "west-in>east-out": {
+      "meanS": 453.7248484848487,
+      "vehicles": 330
+     },
+     "west-in>far-north-out": {
+      "meanS": 539.8528301886793,
+      "vehicles": 53
+     },
+     "west-in>south-exit": {
+      "meanS": 624.7846153846153,
+      "vehicles": 13
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 105.44370316199364,
+     "north-out": 0,
+     "flyover-north": 0,
+     "north-entry": 12.936402077613275,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 179.3422602222178,
+     "north-in": 179.07864753418485,
+     "west-in": 200,
+     "east-in": 200,
+     "north-exit": 56.19975935634388,
+     "far-north-in": 79.9304790603803,
+     "far-west-in": 200,
+     "far-east-in": 200
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1429,
+      "junction": 74
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1386,
+      "junction": 56
+     }
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 8.639,
+    "engineOwnLongestQueueByApproach": {
+     "south-entry": 105.58698697349922,
+     "south-in": 179.65970358019734,
+     "flyover-north": 0,
+     "north-out": 0,
+     "north-exit": 56.19975935634389,
+     "north-entry": 13.405470282170995,
+     "north-in": 179.19605272513624,
+     "flyover-south": 0,
+     "south-out": 0,
+     "west-in": 199.98317222887061,
+     "east-in": 199.98323977003704,
+     "far-north-in": 80.18982063071333,
+     "far-west-in": 199.9831727826829,
+     "far-east-in": 199.98316531454864
+    },
+    "waitingToEnter": 403
+   },
+   "sumo": {
+    "flowByRoad": {
+     "south-entry": 1863,
+     "south-in": 385,
+     "flyover-north": 1468,
+     "north-out": 262,
+     "north-exit": 1732,
+     "north-entry": 1828,
+     "north-in": 274,
+     "flyover-south": 1577,
+     "south-out": 189,
+     "south-exit": 1765,
+     "west-in": 578,
+     "east-out": 698,
+     "east-in": 541,
+     "west-out": 612,
+     "far-north-out": 1818,
+     "far-north-in": 1757,
+     "far-west-in": 435,
+     "far-east-out": 339,
+     "far-east-in": 370,
+     "far-west-out": 270
+    },
+    "travelTimeByOd": {
+     "east-in>far-north-out": {
+      "meanS": 180.92619047619047,
+      "vehicles": 84
+     },
+     "east-in>south-exit": {
+      "meanS": 133.78202247191012,
+      "vehicles": 89
+     },
+     "east-in>west-out": {
+      "meanS": 118.98186968838534,
+      "vehicles": 353
+     },
+     "far-east-in>far-north-out": {
+      "meanS": 502.12272727272745,
+      "vehicles": 88
+     },
+     "far-east-in>far-west-out": {
+      "meanS": 77.01307692307697,
+      "vehicles": 260
+     },
+     "far-north-in>east-out": {
+      "meanS": 143.26527777777778,
+      "vehicles": 144
+     },
+     "far-north-in>south-exit": {
+      "meanS": 118.01454293628811,
+      "vehicles": 1444
+     },
+     "far-north-in>west-out": {
+      "meanS": 125.96981132075469,
+      "vehicles": 106
+     },
+     "far-west-in>far-east-out": {
+      "meanS": 92.30151975683894,
+      "vehicles": 329
+     },
+     "far-west-in>south-exit": {
+      "meanS": 249.98444444444434,
+      "vehicles": 90
+     },
+     "south-entry>east-out": {
+      "meanS": 116.43478260869563,
+      "vehicles": 161
+     },
+     "south-entry>far-north-out": {
+      "meanS": 136.57160000000016,
+      "vehicles": 1500
+     },
+     "south-entry>west-out": {
+      "meanS": 108.3681818181819,
+      "vehicles": 132
+     },
+     "west-in>east-out": {
+      "meanS": 137.4250666666666,
+      "vehicles": 375
+     },
+     "west-in>far-north-out": {
+      "meanS": 199.05494505494505,
+      "vehicles": 91
+     },
+     "west-in>south-exit": {
+      "meanS": 155.6691358024691,
+      "vehicles": 81
+     }
+    },
+    "longestQueueByApproach": {
+     "south-entry": 0,
+     "north-out": 0,
+     "flyover-north": 117.99800000000002,
+     "north-entry": 12.986900000000015,
+     "south-out": 0,
+     "flyover-south": 0,
+     "south-in": 122.7334,
+     "north-in": 61.8058,
+     "west-in": 104.4825,
+     "east-in": 86.24310000000001,
+     "north-exit": 204.3234,
+     "far-north-in": 147.7302,
+     "far-west-in": 79.9752,
+     "far-east-in": 125.2262
+    },
+    "flyoverShare": {
+     "south-entry>far-north-out": {
+      "flyover": 1420,
+      "junction": 80
+     },
+     "far-north-in>south-exit": {
+      "flyover": 1433,
+      "junction": 11
+     }
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 85,
+    "warningCount": 85,
+    "warnings": [
+     "Warning: Vehicle 'v85' performs emergency braking on lane 'north-exit_3' with decel=9.0000, wished=1.0000, severity=1.0001, time=110.000.",
+     "Warning: Vehicle 'v82' performs emergency braking on lane 'north-exit_2' with decel=9.0000, wished=1.0000, severity=1.0001, time=110.000.",
+     "Warning: Vehicle 'v289' performs emergency braking on lane 'north-exit_2' with decel=9.0000, wished=1.0000, severity=1.0001, time=250.000.",
+     "Warning: Vehicle 'v437' performs emergency braking on lane ':downstream_17_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=353.400.",
+     "Warning: Vehicle 'v477' performs emergency braking on lane 'north-exit_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=390.000."
+    ],
+    "wallClockS": 8.78,
+    "waiting": 0,
+    "teleportsJam": 0,
+    "teleportsYield": 0,
+    "teleportsWrongLane": 0
+   }
+  }
+ }
+]

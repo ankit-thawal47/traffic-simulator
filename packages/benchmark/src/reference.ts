@@ -49,6 +49,38 @@ function advance(v: number, a: number, dt: number): [number, number] {
   return [a < 0 ? (v * v) / (-2 * a) : 0, 0];
 }
 
+/**
+ * T2.1: a line of vehicles at rest closes up to a red signal and discharges at green. The red is
+ * a standing vehicle whose rear is at the stop line; at `greenAtS` it goes. Returns the moments
+ * each vehicle's front bumper crosses the stop line, in seconds after the green, in the line's order.
+ */
+export function integrateSignalQueue(p: IdmParameters, frontsM: number[], stopLineM: number, greenAtS: number, durationS: number): number[] {
+  const n = frontsM.length;
+  const x = [...frontsM];
+  const v = new Array<number>(n).fill(0);
+  const a = new Array<number>(n).fill(0);
+  const crossed = new Array<number>(n).fill(NaN);
+  const steps = Math.round(durationS / REFERENCE_STEP_S);
+  const greenStep = Math.round(greenAtS / REFERENCE_STEP_S);
+  for (let k = 0; k < steps; k++) {
+    const red = k < greenStep;
+    for (let i = 0; i < n; i++) {
+      if (i === 0) a[i] = red ? idmAcceleration(p, v[i]!, stopLineM - x[i]!, v[i]!) : idmAcceleration(p, v[i]!, undefined, 0);
+      else a[i] = idmAcceleration(p, v[i]!, x[i - 1]! - p.lengthM - x[i]!, v[i]! - v[i - 1]!);
+    }
+    for (let i = 0; i < n; i++) {
+      const before = x[i]!;
+      const [distance, speed] = advance(v[i]!, a[i]!, REFERENCE_STEP_S);
+      x[i] = before + distance;
+      v[i] = speed;
+      if (Number.isNaN(crossed[i]!) && before < stopLineM && x[i]! >= stopLineM) {
+        crossed[i] = (k + (stopLineM - before) / distance) * REFERENCE_STEP_S - greenAtS;
+      }
+    }
+  }
+  return crossed;
+}
+
 /** T1.1: time for one vehicle on an empty road to go from rest to a fraction of its desired speed. */
 export function timeToReachSpeedFraction(p: IdmParameters, fraction: number): number {
   const target = fraction * p.desiredSpeedMps;

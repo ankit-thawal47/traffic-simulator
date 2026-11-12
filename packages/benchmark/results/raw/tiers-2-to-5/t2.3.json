@@ -1,0 +1,1902 @@
+[
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q200-s1",
+   "majorFlowPerHour": 200,
+   "seed": 1
+  },
+  "wallClockS": 4.733,
+  "result": {
+   "majorFlowPerHour": 200,
+   "seed": 1,
+   "ours": {
+    "minorThroughPerHour": 1055,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.901
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 755,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.698
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q200-s2",
+   "majorFlowPerHour": 200,
+   "seed": 2
+  },
+  "wallClockS": 4.511,
+  "result": {
+   "majorFlowPerHour": 200,
+   "seed": 2,
+   "ours": {
+    "minorThroughPerHour": 994,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.816
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 714,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.593
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q200-s3",
+   "majorFlowPerHour": 200,
+   "seed": 3
+  },
+  "wallClockS": 4.748,
+  "result": {
+   "majorFlowPerHour": 200,
+   "seed": 3,
+   "ours": {
+    "minorThroughPerHour": 1013,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.855
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 713,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.71
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q200-s4",
+   "majorFlowPerHour": 200,
+   "seed": 4
+  },
+  "wallClockS": 4.639,
+  "result": {
+   "majorFlowPerHour": 200,
+   "seed": 4,
+   "ours": {
+    "minorThroughPerHour": 984,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.921
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 762,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.595
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q200-s5",
+   "majorFlowPerHour": 200,
+   "seed": 5
+  },
+  "wallClockS": 4.625,
+  "result": {
+   "majorFlowPerHour": 200,
+   "seed": 5,
+   "ours": {
+    "minorThroughPerHour": 1083,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.852
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 761,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.636
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q200-s6",
+   "majorFlowPerHour": 200,
+   "seed": 6
+  },
+  "wallClockS": 4.815,
+  "result": {
+   "majorFlowPerHour": 200,
+   "seed": 6,
+   "ours": {
+    "minorThroughPerHour": 1015,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.964
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 713,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.707
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q200-s7",
+   "majorFlowPerHour": 200,
+   "seed": 7
+  },
+  "wallClockS": 3.897,
+  "result": {
+   "majorFlowPerHour": 200,
+   "seed": 7,
+   "ours": {
+    "minorThroughPerHour": 996,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.514
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 666,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.777
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q200-s8",
+   "majorFlowPerHour": 200,
+   "seed": 8
+  },
+  "wallClockS": 3.634,
+  "result": {
+   "majorFlowPerHour": 200,
+   "seed": 8,
+   "ours": {
+    "minorThroughPerHour": 1052,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.51
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 768,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.543
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q200-s9",
+   "majorFlowPerHour": 200,
+   "seed": 9
+  },
+  "wallClockS": 3.659,
+  "result": {
+   "majorFlowPerHour": 200,
+   "seed": 9,
+   "ours": {
+    "minorThroughPerHour": 997,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.479
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 747,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.594
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q200-s10",
+   "majorFlowPerHour": 200,
+   "seed": 10
+  },
+  "wallClockS": 3.678,
+  "result": {
+   "majorFlowPerHour": 200,
+   "seed": 10,
+   "ours": {
+    "minorThroughPerHour": 1114,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.469
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 821,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.646
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q400-s1",
+   "majorFlowPerHour": 400,
+   "seed": 1
+  },
+  "wallClockS": 4.001,
+  "result": {
+   "majorFlowPerHour": 400,
+   "seed": 1,
+   "ours": {
+    "minorThroughPerHour": 803,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.504
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 464,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.904
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q400-s2",
+   "majorFlowPerHour": 400,
+   "seed": 2
+  },
+  "wallClockS": 4.046,
+  "result": {
+   "majorFlowPerHour": 400,
+   "seed": 2,
+   "ours": {
+    "minorThroughPerHour": 733,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.476
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 430,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.973
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q400-s3",
+   "majorFlowPerHour": 400,
+   "seed": 3
+  },
+  "wallClockS": 4.019,
+  "result": {
+   "majorFlowPerHour": 400,
+   "seed": 3,
+   "ours": {
+    "minorThroughPerHour": 731,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.556
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 380,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.869
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q400-s4",
+   "majorFlowPerHour": 400,
+   "seed": 4
+  },
+  "wallClockS": 3.882,
+  "result": {
+   "majorFlowPerHour": 400,
+   "seed": 4,
+   "ours": {
+    "minorThroughPerHour": 708,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.531
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 414,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.76
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q400-s5",
+   "majorFlowPerHour": 400,
+   "seed": 5
+  },
+  "wallClockS": 3.731,
+  "result": {
+   "majorFlowPerHour": 400,
+   "seed": 5,
+   "ours": {
+    "minorThroughPerHour": 772,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.485
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 481,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.67
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q400-s6",
+   "majorFlowPerHour": 400,
+   "seed": 6
+  },
+  "wallClockS": 3.901,
+  "result": {
+   "majorFlowPerHour": 400,
+   "seed": 6,
+   "ours": {
+    "minorThroughPerHour": 727,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.547
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 397,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.789
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q400-s7",
+   "majorFlowPerHour": 400,
+   "seed": 7
+  },
+  "wallClockS": 3.974,
+  "result": {
+   "majorFlowPerHour": 400,
+   "seed": 7,
+   "ours": {
+    "minorThroughPerHour": 726,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.576
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 410,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.836
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q400-s8",
+   "majorFlowPerHour": 400,
+   "seed": 8
+  },
+  "wallClockS": 3.671,
+  "result": {
+   "majorFlowPerHour": 400,
+   "seed": 8,
+   "ours": {
+    "minorThroughPerHour": 809,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.567
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 500,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 2.501
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q400-s9",
+   "majorFlowPerHour": 400,
+   "seed": 9
+  },
+  "wallClockS": 4.974,
+  "result": {
+   "majorFlowPerHour": 400,
+   "seed": 9,
+   "ours": {
+    "minorThroughPerHour": 767,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.524
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 447,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.834
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q400-s10",
+   "majorFlowPerHour": 400,
+   "seed": 10
+  },
+  "wallClockS": 5.074,
+  "result": {
+   "majorFlowPerHour": 400,
+   "seed": 10,
+   "ours": {
+    "minorThroughPerHour": 796,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.495
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 443,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.971
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q600-s1",
+   "majorFlowPerHour": 600,
+   "seed": 1
+  },
+  "wallClockS": 5.297,
+  "result": {
+   "majorFlowPerHour": 600,
+   "seed": 1,
+   "ours": {
+    "minorThroughPerHour": 598,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.596
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 294,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 4.098
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q600-s2",
+   "majorFlowPerHour": 600,
+   "seed": 2
+  },
+  "wallClockS": 5.35,
+  "result": {
+   "majorFlowPerHour": 600,
+   "seed": 2,
+   "ours": {
+    "minorThroughPerHour": 521,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.609
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 215,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 4.149
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q600-s3",
+   "majorFlowPerHour": 600,
+   "seed": 3
+  },
+  "wallClockS": 5.427,
+  "result": {
+   "majorFlowPerHour": 600,
+   "seed": 3,
+   "ours": {
+    "minorThroughPerHour": 489,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.588
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 216,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 4.194
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q600-s4",
+   "majorFlowPerHour": 600,
+   "seed": 4
+  },
+  "wallClockS": 5.333,
+  "result": {
+   "majorFlowPerHour": 600,
+   "seed": 4,
+   "ours": {
+    "minorThroughPerHour": 509,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.638
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 208,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.962
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q600-s5",
+   "majorFlowPerHour": 600,
+   "seed": 5
+  },
+  "wallClockS": 5.347,
+  "result": {
+   "majorFlowPerHour": 600,
+   "seed": 5,
+   "ours": {
+    "minorThroughPerHour": 571,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.654
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 284,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.875
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q600-s6",
+   "majorFlowPerHour": 600,
+   "seed": 6
+  },
+  "wallClockS": 5.654,
+  "result": {
+   "majorFlowPerHour": 600,
+   "seed": 6,
+   "ours": {
+    "minorThroughPerHour": 497,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.708
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 252,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 4.255
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q600-s7",
+   "majorFlowPerHour": 600,
+   "seed": 7
+  },
+  "wallClockS": 5.578,
+  "result": {
+   "majorFlowPerHour": 600,
+   "seed": 7,
+   "ours": {
+    "minorThroughPerHour": 487,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.817
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 218,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 4.101
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q600-s8",
+   "majorFlowPerHour": 600,
+   "seed": 8
+  },
+  "wallClockS": 5.289,
+  "result": {
+   "majorFlowPerHour": 600,
+   "seed": 8,
+   "ours": {
+    "minorThroughPerHour": 597,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.713
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 272,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.902
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q600-s9",
+   "majorFlowPerHour": 600,
+   "seed": 9
+  },
+  "wallClockS": 5.215,
+  "result": {
+   "majorFlowPerHour": 600,
+   "seed": 9,
+   "ours": {
+    "minorThroughPerHour": 567,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.732
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 310,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.81
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q600-s10",
+   "majorFlowPerHour": 600,
+   "seed": 10
+  },
+  "wallClockS": 5.296,
+  "result": {
+   "majorFlowPerHour": 600,
+   "seed": 10,
+   "ours": {
+    "minorThroughPerHour": 568,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.703
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 269,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.905
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q800-s1",
+   "majorFlowPerHour": 800,
+   "seed": 1
+  },
+  "wallClockS": 5.451,
+  "result": {
+   "majorFlowPerHour": 800,
+   "seed": 1,
+   "ours": {
+    "minorThroughPerHour": 425,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.704
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 149,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 4.036
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q800-s2",
+   "majorFlowPerHour": 800,
+   "seed": 2
+  },
+  "wallClockS": 5.136,
+  "result": {
+   "majorFlowPerHour": 800,
+   "seed": 2,
+   "ours": {
+    "minorThroughPerHour": 355,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.672
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 113,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.811
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q800-s3",
+   "majorFlowPerHour": 800,
+   "seed": 3
+  },
+  "wallClockS": 5.186,
+  "result": {
+   "majorFlowPerHour": 800,
+   "seed": 3,
+   "ours": {
+    "minorThroughPerHour": 340,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.684
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 116,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.862
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q800-s4",
+   "majorFlowPerHour": 800,
+   "seed": 4
+  },
+  "wallClockS": 5.067,
+  "result": {
+   "majorFlowPerHour": 800,
+   "seed": 4,
+   "ours": {
+    "minorThroughPerHour": 373,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.65
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 120,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.743
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q800-s5",
+   "majorFlowPerHour": 800,
+   "seed": 5
+  },
+  "wallClockS": 5.002,
+  "result": {
+   "majorFlowPerHour": 800,
+   "seed": 5,
+   "ours": {
+    "minorThroughPerHour": 403,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.659
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 167,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.694
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q800-s6",
+   "majorFlowPerHour": 800,
+   "seed": 6
+  },
+  "wallClockS": 5.173,
+  "result": {
+   "majorFlowPerHour": 800,
+   "seed": 6,
+   "ours": {
+    "minorThroughPerHour": 328,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.75
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 122,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.764
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q800-s7",
+   "majorFlowPerHour": 800,
+   "seed": 7
+  },
+  "wallClockS": 5.502,
+  "result": {
+   "majorFlowPerHour": 800,
+   "seed": 7,
+   "ours": {
+    "minorThroughPerHour": 325,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.026
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 111,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.68
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q800-s8",
+   "majorFlowPerHour": 800,
+   "seed": 8
+  },
+  "wallClockS": 5.205,
+  "result": {
+   "majorFlowPerHour": 800,
+   "seed": 8,
+   "ours": {
+    "minorThroughPerHour": 428,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.965
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 147,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.471
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q800-s9",
+   "majorFlowPerHour": 800,
+   "seed": 9
+  },
+  "wallClockS": 5.277,
+  "result": {
+   "majorFlowPerHour": 800,
+   "seed": 9,
+   "ours": {
+    "minorThroughPerHour": 400,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.081
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 200,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.473
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q800-s10",
+   "majorFlowPerHour": 800,
+   "seed": 10
+  },
+  "wallClockS": 5.541,
+  "result": {
+   "majorFlowPerHour": 800,
+   "seed": 10,
+   "ours": {
+    "minorThroughPerHour": 395,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.111
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 176,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.709
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1000-s1",
+   "majorFlowPerHour": 1000,
+   "seed": 1
+  },
+  "wallClockS": 5.526,
+  "result": {
+   "majorFlowPerHour": 1000,
+   "seed": 1,
+   "ours": {
+    "minorThroughPerHour": 292,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.138
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 80,
+    "teleportsYield": 3,
+    "teleports": 3,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 6,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v94'; waited too long (yield), lane='south-in_0', time=2046.200.",
+     "Warning: Vehicle 'v94' ends teleporting on edge 'east-out', time=2046.200.",
+     "Warning: Teleporting vehicle 'v120'; waited too long (yield), lane='south-in_0', time=3120.000.",
+     "Warning: Vehicle 'v120' ends teleporting on edge 'east-out', time=3120.000.",
+     "Warning: Teleporting vehicle 'v122'; waited too long (yield), lane='south-in_0', time=3463.400."
+    ],
+    "wallClockS": 3.703
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1000-s2",
+   "majorFlowPerHour": 1000,
+   "seed": 2
+  },
+  "wallClockS": 5.38,
+  "result": {
+   "majorFlowPerHour": 1000,
+   "seed": 2,
+   "ours": {
+    "minorThroughPerHour": 245,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.16
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 85,
+    "teleportsYield": 3,
+    "teleports": 3,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 6,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v8'; waited too long (yield), lane='south-in_0', time=471.400.",
+     "Warning: Vehicle 'v8' ends teleporting on edge 'east-out', time=471.400.",
+     "Warning: Teleporting vehicle 'v16'; waited too long (yield), lane='south-in_0', time=1013.400.",
+     "Warning: Vehicle 'v16' ends teleporting on edge 'east-out', time=1013.400.",
+     "Warning: Teleporting vehicle 'v49'; waited too long (yield), lane='south-in_0', time=2297.400."
+    ],
+    "wallClockS": 3.52
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1000-s3",
+   "majorFlowPerHour": 1000,
+   "seed": 3
+  },
+  "wallClockS": 5.714,
+  "result": {
+   "majorFlowPerHour": 1000,
+   "seed": 3,
+   "ours": {
+    "minorThroughPerHour": 206,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.725
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 66,
+    "teleportsYield": 2,
+    "teleports": 2,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 4,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v31'; waited too long (yield), lane='south-in_0', time=1102.400.",
+     "Warning: Vehicle 'v31' ends teleporting on edge 'west-out', time=1102.400.",
+     "Warning: Teleporting vehicle 'v52'; waited too long (yield), lane='south-in_0', time=2108.000.",
+     "Warning: Vehicle 'v52' ends teleporting on edge 'west-out', time=2108.000."
+    ],
+    "wallClockS": 4.215
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1000-s4",
+   "majorFlowPerHour": 1000,
+   "seed": 4
+  },
+  "wallClockS": 5.669,
+  "result": {
+   "majorFlowPerHour": 1000,
+   "seed": 4,
+   "ours": {
+    "minorThroughPerHour": 265,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.727
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 84,
+    "teleportsYield": 2,
+    "teleports": 2,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 4,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v18'; waited too long (yield), lane='south-in_0', time=1130.200.",
+     "Warning: Vehicle 'v18' ends teleporting on edge 'west-out', time=1130.200.",
+     "Warning: Teleporting vehicle 'v55'; waited too long (yield), lane='south-in_0', time=2343.800.",
+     "Warning: Vehicle 'v55' ends teleporting on edge 'east-out', time=2343.800."
+    ],
+    "wallClockS": 4.228
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1000-s5",
+   "majorFlowPerHour": 1000,
+   "seed": 5
+  },
+  "wallClockS": 5.361,
+  "result": {
+   "majorFlowPerHour": 1000,
+   "seed": 5,
+   "ours": {
+    "minorThroughPerHour": 271,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.662
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 97,
+    "teleportsYield": 2,
+    "teleports": 2,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 4,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v118'; waited too long (yield), lane='south-in_0', time=2976.200.",
+     "Warning: Vehicle 'v118' ends teleporting on edge 'west-out', time=2976.200.",
+     "Warning: Teleporting vehicle 'v135'; waited too long (yield), lane='south-in_0', time=3713.000.",
+     "Warning: Vehicle 'v135' ends teleporting on edge 'west-out', time=3713.000."
+    ],
+    "wallClockS": 4.024
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1000-s6",
+   "majorFlowPerHour": 1000,
+   "seed": 6
+  },
+  "wallClockS": 5.815,
+  "result": {
+   "majorFlowPerHour": 1000,
+   "seed": 6,
+   "ours": {
+    "minorThroughPerHour": 185,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.794
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 83,
+    "teleportsYield": 3,
+    "teleports": 3,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 6,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v21'; waited too long (yield), lane='south-in_0', time=1139.000.",
+     "Warning: Vehicle 'v21' ends teleporting on edge 'east-out', time=1139.000.",
+     "Warning: Teleporting vehicle 'v36'; waited too long (yield), lane='south-in_0', time=2081.600.",
+     "Warning: Vehicle 'v36' ends teleporting on edge 'west-out', time=2082.600.",
+     "Warning: Teleporting vehicle 'v67'; waited too long (yield), lane='south-in_0', time=3222.600."
+    ],
+    "wallClockS": 4.226
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1000-s7",
+   "majorFlowPerHour": 1000,
+   "seed": 7
+  },
+  "wallClockS": 5.896,
+  "result": {
+   "majorFlowPerHour": 1000,
+   "seed": 7,
+   "ours": {
+    "minorThroughPerHour": 192,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.842
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 69,
+    "teleportsYield": 1,
+    "teleports": 1,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 2,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v2'; waited too long (yield), lane='south-in_0', time=473.600.",
+     "Warning: Vehicle 'v2' ends teleporting on edge 'west-out', time=474.600."
+    ],
+    "wallClockS": 4.325
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1000-s8",
+   "majorFlowPerHour": 1000,
+   "seed": 8
+  },
+  "wallClockS": 5.604,
+  "result": {
+   "majorFlowPerHour": 1000,
+   "seed": 8,
+   "ours": {
+    "minorThroughPerHour": 274,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.731
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 100,
+    "teleportsYield": 3,
+    "teleports": 3,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 6,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v10'; waited too long (yield), lane='south-in_0', time=410.800.",
+     "Warning: Vehicle 'v10' ends teleporting on edge 'west-out', time=410.800.",
+     "Warning: Teleporting vehicle 'v16'; waited too long (yield), lane='south-in_0', time=733.200.",
+     "Warning: Vehicle 'v16' ends teleporting on edge 'east-out', time=733.200.",
+     "Warning: Teleporting vehicle 'v98'; waited too long (yield), lane='south-in_0', time=2601.400."
+    ],
+    "wallClockS": 4.119
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1000-s9",
+   "majorFlowPerHour": 1000,
+   "seed": 9
+  },
+  "wallClockS": 6.337,
+  "result": {
+   "majorFlowPerHour": 1000,
+   "seed": 9,
+   "ours": {
+    "minorThroughPerHour": 244,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.915
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 109,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 4.689
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1000-s10",
+   "majorFlowPerHour": 1000,
+   "seed": 10
+  },
+  "wallClockS": 6.38,
+  "result": {
+   "majorFlowPerHour": 1000,
+   "seed": 10,
+   "ours": {
+    "minorThroughPerHour": 274,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.835
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 84,
+    "teleportsYield": 0,
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 4.836
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1200-s1",
+   "majorFlowPerHour": 1200,
+   "seed": 1
+  },
+  "wallClockS": 6.357,
+  "result": {
+   "majorFlowPerHour": 1200,
+   "seed": 1,
+   "ours": {
+    "minorThroughPerHour": 161,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.841
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 48,
+    "teleportsYield": 4,
+    "teleports": 4,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 8,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v36'; waited too long (yield), lane='south-in_0', time=1621.800.",
+     "Warning: Vehicle 'v36' ends teleporting on edge 'east-out', time=1623.200.",
+     "Warning: Teleporting vehicle 'v45'; waited too long (yield), lane='south-in_0', time=2178.600.",
+     "Warning: Vehicle 'v45' ends teleporting on edge 'west-out', time=2178.600.",
+     "Warning: Teleporting vehicle 'v55'; waited too long (yield), lane='south-in_0', time=2890.000."
+    ],
+    "wallClockS": 4.617
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1200-s2",
+   "majorFlowPerHour": 1200,
+   "seed": 2
+  },
+  "wallClockS": 6.217,
+  "result": {
+   "majorFlowPerHour": 1200,
+   "seed": 2,
+   "ours": {
+    "minorThroughPerHour": 129,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.882
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 54,
+    "teleportsYield": 3,
+    "teleports": 3,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 6,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v2'; waited too long (yield), lane='south-in_0', time=357.800.",
+     "Warning: Vehicle 'v2' ends teleporting on edge 'east-out', time=357.800.",
+     "Warning: Teleporting vehicle 'v9'; waited too long (yield), lane='south-in_0', time=1197.200.",
+     "Warning: Vehicle 'v9' ends teleporting on edge 'west-out', time=1198.200.",
+     "Warning: Teleporting vehicle 'v55'; waited too long (yield), lane='south-in_0', time=3378.400."
+    ],
+    "wallClockS": 4.403
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1200-s3",
+   "majorFlowPerHour": 1200,
+   "seed": 3
+  },
+  "wallClockS": 6.184,
+  "result": {
+   "majorFlowPerHour": 1200,
+   "seed": 3,
+   "ours": {
+    "minorThroughPerHour": 141,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.846
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 52,
+    "teleportsYield": 5,
+    "teleports": 5,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 10,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v21'; waited too long (yield), lane='south-in_0', time=920.800.",
+     "Warning: Vehicle 'v21' ends teleporting on edge 'east-out', time=920.800.",
+     "Warning: Teleporting vehicle 'v36'; waited too long (yield), lane='south-in_0', time=1747.800.",
+     "Warning: Vehicle 'v36' ends teleporting on edge 'east-out', time=1750.000.",
+     "Warning: Teleporting vehicle 'v52'; waited too long (yield), lane='south-in_0', time=2463.800."
+    ],
+    "wallClockS": 4.424
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1200-s4",
+   "majorFlowPerHour": 1200,
+   "seed": 4
+  },
+  "wallClockS": 6.023,
+  "result": {
+   "majorFlowPerHour": 1200,
+   "seed": 4,
+   "ours": {
+    "minorThroughPerHour": 184,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.921
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 60,
+    "teleportsYield": 5,
+    "teleports": 5,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 10,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v14'; waited too long (yield), lane='south-in_0', time=564.600.",
+     "Warning: Vehicle 'v14' ends teleporting on edge 'east-out', time=564.600.",
+     "Warning: Teleporting vehicle 'v15'; waited too long (yield), lane='south-in_0', time=874.400.",
+     "Warning: Vehicle 'v15' ends teleporting on edge 'east-out', time=874.400.",
+     "Warning: Teleporting vehicle 'v43'; waited too long (yield), lane='south-in_0', time=2052.000."
+    ],
+    "wallClockS": 4.255
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1200-s5",
+   "majorFlowPerHour": 1200,
+   "seed": 5
+  },
+  "wallClockS": 7.369,
+  "result": {
+   "majorFlowPerHour": 1200,
+   "seed": 5,
+   "ours": {
+    "minorThroughPerHour": 171,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.79
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 41,
+    "teleportsYield": 4,
+    "teleports": 4,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 8,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v2'; waited too long (yield), lane='south-in_0', time=487.000.",
+     "Warning: Vehicle 'v2' ends teleporting on edge 'west-out', time=488.200.",
+     "Warning: Teleporting vehicle 'v29'; waited too long (yield), lane='south-in_0', time=1643.800.",
+     "Warning: Vehicle 'v29' ends teleporting on edge 'west-out', time=1644.600.",
+     "Warning: Teleporting vehicle 'v51'; waited too long (yield), lane='south-in_0', time=2642.400."
+    ],
+    "wallClockS": 5.796
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1200-s6",
+   "majorFlowPerHour": 1200,
+   "seed": 6
+  },
+  "wallClockS": 7.618,
+  "result": {
+   "majorFlowPerHour": 1200,
+   "seed": 6,
+   "ours": {
+    "minorThroughPerHour": 83,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.945
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 60,
+    "teleportsYield": 5,
+    "teleports": 5,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 10,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v6'; waited too long (yield), lane='south-in_0', time=688.000.",
+     "Warning: Vehicle 'v6' ends teleporting on edge 'east-out', time=688.000.",
+     "Warning: Teleporting vehicle 'v15'; waited too long (yield), lane='south-in_0', time=1092.000.",
+     "Warning: Vehicle 'v15' ends teleporting on edge 'east-out', time=1092.000.",
+     "Warning: Teleporting vehicle 'v20'; waited too long (yield), lane='south-in_0', time=1737.600."
+    ],
+    "wallClockS": 5.847
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1200-s7",
+   "majorFlowPerHour": 1200,
+   "seed": 7
+  },
+  "wallClockS": 7.729,
+  "result": {
+   "majorFlowPerHour": 1200,
+   "seed": 7,
+   "ours": {
+    "minorThroughPerHour": 79,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.921
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 44,
+    "teleportsYield": 4,
+    "teleports": 4,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 8,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v2'; waited too long (yield), lane='south-in_0', time=668.000.",
+     "Warning: Vehicle 'v2' ends teleporting on edge 'west-out', time=668.000.",
+     "Warning: Teleporting vehicle 'v46'; waited too long (yield), lane='south-in_0', time=2135.600.",
+     "Warning: Vehicle 'v46' ends teleporting on edge 'east-out', time=2135.600.",
+     "Warning: Teleporting vehicle 'v58'; waited too long (yield), lane='south-in_0', time=2696.200."
+    ],
+    "wallClockS": 5.958
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1200-s8",
+   "majorFlowPerHour": 1200,
+   "seed": 8
+  },
+  "wallClockS": 7.54,
+  "result": {
+   "majorFlowPerHour": 1200,
+   "seed": 8,
+   "ours": {
+    "minorThroughPerHour": 200,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.888
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 63,
+    "teleportsYield": 2,
+    "teleports": 2,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 4,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v61'; waited too long (yield), lane='south-in_0', time=2149.400.",
+     "Warning: Vehicle 'v61' ends teleporting on edge 'east-out', time=2149.400.",
+     "Warning: Teleporting vehicle 'v88'; waited too long (yield), lane='south-in_0', time=3683.800.",
+     "Warning: Vehicle 'v88' ends teleporting on edge 'west-out', time=3683.800."
+    ],
+    "wallClockS": 5.766
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1200-s9",
+   "majorFlowPerHour": 1200,
+   "seed": 9
+  },
+  "wallClockS": 7.423,
+  "result": {
+   "majorFlowPerHour": 1200,
+   "seed": 9,
+   "ours": {
+    "minorThroughPerHour": 181,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.879
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 63,
+    "teleportsYield": 2,
+    "teleports": 2,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 4,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v17'; waited too long (yield), lane='south-in_0', time=801.600.",
+     "Warning: Vehicle 'v17' ends teleporting on edge 'west-out', time=801.600.",
+     "Warning: Teleporting vehicle 'v24'; waited too long (yield), lane='south-in_0', time=1191.200.",
+     "Warning: Vehicle 'v24' ends teleporting on edge 'west-out', time=1191.200."
+    ],
+    "wallClockS": 5.658
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.3",
+   "id": "t2.3-q1200-s10",
+   "majorFlowPerHour": 1200,
+   "seed": 10
+  },
+  "wallClockS": 7.617,
+  "result": {
+   "majorFlowPerHour": 1200,
+   "seed": 10,
+   "ours": {
+    "minorThroughPerHour": 150,
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 0.953
+   },
+   "oursNotRunnable": null,
+   "sumo": {
+    "minorThroughPerHour": 47,
+    "teleportsYield": 4,
+    "teleports": 4,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 8,
+    "warnings": [
+     "Warning: Teleporting vehicle 'v6'; waited too long (yield), lane='south-in_0', time=414.000.",
+     "Warning: Vehicle 'v6' ends teleporting on edge 'west-out', time=414.000.",
+     "Warning: Teleporting vehicle 'v18'; waited too long (yield), lane='south-in_0', time=1250.600.",
+     "Warning: Vehicle 'v18' ends teleporting on edge 'west-out', time=1253.000.",
+     "Warning: Teleporting vehicle 'v48'; waited too long (yield), lane='south-in_0', time=2263.600."
+    ],
+    "wallClockS": 5.823
+   }
+  }
+ }
+]

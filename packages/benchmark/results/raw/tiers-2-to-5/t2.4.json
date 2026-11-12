@@ -1,0 +1,352 @@
+[
+ {
+  "job": {
+   "kind": "t2.4",
+   "id": "t2.4-s1",
+   "seed": 1
+  },
+  "wallClockS": 7.714,
+  "result": {
+   "seed": 1,
+   "ours": {
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.727,
+    "through": 1413,
+    "entered": 1632,
+    "waitingToEnter": 1287
+   },
+   "sumo": {
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 1,
+    "warningCount": 1,
+    "warnings": [
+     "Warning: Vehicle 'v352' performs emergency braking on lane 'east-in_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=695.000."
+    ],
+    "wallClockS": 5.401,
+    "through": 1409,
+    "inserted": 1638,
+    "waiting": 1281,
+    "teleportsJam": 0,
+    "teleportsYield": 0,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.4",
+   "id": "t2.4-s2",
+   "seed": 2
+  },
+  "wallClockS": 7.761,
+  "result": {
+   "seed": 2,
+   "ours": {
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.787,
+    "through": 1408,
+    "entered": 1615,
+    "waitingToEnter": 1349
+   },
+   "sumo": {
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 5.43,
+    "through": 1407,
+    "inserted": 1637,
+    "waiting": 1327,
+    "teleportsJam": 0,
+    "teleportsYield": 0,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.4",
+   "id": "t2.4-s3",
+   "seed": 3
+  },
+  "wallClockS": 7.697,
+  "result": {
+   "seed": 3,
+   "ours": {
+    "stuckVehicles": 2,
+    "conservationViolations": 0,
+    "wallClockS": 1.732,
+    "through": 1215,
+    "entered": 1444,
+    "waitingToEnter": 1638
+   },
+   "sumo": {
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 2,
+    "warningCount": 2,
+    "warnings": [
+     "Warning: Vehicle 'v15' performs emergency braking on lane 'west-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=65.000.",
+     "Warning: Vehicle 'v139' performs emergency braking on lane 'north-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=100.000."
+    ],
+    "wallClockS": 5.4,
+    "through": 1426,
+    "inserted": 1656,
+    "waiting": 1426,
+    "teleportsJam": 0,
+    "teleportsYield": 0,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.4",
+   "id": "t2.4-s4",
+   "seed": 4
+  },
+  "wallClockS": 7.705,
+  "result": {
+   "seed": 4,
+   "ours": {
+    "stuckVehicles": 2,
+    "conservationViolations": 0,
+    "wallClockS": 1.838,
+    "through": 1133,
+    "entered": 1352,
+    "waitingToEnter": 1653
+   },
+   "sumo": {
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 2,
+    "warningCount": 2,
+    "warnings": [
+     "Warning: Vehicle 'v125' performs emergency braking on lane 'south-in_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=240.000.",
+     "Warning: Vehicle 'v233' performs emergency braking on lane 'south-in_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=380.000."
+    ],
+    "wallClockS": 5.334,
+    "through": 1405,
+    "inserted": 1634,
+    "waiting": 1371,
+    "teleportsJam": 0,
+    "teleportsYield": 0,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.4",
+   "id": "t2.4-s5",
+   "seed": 5
+  },
+  "wallClockS": 7.764,
+  "result": {
+   "seed": 5,
+   "ours": {
+    "stuckVehicles": 1,
+    "conservationViolations": 0,
+    "wallClockS": 1.886,
+    "through": 1216,
+    "entered": 1430,
+    "waitingToEnter": 1551
+   },
+   "sumo": {
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 5.316,
+    "through": 1398,
+    "inserted": 1628,
+    "waiting": 1353,
+    "teleportsJam": 0,
+    "teleportsYield": 0,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.4",
+   "id": "t2.4-s6",
+   "seed": 6
+  },
+  "wallClockS": 7.617,
+  "result": {
+   "seed": 6,
+   "ours": {
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 1.806,
+    "through": 1340,
+    "entered": 1552,
+    "waitingToEnter": 1473
+   },
+   "sumo": {
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 2,
+    "warningCount": 2,
+    "warnings": [
+     "Warning: Vehicle 'v117' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=100.000.",
+     "Warning: Vehicle 'v31' performs emergency braking on lane 'east-in_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=135.000."
+    ],
+    "wallClockS": 5.274,
+    "through": 1399,
+    "inserted": 1626,
+    "waiting": 1399,
+    "teleportsJam": 0,
+    "teleportsYield": 0,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.4",
+   "id": "t2.4-s7",
+   "seed": 7
+  },
+  "wallClockS": 6.851,
+  "result": {
+   "seed": 7,
+   "ours": {
+    "stuckVehicles": 2,
+    "conservationViolations": 0,
+    "wallClockS": 1.891,
+    "through": 1325,
+    "entered": 1543,
+    "waitingToEnter": 1523
+   },
+   "sumo": {
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 4,
+    "warningCount": 4,
+    "warnings": [
+     "Warning: Vehicle 'v23' performs emergency braking on lane 'south-in_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=30.000.",
+     "Warning: Vehicle 'v99' performs emergency braking on lane 'east-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=65.000.",
+     "Warning: Vehicle 'v99' performs emergency braking on lane ':cross_5_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=109.600.",
+     "Warning: Vehicle 'v155' performs emergency braking on lane 'east-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=135.000."
+    ],
+    "wallClockS": 3.861,
+    "through": 1423,
+    "inserted": 1653,
+    "waiting": 1413,
+    "teleportsJam": 0,
+    "teleportsYield": 0,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.4",
+   "id": "t2.4-s8",
+   "seed": 8
+  },
+  "wallClockS": 6.72,
+  "result": {
+   "seed": 8,
+   "ours": {
+    "stuckVehicles": 1,
+    "conservationViolations": 0,
+    "wallClockS": 1.827,
+    "through": 1352,
+    "entered": 1566,
+    "waitingToEnter": 1339
+   },
+   "sumo": {
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.767,
+    "through": 1403,
+    "inserted": 1633,
+    "waiting": 1272,
+    "teleportsJam": 0,
+    "teleportsYield": 0,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.4",
+   "id": "t2.4-s9",
+   "seed": 9
+  },
+  "wallClockS": 6.976,
+  "result": {
+   "seed": 9,
+   "ours": {
+    "stuckVehicles": 1,
+    "conservationViolations": 0,
+    "wallClockS": 2.663,
+    "through": 1347,
+    "entered": 1568,
+    "waitingToEnter": 1394
+   },
+   "sumo": {
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 3,
+    "warningCount": 3,
+    "warnings": [
+     "Warning: Vehicle 'v214' performs emergency braking on lane ':cross_13_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=249.400.",
+     "Warning: Vehicle 'v308' performs emergency braking on lane 'west-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=275.000.",
+     "Warning: Vehicle 'v273' performs emergency braking on lane 'south-in_1' with decel=9.0000, wished=1.0000, severity=1.0001, time=870.000."
+    ],
+    "wallClockS": 3.764,
+    "through": 1406,
+    "inserted": 1636,
+    "waiting": 1326,
+    "teleportsJam": 0,
+    "teleportsYield": 0,
+    "teleportsWrongLane": 0
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t2.4",
+   "id": "t2.4-s10",
+   "seed": 10
+  },
+  "wallClockS": 6.924,
+  "result": {
+   "seed": 10,
+   "ours": {
+    "stuckVehicles": 1,
+    "conservationViolations": 0,
+    "wallClockS": 2.602,
+    "through": 1253,
+    "entered": 1478,
+    "waitingToEnter": 1427
+   },
+   "sumo": {
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 0,
+    "warningCount": 0,
+    "warnings": [],
+    "wallClockS": 3.748,
+    "through": 1408,
+    "inserted": 1637,
+    "waiting": 1268,
+    "teleportsJam": 0,
+    "teleportsYield": 0,
+    "teleportsWrongLane": 0
+   }
+  }
+ }
+]

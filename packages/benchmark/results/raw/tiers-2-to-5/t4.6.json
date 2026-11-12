@@ -1,0 +1,462 @@
+[
+ {
+  "job": {
+   "kind": "t4.6",
+   "id": "t4.6-s1",
+   "seed": 1
+  },
+  "wallClockS": 46.061,
+  "result": {
+   "seed": 1,
+   "ours": {
+    "vehiclesPerHour": 7195.862068965014,
+    "pcuPerHour": 4289.793103447976,
+    "byClassPerHour": {
+     "two-wheeler": 4828.965517241042,
+     "car": 1630.3448275860928,
+     "auto-rickshaw": 409.6551724137645,
+     "bus": 326.89655172411506
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 2.111
+   },
+   "sumo": {
+    "vehiclesPerHour": 8995.862068964889,
+    "pcuPerHour": 5388.82758620652,
+    "byClassPerHour": {
+     "car": 2114.482758620542,
+     "two-wheeler": 5942.068965516826,
+     "auto-rickshaw": 550.3448275861684,
+     "bus": 388.96551724135213
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 7,
+    "warningCount": 7,
+    "warnings": [
+     "Warning: Vehicle 'v1071' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=810.000.",
+     "Warning: Vehicle 'v1069' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=810.000.",
+     "Warning: Vehicle 'v1288' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=950.000.",
+     "Warning: Vehicle 'v1957' performs emergency braking on lane 'south-in_0' with decel=7.0000, wished=1.0000, severity=1.0002, time=1440.000.",
+     "Warning: Vehicle 'v2647' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1930.000."
+    ],
+    "wallClockS": 41.768
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.6",
+   "id": "t4.6-s2",
+   "seed": 2
+  },
+  "wallClockS": 48.836,
+  "result": {
+   "seed": 2,
+   "ours": {
+    "vehiclesPerHour": 7026.2068965512335,
+    "pcuPerHour": 4194.206896551431,
+    "byClassPerHour": {
+     "bus": 268.9655172413605,
+     "two-wheeler": 4692.41379310312,
+     "car": 1708.96551724126,
+     "auto-rickshaw": 355.86206896549237
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 2.347
+   },
+   "sumo": {
+    "vehiclesPerHour": 9086.896551723503,
+    "pcuPerHour": 5434.344827585827,
+    "byClassPerHour": {
+     "two-wheeler": 6045.517241378888,
+     "auto-rickshaw": 467.58620689651906,
+     "car": 2226.2068965515687,
+     "bus": 347.5862068965274
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 7,
+    "warningCount": 7,
+    "warnings": [
+     "Warning: Vehicle 'v229' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=180.000.",
+     "Warning: Vehicle 'v693' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=530.000.",
+     "Warning: Vehicle 'v697' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=530.000.",
+     "Warning: Vehicle 'v892' performs emergency braking on lane 'south-in_0' with decel=7.0000, wished=1.0000, severity=1.0002, time=670.000.",
+     "Warning: Vehicle 'v1105' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=810.000."
+    ],
+    "wallClockS": 44.132
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.6",
+   "id": "t4.6-s3",
+   "seed": 3
+  },
+  "wallClockS": 50.888,
+  "result": {
+   "seed": 3,
+   "ours": {
+    "vehiclesPerHour": 7199.999999999496,
+    "pcuPerHour": 4316.275862068664,
+    "byClassPerHour": {
+     "two-wheeler": 4762.758620689322,
+     "car": 1684.137931034365,
+     "auto-rickshaw": 434.4827586206593,
+     "bus": 318.62068965515016
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 2.277
+   },
+   "sumo": {
+    "vehiclesPerHour": 9442.758620688994,
+    "pcuPerHour": 5550.620689654785,
+    "byClassPerHour": {
+     "two-wheeler": 6463.448275861617,
+     "auto-rickshaw": 504.82758620686127,
+     "bus": 397.24137931031703,
+     "car": 2077.2413793101996
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 10,
+    "warningCount": 10,
+    "warnings": [
+     "Warning: Vehicle 'v32' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=40.000.",
+     "Warning: Vehicle 'v319' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=250.000.",
+     "Warning: Vehicle 'v507' performs emergency braking on lane 'south-in_0' with decel=7.0000, wished=1.0000, severity=1.0002, time=390.000.",
+     "Warning: Vehicle 'v724' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=530.000.",
+     "Warning: Vehicle 'v831' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=600.000."
+    ],
+    "wallClockS": 46.31
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.6",
+   "id": "t4.6-s4",
+   "seed": 4
+  },
+  "wallClockS": 52.055,
+  "result": {
+   "seed": 4,
+   "ours": {
+    "vehiclesPerHour": 7017.931034482267,
+    "pcuPerHour": 4154.482758620399,
+    "byClassPerHour": {
+     "auto-rickshaw": 413.79310344824694,
+     "car": 1646.8965517240229,
+     "two-wheeler": 4692.41379310312,
+     "bus": 264.82758620687804
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 2.228
+   },
+   "sumo": {
+    "vehiclesPerHour": 9347.586206895898,
+    "pcuPerHour": 5467.448275861688,
+    "byClassPerHour": {
+     "car": 2172.4137931032965,
+     "two-wheeler": 6339.310344827143,
+     "auto-rickshaw": 525.5172413792736,
+     "bus": 310.3448275861852
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 5,
+    "warningCount": 5,
+    "warnings": [
+     "Warning: Vehicle 'v669' performs emergency braking on lane 'south-in_0' with decel=7.0000, wished=1.0000, severity=1.0002, time=530.000.",
+     "Warning: Vehicle 'v762' performs emergency braking on lane 'south-in_0' with decel=7.0000, wished=1.0000, severity=1.0002, time=600.000.",
+     "Warning: Vehicle 'v1730' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1230.000.",
+     "Warning: Vehicle 'v1943' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1370.000.",
+     "Warning: Vehicle 'v2156' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1510.000."
+    ],
+    "wallClockS": 47.368
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.6",
+   "id": "t4.6-s5",
+   "seed": 5
+  },
+  "wallClockS": 50.446,
+  "result": {
+   "seed": 5,
+   "ours": {
+    "vehiclesPerHour": 7088.27586206847,
+    "pcuPerHour": 4208.68965517212,
+    "byClassPerHour": {
+     "car": 1597.2413793102332,
+     "two-wheeler": 4799.999999999664,
+     "bus": 314.48275862066765,
+     "auto-rickshaw": 376.5517241379047
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 2.31
+   },
+   "sumo": {
+    "vehiclesPerHour": 9322.758620689003,
+    "pcuPerHour": 5504.275862068581,
+    "byClassPerHour": {
+     "car": 2015.1724137929625,
+     "bus": 426.20689655169434,
+     "two-wheeler": 6335.17241379266,
+     "auto-rickshaw": 546.206896551686
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 9,
+    "warningCount": 9,
+    "warnings": [
+     "Warning: Vehicle 'v20' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=40.000.",
+     "Warning: Vehicle 'v322' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=250.000.",
+     "Warning: Vehicle 'v572' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=460.000.",
+     "Warning: Vehicle 'v878' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=670.000.",
+     "Warning: Vehicle 'v1380' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1020.000."
+    ],
+    "wallClockS": 45.73
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.6",
+   "id": "t4.6-s6",
+   "seed": 6
+  },
+  "wallClockS": 47.632,
+  "result": {
+   "seed": 6,
+   "ours": {
+    "vehiclesPerHour": 7137.93103448226,
+    "pcuPerHour": 4308.413793103147,
+    "byClassPerHour": {
+     "two-wheeler": 4729.655172413462,
+     "car": 1742.0689655171195,
+     "auto-rickshaw": 355.86206896549237,
+     "bus": 310.3448275861852
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 2.137
+   },
+   "sumo": {
+    "vehiclesPerHour": 8908.965517240758,
+    "pcuPerHour": 5399.172413792727,
+    "byClassPerHour": {
+     "two-wheeler": 5826.206896551317,
+     "bus": 355.86206896549237,
+     "car": 2271.7241379308757,
+     "auto-rickshaw": 455.17241379307166
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 9,
+    "warningCount": 9,
+    "warnings": [
+     "Warning: Vehicle 'v219' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=180.000.",
+     "Warning: Vehicle 'v330' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=250.000.",
+     "Warning: Vehicle 'v901' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=670.000.",
+     "Warning: Vehicle 'v1184' performs emergency braking on lane 'south-in_0' with decel=7.0000, wished=1.0000, severity=1.0002, time=880.000.",
+     "Warning: Vehicle 'v1486' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1090.000."
+    ],
+    "wallClockS": 43.173
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.6",
+   "id": "t4.6-s7",
+   "seed": 7
+  },
+  "wallClockS": 54.084,
+  "result": {
+   "seed": 7,
+   "ours": {
+    "vehiclesPerHour": 7108.965517240882,
+    "pcuPerHour": 4246.34482758591,
+    "byClassPerHour": {
+     "two-wheeler": 4754.482758620357,
+     "car": 1597.2413793102332,
+     "auto-rickshaw": 422.0689655172119,
+     "bus": 335.17241379308
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 2.812
+   },
+   "sumo": {
+    "vehiclesPerHour": 9144.827586206256,
+    "pcuPerHour": 5488.137931034099,
+    "byClassPerHour": {
+     "two-wheeler": 6086.896551723712,
+     "car": 2102.0689655170945,
+     "bus": 430.3448275861768,
+     "auto-rickshaw": 525.5172413792736
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 13,
+    "warningCount": 13,
+    "warnings": [
+     "Warning: Vehicle 'v135' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=110.000.",
+     "Warning: Vehicle 'v303' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=250.000.",
+     "Warning: Vehicle 'v311' performs emergency braking on lane 'south-in_0' with decel=7.0000, wished=1.0000, severity=1.0002, time=250.000.",
+     "Warning: Vehicle 'v402' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=320.000.",
+     "Warning: Vehicle 'v592' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=460.000."
+    ],
+    "wallClockS": 49.543
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.6",
+   "id": "t4.6-s8",
+   "seed": 8
+  },
+  "wallClockS": 54.347,
+  "result": {
+   "seed": 8,
+   "ours": {
+    "vehiclesPerHour": 7228.965517240875,
+    "pcuPerHour": 4230.206896551428,
+    "byClassPerHour": {
+     "auto-rickshaw": 451.03448275858915,
+     "bus": 277.24137931032544,
+     "two-wheeler": 4899.310344827244,
+     "car": 1601.3793103447156
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 2.719
+   },
+   "sumo": {
+    "vehiclesPerHour": 9335.17241379245,
+    "pcuPerHour": 5479.034482758238,
+    "byClassPerHour": {
+     "auto-rickshaw": 542.0689655172035,
+     "car": 2056.5517241377875,
+     "two-wheeler": 6355.8620689650725,
+     "bus": 380.6896551723872
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 11,
+    "warningCount": 11,
+    "warnings": [
+     "Warning: Vehicle 'v198' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=180.000.",
+     "Warning: Vehicle 'v789' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=600.000.",
+     "Warning: Vehicle 'v1500' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1090.000.",
+     "Warning: Vehicle 'v1599' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1160.000.",
+     "Warning: Vehicle 'v1688' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=1230.000."
+    ],
+    "wallClockS": 49.833
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.6",
+   "id": "t4.6-s9",
+   "seed": 9
+  },
+  "wallClockS": 56.284,
+  "result": {
+   "seed": 9,
+   "ours": {
+    "vehiclesPerHour": 7452.413793102927,
+    "pcuPerHour": 4341.103448275559,
+    "byClassPerHour": {
+     "two-wheeler": 5143.44827586171,
+     "car": 1630.3448275860928,
+     "bus": 285.5172413792904,
+     "auto-rickshaw": 393.1034482758346
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 2.451
+   },
+   "sumo": {
+    "vehiclesPerHour": 9724.137931033803,
+    "pcuPerHour": 5620.13793103409,
+    "byClassPerHour": {
+     "bus": 351.7241379310099,
+     "car": 2093.7931034481294,
+     "two-wheeler": 6757.241379309872,
+     "auto-rickshaw": 521.3793103447912
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 12,
+    "warningCount": 12,
+    "warnings": [
+     "Warning: Vehicle 'v28' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=40.000.",
+     "Warning: Vehicle 'v269' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=250.000.",
+     "Warning: Vehicle 'v377' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=320.000.",
+     "Warning: Vehicle 'v470' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=390.000.",
+     "Warning: Vehicle 'v688' performs emergency braking on lane 'south-in_0' with decel=7.0000, wished=1.0000, severity=1.0002, time=530.000."
+    ],
+    "wallClockS": 52.129
+   }
+  }
+ },
+ {
+  "job": {
+   "kind": "t4.6",
+   "id": "t4.6-s10",
+   "seed": 10
+  },
+  "wallClockS": 51.483,
+  "result": {
+   "seed": 10,
+   "ours": {
+    "vehiclesPerHour": 6935.1724137926185,
+    "pcuPerHour": 4154.482758620399,
+    "byClassPerHour": {
+     "two-wheeler": 4555.862068965199,
+     "car": 1593.1034482757507,
+     "auto-rickshaw": 471.7241379310015,
+     "bus": 314.48275862066765
+    },
+    "stuckVehicles": 0,
+    "conservationViolations": 0,
+    "wallClockS": 4.028
+   },
+   "sumo": {
+    "vehiclesPerHour": 8975.172413792478,
+    "pcuPerHour": 5385.517241378934,
+    "byClassPerHour": {
+     "car": 2085.5172413791647,
+     "auto-rickshaw": 575.1724137930632,
+     "two-wheeler": 5908.965517240967,
+     "bus": 405.517241379282
+    },
+    "teleports": 0,
+    "collisions": 0,
+    "emergencyBraking": 13,
+    "warningCount": 13,
+    "warnings": [
+     "Warning: Vehicle 'v429' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=320.000.",
+     "Warning: Vehicle 'v497' performs emergency braking on lane 'south-in_0' with decel=7.0000, wished=1.0000, severity=1.0002, time=390.000.",
+     "Warning: Vehicle 'v690' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=530.000.",
+     "Warning: Vehicle 'v700' performs emergency braking on lane 'south-in_0' with decel=7.0000, wished=1.0000, severity=1.0002, time=530.000.",
+     "Warning: Vehicle 'v995' performs emergency braking on lane 'south-in_0' with decel=9.0000, wished=1.0000, severity=1.0001, time=740.000."
+    ],
+    "wallClockS": 45.335
+   }
+  }
+ }
+]

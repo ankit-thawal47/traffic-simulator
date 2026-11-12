@@ -6,6 +6,8 @@
   "description": "Benchmark harness: runs the tests of docs/benchmark-standard.md against the engine, against SUMO and against reference equations. A separate command; not part of the ordinary test run.",
   "scripts": {
     "bench": "tsx src/main.ts",
+    "bench:tiers": "tsx src/main-tiers.ts",
+    "fetch-chennai": "sh scripts/fetch-chennai.sh",
     "install-sumo": "sh scripts/install-sumo.sh",
     "typecheck": "tsc -p tsconfig.json"
   },
