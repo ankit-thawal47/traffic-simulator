@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // The importer is plain logic: no DOM, no Node, no ambient types, so it runs in a browser later.
+    "lib": ["ES2022"],
+    "types": []
+  },
+  "include": ["src"]
+}

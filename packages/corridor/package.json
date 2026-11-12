@@ -1,0 +1,24 @@
+{
+  "name": "@traffic-simulator/corridor",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Corridor importer: OpenStreetMap data plus a corrections file checked by hand in, a network in the engine's format out. Holds the prepared corridors as data. No browser dependencies in src.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./data/hebbal/corridor.json": "./data/hebbal/corridor.json"
+  },
+  "scripts": {
+    "build-corridor": "tsx scripts/build-corridor.ts",
+    "run-ground": "tsx scripts/run-ground.ts",
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.node.json"
+  },
+  "dependencies": {
+    "@traffic-simulator/engine": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}
