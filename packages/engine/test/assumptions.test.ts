@@ -87,7 +87,7 @@ describe("the list of assumptions shown to the planner", () => {
       expect(listed(`routeChoice.${name}`).state).toBe("our-choice");
       expect(listed(`routeChoice.${name}`).source.length).toBeGreaterThan(80);
     }
-    for (const rule of ["rule.route-choice", "rule.diverge-and-merge", "rule.levels", "rule.sorting"]) {
+    for (const rule of ["rule.route-choice", "rule.diverge-and-merge", "rule.levels", "rule.sorting", "rule.blocked-strip"]) {
       expect(listed(rule).state).toBe("our-choice");
     }
   });

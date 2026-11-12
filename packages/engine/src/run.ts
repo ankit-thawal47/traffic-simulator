@@ -75,8 +75,14 @@ interface RoadState {
   aspect: SignalAspect;
   /** For an approach: the longest queue it has had so far. */
   longestQueue: ApproachQueue;
-  /** For an approach: the vehicles standing in strips that do not lead onto their way on, waiting to get across, this step. */
+  /** The vehicles standing in strips they have to leave (strips that do not lead onto their way on, or are blocked ahead), waiting to get across, this step. */
   waitingToSort: Vehicle[];
+  /**
+   * For each strip, the stationary vehicles in it, nearest the start of the road first: their rear
+   * bumpers and their front bumpers. Stationary vehicles never move, so this is found once.
+   * Undefined when the road has no stationary vehicle.
+   */
+  blockedFrom: { rearsM: number[]; frontsM: number[] }[] | undefined;
 }
 
 /**
@@ -182,9 +188,12 @@ interface Vehicle {
   /**
    * Strips the vehicle has to move to be in strips that lead on along its route (positive to the right),
    * and whether it needs them at the very next junction: until it has them it cannot be let in there.
+   * A vehicle in strips that are blocked ahead (blockedAhead) has, in the same way, the strips it has to move to be
+   * clear of them: it is leaving a blocked strip. Where the road has no place clear for it, that is 0.
    */
   sorting: number;
   mustSort: boolean;
+  blockedAhead: boolean;
   /** The gap to, and speed of, a vehicle ahead waiting to sort that this vehicle gives way to; the gap is Infinity when there is none. */
   givesWayGapM: number;
   givesWaySpeedMps: number;
@@ -290,6 +299,7 @@ export function createRun(input: RunInput): Run {
       aspect: { state: "green", remainingS: Infinity },
       longestQueue: { lengthM: 0, vehicles: 0, eachMinute: [] },
       waitingToSort: [],
+      blockedFrom: undefined,
     });
   }
 
@@ -688,6 +698,7 @@ export function createRun(input: RunInput): Run {
       speedCapMps: Math.min(assumptions.desiredSpeedMps, road.road.speedLimitMps),
       sorting: 0,
       mustSort: false,
+      blockedAhead: false,
       givesWayGapM: Infinity,
       givesWaySpeedMps: 0,
       currentAcceleration: 0,
@@ -731,6 +742,59 @@ export function createRun(input: RunInput): Run {
     }
     const vehicle = placeVehicle(road, vehicleClass, initial.positionM, speedMps, strip, 0, route);
     vehicle.stationary = initial.stationary === true;
+  }
+
+  // Strips blocked ahead: where the stationary vehicles stand, found once.
+  for (const road of roads.values()) {
+    const standing = road.vehicles.filter((vehicle) => vehicle.stationary).sort((a, b) => a.positionM - b.positionM);
+    if (standing.length === 0) continue;
+    road.blockedFrom = Array.from({ length: road.stripCount }, () => ({ rearsM: [], frontsM: [] }));
+    for (const vehicle of standing) {
+      for (let s = vehicle.strip; s < vehicle.strip + vehicle.strips; s++) {
+        road.blockedFrom[s]!.rearsM.push(rearM(vehicle));
+        road.blockedFrom[s]!.frontsM.push(vehicle.positionM);
+      }
+    }
+  }
+
+  /**
+   * Whether any of the strips low..high is blocked ahead of a place on a road: a stationary vehicle
+   * stands in it, further along, within the distance at which a blocked strip is seen.
+   */
+  function blockedAheadIn(road: RoadState, positionM: number, low: number, high: number): boolean {
+    const blocked = road.blockedFrom!;
+    const sightM = SIDEWAYS_ASSUMPTIONS.blockedSightM.value;
+    for (let s = low; s <= high; s++) {
+      const { rearsM, frontsM } = blocked[s]!;
+      // The first stationary vehicle whose front bumper is ahead of the place.
+      let from = 0;
+      let to = frontsM.length;
+      while (from < to) {
+        const middle = (from + to) >> 1;
+        if (frontsM[middle]! > positionM) to = middle;
+        else from = middle + 1;
+      }
+      if (from < rearsM.length && rearsM[from]! - positionM <= sightM) return true;
+    }
+    return false;
+  }
+
+  /**
+   * Leaving a blocked strip. How many strips a vehicle has to move to be in strips none of which is
+   * blocked ahead: negative to the left, positive to the right, 0 when it is in such strips or the
+   * road has none. Of two places equally near, the left one.
+   */
+  function stripsToClear(vehicle: Vehicle): number {
+    const road = vehicle.road;
+    if (!blockedAheadIn(road, vehicle.positionM, vehicle.strip, vehicle.strip + vehicle.strips - 1)) return 0;
+    for (let distance = 1; distance < road.stripCount; distance++) {
+      for (const direction of [-1, 1]) {
+        const strip = vehicle.strip + direction * distance;
+        if (strip < 0 || strip + vehicle.strips > road.stripCount) continue;
+        if (!blockedAheadIn(road, vehicle.positionM, strip, strip + vehicle.strips - 1)) return direction * distance;
+      }
+    }
+    return 0;
   }
 
   /**
@@ -942,6 +1006,8 @@ export function createRun(input: RunInput): Run {
         if (stripTakenAlongside(vehicle, entered)) break;
         // It does not leave the strips that lead onto its turn for strips that do not.
         if (fitsTurn && !curveThrough(vehicle.ahead!, strip, vehicle.strips)) break;
+        // Nor strips that are clear ahead for strips that are blocked ahead.
+        if (road.blockedFrom && !vehicle.blockedAhead && sorting === 0 && blockedAheadIn(road, vehicle.positionM, strip, strip + vehicle.strips - 1)) break;
         // Nor, once sorted for a diverge further on, the strips that lead on along its route.
         if (leadsOn && stripsToWayOn(vehicle.route, vehicle.routeIndex, strip, vehicle.strips) !== 0) break;
         // Not in front of a vehicle already let into the junction: those let in go in the order they were let in.
@@ -957,7 +1023,9 @@ export function createRun(input: RunInput): Run {
           roomBeyond(vehicle, vehicle.ahead!, strip);
         if (held && !couldGo) there = Math.min(there, acceleration(vehicle, road.lengthM - vehicle.positionM, 0));
         // Sorting is worth some acceleration (the bias), a little more the nearer it gets to its strips.
-        const bias = sorting === 0 ? 0 : sortingBias + 0.01 * Math.min(distance, Math.abs(sorting));
+        // Leaving a blocked strip, only a place clear of the blockage is worth it: a place part of the way across is not.
+        const worthIt = sorting !== 0 && (!vehicle.blockedAhead || distance >= Math.abs(sorting));
+        const bias = worthIt ? sortingBias + 0.01 * Math.min(distance, Math.abs(sorting)) : 0;
         if (there < current - bias - EPSILON) break;
 
         let braking = 0;
@@ -1217,10 +1285,6 @@ export function createRun(input: RunInput): Run {
       const leader = leaderIn(vehicle, lowStrip(vehicle), highStrip(vehicle));
       if (leader) consider(rearM(leader) - vehicle.positionM, leader.speedMps);
     }
-    // Giving way: a vehicle waiting to get across to the strips its route leaves from is
-    // treated as a leader by those behind it in the strips it is waiting for, if they can
-    // still stop comfortably, so a gap opens beside it (the vehicle further ahead goes first).
-    if (vehicle.givesWayGapM < Infinity) consider(vehicle.givesWayGapM, vehicle.givesWaySpeedMps);
     if (!vehicle.ahead) return;
     const beyondStopLineM = vehicle.positionM - vehicle.road.lengthM;
     // A vehicle that still has to move left to reach its strips waits short of the stop line, so that it is
@@ -1403,12 +1467,34 @@ export function createRun(input: RunInput): Run {
     return false;
   }
 
+  /**
+   * The acceleration the following rule gives a vehicle for what lookAhead found, for a vehicle it
+   * gives way to, and, leaving a blocked strip, for falling in: a vehicle that has to leave its strips
+   * also follows the vehicle that would be ahead of it in the strip it would enter next, as far as it
+   * can by slowing comfortably. It then comes level with a gap there while still moving, and does not
+   * run on to the end of its strip and move across from a stand, holding both strips while it does.
+   */
+  function accelerationNow(vehicle: Vehicle): number {
+    const own = acceleration(vehicle, aheadGapM < Infinity ? aheadGapM : undefined, aheadSpeedMps);
+    // Giving way: a vehicle waiting to get across is treated as a leader by those behind it in the
+    // strip it is waiting for, if they can still stop comfortably, so a gap opens beside it (the
+    // vehicle further ahead goes first). It is weighed apart from what is ahead in the vehicle's own
+    // strips: a vehicle following another at speed still slows for one waiting further on.
+    const a = vehicle.givesWayGapM < Infinity ? Math.min(own, acceleration(vehicle, vehicle.givesWayGapM, vehicle.givesWaySpeedMps)) : own;
+    if (!vehicle.blockedAhead || vehicle.sorting === 0) return a;
+    const next = vehicle.sorting < 0 ? vehicle.strip - 1 : vehicle.strip + vehicle.strips;
+    const leader = leaderIn(vehicle, next, next);
+    if (!leader) return a;
+    const behind = accelerationBehind(vehicle, leader);
+    return Math.min(a, Math.max(behind, -vehicle.assumptions.comfortableDecelerationMps2));
+  }
+
   /** Decide a vehicle's next position and speed along the road. */
   function decide(vehicle: Vehicle): void {
     if (vehicle.stationary) return;
     lookAhead(vehicle);
     const hasLeader = aheadGapM < Infinity;
-    const a = acceleration(vehicle, hasLeader ? aheadGapM : undefined, aheadSpeedMps);
+    const a = accelerationNow(vehicle);
     const v = vehicle.speedMps;
     const dt = STEP_SECONDS;
     let nextSpeed = v + a * dt;
@@ -1487,16 +1573,24 @@ export function createRun(input: RunInput): Run {
         setSpeedCap(vehicles[i]!);
       }
       // Sorting for the way on: how far each vehicle is from the strips its route leaves from, and who is waiting to get to them.
+      // Leaving a blocked strip: the same, for a vehicle in strips with a stationary vehicle ahead.
       road.waitingToSort.length = 0;
-      if (road.endsAt) {
+      if (road.endsAt || road.blockedFrom) {
         const waitBelowMps = JUNCTION_ASSUMPTIONS.queueSpeedMps.value;
         for (const vehicle of vehicles) {
           vehicle.sorting = 0;
           vehicle.mustSort = false;
-          if (!vehicle.ahead || vehicle.place !== ON_ROAD || vehicle.admitted || vehicle.stationary) continue;
-          vehicle.sorting = stripsToWayOn(vehicle.route, vehicle.routeIndex, vehicle.strip, vehicle.strips);
-          vehicle.mustSort = vehicle.sorting !== 0 && wayOnFailsAtNext;
-          if (vehicle.mustSort && vehicle.speedMps < waitBelowMps) road.waitingToSort.push(vehicle);
+          vehicle.blockedAhead = false;
+          if (vehicle.place !== ON_ROAD || vehicle.admitted || vehicle.stationary) continue;
+          if (vehicle.ahead) {
+            vehicle.sorting = stripsToWayOn(vehicle.route, vehicle.routeIndex, vehicle.strip, vehicle.strips);
+            vehicle.mustSort = vehicle.sorting !== 0 && wayOnFailsAtNext;
+          }
+          if (vehicle.sorting === 0 && road.blockedFrom && vehicle.shiftDirection === 0) {
+            vehicle.sorting = stripsToClear(vehicle);
+            vehicle.blockedAhead = vehicle.sorting !== 0 || blockedAheadIn(road, vehicle.positionM, vehicle.strip, vehicle.strip + vehicle.strips - 1);
+          }
+          if ((vehicle.mustSort || (vehicle.blockedAhead && vehicle.sorting !== 0)) && vehicle.speedMps < waitBelowMps) road.waitingToSort.push(vehicle);
         }
         findGivingWay(road);
       }
@@ -1511,7 +1605,7 @@ export function createRun(input: RunInput): Run {
       const vehicles = road.vehicles;
       for (const vehicle of vehicles) {
         lookAhead(vehicle);
-        vehicle.currentAcceleration = acceleration(vehicle, aheadGapM < Infinity ? aheadGapM : undefined, aheadSpeedMps);
+        vehicle.currentAcceleration = accelerationNow(vehicle);
       }
       for (const vehicle of vehicles) claimSpace(vehicle);
       settleClaims(road);

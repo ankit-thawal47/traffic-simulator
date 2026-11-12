@@ -369,6 +369,18 @@ export const SIDEWAYS_ASSUMPTIONS = {
       "The hardest braking a sideways shift may cause the vehicle behind. The authors chose the value for simulations " +
       "of lane changing on a two-lane motorway; it was not measured, and not chosen for Indian roads.",
   },
+  blockedSightM: {
+    value: 200,
+    unit: "m",
+    state: "our-choice",
+    source:
+      "Our choice; not from a measurement. How far ahead a vehicle sees that a stationary vehicle blocks a strip: " +
+      "within this distance it leaves the strip if it is in it and does not move into it if it is not. It is about " +
+      "twice the 112 m in which a car stops comfortably from its desired speed (15 m/s at 1 m/s2), so that a vehicle " +
+      "has room to slow, fall in behind a gap and move across before it reaches the blockage, rather than at it. The " +
+      "result is not sensitive to the value: on benchmark test T1.5 (seed 1) the road discharged 2,912, 2,932 and " +
+      "2,958 vehicles an hour at 100, 200 and 400 m; at 50 m, 2,590.",
+  },
 } satisfies Record<string, Assumption>;
 
 /** Assumptions about how vehicles behave at junctions. All are our own choices; none comes from a measurement. */
@@ -668,9 +680,28 @@ export const RULES: readonly Rule[] = [
       "flyover, or out of a junction) counts a shift towards its strips as a gain. If it is still on the wrong side at " +
       "the junction it waits: at the stop line if it has to move right, 15 m short of it if it has to move left, so " +
       "that two such vehicles are never level, each where the other needs to go. Vehicles behind it in the strip it " +
-      "would enter next treat it as the vehicle ahead, if they can still stop comfortably, and a vehicle giving way " +
+      "would enter next treat it as the vehicle ahead, if they can still stop comfortably (whatever they are " +
+      "following in their own strips), and a vehicle giving way " +
       "does not ask to be let into the junction. Without this rule a road where traffic has to cross over before a " +
       "diverge locked within minutes. It is not calibrated: how much a weaving section carries is not to be relied on.",
+  },
+  {
+    id: "rule.blocked-strip",
+    name: "Leaving a blocked strip: a vehicle with a stationary vehicle ahead in its strips moves across to strips that are clear, falling in behind the traffic there, and no vehicle moves into strips that are blocked ahead",
+    state: "our-choice",
+    source:
+      "Ours; no source gives it. It is sorting for the way on applied to a road that is blocked part of the way " +
+      "across (a lane closed by parked or broken-down vehicles): within the distance at which a blocked strip is " +
+      "seen, a vehicle in it counts a shift towards the nearest clear strips as a gain (the same amount as when " +
+      "sorting), and a vehicle in clear strips does not shift into blocked ones. While it still has to get across, " +
+      "it also follows the vehicle that would be ahead of it in the strip it would enter next, as far as slowing " +
+      "comfortably allows, so that it comes level with a gap while moving. One that has slowed to queue speed is " +
+      "given way to as at a junction: vehicles behind it in the strip it would enter next treat it as the vehicle " +
+      "ahead if they can still stop comfortably, also when they are following another vehicle at speed. Without the " +
+      "rule vehicles queued behind a closed lane stood for minutes (about 240 a run stood 300 s or more in benchmark " +
+      "test T1.5) while others moved into the closed lane beside them. It is not calibrated: with one lane of three " +
+      "closed the road still discharges about a fifth less than SUMO does, because a vehicle that moves across from " +
+      "a stand holds both lanes for the whole of its sideways shift.",
   },
   {
     id: "rule.route-choice",
@@ -728,6 +759,7 @@ const SHARED_NAMES: Record<keyof typeof TIME_ASSUMPTIONS | keyof typeof SIDEWAYS
   gainThresholdMps2: "Gain in acceleration needed for a sideways shift",
   politeness: "Weight given to the braking a sideways shift causes the vehicle behind (0 = none, 1 = as much as one's own gain)",
   safeBrakingMps2: "Hardest braking a sideways shift may cause the vehicle behind",
+  blockedSightM: "Leaving a blocked strip: how far ahead a vehicle sees that a stationary vehicle blocks a strip",
 };
 
 /**
