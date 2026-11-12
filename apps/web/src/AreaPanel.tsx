@@ -12,7 +12,18 @@ import "./area-panel.css";
  * or corrected. The planner corrects lanes, widths and green times here;
  * a correction changes what the baseline is, not the proposal.
  */
-export function AreaPanel({ scenario, area, onCorrect }: { scenario: Scenario; area: ScenarioArea; onCorrect: (next: Scenario) => void }) {
+export function AreaPanel({
+  scenario,
+  area,
+  refusal,
+  onCorrect,
+}: {
+  scenario: Scenario;
+  area: ScenarioArea;
+  /** Why the last correction (or change) was not made. */
+  refusal: string | undefined;
+  onCorrect: (next: Scenario) => void;
+}) {
   const table = useMemo(() => guessTable(area), [area]);
   const imported = area.imported;
   const [dataUrl, setDataUrl] = useState<string>();
@@ -47,6 +58,11 @@ export function AreaPanel({ scenario, area, onCorrect }: { scenario: Scenario; a
         </a>
         .
       </p>
+      {refusal && (
+        <p className="refused" data-testid="correction-refused" role="alert">
+          Not changed. {refusal}.
+        </p>
+      )}
       <details open data-testid="area-guesses">
         <summary>
           What OpenStreetMap gives, what is guessed ({guessedCount} values), and corrections

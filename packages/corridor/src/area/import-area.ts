@@ -1025,7 +1025,7 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
     name: corrections.name,
     network,
     demand,
-    roadNames: Object.fromEntries(Object.entries(roadNames).filter(([id]) => roadIds.has(id))),
+    roadNames: Object.fromEntries(Object.entries(roadNames).filter(([id]) => roadIds.has(id) || junctionIds.has(id))),
     guesses: guesses.filter((guess) => (guess.roadId === undefined || roadIds.has(guess.roadId)) && (guess.junctionId === undefined || junctionIds.has(guess.junctionId))),
     adjustments: allAdjustments,
     attribution: OSM_ATTRIBUTION,

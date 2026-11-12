@@ -1,3 +1,14 @@
+/* Under the views, in the row a corridor's notice takes: it scrolls on its own, so the views keep their room. */
+.area-panel {
+  max-height: 32vh;
+  overflow-y: auto;
+}
+
+.area-panel details[open] {
+  max-height: none;
+  overflow: visible;
+}
+
 .area-table-scroll {
   max-height: 22rem;
   overflow: auto;

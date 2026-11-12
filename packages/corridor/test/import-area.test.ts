@@ -96,6 +96,7 @@ describe("importing an area", () => {
     const names = network.roads.map((road) => roadNames[road.id]);
     expect(names).toContain("North Road, northbound");
     expect(names).toContain("East Road, westbound");
+    expect(roadNames[network.junctions![0]!.id]).toBe("North Road × East Road");
   });
 
   it("runs five minutes with the consistency checks passing", () => {

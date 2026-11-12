@@ -242,14 +242,7 @@ export function App() {
         </figure>
       </section>
       {corridorId !== undefined && notice && <CorridorNoticePanel corridorId={corridorId} notice={notice} />}
-      {area && (
-        <AreaPanel key={opened} scenario={proposal} area={area} onCorrect={propose} />
-      )}
-      {area && refusal && (
-        <p className="refused" data-testid="correction-refused" role="alert">
-          Not changed. {refusal}.
-        </p>
-      )}
+      {area && <AreaPanel key={opened} scenario={proposal} area={area} refusal={refusal} onCorrect={propose} />}
 
       <section className="panels">
         <ProposalPanel
