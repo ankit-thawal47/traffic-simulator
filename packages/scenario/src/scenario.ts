@@ -16,6 +16,7 @@ import {
   type VehicleMix,
 } from "@traffic-simulator/engine";
 import type { Layout } from "./builder";
+import type { ScenarioArea } from "./area";
 
 /**
  * The current version of the scenario description. It counts changes to this
@@ -33,11 +34,15 @@ import type { Layout } from "./builder";
  * 5. a scenario may carry a layout of building blocks (`layout`) instead of
  *    its network; it is saved without the network, which is built from the
  *    layout again when it is read.
+ * 6. a scenario may be on an area imported from OpenStreetMap (`area`): the
+ *    area's bounds, the planner's corrections of what the import guessed,
+ *    and what the import made. A file carries all three; a link carries the
+ *    bounds and corrections only, and the area is imported again on opening.
  *
  * A new version raises this number, adds one upgrade step (upgrade.ts) and
  * one saved example (test/fixtures); older links and files keep loading.
  */
-export const SCENARIO_FORMAT_VERSION = 5;
+export const SCENARIO_FORMAT_VERSION = 6;
 
 /** Set the usable width of one road, named by its stable identifier. */
 export interface RoadWidthChange {
@@ -197,6 +202,12 @@ export interface Scenario {
    * its network is built from the layout again when it is read.
    */
   layout?: Layout;
+  /**
+   * The area imported from OpenStreetMap the network is of, if it is one:
+   * `network` is what the import made with the planner's corrections, and
+   * `demand` is the import's guessed demand.
+   */
+  area?: ScenarioArea;
   /** The network as it is today. Changes are never written into it; they stay in `changes`. */
   network: Network;
   /**

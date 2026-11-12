@@ -1,0 +1,106 @@
+{
+  "formatVersion": 5,
+  "name": "Built four-way, one lane on the first road",
+  "layout": {
+    "blocks": [
+      {
+        "kind": "straight",
+        "lanes": 3,
+        "widthM": 10.5,
+        "lengthM": 300
+      },
+      {
+        "kind": "four-way",
+        "lanes": 3,
+        "widthM": 10.5,
+        "lengthM": 400,
+        "sideLanes": 2,
+        "sideWidthM": 7,
+        "sideLengthM": 200,
+        "control": "signal",
+        "mainGreenS": 30,
+        "sideGreenS": 20
+      }
+    ]
+  },
+  "unbuiltRoadIds": [],
+  "changes": [
+    {
+      "kind": "road-lanes",
+      "roadId": "b1-eastbound",
+      "lanes": 1
+    }
+  ],
+  "demand": {
+    "flows": [
+      {
+        "entryRoadId": "b1-eastbound",
+        "exitRoadId": "b2-eastbound-out",
+        "vehiclesPerHour": 800
+      },
+      {
+        "entryRoadId": "b1-eastbound",
+        "exitRoadId": "b2-south-out",
+        "vehiclesPerHour": 60
+      },
+      {
+        "entryRoadId": "b1-eastbound",
+        "exitRoadId": "b2-north-out",
+        "vehiclesPerHour": 60
+      },
+      {
+        "entryRoadId": "b2-westbound-in",
+        "exitRoadId": "b1-westbound",
+        "vehiclesPerHour": 800
+      },
+      {
+        "entryRoadId": "b2-westbound-in",
+        "exitRoadId": "b2-south-out",
+        "vehiclesPerHour": 60
+      },
+      {
+        "entryRoadId": "b2-westbound-in",
+        "exitRoadId": "b2-north-out",
+        "vehiclesPerHour": 60
+      },
+      {
+        "entryRoadId": "b2-south-in",
+        "exitRoadId": "b2-eastbound-out",
+        "vehiclesPerHour": 100
+      },
+      {
+        "entryRoadId": "b2-south-in",
+        "exitRoadId": "b1-westbound",
+        "vehiclesPerHour": 100
+      },
+      {
+        "entryRoadId": "b2-south-in",
+        "exitRoadId": "b2-north-out",
+        "vehiclesPerHour": 50
+      },
+      {
+        "entryRoadId": "b2-north-in",
+        "exitRoadId": "b2-eastbound-out",
+        "vehiclesPerHour": 100
+      },
+      {
+        "entryRoadId": "b2-north-in",
+        "exitRoadId": "b1-westbound",
+        "vehiclesPerHour": 100
+      },
+      {
+        "entryRoadId": "b2-north-in",
+        "exitRoadId": "b2-south-out",
+        "vehiclesPerHour": 50
+      }
+    ],
+    "vehicleMix": {
+      "two-wheeler": 0.65,
+      "car": 0.22,
+      "auto-rickshaw": 0.055,
+      "bus": 0.04
+    }
+  },
+  "laneDiscipline": false,
+  "seed": 1
+}

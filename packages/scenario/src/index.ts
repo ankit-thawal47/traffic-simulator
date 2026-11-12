@@ -39,12 +39,15 @@ export type {
   VehicleMixChange,
 } from "./scenario";
 export { resolveScenario } from "./resolve";
+export { areaBaseline, correctedNetwork, NO_CORRECTIONS, withAreaGreenTimes, withAreaRoad } from "./area";
+export type { AreaCorrections, ScenarioArea } from "./area";
 export { CORRIDORS, corridorBaseline, corridorById } from "./corridors";
 export { describeChange, describeVehicleMix } from "./describe";
 export { SCENARIO_LIMITS, readScenario, whyRefused } from "./read";
 export type { Outcome } from "./read";
 export {
   LINK_LENGTH_LIMIT,
+  areaInLink,
   linkPayload,
   scenarioFromLink,
   scenarioFromText,

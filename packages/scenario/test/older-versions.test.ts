@@ -166,3 +166,25 @@ describe("a scenario saved by version 4 of the scenario description", () => {
     expect(resolveScenario(scenario).seed).toBe(4);
   });
 });
+
+describe("a scenario saved by version 5 of the scenario description", () => {
+  it("loads as the current version, unchanged but for its version, built from its layout and on no imported area", () => {
+    const saved = fixture("v5-built-four-way-layout.json") as Record<string, unknown>;
+    const scenario = loaded("v5-built-four-way-layout.json");
+    const { formatVersion: _saved, ...asSaved } = saved;
+    const { formatVersion, network: _network, ...asLoaded } = scenario;
+
+    expect(saved.formatVersion).toBe(5);
+    expect(formatVersion).toBe(SCENARIO_FORMAT_VERSION);
+    expect(scenario.area).toBeUndefined();
+    expect(asLoaded).toEqual(asSaved);
+  });
+
+  it("means the same thing: its one change, one lane on the first road, is still made", () => {
+    const scenario = loaded("v5-built-four-way-layout.json");
+    const [change] = scenario.changes;
+    const road = resolveScenario(scenario).network.roads.find((one) => change?.kind === "road-lanes" && one.id === change.roadId);
+
+    expect(road?.lanes).toBe(1);
+  });
+});

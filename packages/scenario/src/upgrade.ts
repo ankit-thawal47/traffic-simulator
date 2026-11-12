@@ -24,4 +24,6 @@ export const UPGRADE_STEPS: Record<number, (older: Saved) => Saved> = {
   3: (version3) => ({ ...version3, formatVersion: 4 }),
   // Version 4 had no builder: every scenario carried its network or named a corridor.
   4: (version4) => ({ ...version4, formatVersion: 5 }),
+  // Version 5 had no imported areas: every scenario carried its network, named a corridor or had a layout.
+  5: (version5) => ({ ...version5, formatVersion: 6 }),
 };

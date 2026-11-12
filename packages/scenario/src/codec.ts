@@ -17,7 +17,9 @@
  * UTF-8, compressed with raw DEFLATE, written in URL-safe base64.
  */
 import { deflateSync, inflateSync, strFromU8, strToU8 } from "fflate";
+import { checkArea, type AreaBounds, type ImportedArea } from "@traffic-simulator/corridor";
 import { readScenario, type Outcome } from "./read";
+import type { ScenarioArea } from "./area";
 import type { Scenario } from "./scenario";
 
 /**
@@ -50,19 +52,36 @@ function prefixed<T>(prefix: string, outcome: Outcome<T>): Outcome<T> {
  * or a link that cannot be opened again is never made. It also puts the parts
  * in one fixed order, so the same scenario always gives the same text.
  */
-function toWrite(scenario: Scenario, cannot: string): Outcome<Saved> {
-  const checked = prefixed(cannot, readScenario(asSaved(scenario)));
-  return checked.ok ? { ok: true, value: asSaved(checked.value) } : checked;
+function toWrite(scenario: Scenario, cannot: string, form: "file" | "link"): Outcome<Saved> {
+  const options = scenario.area ? { importedArea: scenario.area.imported } : {};
+  const checked = prefixed(cannot, readScenario(asSaved(scenario, form), options));
+  return checked.ok ? { ok: true, value: asSaved(checked.value, form) } : checked;
 }
 
 /**
  * What is saved of a scenario: all of it, but a scenario on a prepared
  * corridor names it by id, and a scenario on a built network carries its
- * layout; both leave their network out.
+ * layout; both leave their network out. A scenario on an imported area
+ * leaves out its network and demand, which are the import's with the
+ * corrections: a file carries what the import made, so it opens exactly; a
+ * link carries only the area's bounds, the corrections and a fingerprint of
+ * the import, and the area is imported again when it is opened.
  */
-type Saved = Omit<Scenario, "network"> & { network?: Scenario["network"] };
+type Saved = Omit<Scenario, "network" | "demand" | "area"> & {
+  network?: Scenario["network"];
+  demand?: Scenario["demand"];
+  area?: Omit<ScenarioArea, "imported"> & { imported?: ScenarioArea["imported"]; fingerprint?: string };
+};
 
-function asSaved(scenario: Scenario): Saved {
+function asSaved(scenario: Scenario, form: "file" | "link"): Saved {
+  if (scenario.area) {
+    const { network: _network, demand: _demand, area, ...rest } = scenario;
+    const savedArea =
+      form === "file"
+        ? area
+        : { bounds: area.bounds, corrections: area.corrections, fingerprint: area.imported.fingerprint };
+    return { ...rest, area: savedArea };
+  }
   if (scenario.corridorId === undefined && scenario.layout === undefined) return scenario;
   const { network: _network, ...rest } = scenario;
   return rest;
@@ -70,7 +89,7 @@ function asSaved(scenario: Scenario): Saved {
 
 /** The scenario as the text of a file, or why it cannot be saved. */
 export function scenarioToText(scenario: Scenario): Outcome<string> {
-  const checked = toWrite(scenario, "This scenario cannot be saved.");
+  const checked = toWrite(scenario, "This scenario cannot be saved.", "file");
   if (!checked.ok) return checked;
   return { ok: true, value: `${JSON.stringify(checked.value, null, 2)}\n` };
 }
@@ -117,7 +136,7 @@ export function linkPayload(value: unknown): string {
  * could not be opened again, and for one too large for a link.
  */
 export function scenarioToLink(scenario: Scenario, pageAddress: string): Outcome<string> {
-  const checked = toWrite(scenario, "This scenario cannot be shared.");
+  const checked = toWrite(scenario, "This scenario cannot be shared.", "link");
   if (!checked.ok) return checked;
   const page = pageAddress.split("#")[0]!;
   const link = `${page}#${FRAGMENT_NAME}${linkPayload(checked.value)}`;
@@ -135,12 +154,43 @@ export function scenarioToLink(scenario: Scenario, pageAddress: string): Outcome
  * cannot be opened. Undefined when the address holds no scenario at all, as
  * when the page is opened plainly.
  */
-export function scenarioFromLink(address: string): Outcome<Scenario> | undefined {
+export function scenarioFromLink(address: string, options: { importedArea?: ImportedArea } = {}): Outcome<Scenario> | undefined {
+  const decoded = linkValue(address);
+  if (!decoded || !decoded.ok) return decoded;
+  return prefixed(LINK_CANNOT, readScenario(decoded.value, options));
+}
+
+/**
+ * The imported area a link names, when the scenario it holds is on one: the
+ * area must be imported again before scenarioFromLink() can open it, and the
+ * fingerprint tells whether the import still gives what it gave when the link
+ * was made. Undefined for any other link, and for an address with none.
+ */
+export function areaInLink(address: string): { bounds: AreaBounds; fingerprint: string | undefined } | undefined {
+  const decoded = linkValue(address);
+  if (!decoded?.ok) return undefined;
+  const area = (decoded.value as { area?: { bounds?: unknown; fingerprint?: unknown; imported?: unknown } } | null)?.area;
+  if (typeof area !== "object" || area === null || area.imported !== undefined) return undefined;
+  const bounds = area.bounds as Partial<AreaBounds> | undefined;
+  const corners = [bounds?.south, bounds?.west, bounds?.north, bounds?.east];
+  if (!corners.every((value) => typeof value === "number")) return undefined;
+  const checked = checkArea(bounds as AreaBounds);
+  if (!checked.ok) return undefined;
+  return {
+    bounds: { south: bounds!.south!, west: bounds!.west!, north: bounds!.north!, east: bounds!.east! },
+    fingerprint: typeof area.fingerprint === "string" ? area.fingerprint : undefined,
+  };
+}
+
+const LINK_CANNOT = "This link cannot be opened.";
+
+/** What a link's fragment holds, decoded but unchecked; undefined when the address holds no scenario. */
+function linkValue(address: string): Outcome<unknown> | undefined {
   const hash = address.indexOf("#");
   const fragment = hash === -1 ? "" : address.slice(hash + 1);
   if (!fragment.startsWith(FRAGMENT_NAME)) return undefined;
 
-  const cannot = "This link cannot be opened.";
+  const cannot = LINK_CANNOT;
   const damaged = refused(`${cannot} It is damaged or cut short.`);
   const payload = fragment.slice(FRAGMENT_NAME.length);
   // A payload is bounded before it is decompressed, so a link cannot make the page unpack something huge.
@@ -155,11 +205,9 @@ export function scenarioFromLink(address: string): Outcome<Scenario> | undefined
   }
   const bytes = fromBase64Url(payload.slice(dot + 1));
   if (!bytes) return damaged;
-  let value: unknown;
   try {
-    value = JSON.parse(strFromU8(inflateSync(bytes)));
+    return { ok: true, value: JSON.parse(strFromU8(inflateSync(bytes))) };
   } catch {
     return damaged;
   }
-  return prefixed(cannot, readScenario(value));
 }

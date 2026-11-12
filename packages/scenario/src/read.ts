@@ -22,6 +22,8 @@ import {
   type VehicleClass,
   type VehicleMix,
 } from "@traffic-simulator/engine";
+import { checkArea, type AreaBounds, type Guess, type ImportedArea } from "@traffic-simulator/corridor";
+import { correctedNetwork, type AreaCorrections, type ScenarioArea } from "./area";
 import { BUILDING_BLOCK_KINDS, buildLayout, LAYOUT_LIMITS, type BuildingBlock, type Layout } from "./builder";
 import { CORRIDORS, corridorById } from "./corridors";
 import { resolveScenario } from "./resolve";
@@ -427,6 +429,118 @@ function readChange(value: unknown, network: Network, demand: Demand, label: str
   }
 }
 
+const GUESS_KINDS: readonly Guess["kind"][] = ["lanes", "width", "speed-limit", "level", "control", "signal-plan", "demand", "vehicle-mix"];
+const TEXT_LIMIT = 2000;
+const named = (id: string): string => JSON.stringify(id.slice(0, 40));
+
+function readBounds(value: unknown): AreaBounds {
+  const bounds = anObject(value, "The bounds of the imported area");
+  const read = {
+    south: aNumber(bounds.south, "The south edge of the imported area", { from: -90, to: 90 }),
+    west: aNumber(bounds.west, "The west edge of the imported area", { from: -180, to: 180 }),
+    north: aNumber(bounds.north, "The north edge of the imported area", { from: -90, to: 90 }),
+    east: aNumber(bounds.east, "The east edge of the imported area", { from: -180, to: 180 }),
+  };
+  const checked = checkArea(read);
+  if (!checked.ok) refuse(checked.message.replace(/\.$/, ""));
+  return read;
+}
+
+function readCorrections(value: unknown): AreaCorrections {
+  const corrections = anObject(value, "The corrections of the imported area");
+  const roads = anObject(corrections.roads, "The corrections of the imported area's roads");
+  const greenS = anObject(corrections.greenS, "The corrections of the imported area's signal plans");
+  if (Object.keys(roads).length > SCENARIO_LIMITS.roads) refuse("The imported area has more road corrections than any network has roads");
+  if (Object.keys(greenS).length > SCENARIO_LIMITS.junctions) refuse("The imported area has more signal plan corrections than any network has junctions");
+  const read: AreaCorrections = { roads: {}, greenS: {} };
+  for (const [roadId, entry] of Object.entries(roads)) {
+    const road = anObject(entry, `The correction of road ${named(roadId)}`);
+    read.roads[roadId] = {
+      ...(road.lanes === undefined ? {} : { lanes: aWholeNumber(road.lanes, `The corrected lanes of road ${named(roadId)}`, 1, SCENARIO_LIMITS.lanes) }),
+      ...(road.widthM === undefined
+        ? {}
+        : { widthM: aNumber(road.widthM, `The corrected width of road ${named(roadId)}`, { above: 0, to: SCENARIO_LIMITS.roadWidthM }) }),
+    };
+  }
+  for (const [junctionId, entry] of Object.entries(greenS)) {
+    read.greenS[junctionId] = aList(entry, `The corrected green times of junction ${named(junctionId)}`, SCENARIO_LIMITS.phasesPerJunction).map(
+      (green, at) => aNumber(green, `Corrected green time ${at + 1} of junction ${named(junctionId)}`, { above: 0, to: SCENARIO_LIMITS.signalSeconds }),
+    );
+  }
+  return read;
+}
+
+function aStringOrNull(value: unknown, what: string): string | null {
+  return value === null ? null : aString(value, what, TEXT_LIMIT);
+}
+
+/** What an import made, as a file carries it: checked like any network and demand, and every listed guess checked for its shape. */
+function readImported(value: unknown, bounds: AreaBounds): ImportedArea {
+  const imported = anObject(value, "The imported area");
+  const savedBounds = readBounds(imported.bounds);
+  if ((["south", "west", "north", "east"] as const).some((edge) => savedBounds[edge] !== bounds[edge])) {
+    refuse("The imported area's network is of other bounds than the area");
+  }
+  const network = readNetwork(imported.network);
+  const demand = readDemand(imported.demand, network);
+  const names = anObject(imported.roadNames, "The names of the imported area's roads");
+  if (Object.keys(names).length > SCENARIO_LIMITS.roads + SCENARIO_LIMITS.junctions) refuse("The imported area has more road names than roads");
+  const roadNames: Record<string, string> = {};
+  for (const [id, name] of Object.entries(names)) roadNames[id] = aString(name, `The name of road ${named(id)}`, SCENARIO_LIMITS.nameLength);
+  const guesses = aList(imported.guesses, "The imported area's list of guesses", 20_000).map((entry, index): Guess => {
+    const what = `Guess ${index + 1} of the imported area`;
+    const guess = anObject(entry, what);
+    if (!GUESS_KINDS.includes(guess.kind as Guess["kind"])) refuse(`${what} is of a kind this version of the product does not know: ${shown(guess.kind)}`);
+    if (typeof guess.guessed !== "boolean") refuse(`${what} must say whether it is guessed (found ${shown(guess.guessed)})`);
+    return {
+      kind: guess.kind as Guess["kind"],
+      ...(guess.roadId === undefined ? {} : { roadId: aString(guess.roadId, what, SCENARIO_LIMITS.roadIdLength) }),
+      ...(guess.junctionId === undefined ? {} : { junctionId: aString(guess.junctionId, what, SCENARIO_LIMITS.roadIdLength) }),
+      value: aString(guess.value, `The value of ${what.toLowerCase()}`, TEXT_LIMIT),
+      guessed: guess.guessed,
+      rule: aString(guess.rule, `The rule of ${what.toLowerCase()}`, TEXT_LIMIT),
+    };
+  });
+  return {
+    bounds: savedBounds,
+    name: aString(imported.name, "The imported area's name", SCENARIO_LIMITS.nameLength),
+    network,
+    demand,
+    roadNames,
+    guesses,
+    adjustments: aList(imported.adjustments, "The imported area's list of adjustments", 20_000).map((text, at) =>
+      aString(text, `Adjustment ${at + 1} of the imported area`, TEXT_LIMIT),
+    ),
+    attribution: aString(imported.attribution, "The imported area's attribution", TEXT_LIMIT),
+    licence: aString(imported.licence, "The imported area's licence", TEXT_LIMIT),
+    fetchedAt: aStringOrNull(imported.fetchedAt, "When the imported area was fetched"),
+    osmDataTimestamp: aStringOrNull(imported.osmDataTimestamp, "The date of the imported area's OpenStreetMap data"),
+    fingerprint: aString(imported.fingerprint, "The imported area's fingerprint", 64),
+  };
+}
+
+/**
+ * An imported area: from the file that carries what the import made, or,
+ * for a link, from the area imported again just now (`given`).
+ */
+function readArea(value: unknown, given: ImportedArea | undefined): { area: ScenarioArea; network: Network } {
+  const area = anObject(value, "The imported area");
+  const bounds = readBounds(area.bounds);
+  let imported: ImportedArea;
+  if (area.imported !== undefined) imported = readImported(area.imported, bounds);
+  else if (given) imported = given;
+  else refuse("It holds an area that must be imported again from OpenStreetMap before it can be opened");
+  const corrections = readCorrections(area.corrections);
+  let network: Network;
+  try {
+    network = correctedNetwork(imported.network, corrections);
+  } catch (error) {
+    const changed = area.imported === undefined ? ". OpenStreetMap may have changed since the link was made" : "";
+    refuse(`${error instanceof Error ? error.message : String(error)}${changed}`);
+  }
+  return { area: { bounds, corrections, imported }, network };
+}
+
 /** Bring a saved scenario of any known version up to the current one, one upgrade step at a time. */
 function upgraded(saved: Record<string, unknown>): Record<string, unknown> {
   const version = saved.formatVersion;
@@ -476,7 +590,7 @@ export function whyRefused(scenario: Scenario): string | undefined {
  * returned is complete, of the current version, and one the engine will run.
  * Its parts are always in the same order, whatever order they arrived in.
  */
-export function readScenario(value: unknown): Outcome<Scenario> {
+export function readScenario(value: unknown, options: { importedArea?: ImportedArea } = {}): Outcome<Scenario> {
   try {
     if (typeof value !== "object" || value === null || Array.isArray(value)) {
       refuse(`It does not hold a scenario (found ${shown(value)})`);
@@ -485,7 +599,15 @@ export function readScenario(value: unknown): Outcome<Scenario> {
     const corridorId = saved.corridorId === undefined ? undefined : aString(saved.corridorId, "The corridor's id", SCENARIO_LIMITS.roadIdLength);
     const layout = saved.layout === undefined ? undefined : readLayout(saved.layout);
     let network: Network;
-    if (layout !== undefined) {
+    let area: ScenarioArea | undefined;
+    if (saved.area !== undefined) {
+      if (saved.network !== undefined) refuse("It has an imported area and also carries a network; a scenario has one or the other");
+      if (saved.demand !== undefined) refuse("It has an imported area and also carries a demand; the area's demand is the import's");
+      if (layout !== undefined || corridorId !== undefined) refuse("It has an imported area and also a layout or a corridor; a scenario has one of them");
+      const read = readArea(saved.area, options.importedArea);
+      area = read.area;
+      network = read.network;
+    } else if (layout !== undefined) {
       if (saved.network !== undefined) refuse("It has a layout and also carries a network; a scenario has one or the other");
       if (corridorId !== undefined) refuse("It has a layout and also names a corridor; a scenario has one or the other");
       const built = buildLayout(layout);
@@ -504,12 +626,13 @@ export function readScenario(value: unknown): Outcome<Scenario> {
       }
       network = corridor.network;
     }
-    const demand = readDemand(saved.demand, network);
+    const demand = area ? area.imported.demand : readDemand(saved.demand, network);
     const scenario: Scenario = {
       formatVersion: SCENARIO_FORMAT_VERSION,
       name: aString(saved.name, "The scenario's name", SCENARIO_LIMITS.nameLength),
       ...(corridorId === undefined ? {} : { corridorId }),
       ...(layout === undefined ? {} : { layout }),
+      ...(area === undefined ? {} : { area }),
       network,
       unbuiltRoadIds: aList(saved.unbuiltRoadIds, "The list of roads not built today", SCENARIO_LIMITS.roads).map(
         (roadId, index) => aFlyoverRoadOf(network, roadId, `Entry ${index + 1} of the list of roads not built today`),
