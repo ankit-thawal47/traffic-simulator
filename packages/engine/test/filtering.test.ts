@@ -68,6 +68,17 @@ describe("filtering at a red signal", () => {
     expect(topSpeedMps).toBeLessThanOrEqual(FILTERING_ASSUMPTIONS.filteringSpeedMps.value + 1e-9);
   });
 
+  it("keeps a two-wheeler to its side of the road for its turn: one turning right does not filter to the left", () => {
+    // The same queue on the right of the approach (strips 9 to 13); the open width is to the left.
+    const input = queueAtRed("two-wheeler");
+    const vehicles = input.initialVehicles!.map((vehicle) => ({ ...vehicle, lateralM: 5.75 }));
+    vehicles[3] = { ...vehicles[3]!, lateralM: 6, exitRoadId: "east-out" };
+    expect(atRed({ ...input, initialVehicles: vehicles }).positionM).toBeLessThan(186.2 - 4.4);
+    // Going straight on, it does.
+    vehicles[3] = { ...vehicles[3]!, exitRoadId: "north-out" };
+    expect(atRed({ ...input, initialVehicles: vehicles }).positionM).toBeGreaterThan(199 - 4.4);
+  });
+
   it("leaves the two-wheeler behind the queue when filtering is off", () => {
     const { positionM } = atRed(queueAtRed("two-wheeler", { filtering: false }));
     expect(positionM).toBeLessThan(186.2 - 4.4);

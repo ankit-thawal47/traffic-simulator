@@ -867,7 +867,9 @@ export const RULES: readonly Rule[] = [
       "slower than 1.4 m/s, to the first 10 m with none. A two-wheeler inside the queue goes no faster than 2.5 m/s " +
       "(it slows to that comfortably as it comes up to the queue's back) and shifts sideways as anywhere else: into a gap wide enough for it and its side clearance (its strips), when that lets it move on further, " +
       "the way alongside is free and the vehicle behind there need not brake hard. It keeps to strips that lead onto " +
-      "its turn. A car, auto-rickshaw or bus within 10 m of the queue's back, or inside the queue, does not shift sideways to pass it (only to sort for its way " +
+      "its turn, and to its side of the road for its turn: one turning right does not filter to the left, nor one turning " +
+      "left to the right (without this, a two-wheeler turning right filtered to the far left and then waited whole greens " +
+      "for the traffic beside it to clear its path; in a flyover test it stood 300 s). A car, auto-rickshaw or bus within 10 m of the queue's back, or inside the queue, does not shift sideways to pass it (only to sort for its way " +
       "on or leave a blocked strip). Filtering stops when the signal turns green, so on green no vehicle moves in " +
       "front of the head of the queue: vehicles are let in, nearest the stop line first, each after the vehicles ahead " +
       "of it in its strips, and two-wheelers that reached the front go first and pull away faster than a car. It can " +

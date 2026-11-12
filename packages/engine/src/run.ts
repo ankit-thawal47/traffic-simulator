@@ -1035,6 +1035,8 @@ export function createRun(input: RunInput): Run {
     for (const direction of [-1, 1]) {
       // While sorting it moves only towards the strips that lead onto its route.
       if (sorting !== 0 && direction !== Math.sign(sorting)) continue;
+      // Filtering, it keeps to its side of the road for its turn: a two-wheeler turning right does not filter to the left, nor one turning left to the right.
+      if (vehicle.atQueue && sorting === 0 && vehicle.ahead && vehicle.ahead.path.direction === (direction < 0 ? "right" : "left")) continue;
       for (let distance = 1; ; distance++) {
         const strip = vehicle.strip + direction * distance;
         if (strip < 0 || strip + vehicle.strips > road.stripCount) break;

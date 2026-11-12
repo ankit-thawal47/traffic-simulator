@@ -9,7 +9,8 @@
  *   - a vehicle class that filters (two-wheelers) shifts sideways as anywhere
  *     else, through gaps wide enough for its strips, and inside the queue goes no
  *     faster than the filtering speed (slowing to it comfortably as it comes up
- *     to the queue's back);
+ *     to the queue's back); it keeps to its side of the road for its turn (one
+ *     turning right does not filter to the left, nor one turning left to the right);
  *   - the other vehicle classes keep their strips: they do not shift sideways to
  *     pass the queue (sorting for the way on and leaving a blocked strip still apply).
  * On green there is no standing queue in this sense, so nobody filters in front
