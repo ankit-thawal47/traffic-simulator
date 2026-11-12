@@ -6,8 +6,8 @@
 
 **Status:** ready-for-agent
 
-- [ ] At a red signal, two-wheelers advance through gaps wide enough for them
-- [ ] Larger vehicle classes do not filter
-- [ ] The head of the queue still discharges; filtering cannot starve it
+- [x] At a red signal, two-wheelers advance through gaps wide enough for them
+- [x] Larger vehicle classes do not filter
+- [x] The head of the queue still discharges; filtering cannot starve it
 - [ ] Two-wheeler delay falls and car delay rises compared with the same scenario without filtering
-- [ ] Consistency checks pass, including no overlap during filtering
+- [x] Consistency checks pass, including no overlap during filtering
