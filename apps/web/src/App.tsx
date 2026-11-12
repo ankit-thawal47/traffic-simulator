@@ -1,6 +1,7 @@
 import { VEHICLE_CLASSES } from "@traffic-simulator/engine";
 import { baselineOf, resolveScenario, whyRefused, type Scenario } from "@traffic-simulator/scenario";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { AreaPanel } from "./AreaPanel";
 import { AssumptionsPanel } from "./AssumptionsPanel";
 import { angledPose, closeUpPose, networkBounds, straightDownPose } from "./camera-presets";
 import { corridorNotice } from "./corridor-notice";
@@ -29,10 +30,10 @@ export function App() {
   // One scenario description holds the whole comparison: it is the proposal, and the baseline is the same
   // description without its changes. It is what a link or a file saves.
   const [proposal, setProposal] = useState(exampleScenario);
-  const { name, corridorId, layout, network, unbuiltRoadIds, demand, laneDiscipline, seed } = proposal;
+  const { name, corridorId, layout, area, network, unbuiltRoadIds, demand, laneDiscipline, seed } = proposal;
   const baseline = useMemo(
-    () => baselineOf({ ...exampleScenario, name, corridorId, layout, network, unbuiltRoadIds, demand, laneDiscipline, seed }),
-    [name, corridorId, layout, network, unbuiltRoadIds, demand, laneDiscipline, seed],
+    () => baselineOf({ ...exampleScenario, name, corridorId, layout, area, network, unbuiltRoadIds, demand, laneDiscipline, seed }),
+    [name, corridorId, layout, area, network, unbuiltRoadIds, demand, laneDiscipline, seed],
   );
   // A prepared corridor shown on the page brings its attribution, its licence and its road names.
   const notice = useMemo(() => corridorNotice(corridorId), [corridorId]);
@@ -41,9 +42,9 @@ export function App() {
   const proposalInput = useMemo(() => resolveScenario(proposal), [proposal]);
   // Names a planner reads for the roads, for the results: the corridor's own, or made for a built network or an example.
   const roadNames = useMemo(() => {
-    const names = roadNamesFor({ corridorId, layout });
+    const names = roadNamesFor({ corridorId, layout, area });
     return Object.fromEntries(network.roads.map((road) => [road.id, roadName(names, road.id)]));
-  }, [corridorId, layout, network]);
+  }, [corridorId, layout, area, network]);
 
   const storage = useMemo(createBrowserStorage, []);
   // Counts the scenarios opened from a link or a file, so the change controls start afresh for each.
@@ -131,7 +132,7 @@ export function App() {
   const legend = legendFor(colourBy, VEHICLE_CLASSES);
 
   return (
-    <main className={notice ? "with-corridor" : undefined}>
+    <main className={notice || area ? "with-corridor" : undefined}>
       <header>
         <h1>Baseline against proposal</h1>
         <p className="clock">
@@ -241,6 +242,14 @@ export function App() {
         </figure>
       </section>
       {corridorId !== undefined && notice && <CorridorNoticePanel corridorId={corridorId} notice={notice} />}
+      {area && (
+        <AreaPanel key={opened} scenario={proposal} area={area} onCorrect={propose} />
+      )}
+      {area && refusal && (
+        <p className="refused" data-testid="correction-refused" role="alert">
+          Not changed. {refusal}.
+        </p>
+      )}
 
       <section className="panels">
         <ProposalPanel

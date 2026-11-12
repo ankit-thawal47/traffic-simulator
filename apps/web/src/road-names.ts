@@ -2,10 +2,11 @@
  * The names a planner reads for roads, in place of their identifiers
  * ("hebbal-flyover", "b2-eastbound-in"). A prepared corridor brings its own
  * names; a built network's roads are named from the block they belong to and
- * where they run; an example's compass roads ("north-in") are said in words.
+ * where they run; an imported area's roads by their OpenStreetMap names and
+ * direction; an example's compass roads ("north-in") are said in words.
  * A road with none of these is shown by its identifier.
  */
-import { corridorById, type BuildingBlockKind, type Layout } from "@traffic-simulator/scenario";
+import { corridorById, type BuildingBlockKind, type Layout, type ScenarioArea } from "@traffic-simulator/scenario";
 
 export type RoadNames = Readonly<Record<string, string>>;
 
@@ -42,7 +43,8 @@ function compassName(id: string): string | undefined {
 }
 
 /** The names for the roads of a scenario's network, as far as it has any. */
-export function roadNamesFor(scenario: { corridorId?: string; layout?: Layout }): RoadNames {
+export function roadNamesFor(scenario: { corridorId?: string; layout?: Layout; area?: ScenarioArea }): RoadNames {
+  if (scenario.area) return scenario.area.imported.roadNames;
   const corridor = scenario.corridorId === undefined ? undefined : corridorById(scenario.corridorId);
   if (corridor) return corridor.roadNames;
   const names: Record<string, string> = {};

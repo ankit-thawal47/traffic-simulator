@@ -5,7 +5,7 @@
  * module (scenario-storage.ts); this file knows nothing of how a scenario is
  * encoded.
  */
-import type { Scenario } from "@traffic-simulator/scenario";
+import { areaInLink, type Scenario } from "@traffic-simulator/scenario";
 import { useEffect, useRef, useState } from "react";
 import type { ScenarioStorage } from "./scenario-storage";
 import "./save-and-share.css";
@@ -35,12 +35,22 @@ export function SaveAndShare({
   useEffect(() => {
     let current = true;
     const openFromAddress = async () => {
+      // A link to a scenario on an imported area carries only the area's bounds: the area is imported again first.
+      const linkArea = areaInLink(window.location.href);
+      if (linkArea) setNotice({ kind: "done", text: "Importing the link's area from OpenStreetMap again. This can take up to a minute." });
       const read = await storage.openLink(window.location.href);
       if (!current || !read) return;
       if (read.ok) {
         opened.current(read.value);
         setLink(undefined);
-        setNotice({ kind: "done", text: `Opened the scenario "${read.value.name}" from the link.` });
+        const reimported = read.value.area?.imported;
+        const osmNote = !linkArea || !reimported
+          ? ""
+          : ` Its area was imported again from OpenStreetMap as it is today, which may have changed since the link was made: ` +
+            (linkArea.fingerprint === reimported.fingerprint
+              ? "the imported network is the same as when the link was made."
+              : "it has, and the imported network is not the same as when the link was made (your corrections and changes are kept).");
+        setNotice({ kind: "done", text: `Opened the scenario "${read.value.name}" from the link.${osmNote}` });
         // The scenario shown may now be changed, so the address must not go on naming the one it was opened from.
         window.history.replaceState(null, "", window.location.pathname + window.location.search);
       } else {
@@ -140,7 +150,9 @@ export function SaveAndShare({
         </p>
       )}
       <p className="hint">
-        The link and the file hold the baseline and the proposal with its changes. Nothing is sent anywhere, and no
+        The link and the file hold the baseline and the proposal with its changes. For an imported area, the file holds the
+        imported network, and the link holds only the area and your corrections: opening it imports the area again. Nothing
+        else is sent anywhere, and no
         account is needed.
       </p>
     </div>

@@ -13,7 +13,9 @@
  * (scenarioToLink, scenarioFromLink, scenarioToText, scenarioFromText), which
  * is pure and tested from the command line. This file adds only the browser.
  */
+import type { AreaBounds, ImportedArea } from "@traffic-simulator/corridor";
 import {
+  areaInLink,
   scenarioFromLink,
   scenarioFromText,
   scenarioToLink,
@@ -21,6 +23,7 @@ import {
   type Outcome,
   type Scenario,
 } from "@traffic-simulator/scenario";
+import { importAreaFromOsm } from "./area-import";
 
 export interface ScenarioStorage {
   /** A link that opens the product with this scenario, or why there cannot be one. */
@@ -39,6 +42,8 @@ export interface BrowserForStorage {
   pageAddress(): string;
   /** Hand the planner a text file to keep. */
   download(fileName: string, text: string): void;
+  /** Import an area from OpenStreetMap again: a link to a scenario on an imported area carries only its bounds. */
+  importArea(bounds: AreaBounds): Promise<Outcome<ImportedArea>>;
 }
 
 /** Files larger than this are refused before being read. Matches the limit on a scenario file's text. */
@@ -56,7 +61,13 @@ export function createLinkAndFileStorage(browser: BrowserForStorage): ScenarioSt
       return scenarioToLink(scenario, browser.pageAddress());
     },
     async openLink(address) {
-      return scenarioFromLink(address);
+      const area = areaInLink(address);
+      if (!area) return scenarioFromLink(address);
+      const imported = await browser.importArea(area.bounds);
+      if (!imported.ok) {
+        return { ok: false, message: `This link cannot be opened: its area must be imported again from OpenStreetMap. ${imported.message}` };
+      }
+      return scenarioFromLink(address, { importedArea: imported.value });
     },
     async saveFile(scenario) {
       const text = scenarioToText(scenario);
@@ -83,6 +94,7 @@ export function createLinkAndFileStorage(browser: BrowserForStorage): ScenarioSt
 /** The storage the app uses: links to this page, and files downloaded by this browser. */
 export function createBrowserStorage(): ScenarioStorage {
   return createLinkAndFileStorage({
+    importArea: (bounds) => importAreaFromOsm(bounds),
     pageAddress: () => window.location.href,
     download(fileName, text) {
       const address = URL.createObjectURL(new Blob([text], { type: "application/json" }));

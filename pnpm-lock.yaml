@@ -17,6 +17,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@traffic-simulator/corridor':
+        specifier: workspace:*
+        version: link:../../packages/corridor
       '@traffic-simulator/engine':
         specifier: workspace:*
         version: link:../../packages/engine

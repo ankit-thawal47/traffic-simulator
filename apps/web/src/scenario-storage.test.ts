@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import mixedTraffic from "@traffic-simulator/engine/examples/mixed-traffic.json";
-import { createBaseline, withRoadLanes, withRoadWidth, type Scenario } from "@traffic-simulator/scenario";
+import { importArea, type AreaBounds, type OsmElement } from "@traffic-simulator/corridor";
+import { areaBaseline, createBaseline, withAreaRoad, withRoadLanes, withRoadWidth, type Scenario } from "@traffic-simulator/scenario";
 import { createLinkAndFileStorage } from "./scenario-storage";
 
 const today = createBaseline({
@@ -12,14 +13,54 @@ const today = createBaseline({
 const proposal = withRoadLanes(withRoadWidth(today, "main", 7), "main", 2);
 
 /** The storage with a stand-in for the browser: a page address, and downloads kept in a list. */
-function storageInAPage(pageAddress = "https://traffic-simulator.example/") {
+function storageInAPage(pageAddress = "https://traffic-simulator.example/", osm: OsmElement[] | "busy" = []) {
   const downloads: { fileName: string; text: string }[] = [];
+  const imports: AreaBounds[] = [];
   const storage = createLinkAndFileStorage({
     pageAddress: () => pageAddress,
     download: (fileName, text) => downloads.push({ fileName, text }),
+    importArea: async (bounds) => {
+      imports.push(bounds);
+      return osm === "busy" ? { ok: false, message: "The server is busy." } : importArea({ bounds, elements: osm });
+    },
   });
-  return { storage, downloads };
+  return { storage, downloads, imports };
 }
+
+describe("the storage module: an imported area", () => {
+  const bounds = { south: -0.003, west: -0.003, north: 0.003, east: 0.003 };
+  const osm: OsmElement[] = [
+    { type: "node", id: 1, lat: -0.004, lon: 0 },
+    { type: "node", id: 2, lat: 0, lon: 0 },
+    { type: "node", id: 3, lat: 0.004, lon: 0 },
+    { type: "node", id: 5, lat: 0, lon: 0.004 },
+    { type: "way", id: 100, nodes: [1, 2, 3], tags: { highway: "secondary" } },
+    { type: "way", id: 200, nodes: [2, 5], tags: { highway: "tertiary" } },
+  ];
+  const imported = importArea({ bounds, elements: osm });
+  if (!imported.ok) throw new Error(imported.message);
+  const onArea = withAreaRoad(areaBaseline(imported.value), imported.value.network.roads[0]!.id, { lanes: 3 });
+
+  it("opens a link by importing the area again, once, with the corrections as they were", async () => {
+    const { storage, imports } = storageInAPage("https://traffic-simulator.example/", osm);
+    const shared = await storage.shareLink(onArea);
+    if (!shared.ok) throw new Error(shared.message);
+
+    expect(await storage.openLink(shared.value)).toEqual({ ok: true, value: onArea });
+    expect(imports).toEqual([bounds]);
+  });
+
+  it("says why a link cannot be opened when the area cannot be imported again", async () => {
+    const { storage } = storageInAPage("https://traffic-simulator.example/", "busy");
+    const shared = await storage.shareLink(onArea);
+    if (!shared.ok) throw new Error(shared.message);
+
+    expect(await storage.openLink(shared.value)).toEqual({
+      ok: false,
+      message: "This link cannot be opened: its area must be imported again from OpenStreetMap. The server is busy.",
+    });
+  });
+});
 
 describe("the storage module: sharing a scenario as a link", () => {
   it("gives a link to the page the planner is on, and opening that link gives the same scenario", async () => {

@@ -1,0 +1,55 @@
+.area-table-scroll {
+  max-height: 22rem;
+  overflow: auto;
+}
+
+.area-table {
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  width: 100%;
+}
+
+.area-table th,
+.area-table td {
+  border-bottom: 1px solid rgba(127, 127, 127, 0.25);
+  padding: 0.2rem 0.4rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.area-table input {
+  width: 4.5rem;
+}
+
+.area-panel .guessed {
+  color: #b45309;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.area-panel .corrected {
+  color: #1d4ed8;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.area-panel .from-osm {
+  color: #15803d;
+  font-size: 0.75rem;
+}
+
+.area-rules div {
+  margin-bottom: 0.4rem;
+}
+
+.area-rules dt {
+  font-weight: 600;
+}
+
+.area-rules dd {
+  margin: 0 0 0 1rem;
+}
+
+.area-junctions li {
+  margin-bottom: 0.5rem;
+}
