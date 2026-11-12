@@ -82,6 +82,6 @@ describe("a scenario whose network has a flyover (network format version 4)", ()
   });
 
   it("refuses a network version it does not know", () => {
-    expect(messageFor((scenario) => (scenario.network.formatVersion = 5))).toMatch(/network format version/);
+    expect(messageFor((scenario) => (scenario.network.formatVersion = 6))).toMatch(/network format version/);
   });
 });

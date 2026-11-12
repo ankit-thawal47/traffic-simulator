@@ -140,7 +140,7 @@ function readPoint(value: unknown, what: string, formatVersion: number): Point {
 function readNetwork(value: unknown): Network {
   const network = anObject(value, "The network");
   const formatVersion = network.formatVersion;
-  if (formatVersion !== 1 && formatVersion !== 2 && formatVersion !== 3 && formatVersion !== 4) {
+  if (formatVersion !== 1 && formatVersion !== 2 && formatVersion !== 3 && formatVersion !== 4 && formatVersion !== 5) {
     refuse(`The network uses a network format version this version of the product does not know (${shown(formatVersion)})`);
   }
   const ids = new Set<string>();
@@ -187,12 +187,16 @@ function readNetwork(value: unknown): Network {
     if (junctionIds.has(id)) refuse(`The network has two junctions with the identifier "${id}"`);
     junctionIds.add(id);
     const name = `junction "${id}"`;
-    if (junction.control !== "signal" && junction.control !== "none") {
+    if (junction.control !== "signal" && junction.control !== "none" && junction.control !== "priority") {
       refuse(`Junction "${id}" is of a kind this version of the product does not know: ${shown(junction.control)}`);
     }
     // A junction with no signal (where roads divide or join) is part of network format version 4.
     if (junction.control === "none" && formatVersion < 4) {
       refuse(`Junction "${id}" has no signal, which needs network format version 4 (the network says ${formatVersion})`);
+    }
+    // A priority junction is part of network format version 5.
+    if (junction.control === "priority" && formatVersion < 5) {
+      refuse(`Junction "${id}" is a priority junction, which needs network format version 5 (the network says ${formatVersion})`);
     }
     const connections = aList(junction.connections, `The connections of ${name}`, SCENARIO_LIMITS.connectionsPerJunction).map(
       (value, at): Connection => {
@@ -206,6 +210,13 @@ function readNetwork(value: unknown): Network {
     );
     // It has no signal plan; that its roads run straight on is the engine's to judge: whyRefused().
     if (junction.control === "none") return { id, control: "none", connections };
+    // Which approaches are main roads, and that there is at least one of each, is the engine's to judge: whyRefused().
+    if (junction.control === "priority") {
+      const mainRoadIds = aList(junction.mainRoadIds, `The main roads of ${name}`, SCENARIO_LIMITS.roads).map((roadId) =>
+        aRoadOf(withRoads, roadId, `The main roads of ${name}`),
+      );
+      return { id, control: "priority", connections, mainRoadIds };
+    }
     const plan = anObject(junction.signalPlan, `The signal plan of ${name}`);
     const seconds = SCENARIO_LIMITS.signalSeconds;
     const phases = aList(plan.phases, `The phases of ${name}`, SCENARIO_LIMITS.phasesPerJunction).map((value, at): SignalPhase => {
