@@ -4,7 +4,7 @@
 
 **Blocked by:** 07
 
-**Status:** in progress (data, sources and ground-level importer merged; raised roads, merges, full run and attribution remain)
+**Status:** done except hand-checked widths (merged; widths are assumed lanes x 3.5 m; default demand is 0.3 of published)
 
 - [x] An importer written in TypeScript turns OpenStreetMap data plus a corrections file into a network
 - [x] The corridor includes the flyover, the junction beneath and the next junction downstream
