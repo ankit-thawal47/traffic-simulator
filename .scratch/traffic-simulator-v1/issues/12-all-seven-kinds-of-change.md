@@ -4,7 +4,7 @@
 
 **Blocked by:** 05, 07, 10
 
-**Status:** ready-for-agent
+**Status:** done (merged to integration branch)
 
 - [x] Each of the seven kinds of change can be made, and each alters the run in the expected direction
 - [x] The control that scales all demand changes every entry-to-exit rate together
