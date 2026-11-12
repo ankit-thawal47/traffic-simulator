@@ -17,6 +17,7 @@ import type {
   OsmWay,
   RoadCorrection,
 } from "./types";
+import { wholeNetwork } from "./whole-network";
 
 const METRES_PER_DEGREE = 111_320;
 /** How far apart, along OpenStreetMap ways, the two ends of a connection may be. */
@@ -47,7 +48,8 @@ export function importCorridor(osm: OsmExtract, corrections: Corrections): Impor
   const junctions: Junction[] = [];
   for (const junction of corrections.junctions) {
     const sound = checkJunction(junction, byId, extract, project, problems);
-    if (sound && junction.control === "signal" && junction.signalPlan) {
+    // A junction whose roads must be set back from the node is only in the whole network, which sets them back.
+    if (sound && junction.control === "signal" && junction.signalPlan && !junction.setBackM) {
       junctions.push({
         id: junction.id,
         control: "signal",
@@ -62,7 +64,18 @@ export function importCorridor(osm: OsmExtract, corrections: Corrections): Impor
     roads: roads.filter((road) => road.level === "ground").map(engineRoad),
     junctions,
   };
-  return { corridorId: corrections.corridorId, name: corrections.name, roads, junctions: corrections.junctions, groundNetwork, problems };
+  const whole = corrections.network ? wholeNetwork(roads, corrections, corrections.network, problems) : undefined;
+  return {
+    corridorId: corrections.corridorId,
+    name: corrections.name,
+    roads,
+    junctions: corrections.junctions,
+    groundNetwork,
+    ...(whole ? { network: whole.network } : {}),
+    roadNames: whole?.roadNames ?? {},
+    adjustments: whole?.adjustments ?? [],
+    problems,
+  };
 }
 
 function engineRoad(road: CorridorRoad): Road {

@@ -65,8 +65,16 @@ export const MEASURES: readonly Measure[] = [
  * also reports a queue for every road that ends where a road divides or roads
  * join; nothing holds traffic there, so those queues are almost always zero
  * and are left out. Without networks, every approach the results have is a measure.
+ *
+ * Pass `roadNames` (a prepared corridor's names for a planner, whose road ids
+ * come from OpenStreetMap) and each row is named by its road's name; a road
+ * with no name there is named by its id.
  */
-export function measuresFor(results: readonly Results[], networks?: readonly Network[]): Measure[] {
+export function measuresFor(
+  results: readonly Results[],
+  networks?: readonly Network[],
+  roadNames?: Readonly<Record<string, string>>,
+): Measure[] {
   const atSignals =
     networks &&
     new Set(
@@ -87,7 +95,7 @@ export function measuresFor(results: readonly Results[], networks?: readonly Net
     ...approaches.map(
       (roadId): Measure => ({
         id: `longest-queue:${roadId}`,
-        name: `Longest queue on ${roadId} (m)`,
+        name: `Longest queue on ${(roadNames && Object.prototype.hasOwnProperty.call(roadNames, roadId) ? roadNames[roadId] : undefined) ?? roadId} (m)`,
         unit: "m",
         value: (one) => one.longestQueueByApproach[roadId]?.lengthM ?? null,
       }),

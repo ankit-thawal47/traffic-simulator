@@ -3,6 +3,8 @@ import { baselineOf, resolveScenario, whyRefused, type Scenario } from "@traffic
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AssumptionsPanel } from "./AssumptionsPanel";
 import { angledPose, closeUpPose, networkBounds, straightDownPose } from "./camera-presets";
+import { corridorNotice } from "./corridor-notice";
+import { CorridorNoticePanel } from "./CorridorNoticePanel";
 import { EXAMPLES } from "./examples";
 import { clearSnapshots, newFrameStore, receiveSnapshot } from "./frame-store";
 import { ProposalPanel } from "./ProposalPanel";
@@ -26,11 +28,13 @@ export function App() {
   // One scenario description holds the whole comparison: it is the proposal, and the baseline is the same
   // description without its changes. It is what a link or a file saves.
   const [proposal, setProposal] = useState(exampleScenario);
-  const { name, network, unbuiltRoadIds, demand, laneDiscipline, seed } = proposal;
+  const { name, corridorId, network, unbuiltRoadIds, demand, laneDiscipline, seed } = proposal;
   const baseline = useMemo(
-    () => baselineOf({ ...exampleScenario, name, network, unbuiltRoadIds, demand, laneDiscipline, seed }),
-    [name, network, unbuiltRoadIds, demand, laneDiscipline, seed],
+    () => baselineOf({ ...exampleScenario, name, corridorId, network, unbuiltRoadIds, demand, laneDiscipline, seed }),
+    [name, corridorId, network, unbuiltRoadIds, demand, laneDiscipline, seed],
   );
+  // A prepared corridor shown on the page brings its attribution, its licence and its road names.
+  const notice = useMemo(() => corridorNotice(corridorId), [corridorId]);
   const baselineInput = useMemo(() => resolveScenario(baseline), [baseline]);
   const proposalInput = useMemo(() => resolveScenario(proposal), [proposal]);
 
@@ -120,7 +124,7 @@ export function App() {
   const legend = legendFor(colourBy, VEHICLE_CLASSES);
 
   return (
-    <main>
+    <main className={notice ? "with-corridor" : undefined}>
       <header>
         <h1>Baseline against proposal</h1>
         <p className="clock">
@@ -225,6 +229,7 @@ export function App() {
           />
         </figure>
       </section>
+      {corridorId !== undefined && notice && <CorridorNoticePanel corridorId={corridorId} notice={notice} />}
 
       <section className="panels">
         <ProposalPanel
@@ -236,7 +241,11 @@ export function App() {
           onOpen={open}
         />
 
-        <ResultsPanel collected={collected} networks={[baselineInput.network, proposalInput.network]} />
+        <ResultsPanel
+          collected={collected}
+          networks={[baselineInput.network, proposalInput.network]}
+          roadNames={notice?.roadNames}
+        />
       </section>
     </main>
   );

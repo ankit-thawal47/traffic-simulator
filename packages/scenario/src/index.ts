@@ -39,6 +39,7 @@ export type {
   VehicleMixChange,
 } from "./scenario";
 export { resolveScenario } from "./resolve";
+export { CORRIDORS, corridorBaseline, corridorById } from "./corridors";
 export { describeChange, describeVehicleMix } from "./describe";
 export { SCENARIO_LIMITS, readScenario, whyRefused } from "./read";
 export type { Outcome } from "./read";

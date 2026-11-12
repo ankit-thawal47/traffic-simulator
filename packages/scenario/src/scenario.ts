@@ -27,11 +27,13 @@ import {
  * 3. adds the roads not built today (`unbuiltRoadIds`), and the other kinds
  *    of change: lane closure, road closure, signal timing, flyover, flow
  *    rate, vehicle mix, demand scale, lost width and lane discipline.
+ * 4. a scenario may name a prepared corridor (`corridorId`) instead of
+ *    carrying its network; it is saved without the network.
  *
  * A new version raises this number, adds one upgrade step (upgrade.ts) and
  * one saved example (test/fixtures); older links and files keep loading.
  */
-export const SCENARIO_FORMAT_VERSION = 3;
+export const SCENARIO_FORMAT_VERSION = 4;
 
 /** Set the usable width of one road, named by its stable identifier. */
 export interface RoadWidthChange {
@@ -179,6 +181,12 @@ export type Change =
 export interface Scenario {
   formatVersion: typeof SCENARIO_FORMAT_VERSION;
   name: string;
+  /**
+   * The prepared corridor the scenario is on, by its id. A scenario that
+   * names one is saved without its network, and given the corridor's network
+   * again when it is read.
+   */
+  corridorId?: string;
   /** The network as it is today. Changes are never written into it; they stay in `changes`. */
   network: Network;
   /**
@@ -360,6 +368,8 @@ export function withLaneDiscipline(scenario: Scenario, on: boolean): Scenario {
 /** The baseline: the road as it is today, with no changes. */
 export function createBaseline(description: {
   name: string;
+  /** The prepared corridor `network` is the network of, if it is one. */
+  corridorId?: string;
   network: Network;
   demand: Demand;
   seed: number;
@@ -371,6 +381,7 @@ export function createBaseline(description: {
   return {
     formatVersion: SCENARIO_FORMAT_VERSION,
     name: description.name,
+    ...(description.corridorId === undefined ? {} : { corridorId: description.corridorId }),
     network: description.network,
     unbuiltRoadIds: description.unbuiltRoadIds ?? [],
     changes: [],

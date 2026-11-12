@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build-corridor": "tsx scripts/build-corridor.ts",
-    "run-ground": "tsx scripts/run-ground.ts",
+    "run-corridor": "tsx scripts/run-corridor.ts",
     "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.node.json"
   },
   "dependencies": {

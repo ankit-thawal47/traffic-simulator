@@ -62,8 +62,8 @@ describe("a value that is not a scenario at all", () => {
 
 describe("a scenario of a version this product does not know", () => {
   it("made by a newer version of the product: says so and what to do", () => {
-    expect(messageFor(saved((scenario) => (scenario.formatVersion = 4)))).toBe(
-      "It was made with a newer version of the product (scenario description version 4; this page reads up to version 3). " +
+    expect(messageFor(saved((scenario) => (scenario.formatVersion = 5)))).toBe(
+      "It was made with a newer version of the product (scenario description version 5; this page reads up to version 4). " +
         "Reload the page to get the latest version and open it again.",
     );
   });

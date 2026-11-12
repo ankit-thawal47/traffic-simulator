@@ -71,6 +71,8 @@ export interface RoadCorrection {
   id: string;
   /** What the road is, in words. */
   name?: string;
+  /** A short name a planner can read in a list, such as "Bellary Road from the airport". */
+  shortName?: string;
   /** The ways that make up the road, in the direction of travel. */
   wayIds: number[];
   /** Start the road at this node rather than at the first node of the first way. */
@@ -112,6 +114,12 @@ export interface JunctionCorrection {
   name: string;
   control: "signal" | "unconfirmed";
   connections: ConnectionCorrection[];
+  /**
+   * Cut every road of the junction back this far from where it meets the
+   * junction, in the whole network: needed where OpenStreetMap draws all the
+   * roads to one node, so that stop lines stand back and turns have room.
+   */
+  setBackM?: number;
   /** Needed for a signal junction. */
   signalPlan?: SignalPlan;
   /** The plan as its source gives it, before it was fitted to the network format. */
@@ -140,7 +148,75 @@ export interface Corrections {
   origin: { lat: number; lon: number };
   roads: RoadCorrection[];
   junctions: JunctionCorrection[];
+  /** How the roads are put together into one network for the engine. Without it only the ground-level network is made. */
+  network?: NetworkCorrections;
 }
+
+/**
+ * How the checked roads become one network in the engine's format (version 4).
+ * Everything here is an adjustment of what OpenStreetMap draws, made by the
+ * importer and never by hand in its output; each carries its reason.
+ */
+export interface NetworkCorrections {
+  /** Height of a raised road above the ground once it has finished rising, in metres. OpenStreetMap has no heights. */
+  deckHeightM: number;
+  /** How steeply a raised road rises from, and comes down to, the ground: height gained for each metre along. */
+  rampGradient: number;
+  /** The room left between two roads at a junction with no signal, for the path between them, in metres. */
+  joinGapM: number;
+  /** The least length of the one wide road made where a road divides or roads join, in metres. */
+  sideBySideMinM: number;
+  evidence: Evidence | Record<string, Evidence>;
+  /**
+   * Roads made of several checked roads end to end, which must agree in
+   * lanes, width and speed limit. Every other checked road is a road of the
+   * network under its own id.
+   */
+  roads: NetworkRoadCorrection[];
+  joins: JoinCorrection[];
+  /**
+   * Roads OpenStreetMap draws closer to another road than half of both their
+   * widths, on the same level: `roadId` is moved away from `fromRoadId`,
+   * point by point, just far enough. Applied after the joins.
+   */
+  keepApart?: { roadId: string; fromRoadId: string; reason: string }[];
+}
+
+export interface NetworkRoadCorrection {
+  id: string;
+  /** A short name a planner can read in a list. */
+  name: string;
+  /** The checked roads it is made of, in the direction of travel. */
+  parts: string[];
+}
+
+interface SideBySide {
+  shared: SharedSection;
+  /** The least length of the one wide road at this join, in place of the network's (say why in `reason`). */
+  sideBySideMinM?: number;
+  reason: string;
+}
+
+/** The one wide road made where a road divides or roads join. */
+export interface SharedSection {
+  id: string;
+  name: string;
+}
+
+/**
+ * A join that is not a signal junction. Road ids are those of the network.
+ *
+ * Diverge: `mainRoadId` and `otherRoadId` start at the same node. From the
+ * node, for as long as the two would overlap at their widths (and at least
+ * `sideBySideMinM`), they are one road as wide as both (`shared`); beyond it
+ * each starts beside the other. `fromRoadId` is the road that arrives at the
+ * node, if the corridor has one. Merge: the same, mirrored, with `ontoRoadId`
+ * the road that leaves the node. Continue: one road simply follows another.
+ */
+export type JoinCorrection =
+  | ({ id: string; kind: "diverge"; fromRoadId?: string; mainRoadId: string; otherRoadId: string } & SideBySide)
+  | ({ id: string; kind: "merge"; mainRoadId: string; otherRoadId: string; ontoRoadId?: string } & SideBySide)
+  | { id: string; kind: "continue"; fromRoadId: string; toRoadId: string; reason: string };
 
 /** A road of the corridor after import, whatever its level. */
 export interface CorridorRoad {
@@ -173,6 +249,16 @@ export interface ImportedCorridor {
    * network format to carry levels.
    */
   groundNetwork: Network;
+  /**
+   * The whole corridor as one network in the engine's format: ground-level
+   * and raised roads, signal junctions, and the joins with no signal. Absent
+   * when the corrections do not say how the roads are put together.
+   */
+  network?: Network;
+  /** A short name for each road of the whole network, for a planner to read. */
+  roadNames: Record<string, string>;
+  /** Every place where the whole network departs from what OpenStreetMap draws, in words. */
+  adjustments: string[];
   /** What does not hold between the corrections and the extract. Empty when the corridor is sound. */
   problems: string[];
 }

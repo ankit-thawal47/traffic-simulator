@@ -22,6 +22,7 @@ import {
   type VehicleClass,
   type VehicleMix,
 } from "@traffic-simulator/engine";
+import { CORRIDORS, corridorById } from "./corridors";
 import { resolveScenario } from "./resolve";
 import {
   baselineOf,
@@ -442,11 +443,26 @@ export function readScenario(value: unknown): Outcome<Scenario> {
       refuse(`It does not hold a scenario (found ${shown(value)})`);
     }
     const saved = upgraded(value as Record<string, unknown>);
-    const network = readNetwork(saved.network);
+    const corridorId = saved.corridorId === undefined ? undefined : aString(saved.corridorId, "The corridor's id", SCENARIO_LIMITS.roadIdLength);
+    let network: Network;
+    if (corridorId === undefined) {
+      network = readNetwork(saved.network);
+    } else {
+      if (saved.network !== undefined) refuse("It names a corridor and also carries a network; a scenario has one or the other");
+      const corridor = corridorById(corridorId);
+      if (!corridor) {
+        refuse(
+          `It names a corridor this version of the product does not have: ${JSON.stringify(corridorId)}. ` +
+            `The corridors it has are: ${Object.keys(CORRIDORS).join(", ")}`,
+        );
+      }
+      network = corridor.network;
+    }
     const demand = readDemand(saved.demand, network);
     const scenario: Scenario = {
       formatVersion: SCENARIO_FORMAT_VERSION,
       name: aString(saved.name, "The scenario's name", SCENARIO_LIMITS.nameLength),
+      ...(corridorId === undefined ? {} : { corridorId }),
       network,
       unbuiltRoadIds: aList(saved.unbuiltRoadIds, "The list of roads not built today", SCENARIO_LIMITS.roads).map(
         (roadId, index) => aFlyoverRoadOf(network, roadId, `Entry ${index + 1} of the list of roads not built today`),
