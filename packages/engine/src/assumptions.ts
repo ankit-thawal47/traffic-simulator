@@ -450,6 +450,50 @@ const JUNCTION_NAMES: Record<keyof typeof JUNCTION_ASSUMPTIONS, string> = {
   sortingHoldBackM: "Sorting for the way on: how far short of the stop line a vehicle waits while it still has to move left to reach its strips",
 };
 
+const KOTA_2025 =
+  "Kota, Pallela and Lalam, \"Capacity analysis at urban uncontrolled intersections under mixed traffic conditions: " +
+  "a case study in Warangal city\", Scientific Journal of Silesian University of Technology, Series Transport 126 " +
+  "(2025), 97-116, doi:10.20858/sjsutst.2025.126.6";
+const KOTA_2025_SITE =
+  "Raff's method on video of five urban junctions with no signal in Warangal (four-lane divided main roads); the gap " +
+  "is measured from the side-road vehicle crossing a reference line to the next main-road vehicle crossing the " +
+  "conflict point, which is how this engine measures it. Values per junction (I to V) differ by up to 1.4 s for one " +
+  "vehicle class. The paper's text for junction III (page 109) prints values that do not match its own Table 6 " +
+  "column III (they match column I); the table is used here.";
+
+function kotaGap(what: string, perJunction: string, mean: string): Evidence {
+  return {
+    state: "confirmed",
+    source: `${KOTA_2025}, Table 6 (page 109): critical gap for ${what} at junctions I to V ${perJunction} s; the mean, ${mean} s, rounded here to 0.1 s.`,
+    note: KOTA_2025_SITE,
+  };
+}
+
+/**
+ * Accepted gaps at a priority junction (priority-junction.ts): a side-road
+ * vehicle is let in only when the time until the next main-road vehicle whose
+ * path crosses its own reaches the place where they cross is at least this.
+ */
+export const PRIORITY_JUNCTION_ASSUMPTIONS: Record<VehicleClass, Assumption> = {
+  "two-wheeler": { value: 3.5, unit: "s", ...kotaGap("two-wheelers", "3.1, 3.4, 4.1, 3.4 and 3.3", "3.46") },
+  car: { value: 4.6, unit: "s", ...kotaGap("cars", "3.9, 5.3, 5.0, 5.0 and 3.9", "4.62") },
+  "auto-rickshaw": { value: 3.7, unit: "s", ...kotaGap("three-wheelers", "3.2, 4.0, 4.3, 3.4 and 3.8", "3.74") },
+  bus: {
+    value: 5.0,
+    unit: "s",
+    state: "our-choice",
+    source:
+      `Our choice; the paper used for the other vehicle classes (${KOTA_2025}) has no bus class and gives no heavy-` +
+      "vehicle value in Table 6. Its text (page 109) gives heavy vehicles (buses, tractors and lorries) 4.4 s at one " +
+      "junction, the largest there, and says they sometimes reject gaps of 9 s. A bus here is longer and slower to " +
+      "pick up speed than a car, so it is given more than the car's 4.6 s: 5.0 s, about the 0.5 s by which heavy " +
+      "vehicles exceeded cars at that junction in the paper's text.",
+    note:
+      "Light commercial vehicles, which this engine does not have, were 4.3 s on average (Table 6). A bus also has to be " +
+      "clear of the place where the paths cross before the main-road vehicle arrives, so in practice it often needs more.",
+  },
+};
+
 /**
  * Assumptions about how through traffic chooses between a flyover and the
  * junction beneath it (ADR 0006; route-choice.ts). All are our own choices.
@@ -739,6 +783,24 @@ export const RULES: readonly Rule[] = [
       "road is blocked right across for its width) is left as it was.",
   },
   {
+    id: "rule.priority-junction",
+    name: "Priority junction: main-road traffic goes first; a side-road vehicle at the stop line goes only into a large enough gap",
+    state: "our-choice",
+    source:
+      "Ours, in the manner of the gap acceptance of Kota, Pallela and Lalam (2025) and of SUMO's junction model. " +
+      "Main-road vehicles are let in first come, first served, as at a junction with no signal, and never wait for a " +
+      "side-road vehicle that has not been let in. A side-road vehicle near the stop line is let in only when, for " +
+      "every main-road vehicle on an approach of the junction whose path crosses its own and that has not yet reached " +
+      "that crossing, the soonest that vehicle can reach it is at least the side-road vehicle's accepted gap, and later, " +
+      "by the crossing margin, than the soonest the side-road vehicle can be clear of it; and only when the road " +
+      "beyond has room (keep clear) and the vehicles already let in will be clear of its path, as at any junction.",
+    note:
+      "Main-road vehicles further back than the main road's approach are not looked at, so the approach should be " +
+      "longer than the accepted gap at the speed limit (about 70 m at 50 km/h). A side-road vehicle waiting for a gap " +
+      "is held, as at a red signal, and is never released as a stuck vehicle. Forced entry by impatient drivers, " +
+      "common at Indian junctions, is not modelled, so at a high main-road flow side-road vehicles can wait very long.",
+  },
+  {
     id: "rule.stuck-vehicles",
     name: "Stuck vehicles: a vehicle at the front of its queue that has stood for 300 s, not held by a red or amber signal and not behind a stationary vehicle it has no way round, is taken off the network and counted as a stuck vehicle",
     state: "our-choice",
@@ -855,6 +917,26 @@ export function listAssumptions(): AssumptionGroup[] {
     }),
   };
 
+  const priorityGroup: AssumptionGroup = {
+    id: "priority-junctions",
+    title: "At priority junctions",
+    about:
+      "A side-road vehicle is let in only when the next main-road vehicle whose path crosses its own is at least this " +
+      "far off in time from the place where they cross. Forced entry by impatient drivers is not modelled.",
+    assumptions: VEHICLE_CLASSES.map((vehicleClass) => {
+      const { value, unit, state, source, note } = PRIORITY_JUNCTION_ASSUMPTIONS[vehicleClass];
+      return {
+        id: `priority.${vehicleClass}.acceptedGapS`,
+        name: `Accepted gap: ${VEHICLE_CLASS_TITLES[vehicleClass].toLowerCase()}`,
+        value,
+        unit,
+        state,
+        source,
+        note,
+      };
+    }),
+  };
+
   const routeChoiceGroup: AssumptionGroup = {
     id: "route-choice",
     title: "Choosing between a flyover and the junction beneath",
@@ -901,5 +983,5 @@ export function listAssumptions(): AssumptionGroup[] {
     assumptions: RULES.map(({ id, name, state, source, note }) => ({ id, name, value: null, unit: "", state, source, note })),
   };
 
-  return [...perClass, sharedGroup, junctionGroup, routeChoiceGroup, stuckGroup, mixGroup, rulesGroup];
+  return [...perClass, sharedGroup, junctionGroup, priorityGroup, routeChoiceGroup, stuckGroup, mixGroup, rulesGroup];
 }

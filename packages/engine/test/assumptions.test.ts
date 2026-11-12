@@ -73,6 +73,7 @@ describe("the list of assumptions shown to the planner", () => {
       ...VEHICLE_CLASSES,
       "shared",
       "junctions",
+      "priority-junctions",
       "route-choice",
       "stuck-vehicles",
       "vehicle-mix",
@@ -92,6 +93,20 @@ describe("the list of assumptions shown to the planner", () => {
     for (const rule of ["rule.route-choice", "rule.diverge-and-merge", "rule.levels", "rule.sorting", "rule.blocked-strip"]) {
       expect(listed(rule).state).toBe("our-choice");
     }
+  });
+
+  it("has an accepted gap at a priority junction for every vehicle class, smallest for two-wheelers, with its source", () => {
+    // Kota, Pallela and Lalam (2025), Table 6, mean of the five intersections: 3.46, 3.74 and 4.62 s.
+    expect(listed("priority.two-wheeler.acceptedGapS").value).toBe(3.5);
+    expect(listed("priority.auto-rickshaw.acceptedGapS").value).toBe(3.7);
+    expect(listed("priority.car.acceptedGapS").value).toBe(4.6);
+    for (const vehicleClass of ["two-wheeler", "auto-rickshaw", "car"]) {
+      expect(listed(`priority.${vehicleClass}.acceptedGapS`).state).toBe("confirmed");
+    }
+    // The paper has no bus class.
+    expect(listed("priority.bus.acceptedGapS").state).toBe("our-choice");
+    expect(listed("priority.bus.acceptedGapS").value).toBeGreaterThan(4.6);
+    expect(listed("rule.priority-junction").state).toBe("our-choice");
   });
 
   it("has how slow and for how long a vehicle stands before it is a stuck vehicle, each marked as our choice with its reason", () => {

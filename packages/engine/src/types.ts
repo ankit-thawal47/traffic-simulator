@@ -71,7 +71,7 @@ export interface SignalPlan {
  * The path of each connection is worked out from where the two roads end and
  * start. `control` says what decides who may go; later versions add other kinds.
  */
-export type Junction = SignalJunction | DividingJunction;
+export type Junction = SignalJunction | DividingJunction | PriorityJunction;
 
 /** A junction where a fixed, repeating signal plan decides which movements may go. */
 export interface SignalJunction {
@@ -102,18 +102,39 @@ export interface DividingJunction {
 }
 
 /**
+ * A junction with no signal where traffic on the main road goes first and
+ * side-road traffic waits for a gap (priority-junction.ts). From format
+ * version 5.
+ *
+ * The main roads are named approaches of the junction; every other approach
+ * is a side road. Main-road traffic is let in first come, first served, as at
+ * a junction with no signal, and never waits for side-road traffic. A
+ * side-road vehicle near the stop line is let in only when the time until the
+ * next main-road vehicle whose path crosses its own reaches the place where
+ * they cross is at least its vehicle class's accepted gap, it can be clear of
+ * that place before the main-road vehicle arrives, and the road beyond has room.
+ */
+export interface PriorityJunction {
+  id: string;
+  control: "priority";
+  connections: Connection[];
+  /** The approaches that are the main road: at least one, and not all of them. */
+  mainRoadIds: string[];
+}
+
+/**
  * The roads, junctions and flyovers a scenario runs on.
  *
  * Format versions: 1 is a road with a centreline, width and speed limit;
  * 2 adds each road's lane count; 3 adds junctions, with the connections
  * through them and their signal plans; 4 adds heights to a road's points
- * (flyovers) and junctions with no signal where roads divide or join. The
- * engine reads all four.
+ * (flyovers) and junctions with no signal where roads divide or join; 5 adds
+ * priority junctions. The engine reads all five.
  */
 export interface Network {
-  formatVersion: 1 | 2 | 3 | 4;
+  formatVersion: 1 | 2 | 3 | 4 | 5;
   roads: Road[];
-  /** From format version 3; junctions with no signal from version 4. */
+  /** From format version 3; junctions with no signal from version 4; priority junctions from version 5. */
   junctions?: Junction[];
 }
 

@@ -23,6 +23,7 @@ import {
 } from "./junction-geometry";
 import { checkFlyoverFormat } from "./levels";
 import { stripsStraightOn } from "./merge-diverge";
+import { checkPriorityFormat, gapIsLargeEnough, mainRoadsOf } from "./priority-junction";
 import { createRandomStream, exponential, type RandomStream } from "./random";
 import { createRouteChoice, routesWithChoice, type RouteChoice, type Trip } from "./route-choice";
 import { createStuckVehicles, isStanding, standing, standingTimeAfter } from "./stuck-vehicles";
@@ -121,6 +122,8 @@ interface JunctionState {
    * undefined where the two nowhere overlap (and for a connection with itself).
    */
   crossings: (Int16Array | undefined)[];
+  /** At a priority junction, the approaches that are side roads; undefined at any other junction. */
+  sideRoads: Set<RoadState> | undefined;
 }
 
 const STEPS_PER_MINUTE = Math.round(60 / STEP_SECONDS);
@@ -183,6 +186,8 @@ interface Vehicle {
   order: number;
   /** From being let in until leaving the junction: the line the vehicle's centre follows through it. */
   curve: TurningCurve | undefined;
+  /** On a side road of a priority junction: refused, at the last letting in, for want of a large enough gap in main-road traffic. */
+  waitingForGap: boolean;
 
   // Working values of one step.
   index: number;
@@ -263,10 +268,11 @@ function lateralM(vehicle: Vehicle): number {
 export function createRun(input: RunInput): Run {
   const laneDiscipline = input.laneDiscipline === true;
   const formatVersion = input.network.formatVersion;
-  if (formatVersion !== 1 && formatVersion !== 2 && formatVersion !== 3 && formatVersion !== 4) {
+  if (formatVersion !== 1 && formatVersion !== 2 && formatVersion !== 3 && formatVersion !== 4 && formatVersion !== 5) {
     throw new Error(`Unsupported network format version: ${String(formatVersion)}`);
   }
   checkFlyoverFormat(input.network);
+  checkPriorityFormat(input.network);
   if (formatVersion < 3 && (input.network.junctions?.length ?? 0) > 0) {
     throw new Error("A network with junctions needs format version 3");
   }
@@ -312,12 +318,12 @@ export function createRun(input: RunInput): Run {
   for (const junction of input.network.junctions ?? []) {
     if (junctionIds.has(junction.id)) throw new Error(`The network has two junctions with the id "${junction.id}"`);
     junctionIds.add(junction.id);
-    if (junction.control !== "signal" && junction.control !== "none") {
+    if (junction.control !== "signal" && junction.control !== "none" && junction.control !== "priority") {
       const unknown = junction as Junction;
       throw new Error(`Junction "${unknown.id}" is of a kind this version does not know: "${String(unknown.control)}"`);
     }
     const sideBySide = junction.control === "none";
-    const state: JunctionState = { junction, connections: [], approaches: [], admitted: [], crossings: [] };
+    const state: JunctionState = { junction, connections: [], approaches: [], admitted: [], crossings: [], sideRoads: undefined };
     for (const connection of junction.connections) {
       const from = roads.get(connection.fromRoadId);
       const to = roads.get(connection.toRoadId);
@@ -378,6 +384,13 @@ export function createRun(input: RunInput): Run {
     }
 
     junctions.push(state);
+    if (junction.control === "priority") {
+      const main = mainRoadsOf(
+        junction,
+        state.approaches.map((approach) => approach.road.id),
+      );
+      state.sideRoads = new Set(state.approaches.filter((approach) => !main.has(approach.road.id)));
+    }
     // A junction with no signal has no plan: its approaches always show green.
     if (junction.control !== "signal") continue;
     const plan = junction.signalPlan;
@@ -702,6 +715,7 @@ export function createRun(input: RunInput): Run {
       admitted: false,
       order: 0,
       curve: undefined,
+      waitingForGap: false,
       index: 0,
       speedCapMps: Math.min(assumptions.desiredSpeedMps, road.road.speedLimitMps),
       sorting: 0,
@@ -1225,6 +1239,7 @@ export function createRun(input: RunInput): Run {
       // Nobody is let in on amber or red.
       if (road.aspect.state !== "green") continue;
       for (const vehicle of road.vehicles) {
+        vehicle.waitingForGap = false;
         if (vehicle.place !== ON_ROAD || vehicle.admitted || vehicle.stationary || vehicle.shiftDirection !== 0) continue;
         if (!vehicle.ahead) continue;
         // A vehicle giving way to one waiting to sort does not ask to be let in.
@@ -1247,6 +1262,13 @@ export function createRun(input: RunInput): Run {
       if (!roomBeyond(vehicle, connection, vehicle.strip)) continue;
       vehicle.turning = connection;
       vehicle.curve = curve;
+      // On a side road of a priority junction it goes only into a large enough gap in main-road traffic.
+      if (junction.sideRoads?.has(vehicle.road) && !gapInMainRoad(vehicle, junction)) {
+        vehicle.turning = undefined;
+        vehicle.curve = undefined;
+        vehicle.waitingForGap = true;
+        continue;
+      }
       if (!crossingsWillBeFree(vehicle)) {
         vehicle.turning = undefined;
         vehicle.curve = undefined;
@@ -1341,10 +1363,14 @@ export function createRun(input: RunInput): Run {
       // still cover, and no further until the other's rear bumper has passed.
       const first = firstCrossingPiece(vehicle, other, otherRearM);
       if (first === NO_CROSSING) continue;
+      const toFirstM = curveDistanceM(curve, first / connection.path.pieces) - alongM;
+      // A main-road vehicle at a priority junction does not slow for a side-road vehicle that will be
+      // clear of its path before it gets there: the side-road vehicle was let in only into such a gap.
+      if (sideRoadClearInTime(vehicle, other, otherRearM, toFirstM)) continue;
       // A vehicle ahead in its own strips that takes another way is followed as
       // a moving vehicle; any other is a place to stop short of.
       const followed = otherConnection.from === connection.from && shareStrips(vehicle, other);
-      consider(curveDistanceM(curve, first / connection.path.pieces) - alongM, followed ? other.speedMps : 0);
+      consider(toFirstM, followed ? other.speedMps : 0);
     }
   }
 
@@ -1430,6 +1456,111 @@ export function createRun(input: RunInput): Run {
       const toClearM = curveDistanceM(other.curve!, (last + 1) / otherConnection.path.pieces) - otherRearM;
       const cruiseMps = Math.min(other.desiredSpeedMps, turnSpeedMps(other.curve!));
       if (arriveS < soonestS(other, toClearM, cruiseMps) + marginS) return false;
+    }
+    return true;
+  }
+
+  /**
+   * The time a vehicle takes to cover a distance on an open road, by the
+   * following rule with nothing ahead, aiming for `cruiseMps`. Slower than
+   * soonestS(), which assumes full acceleration all the way: used where a
+   * side-road vehicle's time must not be underestimated.
+   */
+  function freeRoadTimeS(vehicle: Vehicle, distanceM: number, cruiseMps: number): number {
+    const a = vehicle.assumptions.maxAccelerationMps2;
+    let v = vehicle.speedMps;
+    let covered = 0;
+    let timeS = 0;
+    while (covered < distanceM) {
+      if (timeS > 120) return Infinity;
+      const ratio = v / cruiseMps;
+      const nextV = Math.max(0, v + a * (1 - ratio * ratio * ratio * ratio) * STEP_SECONDS);
+      const step = ((v + nextV) / 2) * STEP_SECONDS;
+      if (covered + step >= distanceM) return timeS + (step > 0 ? ((distanceM - covered) / step) * STEP_SECONDS : 0);
+      covered += step;
+      v = nextV;
+      timeS += STEP_SECONDS;
+    }
+    return timeS;
+  }
+
+  /**
+   * Whether `vehicle`, on a main road of a priority junction, can leave out of
+   * what it follows a side-road vehicle `other` let in before it: the soonest
+   * it can reach the first place where their paths cross (`toFirstM` ahead) is
+   * later, by the crossing margin, than the soonest the other's rear bumper can
+   * be past the last. Otherwise it stops short of that place, as at any junction;
+   * the following rule's safety net keeps it from ever passing it.
+   */
+  function sideRoadClearInTime(vehicle: Vehicle, other: Vehicle, otherRearM: number, toFirstM: number): boolean {
+    const junction = vehicle.turning!.junction;
+    if (!junction.sideRoads || junction.sideRoads.has(vehicle.turning!.from) || !junction.sideRoads.has(other.turning!.from)) return false;
+    const otherConnection = other.turning!;
+    const last = lastCrossingPiece(vehicle, other);
+    const toClearM = curveDistanceM(other.curve!, (last + 1) / otherConnection.path.pieces) - otherRearM;
+    const clearS = freeRoadTimeS(other, toClearM, Math.min(other.desiredSpeedMps, turnSpeedMps(other.curve!)));
+    const arriveS = soonestS(vehicle, toFirstM, Math.min(vehicle.desiredSpeedMps, turnSpeedMps(vehicle.curve!)));
+    return arriveS >= clearS + JUNCTION_ASSUMPTIONS.crossingMarginS.value;
+  }
+
+  /**
+   * Gap acceptance at a priority junction (priority-junction.ts). Whether a
+   * side-road vehicle asking to be let in, with its connection and line through
+   * it set, finds a large enough gap in main-road traffic: for every vehicle on
+   * a main road of the junction whose path crosses its own and that has not
+   * reached the first place where they cross, the soonest that vehicle can get
+   * there against the soonest this one can be clear of every such place. The
+   * places are those of the junction's crossings tables, found once.
+   */
+  function gapInMainRoad(vehicle: Vehicle, junction: JunctionState): boolean {
+    const connection = vehicle.turning!;
+    const curve = vehicle.curve!;
+    const count = junction.connections.length;
+    const pieces = connection.path.pieces;
+    const toStopLineM = vehicle.road.lengthM - vehicle.positionM;
+    const cruiseMps = Math.min(vehicle.desiredSpeedMps, turnSpeedMps(curve));
+    const mine = vehicle.strip - connection.fromShift;
+    for (const road of junction.approaches) {
+      if (junction.sideRoads!.has(road)) continue;
+      for (const other of road.vehicles) {
+        if (other.stationary || other.place === REAR_IN_JUNCTION) continue;
+        const otherConnection = other.admitted ? other.turning! : other.ahead;
+        if (!otherConnection) continue;
+        const table = junction.crossings[otherConnection.index * count + connection.index];
+        if (!table) continue;
+        // The strips of its connection it is in, or, not yet let in, the nearest it could be in.
+        const room = otherConnection.stripCount - other.strips;
+        const low = Math.min(room, Math.max(0, lowStrip(other) - otherConnection.fromShift));
+        const high = Math.min(otherConnection.stripCount - 1, Math.max(other.strips - 1, highStrip(other) - otherConnection.fromShift));
+        const otherCurve = other.curve ?? curveThrough(otherConnection, low + otherConnection.fromShift, other.strips);
+        if (!otherCurve) continue;
+        // The first piece of its path that crosses any of this vehicle's path, and the last piece of this vehicle's path that it crosses.
+        let first = NO_CROSSING;
+        let last = -1;
+        for (let i = low; i <= high; i++) {
+          for (let j = mine; j < mine + vehicle.strips; j++) {
+            const base = (i * connection.stripCount + j) * pieces;
+            const piece = table[base]!;
+            if (piece < first) first = piece;
+            for (let k = pieces - 1; k > last; k--) {
+              if (table[base + k]! !== NO_CROSSING) {
+                last = k;
+                break;
+              }
+            }
+          }
+        }
+        if (first === NO_CROSSING) continue;
+        const toCrossingM = road.lengthM - other.positionM + curveDistanceM(otherCurve, first / otherConnection.path.pieces);
+        // Already at the place: one let in goes first (crossingsWillBeFree); this one waits.
+        if (toCrossingM <= 0) {
+          if (other.admitted) continue;
+          return false;
+        }
+        const lagS = soonestS(other, toCrossingM, Math.min(other.desiredSpeedMps, turnSpeedMps(otherCurve)));
+        const clearS = freeRoadTimeS(vehicle, toStopLineM + curveDistanceM(curve, (last + 1) / pieces) + vehicle.assumptions.lengthM, cruiseMps);
+        if (!gapIsLargeEnough(vehicle.vehicleClass, lagS, clearS)) return false;
+      }
     }
     return true;
   }
@@ -1583,7 +1714,7 @@ export function createRun(input: RunInput): Run {
           speedMps: vehicle.speedMps,
           movingAcross: vehicle.shiftDirection !== 0,
           behindStandingVehicle: leader !== undefined && !leader.stationary && isStanding(leader.speedMps),
-          held: atRed || noWayRound,
+          held: atRed || noWayRound || vehicle.waitingForGap,
         });
         vehicle.standingS = standingTimeAfter(vehicle.standingS, kind);
         if (kind === "standing") looked.push(vehicle);
