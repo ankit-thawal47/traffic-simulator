@@ -6,8 +6,8 @@
 
 **Status:** ready-for-agent
 
-- [ ] A network can contain a priority junction with a main road and a side road
-- [ ] Side-road vehicles enter only when the gap in main-road traffic is at least their accepted gap
-- [ ] Accepted gaps differ by vehicle class and come from the assumptions table
-- [ ] Side-road throughput falls as main-road flow rises
-- [ ] Consistency checks pass on the priority junction test scenario
+- [x] A network can contain a priority junction with a main road and a side road
+- [x] Side-road vehicles enter only when the gap in main-road traffic is at least their accepted gap
+- [x] Accepted gaps differ by vehicle class and come from the assumptions table
+- [x] Side-road throughput falls as main-road flow rises
+- [x] Consistency checks pass on the priority junction test scenario
