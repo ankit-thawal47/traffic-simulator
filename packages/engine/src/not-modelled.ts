@@ -24,10 +24,12 @@ export const NOT_MODELLED: readonly NotModelled[] = [
   { name: "Bus stops", meaning: "Buses do not stop to pick up or set down passengers; they drive through like other vehicles." },
   { name: "Turn bans", meaning: "A turn cannot be banned at a junction." },
   {
-    name: "Rerouting",
+    name: "Rerouting beyond the flyover choice",
     meaning:
       "A vehicle chooses its route once, when it enters, and never changes it. The one choice it has is between a " +
-      "flyover and the junction beneath it; everywhere else it takes the route that is fastest on empty roads.",
+      "flyover and the junction beneath it; everywhere else it takes the route that is fastest on empty roads, however " +
+      "long the queue on it. When a road is closed, traffic that used it takes the fastest route that is left, and a " +
+      "proposal that leaves some traffic with no route at all is refused.",
   },
   {
     name: "Equilibrium routing",
@@ -35,7 +37,9 @@ export const NOT_MODELLED: readonly NotModelled[] = [
   },
   {
     name: "Induced demand",
-    meaning: "A faster road does not attract new trips. The traffic that enters is what the scenario's demand says, whatever the change.",
+    meaning:
+      "A faster road does not attract new trips. The traffic that enters is what the scenario's demand says, whatever " +
+      "the change. To ask what happens if a change attracts more traffic, scale all demand in the proposal.",
   },
   { name: "Emissions", meaning: "No fuel use, exhaust or noise is estimated." },
   {
