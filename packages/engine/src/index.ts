@@ -29,6 +29,7 @@ export type {
 export { NOT_MODELLED } from "./not-modelled";
 export type { NotModelled } from "./not-modelled";
 export { positionAlongRoad, roadLengthM } from "./geometry";
+export { isRaised, roadHeightM, SAME_LEVEL_WITHIN_M, vehicleHeightM } from "./levels";
 export type { RoadPosition } from "./geometry";
 export {
   createNetworkLayout,

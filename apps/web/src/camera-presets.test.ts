@@ -1,4 +1,5 @@
 import type { Network } from "@traffic-simulator/engine";
+import flyover from "@traffic-simulator/engine/examples/flyover.json";
 import signalJunction from "@traffic-simulator/engine/examples/signal-junction.json";
 import { describe, expect, it } from "vitest";
 import { angledPose, closeUpPose, networkBounds, straightDownPose } from "./camera-presets";
@@ -149,5 +150,19 @@ describe("the close-up camera the views open with", () => {
     // All four stop lines, 30 m apart, and some of each queue.
     expect(shownM).toBeGreaterThan(45);
     expect(shownM).toBeLessThan(90);
+  });
+
+  it("stands further back for a network with a flyover: it looks at the signal junction beneath, with the deck and a ramp in view", () => {
+    const pose = closeUpPose(flyover.network as Network);
+
+    // The junction beneath the flyover is centred on the origin; the first junction in the list is a diverge 200 m south.
+    expect(pose.target).toEqual([0, 0, 0]);
+    const distanceM = Math.hypot(...pose.position);
+    // The deck is 200 m long and the ramps another 100 m each.
+    expect(2 * distanceM * TAN_HALF_FOV).toBeGreaterThan(120);
+    expect(2 * distanceM * TAN_HALF_FOV).toBeLessThan(250);
+    // From the side and above, so that the deck is seen to be raised.
+    expect(pose.position[0]).toBeGreaterThan(60);
+    expect(pose.position[1]).toBeGreaterThan(40);
   });
 });

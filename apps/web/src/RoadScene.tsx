@@ -1,9 +1,10 @@
-import { createNetworkLayout, vehiclePose, type Network, type Road, type VehicleClass } from "@traffic-simulator/engine";
+import { createNetworkLayout, vehicleHeightM, vehiclePose, type Network, type Road, type VehicleClass } from "@traffic-simulator/engine";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { closeUpPose } from "./camera-presets";
 import type { FrameStore } from "./frame-store";
+import { createFlyoverDrawing, isDrawnRaised } from "./flyover-drawing";
 import { interpolateVehicles } from "./interpolate";
 import { createJunctionDrawing } from "./junction-drawing";
 import type { SharedCamera } from "./shared-camera";
@@ -96,8 +97,14 @@ export function RoadScene({
 
     const roadMaterial = new THREE.MeshLambertMaterial({ color: 0x4a4d52 });
     for (const road of network.roads) {
+      if (isDrawnRaised(road)) continue;
       for (const mesh of roadMeshes(road, roadMaterial)) scene.add(mesh);
     }
+    // Flyovers: raised roads with their ramps, parapets and pillars.
+    const flyovers = createFlyoverDrawing(network, roadMaterial);
+    for (const object of flyovers.objects) scene.add(object);
+    host.dataset.flyovers = flyovers.summary;
+    const hasFlyover = network.roads.some(isDrawnRaised);
     // Junctions: their surface, and a stop line and signal lamp for each approach.
     const junctions = createJunctionDrawing(network, roadMaterial);
     for (const object of junctions.objects) scene.add(object);
@@ -175,6 +182,7 @@ export function RoadScene({
       if (host.dataset.signals !== signals) host.dataset.signals = signals;
       let count = 0;
       let inJunctions = 0;
+      let raised = 0;
       for (const vehicle of drawn) {
         if (count >= MAX_VEHICLES_DRAWN) continue;
         const pose = vehiclePose(layout, vehicle);
@@ -183,8 +191,14 @@ export function RoadScene({
         const { x, y } = pose.centre;
         const direction = pose.direction;
         const heightM = VEHICLE_HEIGHT_M[vehicle.vehicleClass];
-        placement.position.set(x, heightM / 2, -y);
-        placement.rotation.set(0, Math.atan2(direction.y, direction.x), 0);
+        // On a flyover the vehicle stands on the road's surface at its height, tilted with the ramp.
+        const frontM = hasFlyover ? vehicleHeightM(layout, vehicle, 0) : 0;
+        const rearM = hasFlyover ? vehicleHeightM(layout, vehicle, vehicle.lengthM) : 0;
+        const surfaceM = (frontM + rearM) / 2;
+        if (surfaceM > 0.5) raised++;
+        placement.position.set(x, surfaceM + heightM / 2, -y);
+        // Turned about the up axis to face its direction, then about its own sideways axis to climb or descend.
+        placement.rotation.set(0, Math.atan2(direction.y, direction.x), Math.atan2(frontM - rearM, vehicle.lengthM), "YZX");
         placement.scale.set(vehicle.lengthM, heightM, vehicle.widthM);
         placement.updateMatrix();
         const hex = vehicleColour(colouring.current, vehicle);
@@ -200,6 +214,7 @@ export function RoadScene({
       if (host.dataset.vehicleColours !== summary) host.dataset.vehicleColours = summary;
       host.dataset.vehiclesDrawn = String(count);
       host.dataset.vehiclesInJunctions = String(inJunctions);
+      host.dataset.vehiclesRaised = String(raised);
       coloursDrawn.clear();
     };
 
@@ -217,6 +232,7 @@ export function RoadScene({
       controls.removeEventListener("change", onCameraMoved);
       controls.dispose();
       junctions.dispose();
+      flyovers.dispose();
       renderer.dispose();
       host.removeChild(renderer.domElement);
     };

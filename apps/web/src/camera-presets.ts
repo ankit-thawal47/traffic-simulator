@@ -1,4 +1,4 @@
-import { junctionOutline, positionAlongRoad, roadLengthM, type Network } from "@traffic-simulator/engine";
+import { isRaised, junctionOutline, positionAlongRoad, roadLengthM, type Network } from "@traffic-simulator/engine";
 import type { CameraPose } from "./shared-camera";
 
 /**
@@ -68,6 +68,8 @@ const CLOSE_UP_ALONG_M = 50;
 
 /** Where the close-up camera stands to look at a junction, in metres from its middle. */
 const JUNCTION_CLOSE_UP = { toTheEastM: 20, upM: 55, toTheSouthM: 55 };
+/** Where it stands to look at a junction with a flyover over it. */
+const FLYOVER_CLOSE_UP = { toTheEastM: 110, upM: 70, toTheSouthM: 130 };
 
 /**
  * The view the views open with: close to the network's first road, 50 m from
@@ -79,15 +81,18 @@ export function closeUpPose(network: Network): CameraPose {
   const road = network.roads[0];
   if (!road) return angledPose(networkBounds(network));
   // A network with a junction opens on its first junction: the whole of it and the front of each queue.
-  const junction = network.junctions?.[0];
+  // The first signal junction, if it has one: a junction where roads only divide or join has no queue to show.
+  const junction = network.junctions?.find((each) => each.control === "signal") ?? network.junctions?.[0];
   const outline = junction ? junctionOutline(network, junction) : [];
   if (outline.length > 0) {
     const xs = outline.map((corner) => corner.x);
     const ys = outline.map((corner) => corner.y);
     const x = (Math.min(...xs) + Math.max(...xs)) / 2;
     const y = (Math.min(...ys) + Math.max(...ys)) / 2;
+    // With a flyover, from further back and more from the side, so the raised deck and a ramp are in view.
+    const from = network.roads.some(isRaised) ? FLYOVER_CLOSE_UP : JUNCTION_CLOSE_UP;
     return {
-      position: [x + JUNCTION_CLOSE_UP.toTheEastM, JUNCTION_CLOSE_UP.upM, 0 - y + JUNCTION_CLOSE_UP.toTheSouthM],
+      position: [x + from.toTheEastM, from.upM, 0 - y + from.toTheSouthM],
       target: [x, 0, 0 - y],
     };
   }
