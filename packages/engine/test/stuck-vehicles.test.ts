@@ -168,7 +168,8 @@ describe("stuck vehicles in a known lock-up: a weaving section with lane discipl
   });
 
   it("keep every consistency check through a release", { timeout: 300_000 }, () => {
-    const report = checkRunConsistency(weaving(82), { durationS: 2600 });
+    // Seed 81 locks up first: its first release is at 2,571 s (since turns leave from their own side of the approach, ticket 24).
+    const report = checkRunConsistency(weaving(81), { durationS: 2700 });
     expect(report.violations.slice(0, 5)).toEqual([]);
     expect(report.results.stuckVehicles).toBeGreaterThan(0);
   });

@@ -249,7 +249,9 @@ const MIN_GAP_M = 0.01;
 /** Slack for comparing accelerations and widths that should be equal. */
 const EPSILON = 1e-9;
 
-const LONGEST_VEHICLE_M = Math.max(...VEHICLE_CLASSES.map((vehicleClass) => VEHICLE_CLASS_ASSUMPTIONS[vehicleClass].lengthM));
+const WIDEST_VEHICLE_STRIPS = Math.max(...VEHICLE_CLASSES.map(stripsOccupied));
+
+const LONGEST_VEHICLE_M =Math.max(...VEHICLE_CLASSES.map((vehicleClass) => VEHICLE_CLASS_ASSUMPTIONS[vehicleClass].lengthM));
 
 function frontFirst(a: Vehicle, b: Vehicle): number {
   return b.positionM - a.positionM || a.id - b.id;
@@ -323,6 +325,20 @@ export function createRun(input: RunInput): Run {
     });
   }
 
+  /**
+   * Turning lanes (ours; not published): how many strips of its approach a turn at a signal or priority junction
+   * leaves from, on its own side of the road. The share of the road's lanes in the assumptions table,
+   * rounded down, at least one lane; in mixed traffic as many strips as those lanes are wide, and never fewer
+   * than the widest vehicle class needs. Straight on takes the whole road.
+   */
+  function turnStripsOf(road: RoadState): number {
+    const lanes = road.road.lanes ?? Math.max(1, Math.floor(road.road.widthM / STANDARD_LANE_WIDTH_M + EPSILON));
+    const turnLanes = Math.max(1, Math.floor(lanes * JUNCTION_ASSUMPTIONS.turnLaneShare.value + EPSILON));
+    if (laneDiscipline) return Math.min(road.stripCount, turnLanes);
+    const strips = Math.floor((road.stripCount * turnLanes) / lanes + EPSILON);
+    return Math.min(road.stripCount, Math.max(strips, WIDEST_VEHICLE_STRIPS));
+  }
+
   const junctions: JunctionState[] = [];
   const junctionIds = new Set<string>();
   const fedByJunction = new Map<RoadState, string>();
@@ -360,6 +376,15 @@ export function createRun(input: RunInput): Run {
         fromShift: alignRight ? from.stripCount - Math.min(from.stripCount, to.stripCount) : 0,
         toShift: alignRight ? to.stripCount - Math.min(from.stripCount, to.stripCount) : 0,
       };
+      if (!sideBySide && path.direction !== "straight") {
+        // A turn leaves from the lanes on its own side of the approach (turnStripsOf), and joins as many on that side of the road beyond.
+        const turnStrips = Math.min(turnStripsOf(from), strips.stripCount);
+        strips = {
+          stripCount: turnStrips,
+          fromShift: alignRight ? from.stripCount - turnStrips : 0,
+          toShift: alignRight ? to.stripCount - turnStrips : 0,
+        };
+      }
       if (sideBySide) {
         // Where roads divide or join, a connection takes the strips in which the two roads line up.
         const lined = stripsStraightOn(path.referenceFromLateralM - path.referenceToLateralM, from, to);

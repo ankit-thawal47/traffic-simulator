@@ -438,6 +438,18 @@ export const JUNCTION_ASSUMPTIONS = {
       "longer than the longest vehicle (a bus, 10.1 m) with its gap, so the two are never level with each other, " +
       "each standing where the other needs to go.",
   },
+  turnLaneShare: {
+    value: 0.5,
+    unit: "of the lanes",
+    state: "our-choice",
+    source:
+      "Our choice; not from a measurement. At a signal or priority junction a turn leaves from the half of the " +
+      "approach on its own side (a two-lane approach: the left lane for a left turn, the right lane for a right " +
+      "turn; straight on from either), as SUMO's network builder assigns lanes and as drivers keep to the side of " +
+      "their turn. When any turn could leave from any lane, a turner in the far lane crossed the traffic beside it " +
+      "and the two lanes discharged one after the other: ticket 24 measured 10.8 vehicles a green with turning " +
+      "traffic against 16.0 straight on only at a saturated two-lane approach, 15.9 with this rule.",
+  },
 } satisfies Record<string, Assumption>;
 
 const JUNCTION_NAMES: Record<keyof typeof JUNCTION_ASSUMPTIONS, string> = {
@@ -448,6 +460,8 @@ const JUNCTION_NAMES: Record<keyof typeof JUNCTION_ASSUMPTIONS, string> = {
   keepClearSlackM: "Room on the road beyond a junction, over its length and standstill gap, that a vehicle wants before it enters",
   sortingBiasMps2: "Sorting for the way on: what a sideways shift towards the strips that lead onto its route is worth to a vehicle not in them",
   sortingHoldBackM: "Sorting for the way on: how far short of the stop line a vehicle waits while it still has to move left to reach its strips",
+  turnLaneShare:
+    "Turning lanes: the share of a road's lanes, on the side of the turn, that a turn at a signal or priority junction leaves from and joins (rounded down, at least one lane)",
 };
 
 const KOTA_2025 =

@@ -137,8 +137,9 @@ describe("the list of assumptions shown to the planner", () => {
   it("has every assumption the engine uses at junctions, as the engine has it, each marked as our choice", () => {
     const names = Object.keys(JUNCTION_ASSUMPTIONS) as (keyof typeof JUNCTION_ASSUMPTIONS)[];
     // Turn speed, crossing margin, what counts as queued (two values), keep-clear room,
-    // and sorting for the way on (what a shift towards its strips is worth, and where a vehicle waits).
-    expect(names).toHaveLength(7);
+    // sorting for the way on (what a shift towards its strips is worth, and where a vehicle waits),
+    // and the share of an approach's lanes a turn leaves from.
+    expect(names).toHaveLength(8);
     for (const name of names) {
       expect(listed(`junction.${name}`).value).toBe(JUNCTION_ASSUMPTIONS[name].value);
       expect(listed(`junction.${name}`).state).toBe("our-choice");
