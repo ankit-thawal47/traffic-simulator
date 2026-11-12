@@ -4,7 +4,7 @@
 
 **Blocked by:** 05
 
-**Status:** ready-for-agent
+**Status:** done except T1.2, which cannot run on our engine (merged to integration branch; results in docs/benchmark-results-2026-11-12.md)
 
 - [x] SUMO is installed at a pinned version and runs the same generated network and demand as the engine
 - [x] Tier 0 tests run and their results are recorded
