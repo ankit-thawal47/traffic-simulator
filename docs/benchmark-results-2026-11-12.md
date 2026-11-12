@@ -69,6 +69,11 @@ count, so stuck vehicles are counted from outside: a vehicle, other than one pla
 Written by hand against the run of 2026-11-12. If the tables in this document are rebuilt from a later run, re-read
 this section against them.
 
+The run used the engine as of commit 706f72f. The branch was afterwards merged with the integration branch at 7c19955
+(signal junctions, network format 3); six jobs were then run again on the merged engine (T1.1, the T1.2 part, T1.5
+seed 1, the one-lane ring at 62 veh/km seed 1, the three-lane Bengaluru open road seed 1, and one Tier 0 scenario) and
+gave results identical to those in the tables. The full ten-seed runs were not repeated.
+
 **Where the two engines are the same model, they agree with each other and with the reference.** In T1.1, in the part of
 T1.2 our engine can run, and in T1.3, our engine and SUMO differ from each other only in the last digits SUMO prints.
 Both reach 95% of desired speed 0.86% sooner than the 0.001 s reference, which is the error of a 0.2 s step. On the
