@@ -41,6 +41,8 @@ export const SCENARIO_LIMITS = {
   pointsPerRoad: 2000,
   /** Furthest a point may be from the origin along either axis, in metres. */
   coordinateM: 1_000_000,
+  /** Furthest a point may be above or below the ground, in metres. */
+  heightM: 100,
   roadWidthM: 60,
   lanes: 12,
   speedLimitMps: 60,
@@ -111,19 +113,24 @@ function aWholeNumber(value: unknown, what: string, from: number, to: number): n
   return value;
 }
 
-function readPoint(value: unknown, what: string): Point {
+function readPoint(value: unknown, what: string, formatVersion: number): Point {
   const point = anObject(value, what);
   const limit = SCENARIO_LIMITS.coordinateM;
-  return {
+  const read: Point = {
     x: aNumber(point.x, `${what}, x`, { from: -limit, to: limit }),
     y: aNumber(point.y, `${what}, y`, { from: -limit, to: limit }),
   };
+  // Heights (flyovers) are part of network format version 4. A point without one is on the ground.
+  if (point.z === undefined) return read;
+  if (formatVersion < 4) refuse(`${what} has a height, which needs network format version 4 (the network says ${formatVersion})`);
+  const high = SCENARIO_LIMITS.heightM;
+  return { ...read, z: aNumber(point.z, `The height of ${what.charAt(0).toLowerCase()}${what.slice(1)}`, { from: -high, to: high }) };
 }
 
 function readNetwork(value: unknown): Network {
   const network = anObject(value, "The network");
   const formatVersion = network.formatVersion;
-  if (formatVersion !== 1 && formatVersion !== 2 && formatVersion !== 3) {
+  if (formatVersion !== 1 && formatVersion !== 2 && formatVersion !== 3 && formatVersion !== 4) {
     refuse(`The network uses a network format version this version of the product does not know (${shown(formatVersion)})`);
   }
   const ids = new Set<string>();
@@ -135,7 +142,7 @@ function readNetwork(value: unknown): Network {
     ids.add(id);
     const name = `Road "${id}"`;
     const points = aList(road.points, `The points of road "${id}"`, SCENARIO_LIMITS.pointsPerRoad).map(
-      (point, at) => readPoint(point, `Point ${at + 1} of road "${id}"`),
+      (point, at) => readPoint(point, `Point ${at + 1} of road "${id}"`, formatVersion),
     );
     if (points.length < 2) refuse(`${name} needs at least two points`);
     const widthM = aNumber(road.widthM, `The width of road "${id}"`, { above: 0, to: SCENARIO_LIMITS.roadWidthM });
@@ -157,7 +164,7 @@ function readNetwork(value: unknown): Network {
   // Junctions are part of network format version 3. An older network has none.
   if (network.junctions === undefined) return { formatVersion, roads };
   const entries = aList(network.junctions, "The network's list of junctions", SCENARIO_LIMITS.junctions);
-  if (formatVersion !== 3) {
+  if (formatVersion < 3) {
     if (entries.length === 0) return { formatVersion, roads };
     refuse(`The network has junctions, which need network format version 3 (it says ${shown(formatVersion)})`);
   }
@@ -170,8 +177,12 @@ function readNetwork(value: unknown): Network {
     if (junctionIds.has(id)) refuse(`The network has two junctions with the identifier "${id}"`);
     junctionIds.add(id);
     const name = `junction "${id}"`;
-    if (junction.control !== "signal") {
+    if (junction.control !== "signal" && junction.control !== "none") {
       refuse(`Junction "${id}" is of a kind this version of the product does not know: ${shown(junction.control)}`);
+    }
+    // A junction with no signal (where roads divide or join) is part of network format version 4.
+    if (junction.control === "none" && formatVersion < 4) {
+      refuse(`Junction "${id}" has no signal, which needs network format version 4 (the network says ${formatVersion})`);
     }
     const connections = aList(junction.connections, `The connections of ${name}`, SCENARIO_LIMITS.connectionsPerJunction).map(
       (value, at): Connection => {
@@ -183,6 +194,8 @@ function readNetwork(value: unknown): Network {
         };
       },
     );
+    // It has no signal plan; that its roads run straight on is the engine's to judge: whyRefused().
+    if (junction.control === "none") return { id, control: "none", connections };
     const plan = anObject(junction.signalPlan, `The signal plan of ${name}`);
     const seconds = SCENARIO_LIMITS.signalSeconds;
     const phases = aList(plan.phases, `The phases of ${name}`, SCENARIO_LIMITS.phasesPerJunction).map((value, at): SignalPhase => {

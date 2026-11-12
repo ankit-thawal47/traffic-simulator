@@ -157,4 +157,32 @@ describe("a merge where the flyover and the road beneath join onto the same lane
     expect(late.beneath).toBeGreaterThan(50);
     expect(stood300s).toBe(0);
   });
+
+  // One stream arrives steadily off the flyover; the other is let go by the signal beneath in short bursts,
+  // joined by traffic turning in from the cross road, and has to find its place at the merge.
+  it.each([false, true])("lets a stream arriving in bursts in beside a steady one for a simulated hour (lane discipline %s)", { timeout: 240_000 }, (laneDiscipline) => {
+    const input: RunInput = {
+      network: flyoverNetwork({ exitWidthM: 7, mainGreenS: 15, crossGreenS: 30 }),
+      demand: {
+        flows: [
+          { entryRoadId: "south-entry", exitRoadId: "north-exit", vehiclesPerHour: 2400 },
+          { entryRoadId: "west-in", exitRoadId: "north-exit", vehiclesPerHour: 300 },
+          { entryRoadId: "east-in", exitRoadId: "north-exit", vehiclesPerHour: 300 },
+        ],
+        vehicleMix: flyoverDemand(1).vehicleMix,
+      },
+      seed: 61,
+      laneDiscipline,
+    };
+    const late = { flyover: new Set<number>(), beneath: new Set<number>() };
+    const { stood300s, results } = runCountingStanding(input, 3600, (vehicles, timeS) => {
+      for (const vehicle of vehicles) {
+        if (vehicle.turn?.junctionId === "merge" && timeS > 3000) late[vehicle.turn.fromRoadId === "flyover" ? "flyover" : "beneath"].add(vehicle.id);
+      }
+    });
+    expect(stood300s).toBe(0);
+    expect(late.flyover.size).toBeGreaterThan(120);
+    expect(late.beneath.size).toBeGreaterThan(120);
+    expect(results.vehiclesThrough).toBeGreaterThan(2200);
+  });
 });
