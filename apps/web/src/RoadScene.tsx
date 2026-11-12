@@ -1,5 +1,5 @@
 import { createNetworkLayout, vehicleHeightM, vehiclePose, type Network, type Road, type VehicleClass } from "@traffic-simulator/engine";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { closeUpPose } from "./camera-presets";
@@ -9,6 +9,7 @@ import { interpolateVehicles } from "./interpolate";
 import { createJunctionDrawing } from "./junction-drawing";
 import type { SharedCamera } from "./shared-camera";
 import { vehicleColour, type ColourBy } from "./vehicle-colours";
+import { MAX_VEHICLES_DRAWN, notDrawnNotice } from "./vehicles-drawn";
 
 /** The camera's vertical field of view, in degrees. */
 export const CAMERA_FOV_DEGREES = 45;
@@ -24,7 +25,6 @@ const VEHICLE_HEIGHT_M: Record<VehicleClass, number> = {
   bus: 3.0,
 };
 const ROAD_THICKNESS_M = 0.2;
-const MAX_VEHICLES_DRAWN = 4000;
 
 /**
  * Ground coordinates (x east, y north) map to three.js as (x, up, -y).
@@ -61,6 +61,8 @@ export function RoadScene({
   colourBy?: ColourBy;
 }) {
   const container = useRef<HTMLDivElement>(null);
+  const [notDrawn, setNotDrawn] = useState(0);
+  const notice = notDrawnNotice(notDrawn);
   // Read on every drawn frame, so a change of colouring shows at once without rebuilding the scene.
   const colouring = useRef(colourBy);
   colouring.current = colourBy;
@@ -168,6 +170,8 @@ export function RoadScene({
     const placement = new THREE.Object3D();
     const colour = new THREE.Color();
     const coloursDrawn = new Map<string, number>();
+    let notDrawnShown = 0;
+    setNotDrawn(0);
     const drawVehicles = (nowMs: number) => {
       if (!frames.later) {
         vehicles.count = 0;
@@ -183,8 +187,12 @@ export function RoadScene({
       let count = 0;
       let inJunctions = 0;
       let raised = 0;
+      let notDrawn = 0;
       for (const vehicle of drawn) {
-        if (count >= MAX_VEHICLES_DRAWN) continue;
+        if (count >= MAX_VEHICLES_DRAWN) {
+          notDrawn++;
+          continue;
+        }
         const pose = vehiclePose(layout, vehicle);
         if (!pose) continue;
         if (vehicle.turn) inJunctions++;
@@ -215,6 +223,12 @@ export function RoadScene({
       host.dataset.vehiclesDrawn = String(count);
       host.dataset.vehiclesInJunctions = String(inJunctions);
       host.dataset.vehiclesRaised = String(raised);
+      // Said on screen, so the limit on what is drawn is never silent.
+      if (notDrawn !== notDrawnShown) {
+        notDrawnShown = notDrawn;
+        host.dataset.vehiclesNotDrawn = String(notDrawn);
+        setNotDrawn(notDrawn);
+      }
       coloursDrawn.clear();
     };
 
@@ -238,5 +252,14 @@ export function RoadScene({
     };
   }, [network, frames, sharedCamera]);
 
-  return <div ref={container} className="scene" />;
+  return (
+    <>
+      <div ref={container} className="scene" />
+      {notice && (
+        <p className="scene-notice" data-testid="vehicles-not-drawn" role="status">
+          {notice}
+        </p>
+      )}
+    </>
+  );
 }
