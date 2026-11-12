@@ -87,15 +87,16 @@ describe("the list of assumptions shown to the planner", () => {
       expect(listed(`routeChoice.${name}`).state).toBe("our-choice");
       expect(listed(`routeChoice.${name}`).source.length).toBeGreaterThan(80);
     }
-    for (const rule of ["rule.route-choice", "rule.diverge-and-merge", "rule.levels"]) {
+    for (const rule of ["rule.route-choice", "rule.diverge-and-merge", "rule.levels", "rule.sorting"]) {
       expect(listed(rule).state).toBe("our-choice");
     }
   });
 
   it("has every assumption the engine uses at junctions, as the engine has it, each marked as our choice", () => {
     const names = Object.keys(JUNCTION_ASSUMPTIONS) as (keyof typeof JUNCTION_ASSUMPTIONS)[];
-    // Turn speed, crossing margin, what counts as queued (two values) and keep-clear room.
-    expect(names).toHaveLength(5);
+    // Turn speed, crossing margin, what counts as queued (two values), keep-clear room,
+    // and sorting for the way on (what a shift towards its strips is worth, and where a vehicle waits).
+    expect(names).toHaveLength(7);
     for (const name of names) {
       expect(listed(`junction.${name}`).value).toBe(JUNCTION_ASSUMPTIONS[name].value);
       expect(listed(`junction.${name}`).state).toBe("our-choice");

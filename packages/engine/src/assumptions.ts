@@ -406,6 +406,26 @@ export const JUNCTION_ASSUMPTIONS = {
     source:
       "Our choice; not from a measurement. A vehicle stops a little short of its standstill gap, so it needs slightly more room than that.",
   },
+  sortingBiasMps2: {
+    value: 1,
+    unit: "m/s2",
+    state: "our-choice",
+    source:
+      "Our choice; not from a measurement. A vehicle in strips that do not lead onto its route (it has come from an " +
+      "earlier junction and its way on leaves from another part of the road) counts a sideways shift towards the " +
+      "strips that do as worth this much acceleration, so it gets across early, while traffic is moving, and does not " +
+      "arrive at the stop line on the wrong side. Without it such vehicles stood at a diverge until the road locked.",
+  },
+  sortingHoldBackM: {
+    value: 15,
+    unit: "m",
+    state: "our-choice",
+    source:
+      "Our choice; not from a measurement. A vehicle that still has to move left to reach the strips its route " +
+      "leaves from waits this far short of the stop line; one that has to move right waits at the stop line. It is " +
+      "longer than the longest vehicle (a bus, 10.1 m) with its gap, so the two are never level with each other, " +
+      "each standing where the other needs to go.",
+  },
 } satisfies Record<string, Assumption>;
 
 const JUNCTION_NAMES: Record<keyof typeof JUNCTION_ASSUMPTIONS, string> = {
@@ -414,6 +434,8 @@ const JUNCTION_NAMES: Record<keyof typeof JUNCTION_ASSUMPTIONS, string> = {
   queueSpeedMps: "Queue speed: a vehicle on an approach slower than this is counted as queued",
   queueBreakM: "Queue break: a queue is counted back from the stop line to the first stretch this long with no queued vehicle",
   keepClearSlackM: "Room on the road beyond a junction, over its length and standstill gap, that a vehicle wants before it enters",
+  sortingBiasMps2: "Sorting for the way on: what a sideways shift towards the strips that lead onto its route is worth to a vehicle not in them",
+  sortingHoldBackM: "Sorting for the way on: how far short of the stop line a vehicle waits while it still has to move left to reach its strips",
 };
 
 /**
@@ -634,8 +656,21 @@ export const RULES: readonly Rule[] = [
     source:
       "Ours; no source gives it. Roads that join onto a road wide enough for both arrive side by side and share no " +
       "space. Where two roads join onto the same strips, vehicles go first come, first served: each is let in when the " +
-      "road beyond has room and the one let in before it is clear. No road has priority, and vehicles do not sort " +
-      "themselves for the diverge on the way to it: they are sorted from where they enter.",
+      "road beyond has room and the one let in before it is clear. No road has priority.",
+  },
+  {
+    id: "rule.sorting",
+    name: "Sorting for the way on: a vehicle whose strips do not lead on along its route moves across to strips that do, and one that reaches the junction still on the wrong side waits there while the vehicles behind it in the strip it needs next give way",
+    state: "our-choice",
+    source:
+      "Ours; no source gives it. A vehicle enters the network in strips that lead on through every junction of its " +
+      "route where that is possible, and does not leave them. One that comes onto a road on the wrong side (off a " +
+      "flyover, or out of a junction) counts a shift towards its strips as a gain. If it is still on the wrong side at " +
+      "the junction it waits: at the stop line if it has to move right, 15 m short of it if it has to move left, so " +
+      "that two such vehicles are never level, each where the other needs to go. Vehicles behind it in the strip it " +
+      "would enter next treat it as the vehicle ahead, if they can still stop comfortably, and a vehicle giving way " +
+      "does not ask to be let into the junction. Without this rule a road where traffic has to cross over before a " +
+      "diverge locked within minutes. It is not calibrated: how much a weaving section carries is not to be relied on.",
   },
   {
     id: "rule.route-choice",

@@ -75,6 +75,8 @@ interface RoadState {
   aspect: SignalAspect;
   /** For an approach: the longest queue it has had so far. */
   longestQueue: ApproachQueue;
+  /** For an approach: the vehicles standing in strips that do not lead onto their way on, waiting to get across, this step. */
+  waitingToSort: Vehicle[];
 }
 
 /**
@@ -177,6 +179,15 @@ interface Vehicle {
   index: number;
   /** The speed the vehicle aims for this step: its desired speed, or less when slowing for a turn. */
   speedCapMps: number;
+  /**
+   * Strips the vehicle has to move to be in strips that lead on along its route (positive to the right),
+   * and whether it needs them at the very next junction: until it has them it cannot be let in there.
+   */
+  sorting: number;
+  mustSort: boolean;
+  /** The gap to, and speed of, a vehicle ahead waiting to sort that this vehicle gives way to; the gap is Infinity when there is none. */
+  givesWayGapM: number;
+  givesWaySpeedMps: number;
   /** Acceleration the following rule gives from the state at the start of the step. */
   currentAcceleration: number;
   /** A sideways claim made this step: direction (0 for none) and the strips it would newly occupy. */
@@ -278,6 +289,7 @@ export function createRun(input: RunInput): Run {
       lastInStrip: [],
       aspect: { state: "green", remainingS: Infinity },
       longestQueue: { lengthM: 0, vehicles: 0, eachMinute: [] },
+      waitingToSort: [],
     });
   }
 
@@ -395,6 +407,67 @@ export function createRun(input: RunInput): Run {
       lateralOnRoad(connection.from, strip, strips),
       lateralOnRoad(connection.to, own + connection.toShift, strips),
     );
+  }
+
+  /**
+   * Giving way to a vehicle waiting to sort (ours; not published). A vehicle
+   * standing in strips that do not lead onto its way on, waiting to get across,
+   * is treated as a leader by the vehicles behind it in the strips it is
+   * waiting for, if they can still stop comfortably: they stop behind it, the
+   * vehicles beside it move on, and it gets across. Giving way is always to a
+   * vehicle further ahead, so no ring of vehicles waiting for each other can
+   * form. A vehicle already let into the junction does not give way (those let
+   * in go, in the order they were let in), and a vehicle that is giving way
+   * does not ask to be let in.
+   */
+  function findGivingWay(road: RoadState): void {
+    const waiting = road.waitingToSort;
+    for (const vehicle of road.vehicles) {
+      vehicle.givesWayGapM = Infinity;
+      if (waiting.length === 0 || vehicle.place !== ON_ROAD || vehicle.admitted || vehicle.stationary) continue;
+      const stoppingM = (vehicle.speedMps * vehicle.speedMps) / (2 * vehicle.assumptions.comfortableDecelerationMps2);
+      const low = lowStrip(vehicle);
+      const high = highStrip(vehicle);
+      for (const other of waiting) {
+        if (other === vehicle) continue;
+        const gapM = rearM(other) - vehicle.positionM;
+        if (gapM < 0 || gapM < stoppingM || gapM >= vehicle.givesWayGapM) continue;
+        // Only for the strip it would enter next: giving way for all the strips it has still to
+        // cross would stop vehicles that are standing where another waiting vehicle needs to go.
+        const wants = other.sorting > 0 ? highStrip(other) + 1 : lowStrip(other) - 1;
+        if (low <= wants && wants <= high) {
+          vehicle.givesWayGapM = gapM;
+          vehicle.givesWaySpeedMps = other.speedMps;
+        }
+      }
+    }
+  }
+
+  /** Set by stripsToWayOn(): whether the strips it gave are needed at the very next junction (and not one further on). */
+  let wayOnFailsAtNext = false;
+
+  /**
+   * Sorting for the way on. How many strips a vehicle in strips `strip`.. of
+   * road `route[at]` has to move to be in strips that lead on along its route:
+   * positive to the right, negative to the left, 0 when it is in them. It looks
+   * past junctions it will go straight through in its strips to the first one
+   * on the route that its strips do not lead through, so that traffic sorts
+   * itself for a diverge on the roads before it and not at its stop line.
+   */
+  function stripsToWayOn(route: RoadState[], at: number, strip: number, strips: number): number {
+    // Strip s of the vehicle's road is strip s + offset of the road looked at.
+    let offset = 0;
+    for (let i = at; i + 1 < route.length; i++) {
+      const connection = route[i]!.connections.get(route[i + 1]!.road.id)!;
+      if (strips > connection.stripCount) return 0;
+      wayOnFailsAtNext = i === at;
+      const low = connection.fromShift - offset;
+      if (strip < low) return low - strip;
+      const high = low + connection.stripCount;
+      if (strip + strips > high) return high - (strip + strips);
+      offset += connection.toShift - connection.fromShift;
+    }
+    return 0;
   }
 
   /**
@@ -613,6 +686,10 @@ export function createRun(input: RunInput): Run {
       curve: undefined,
       index: 0,
       speedCapMps: Math.min(assumptions.desiredSpeedMps, road.road.speedLimitMps),
+      sorting: 0,
+      mustSort: false,
+      givesWayGapM: Infinity,
+      givesWaySpeedMps: 0,
       currentAcceleration: 0,
       claimDirection: 0,
       claimLow: 0,
@@ -683,9 +760,15 @@ export function createRun(input: RunInput): Run {
     let bestSpeedMps = 0;
     const next = route[1];
     const ahead = next && road.connections.get(next.road.id);
+    // If the road has strips that lead on along the whole route (through a diverge further on), it enters in those.
+    let someLeadOn = false;
+    for (let strip = 0; strip + strips <= road.stripCount && !someLeadOn; strip++) {
+      someLeadOn = ahead !== undefined && stripsToWayOn(route, 0, strip, strips) === 0;
+    }
     for (let strip = 0; strip + strips <= road.stripCount; strip++) {
       // Where the road it turns onto is narrower, it enters in strips that lead onto it.
       if (ahead && !curveThrough(ahead, strip, strips)) continue;
+      if (someLeadOn && stripsToWayOn(route, 0, strip, strips) !== 0) continue;
       let nearest: Vehicle | undefined;
       for (let s = strip; s < strip + strips; s++) {
         const other = last[s];
@@ -835,17 +918,23 @@ export function createRun(input: RunInput): Run {
     }
     const threshold = SIDEWAYS_ASSUMPTIONS.gainThresholdMps2.value;
     const current = vehicle.currentAcceleration;
+    const fitsTurn = vehicle.ahead !== undefined && curveThrough(vehicle.ahead, vehicle.strip, vehicle.strips) !== undefined;
+    // Sorting for the way on: a vehicle in strips that do not lead onto its route wants to get across to those that do.
+    const sorting = vehicle.sorting;
     // No place can give more than an open road does.
-    if (acceleration(vehicle, undefined, 0) - current <= threshold) return;
+    if (sorting === 0 && acceleration(vehicle, undefined, 0) - current <= threshold) return;
+    const sortingBias = JUNCTION_ASSUMPTIONS.sortingBiasMps2.value;
+    const leadsOn = sorting === 0 && vehicle.ahead !== undefined && vehicle.routeIndex + 2 < vehicle.route.length;
 
     const road = vehicle.road;
     const held = vehicle.ahead !== undefined && stopLineHolds(vehicle);
-    const fitsTurn = vehicle.ahead !== undefined && curveThrough(vehicle.ahead, vehicle.strip, vehicle.strips) !== undefined;
     const politeness = SIDEWAYS_ASSUMPTIONS.politeness.value;
     const safeBraking = SIDEWAYS_ASSUMPTIONS.safeBrakingMps2.value;
     let bestGain = threshold;
     let bestDistance = 0;
     for (const direction of [-1, 1]) {
+      // While sorting it moves only towards the strips that lead onto its route.
+      if (sorting !== 0 && direction !== Math.sign(sorting)) continue;
       for (let distance = 1; ; distance++) {
         const strip = vehicle.strip + direction * distance;
         if (strip < 0 || strip + vehicle.strips > road.stripCount) break;
@@ -853,6 +942,8 @@ export function createRun(input: RunInput): Run {
         if (stripTakenAlongside(vehicle, entered)) break;
         // It does not leave the strips that lead onto its turn for strips that do not.
         if (fitsTurn && !curveThrough(vehicle.ahead!, strip, vehicle.strips)) break;
+        // Nor, once sorted for a diverge further on, the strips that lead on along its route.
+        if (leadsOn && stripsToWayOn(vehicle.route, vehicle.routeIndex, strip, vehicle.strips) !== 0) break;
         // Not in front of a vehicle already let into the junction: those let in go in the order they were let in.
         if (road.endsAt && letInBehind(vehicle, entered, entered)) break;
 
@@ -865,7 +956,9 @@ export function createRun(input: RunInput): Run {
           curveThrough(vehicle.ahead!, strip, vehicle.strips) !== undefined &&
           roomBeyond(vehicle, vehicle.ahead!, strip);
         if (held && !couldGo) there = Math.min(there, acceleration(vehicle, road.lengthM - vehicle.positionM, 0));
-        if (there < current - EPSILON) break;
+        // Sorting is worth some acceleration (the bias), a little more the nearer it gets to its strips.
+        const bias = sorting === 0 ? 0 : sortingBias + 0.01 * Math.min(distance, Math.abs(sorting));
+        if (there < current - bias - EPSILON) break;
 
         let braking = 0;
         const follower = followerIn(vehicle, strip, strip + vehicle.strips - 1);
@@ -877,7 +970,7 @@ export function createRun(input: RunInput): Run {
           }
         }
 
-        const gain = there - current - politeness * braking;
+        const gain = there - current - politeness * braking + bias;
         // Of equal gains the nearer place wins, and of equally near places the left one (tried first).
         if (gain > bestGain + EPSILON || (bestDistance !== 0 && gain > bestGain - EPSILON && distance < Math.abs(bestDistance))) {
           bestGain = gain;
@@ -1058,6 +1151,8 @@ export function createRun(input: RunInput): Run {
       for (const vehicle of road.vehicles) {
         if (vehicle.place !== ON_ROAD || vehicle.admitted || vehicle.stationary || vehicle.shiftDirection !== 0) continue;
         if (!vehicle.ahead) continue;
+        // A vehicle giving way to one waiting to sort does not ask to be let in.
+        if (vehicle.givesWayGapM < Infinity) continue;
         const toStopLineM = road.lengthM - vehicle.positionM;
         if (toStopLineM > askingDistanceM(vehicle)) continue;
         // It must be able to reach the stop line before the amber ends.
@@ -1122,8 +1217,18 @@ export function createRun(input: RunInput): Run {
       const leader = leaderIn(vehicle, lowStrip(vehicle), highStrip(vehicle));
       if (leader) consider(rearM(leader) - vehicle.positionM, leader.speedMps);
     }
+    // Giving way: a vehicle waiting to get across to the strips its route leaves from is
+    // treated as a leader by those behind it in the strips it is waiting for, if they can
+    // still stop comfortably, so a gap opens beside it (the vehicle further ahead goes first).
+    if (vehicle.givesWayGapM < Infinity) consider(vehicle.givesWayGapM, vehicle.givesWaySpeedMps);
     if (!vehicle.ahead) return;
     const beyondStopLineM = vehicle.positionM - vehicle.road.lengthM;
+    // A vehicle that still has to move left to reach its strips waits short of the stop line, so that it is
+    // never level with one at the stop line that has to move right: two such could not pass each other.
+    if (vehicle.mustSort && vehicle.sorting < 0) {
+      const toHoldM = -beyondStopLineM - JUNCTION_ASSUMPTIONS.sortingHoldBackM.value;
+      if (toHoldM >= 0) consider(toHoldM, 0);
+    }
     // A vehicle whose rear is still in the last junction has not asked to be let into this one.
     if (!vehicle.admitted || vehicle.place === REAR_IN_JUNCTION) {
       if (stopLineHolds(vehicle)) consider(-beyondStopLineM, 0);
@@ -1380,6 +1485,20 @@ export function createRun(input: RunInput): Run {
       for (let i = 0; i < vehicles.length; i++) {
         vehicles[i]!.index = i;
         setSpeedCap(vehicles[i]!);
+      }
+      // Sorting for the way on: how far each vehicle is from the strips its route leaves from, and who is waiting to get to them.
+      road.waitingToSort.length = 0;
+      if (road.endsAt) {
+        const waitBelowMps = JUNCTION_ASSUMPTIONS.queueSpeedMps.value;
+        for (const vehicle of vehicles) {
+          vehicle.sorting = 0;
+          vehicle.mustSort = false;
+          if (!vehicle.ahead || vehicle.place !== ON_ROAD || vehicle.admitted || vehicle.stationary) continue;
+          vehicle.sorting = stripsToWayOn(vehicle.route, vehicle.routeIndex, vehicle.strip, vehicle.strips);
+          vehicle.mustSort = vehicle.sorting !== 0 && wayOnFailsAtNext;
+          if (vehicle.mustSort && vehicle.speedMps < waitBelowMps) road.waitingToSort.push(vehicle);
+        }
+        findGivingWay(road);
       }
       findNeighbours(road, true);
       if (road.startsAtJunction) findLastInStrips(road);
