@@ -6,10 +6,10 @@
 
 **Status:** ready-for-agent
 
-- [ ] The importer runs in the browser and produces a network in the engine's format, with no engine change
-- [ ] Every guessed value is listed and marked on screen, with the rule that produced it
-- [ ] The planner can correct lanes, widths and signal plans before running
-- [ ] An area that cannot be imported (too large, no roads, a shape the importer cannot express) is refused with a reason
-- [ ] Imports of at least three Indian areas run for a simulated hour with the consistency checks; stuck vehicles reported
-- [ ] A scenario of an imported area saves and shares without carrying the whole network if it is too large for a link
-- [ ] OpenStreetMap attribution and licence are shown and met
+- [x] The importer runs in the browser and produces a network in the engine's format, with no engine change
+- [x] Every guessed value is listed and marked on screen, with the rule that produced it
+- [x] The planner can correct lanes, widths and signal plans before running
+- [x] An area that cannot be imported (too large, no roads, a shape the importer cannot express) is refused with a reason
+- [x] Imports of at least three Indian areas run for a simulated hour with the consistency checks; stuck vehicles reported
+- [x] A scenario of an imported area saves and shares without carrying the whole network if it is too large for a link
+- [x] OpenStreetMap attribution and licence are shown and met
