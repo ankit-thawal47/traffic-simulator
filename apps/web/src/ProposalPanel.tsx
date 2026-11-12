@@ -1,0 +1,92 @@
+import type { Scenario } from "@traffic-simulator/scenario";
+import { ChangesList } from "./ChangesList";
+import { DemandScaleControl } from "./DemandScaleControl";
+import { EXAMPLES } from "./examples";
+import { FlowRateControl } from "./FlowRateControl";
+import { FlyoverControl } from "./FlyoverControl";
+import { LaneDisciplineControl } from "./LaneDisciplineControl";
+import { RoadChanges } from "./RoadChanges";
+import { SaveAndShare } from "./SaveAndShare";
+import type { ScenarioStorage } from "./scenario-storage";
+import { SignalTimingControl } from "./SignalTimingControl";
+import { VehicleMixControl } from "./VehicleMixControl";
+
+/**
+ * The proposal: where the planner starts from an example, makes each kind of
+ * change, reads the list of changes and undoes any one, and saves and shares.
+ * Every control hands the proposal with its change made to onPropose, which
+ * makes the change only if the engine will run the result.
+ */
+export function ProposalPanel({
+  proposal,
+  opened,
+  refusal,
+  storage,
+  onPropose,
+  onOpen,
+}: {
+  proposal: Scenario;
+  /** Counts the scenarios opened, so the controls start afresh for each. */
+  opened: number;
+  /** Why the last change was not made. */
+  refusal: string | undefined;
+  storage: ScenarioStorage;
+  onPropose: (proposal: Scenario) => void;
+  onOpen: (scenario: Scenario) => void;
+}) {
+  const controls = { proposal, onChange: onPropose };
+
+  return (
+    <section className="proposal" aria-label="Proposal">
+      <h2>Proposal</h2>
+      <div className="change-control">
+        <label>
+          Start from an example
+          <select
+            data-testid="example"
+            className="wide"
+            value={EXAMPLES.find((example) => example.scenario.name === proposal.name)?.id ?? ""}
+            onChange={(event) => {
+              const example = EXAMPLES.find((one) => one.id === event.target.value);
+              if (example) onOpen(example.scenario);
+            }}
+          >
+            <option value="" disabled>
+              (a scenario of your own)
+            </option>
+            {EXAMPLES.map((example) => (
+              <option key={example.id} value={example.id}>
+                {example.scenario.name}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
+      <h3>Changes from the baseline</h3>
+      <ChangesList {...controls} />
+      {refusal && (
+        <p className="refused" data-testid="change-refused" role="alert">
+          Not changed. {refusal}.
+        </p>
+      )}
+
+      <h3>Make a change</h3>
+      <div className="change-groups" key={opened}>
+        <RoadChanges {...controls} />
+        <SignalTimingControl {...controls} />
+        <FlyoverControl {...controls} />
+        <fieldset className="change-group" data-testid="demand">
+          <legend>Demand and vehicle mix</legend>
+          <DemandScaleControl {...controls} />
+          <FlowRateControl {...controls} />
+          <VehicleMixControl {...controls} />
+        </fieldset>
+        <LaneDisciplineControl {...controls} />
+      </div>
+
+      <h3>Save and share</h3>
+      <SaveAndShare scenario={proposal} storage={storage} onOpen={onOpen} />
+    </section>
+  );
+}
