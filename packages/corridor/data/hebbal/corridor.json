@@ -1,0 +1,2513 @@
+{
+ "id": "hebbal-city-bound",
+ "name": "Hebbal, city-bound (Bengaluru)",
+ "attribution": "© OpenStreetMap contributors",
+ "licence": "Open Database Licence (ODbL) 1.0, https://www.openstreetmap.org/copyright",
+ "osmFetchedAt": "2026-11-12T04:13:29.031Z",
+ "checkedOn": "2026-11-12",
+ "roads": [
+  {
+   "id": "flyover-approach",
+   "name": "Bellary Road city-bound, from where the ground-level road leaves it up to the start of the flyover deck",
+   "level": "ground",
+   "points": [
+    {
+     "x": 137.046,
+     "y": 490.242
+    },
+    {
+     "x": 109.316,
+     "y": 435.116
+    },
+    {
+     "x": 101.084,
+     "y": 417.617
+    },
+    {
+     "x": 97.267,
+     "y": 404.737
+    },
+    {
+     "x": 91.856,
+     "y": 387.026
+    },
+    {
+     "x": 85.425,
+     "y": 358.807
+    },
+    {
+     "x": 82.551,
+     "y": 339.927
+    }
+   ],
+   "lengthM": 161.03940056493434,
+   "widthM": 10.5,
+   "lanes": 3,
+   "speedLimitMps": 16.666666666666668,
+   "wayIds": [
+    377832181
+   ],
+   "fromNodeId": 332955193,
+   "toNodeId": 1729002711
+  },
+  {
+   "id": "flyover-main",
+   "name": "Hebbal flyover, city-bound deck over the junction",
+   "level": "raised",
+   "points": [
+    {
+     "x": 82.551,
+     "y": 339.927
+    },
+    {
+     "x": 74.601,
+     "y": 268.76
+    },
+    {
+     "x": 71.261,
+     "y": 245.271
+    },
+    {
+     "x": 67.043,
+     "y": 221.505
+    },
+    {
+     "x": 58.041,
+     "y": 185.515
+    },
+    {
+     "x": 48.043,
+     "y": 152.931
+    },
+    {
+     "x": 38.9,
+     "y": 126.983
+    },
+    {
+     "x": 32.892,
+     "y": 113.224
+    },
+    {
+     "x": 16.799,
+     "y": 76.722
+    },
+    {
+     "x": -11.203,
+     "y": 15.396
+    },
+    {
+     "x": -19.466,
+     "y": -3.729
+    },
+    {
+     "x": -30.637,
+     "y": -31.604
+    },
+    {
+     "x": -48.097,
+     "y": -90.147
+    },
+    {
+     "x": -53.953,
+     "y": -111.587
+    },
+    {
+     "x": -95.792,
+     "y": -259.364
+    },
+    {
+     "x": -99.87,
+     "y": -275.361
+    },
+    {
+     "x": -103.243,
+     "y": -293.083
+    },
+    {
+     "x": -114.185,
+     "y": -367.111
+    }
+   ],
+   "lengthM": 737.63512657922,
+   "widthM": 10.5,
+   "lanes": 3,
+   "speedLimitMps": 16.666666666666668,
+   "wayIds": [
+    377832186,
+    377832182,
+    842592053
+   ],
+   "fromNodeId": 1729002711,
+   "toNodeId": 343338972
+  },
+  {
+   "id": "bellary-landing",
+   "name": "Bellary Road city-bound, from where the flyover lands to where the ramp from the Outer Ring Road joins",
+   "level": "ground",
+   "points": [
+    {
+     "x": -114.185,
+     "y": -367.111
+    },
+    {
+     "x": -117.558,
+     "y": -397.212
+    },
+    {
+     "x": -121.581,
+     "y": -422.292
+    },
+    {
+     "x": -130.745,
+     "y": -479.299
+    },
+    {
+     "x": -132.469,
+     "y": -493.571
+    },
+    {
+     "x": -133.228,
+     "y": -510.102
+    },
+    {
+     "x": -135.452,
+     "y": -536.785
+    },
+    {
+     "x": -139.79,
+     "y": -582.805
+    },
+    {
+     "x": -142.056,
+     "y": -691.576
+    },
+    {
+     "x": -142.945,
+     "y": -711.034
+    }
+   ],
+   "lengthM": 345.6256136070817,
+   "widthM": 10.5,
+   "lanes": 3,
+   "speedLimitMps": 16.666666666666668,
+   "wayIds": [
+    1278555480,
+    377832174
+   ],
+   "fromNodeId": 343338972,
+   "toNodeId": 13052245180
+  },
+  {
+   "id": "bellary-south",
+   "name": "Bellary Road city-bound, from the ramp merge to the fork ahead of the Ganga Nagar flyover",
+   "level": "ground",
+   "points": [
+    {
+     "x": -142.945,
+     "y": -711.034
+    },
+    {
+     "x": -143.108,
+     "y": -714.708
+    },
+    {
+     "x": -146.73,
+     "y": -734.578
+    },
+    {
+     "x": -152.402,
+     "y": -753.124
+    },
+    {
+     "x": -160.189,
+     "y": -773.151
+    },
+    {
+     "x": -162.282,
+     "y": -778.227
+    },
+    {
+     "x": -167.39,
+     "y": -790.606
+    },
+    {
+     "x": -168.767,
+     "y": -793.945
+    },
+    {
+     "x": -202.299,
+     "y": -873.695
+    },
+    {
+     "x": -214.944,
+     "y": -904.119
+    },
+    {
+     "x": -225.474,
+     "y": -934.186
+    },
+    {
+     "x": -231.721,
+     "y": -959.077
+    },
+    {
+     "x": -237.176,
+     "y": -984.18
+    },
+    {
+     "x": -243.466,
+     "y": -1037.024
+    },
+    {
+     "x": -248.476,
+     "y": -1057.139
+    },
+    {
+     "x": -255.666,
+     "y": -1076.976
+    },
+    {
+     "x": -260.384,
+     "y": -1093.251
+    },
+    {
+     "x": -267.943,
+     "y": -1113.467
+    },
+    {
+     "x": -318.1,
+     "y": -1211.106
+    },
+    {
+     "x": -347.489,
+     "y": -1274.236
+    },
+    {
+     "x": -375.328,
+     "y": -1341.829
+    },
+    {
+     "x": -389.676,
+     "y": -1376.661
+    },
+    {
+     "x": -436.731,
+     "y": -1497.12
+    },
+    {
+     "x": -473.376,
+     "y": -1589.427
+    }
+   ],
+   "lengthM": 942.3089979141724,
+   "widthM": 10.5,
+   "lanes": 3,
+   "speedLimitMps": 16.666666666666668,
+   "wayIds": [
+    377832174,
+    377832185,
+    377832173
+   ],
+   "fromNodeId": 13052245180,
+   "toNodeId": 582566943
+  },
+  {
+   "id": "krpuram-ramp-ground",
+   "name": "Ramp from the Outer Ring Road (from K.R. Puram) towards the city: the part on the ground",
+   "level": "ground",
+   "points": [
+    {
+     "x": 355.439,
+     "y": -106.088
+    },
+    {
+     "x": 345.537,
+     "y": -98.373
+    },
+    {
+     "x": 329.802,
+     "y": -92.785
+    },
+    {
+     "x": 248.021,
+     "y": -65
+    },
+    {
+     "x": 210.563,
+     "y": -53.367
+    }
+   ],
+   "lengthM": 154.84522811350885,
+   "widthM": 7,
+   "lanes": 2,
+   "speedLimitMps": 8.333333333333334,
+   "wayIds": [
+    1422977939,
+    1446941081
+   ],
+   "fromNodeId": 11442861631,
+   "toNodeId": 13275986241
+  },
+  {
+   "id": "krpuram-ramp",
+   "name": "Ramp from K.R. Puram towards the city: raised, up to where the loop from Tumkur Road joins",
+   "level": "raised",
+   "points": [
+    {
+     "x": 210.563,
+     "y": -53.367
+    },
+    {
+     "x": 166.793,
+     "y": -39.986
+    },
+    {
+     "x": 40.473,
+     "y": -4.13
+    },
+    {
+     "x": 36.363,
+     "y": -3.763
+    },
+    {
+     "x": 32.589,
+     "y": -3.34
+    },
+    {
+     "x": 23.869,
+     "y": -3.139
+    },
+    {
+     "x": 17.135,
+     "y": -4.152
+    },
+    {
+     "x": 9.348,
+     "y": -6.145
+    },
+    {
+     "x": 1.876,
+     "y": -9.529
+    },
+    {
+     "x": -4.457,
+     "y": -13.18
+    },
+    {
+     "x": -7.374,
+     "y": -14.939
+    },
+    {
+     "x": -10.14,
+     "y": -16.898
+    },
+    {
+     "x": -13.035,
+     "y": -18.802
+    },
+    {
+     "x": -16.885,
+     "y": -21.707
+    }
+   ],
+   "lengthM": 239.17077578562666,
+   "widthM": 7,
+   "lanes": 2,
+   "speedLimitMps": 8.333333333333334,
+   "wayIds": [
+    1420425473
+   ],
+   "fromNodeId": 13275986241,
+   "toNodeId": 13052245188
+  },
+  {
+   "id": "city-ramp-two-lane",
+   "name": "Ramp towards the city after the loop from Tumkur Road has joined, two lanes",
+   "level": "raised",
+   "points": [
+    {
+     "x": -16.885,
+     "y": -21.707
+    },
+    {
+     "x": -18.317,
+     "y": -24.68
+    },
+    {
+     "x": -20.692,
+     "y": -30.847
+    },
+    {
+     "x": -22.59,
+     "y": -36.78
+    },
+    {
+     "x": -24.943,
+     "y": -44.817
+    },
+    {
+     "x": -27.155,
+     "y": -51.619
+    }
+   ],
+   "lengthM": 31.664294355765183,
+   "widthM": 7,
+   "lanes": 2,
+   "speedLimitMps": 8.333333333333334,
+   "wayIds": [
+    1420425473
+   ],
+   "fromNodeId": 13052245188,
+   "toNodeId": 13052245195
+  },
+  {
+   "id": "city-ramp",
+   "name": "Ramp towards the city, three lanes, down to Bellary Road",
+   "level": "raised",
+   "points": [
+    {
+     "x": -27.155,
+     "y": -51.619
+    },
+    {
+     "x": -51.068,
+     "y": -120.871
+    },
+    {
+     "x": -85.229,
+     "y": -264.374
+    },
+    {
+     "x": -94.762,
+     "y": -317.83
+    },
+    {
+     "x": -124.021,
+     "y": -543.498
+    },
+    {
+     "x": -128.609,
+     "y": -618.661
+    }
+   ],
+   "lengthM": 577.9362626321704,
+   "widthM": 10.5,
+   "lanes": 3,
+   "speedLimitMps": 8.333333333333334,
+   "wayIds": [
+    1422993566
+   ],
+   "fromNodeId": 13052245195,
+   "toNodeId": 13077517134
+  },
+  {
+   "id": "city-ramp-landing",
+   "name": "Ramp towards the city: the part on the ground, joining Bellary Road",
+   "level": "ground",
+   "points": [
+    {
+     "x": -128.609,
+     "y": -618.661
+    },
+    {
+     "x": -133.467,
+     "y": -698.255
+    },
+    {
+     "x": -142.945,
+     "y": -711.034
+    }
+   ],
+   "lengthM": 95.65281902540151,
+   "widthM": 10.5,
+   "lanes": 3,
+   "speedLimitMps": 8.333333333333334,
+   "wayIds": [
+    1422977938,
+    1423056973
+   ],
+   "fromNodeId": 13077517134,
+   "toNodeId": 13052245180
+  },
+  {
+   "id": "tumkur-loop-ground",
+   "name": "From the junction (Outer Ring Road eastbound, from Tumkur Road) to the foot of the loop towards the city",
+   "level": "ground",
+   "points": [
+    {
+     "x": 82.074,
+     "y": 2.638
+    },
+    {
+     "x": 95.966,
+     "y": 2.75
+    },
+    {
+     "x": 109.836,
+     "y": 3.306
+    },
+    {
+     "x": 118.718,
+     "y": 3.796
+    },
+    {
+     "x": 126.526,
+     "y": 6.935
+    },
+    {
+     "x": 135.007,
+     "y": 11.499
+    },
+    {
+     "x": 143.303,
+     "y": 17.666
+    },
+    {
+     "x": 168.951,
+     "y": 45.218
+    }
+   ],
+   "lengthM": 102.69552827571519,
+   "widthM": 7,
+   "lanes": 2,
+   "speedLimitMps": 16.666666666666668,
+   "wayIds": [
+    36987760
+   ],
+   "fromNodeId": 6513658533,
+   "toNodeId": 1729002754
+  },
+  {
+   "id": "tumkur-loop",
+   "name": "Loop from the Outer Ring Road (from Tumkur Road) up to the ramp towards the city",
+   "level": "raised",
+   "points": [
+    {
+     "x": 168.951,
+     "y": 45.218
+    },
+    {
+     "x": 178.722,
+     "y": 57.296
+    },
+    {
+     "x": 184.221,
+     "y": 66.358
+    },
+    {
+     "x": 188.016,
+     "y": 75.753
+    },
+    {
+     "x": 190.532,
+     "y": 86.574
+    },
+    {
+     "x": 191.487,
+     "y": 97.127
+    },
+    {
+     "x": 191.042,
+     "y": 106.589
+    },
+    {
+     "x": 189.654,
+     "y": 113.791
+    },
+    {
+     "x": 188.114,
+     "y": 120.715
+    },
+    {
+     "x": 184.481,
+     "y": 130.178
+    },
+    {
+     "x": 180.393,
+     "y": 138.226
+    },
+    {
+     "x": 175.621,
+     "y": 145.774
+    },
+    {
+     "x": 169.775,
+     "y": 152.475
+    },
+    {
+     "x": 161.664,
+     "y": 159.477
+    },
+    {
+     "x": 152.706,
+     "y": 165.177
+    },
+    {
+     "x": 140.147,
+     "y": 169.752
+    },
+    {
+     "x": 129.52,
+     "y": 171.956
+    },
+    {
+     "x": 116.723,
+     "y": 171.956
+    },
+    {
+     "x": 107.429,
+     "y": 171.166
+    },
+    {
+     "x": 97.506,
+     "y": 168.55
+    },
+    {
+     "x": 88.212,
+     "y": 164.999
+    },
+    {
+     "x": 75.849,
+     "y": 158.019
+    },
+    {
+     "x": 67.01,
+     "y": 150.004
+    },
+    {
+     "x": 58.258,
+     "y": 140.018
+    },
+    {
+     "x": 50.081,
+     "y": 128.129
+    },
+    {
+     "x": 43.292,
+     "y": 114.537
+    },
+    {
+     "x": 29.465,
+     "y": 87.687
+    },
+    {
+     "x": -16.885,
+     "y": -21.707
+    }
+   ],
+   "lengthM": 424.78745036776456,
+   "widthM": 7,
+   "lanes": 2,
+   "speedLimitMps": 8.333333333333334,
+   "wayIds": [
+    377832176,
+    1460084785
+   ],
+   "fromNodeId": 1729002754,
+   "toNodeId": 13052245188
+  },
+  {
+   "id": "airport-ground-in",
+   "name": "Ground-level road from the airport side (BTP road A, from Devanahalli; OpenStreetMap name Tumkur Road Exit), to its stop line",
+   "level": "ground",
+   "points": [
+    {
+     "x": 137.046,
+     "y": 490.242
+    },
+    {
+     "x": 136.894,
+     "y": 474.869
+    },
+    {
+     "x": 108.524,
+     "y": 400.463
+    },
+    {
+     "x": 108.925,
+     "y": 387.895
+    },
+    {
+     "x": 91.476,
+     "y": 346.695
+    },
+    {
+     "x": 80.154,
+     "y": 257.483
+    },
+    {
+     "x": 66.002,
+     "y": 153.377
+    },
+    {
+     "x": 62.629,
+     "y": 138.282
+    },
+    {
+     "x": 58.866,
+     "y": 126.482
+    },
+    {
+     "x": 54.441,
+     "y": 115.238
+    },
+    {
+     "x": 47.902,
+     "y": 104.763
+    },
+    {
+     "x": 36.612,
+     "y": 85.494
+    },
+    {
+     "x": 25.409,
+     "y": 66.881
+    },
+    {
+     "x": 19.727,
+     "y": 54.87
+    }
+   ],
+   "lengthM": 456.94270087772196,
+   "widthM": 7,
+   "lanes": 2,
+   "speedLimitMps": 11.11111111111111,
+   "wayIds": [
+    1278555484,
+    1278555482,
+    36987764
+   ],
+   "fromNodeId": 332955193,
+   "toNodeId": 2408586316
+  },
+  {
+   "id": "tumkur-in",
+   "name": "Outer Ring Road eastbound from Tumkur Road (BTP road B, from BEL Circle), last 300 m to its stop line",
+   "level": "ground",
+   "points": [
+    {
+     "x": -352.011,
+     "y": -7.569
+    },
+    {
+     "x": -319.358,
+     "y": -14.082
+    },
+    {
+     "x": -252.89,
+     "y": -23.978
+    },
+    {
+     "x": -234.215,
+     "y": -25.425
+    },
+    {
+     "x": -217.113,
+     "y": -24.557
+    },
+    {
+     "x": -199.371,
+     "y": -21.351
+    },
+    {
+     "x": -112.038,
+     "y": 3.139
+    },
+    {
+     "x": -86.303,
+     "y": 10.631
+    },
+    {
+     "x": -81.184,
+     "y": 11.321
+    },
+    {
+     "x": -79.644,
+     "y": 11.522
+    },
+    {
+     "x": -58.833,
+     "y": 16.486
+    }
+   ],
+   "lengthM": 300,
+   "widthM": 12,
+   "lanes": 3,
+   "speedLimitMps": 16.666666666666668,
+   "wayIds": [
+    379857264,
+    1382087678
+   ],
+   "toNodeId": 430127696
+  },
+  {
+   "id": "krpuram-in",
+   "name": "Outer Ring Road westbound from K.R. Puram (BTP road C, from Nagavara), from where the city ramp leaves it to its stop line",
+   "level": "ground",
+   "points": [
+    {
+     "x": 355.439,
+     "y": -106.088
+    },
+    {
+     "x": 341.893,
+     "y": -104.863
+    },
+    {
+     "x": 316.799,
+     "y": -97.461
+    },
+    {
+     "x": 212.743,
+     "y": -63.397
+    },
+    {
+     "x": 115.833,
+     "y": -35.211
+    },
+    {
+     "x": 81.629,
+     "y": -26.238
+    },
+    {
+     "x": 69.992,
+     "y": -24.624
+    },
+    {
+     "x": 53.074,
+     "y": -22.208
+    },
+    {
+     "x": 40.516,
+     "y": -20.36
+    },
+    {
+     "x": 29.238,
+     "y": -19.392
+    },
+    {
+     "x": 22.167,
+     "y": -19.548
+    },
+    {
+     "x": 3.308,
+     "y": -21.54
+    }
+   ],
+   "lengthM": 364.4285090101679,
+   "widthM": 10.5,
+   "lanes": 3,
+   "speedLimitMps": 16.666666666666668,
+   "wayIds": [
+    376649537,
+    1453501628,
+    1073384218
+   ],
+   "fromNodeId": 11442861631,
+   "toNodeId": 335663834
+  },
+  {
+   "id": "tumkur-out",
+   "name": "Outer Ring Road westbound towards Tumkur Road, first 300 m from the junction",
+   "level": "ground",
+   "points": [
+    {
+     "x": -49.604,
+     "y": -16.498
+    },
+    {
+     "x": -56.35,
+     "y": -15.251
+    },
+    {
+     "x": -63.171,
+     "y": -13.203
+    },
+    {
+     "x": -79.254,
+     "y": -11.321
+    },
+    {
+     "x": -96.118,
+     "y": -11.299
+    },
+    {
+     "x": -116.213,
+     "y": -13.481
+    },
+    {
+     "x": -139.377,
+     "y": -18.156
+    },
+    {
+     "x": -199.512,
+     "y": -34.531
+    },
+    {
+     "x": -213.643,
+     "y": -37.426
+    },
+    {
+     "x": -227.502,
+     "y": -38.45
+    },
+    {
+     "x": -241.026,
+     "y": -38.138
+    },
+    {
+     "x": -257.738,
+     "y": -36.279
+    },
+    {
+     "x": -275.285,
+     "y": -33.819
+    },
+    {
+     "x": -300.336,
+     "y": -28.821
+    },
+    {
+     "x": -344.532,
+     "y": -21.101
+    }
+   ],
+   "lengthM": 300.0000000000001,
+   "widthM": 10.5,
+   "lanes": 3,
+   "speedLimitMps": 16.666666666666668,
+   "wayIds": [
+    1382087677,
+    369786367
+   ],
+   "fromNodeId": 3735711204
+  },
+  {
+   "id": "krpuram-out",
+   "name": "Outer Ring Road eastbound towards K.R. Puram, from the junction",
+   "level": "ground",
+   "points": [
+    {
+     "x": 77.508,
+     "y": -9.473
+    },
+    {
+     "x": 88.092,
+     "y": -14.104
+    },
+    {
+     "x": 210.715,
+     "y": -48.825
+    },
+    {
+     "x": 340.657,
+     "y": -90.503
+    },
+    {
+     "x": 353.628,
+     "y": -93.898
+    },
+    {
+     "x": 379.547,
+     "y": -99.175
+    },
+    {
+     "x": 400.173,
+     "y": -98.752
+    }
+   ],
+   "lengthM": 335.9486091400779,
+   "widthM": 10.5,
+   "lanes": 3,
+   "speedLimitMps": 16.666666666666668,
+   "wayIds": [
+    36987770
+   ],
+   "fromNodeId": 430127641,
+   "toNodeId": 352930062
+  },
+  {
+   "id": "airport-out",
+   "name": "Ground-level road towards the airport (OpenStreetMap name Srinagar - Kanyakumari Highway), first 300 m from the junction",
+   "level": "ground",
+   "points": [
+    {
+     "x": -16.43,
+     "y": 55.27
+    },
+    {
+     "x": -6.474,
+     "y": 76.154
+    },
+    {
+     "x": -1.117,
+     "y": 96.77
+    },
+    {
+     "x": 2.093,
+     "y": 109.127
+    },
+    {
+     "x": 4.902,
+     "y": 154.479
+    },
+    {
+     "x": 9.023,
+     "y": 209.738
+    },
+    {
+     "x": 17.764,
+     "y": 269.996
+    },
+    {
+     "x": 23.826,
+     "y": 294.363
+    },
+    {
+     "x": 26.689,
+     "y": 302.033
+    },
+    {
+     "x": 30.713,
+     "y": 310.026
+    },
+    {
+     "x": 48.032,
+     "y": 342.866
+    },
+    {
+     "x": 48.813,
+     "y": 344.359
+    }
+   ],
+   "lengthM": 300,
+   "widthM": 7,
+   "lanes": 2,
+   "speedLimitMps": 11.11111111111111,
+   "wayIds": [
+    376530259
+   ],
+   "fromNodeId": 430127700
+  },
+  {
+   "id": "ganganagar-flyover",
+   "name": "Ganga Nagar flyover city-bound, over the CBI Road junction, with its short approaches",
+   "level": "raised",
+   "points": [
+    {
+     "x": -473.376,
+     "y": -1589.427
+    },
+    {
+     "x": -478.527,
+     "y": -1600.013
+    },
+    {
+     "x": -489.882,
+     "y": -1624.148
+    },
+    {
+     "x": -520.117,
+     "y": -1711.645
+    },
+    {
+     "x": -548.986,
+     "y": -1810.041
+    },
+    {
+     "x": -565.134,
+     "y": -1871.979
+    },
+    {
+     "x": -578.549,
+     "y": -1935.053
+    }
+   ],
+   "lengthM": 362.0561858583982,
+   "widthM": 10.5,
+   "lanes": 3,
+   "speedLimitMps": 16.666666666666668,
+   "wayIds": [
+    1314600702,
+    377832180,
+    377832184
+   ],
+   "fromNodeId": 582566943,
+   "toNodeId": 6856463623
+  },
+  {
+   "id": "cbi-service-in",
+   "name": "Ground-level road beside the Ganga Nagar flyover, city-bound, to the CBI Road junction. Fed from Bellary Road at node 582566943 (11 m of way 327073709) and from the service road, way 238204954, which is outside the extent",
+   "level": "ground",
+   "points": [
+    {
+     "x": -460.514,
+     "y": -1594.948
+    },
+    {
+     "x": -479.373,
+     "y": -1628.879
+    },
+    {
+     "x": -494.328,
+     "y": -1667.329
+    },
+    {
+     "x": -503.872,
+     "y": -1695.537
+    },
+    {
+     "x": -513.155,
+     "y": -1723.879
+    },
+    {
+     "x": -519.965,
+     "y": -1750.707
+    },
+    {
+     "x": -522.319,
+     "y": -1759.491
+    },
+    {
+     "x": -525.117,
+     "y": -1769.643
+    }
+   ],
+   "lengthM": 186.98082950623905,
+   "widthM": 7,
+   "lanes": 2,
+   "speedLimitMps": 11.11111111111111,
+   "wayIds": [
+    1158590090,
+    377832183,
+    238030314
+   ],
+   "fromNodeId": 582566938,
+   "toNodeId": 582566933
+  },
+  {
+   "id": "cbi-service-south-out",
+   "name": "Ground-level road beside the Ganga Nagar flyover, city-bound, leaving the CBI Road junction",
+   "level": "ground",
+   "points": [
+    {
+     "x": -525.117,
+     "y": -1769.643
+    },
+    {
+     "x": -561.436,
+     "y": -1898.863
+    },
+    {
+     "x": -563.084,
+     "y": -1905.32
+    },
+    {
+     "x": -571.229,
+     "y": -1937.313
+    },
+    {
+     "x": -572.085,
+     "y": -1940.708
+    },
+    {
+     "x": -572.975,
+     "y": -1944.092
+    },
+    {
+     "x": -576,
+     "y": -1955.737
+    }
+   ],
+   "lengthM": 192.93616564910576,
+   "widthM": 7,
+   "lanes": 2,
+   "speedLimitMps": 11.11111111111111,
+   "wayIds": [
+    238030317
+   ],
+   "fromNodeId": 582566933,
+   "toNodeId": 582566910
+  },
+  {
+   "id": "cbi-road-east-out",
+   "name": "CBI Road eastbound towards RT Nagar, first 200 m from the junction (one direction of a two-way way)",
+   "level": "ground",
+   "points": [
+    {
+     "x": -524.625,
+     "y": -1767.963
+    },
+    {
+     "x": -478.436,
+     "y": -1781.475
+    },
+    {
+     "x": -470.174,
+     "y": -1783.541
+    },
+    {
+     "x": -447.205,
+     "y": -1789.297
+    },
+    {
+     "x": -426.025,
+     "y": -1794.607
+    },
+    {
+     "x": -395.995,
+     "y": -1802.143
+    },
+    {
+     "x": -364.329,
+     "y": -1810.08
+    },
+    {
+     "x": -337.163,
+     "y": -1816.893
+    },
+    {
+     "x": -331.12,
+     "y": -1818.407
+    }
+   ],
+   "lengthM": 200.00000000000003,
+   "widthM": 3.5,
+   "lanes": 1,
+   "speedLimitMps": 11.11111111111111,
+   "wayIds": [
+    503306660
+   ],
+   "fromNodeId": 582566933
+  },
+  {
+   "id": "cbi-road-west-in",
+   "name": "CBI Road westbound from RT Nagar, last 200 m to the junction (the other direction of the same two-way way)",
+   "level": "ground",
+   "points": [
+    {
+     "x": -332.103,
+     "y": -1821.769
+    },
+    {
+     "x": -338.014,
+     "y": -1820.288
+    },
+    {
+     "x": -365.18,
+     "y": -1813.475
+    },
+    {
+     "x": -396.847,
+     "y": -1805.538
+    },
+    {
+     "x": -426.876,
+     "y": -1798.001
+    },
+    {
+     "x": -448.056,
+     "y": -1792.692
+    },
+    {
+     "x": -471.025,
+     "y": -1786.936
+    },
+    {
+     "x": -479.399,
+     "y": -1784.84
+    },
+    {
+     "x": -525.608,
+     "y": -1771.323
+    }
+   ],
+   "lengthM": 200.00000000000003,
+   "widthM": 3.5,
+   "lanes": 1,
+   "speedLimitMps": 11.11111111111111,
+   "wayIds": [
+    503306660
+   ],
+   "toNodeId": 582566933
+  },
+  {
+   "id": "cbi-cross-west",
+   "name": "Link beneath the Ganga Nagar flyover from the junction to the Bellary Road service road on the far side (OpenStreetMap name CBI Road)",
+   "level": "ground",
+   "points": [
+    {
+     "x": -525.117,
+     "y": -1769.643
+    },
+    {
+     "x": -561.23,
+     "y": -1759.858
+    }
+   ],
+   "lengthM": 37.41538623433572,
+   "widthM": 7,
+   "lanes": 2,
+   "speedLimitMps": 11.11111111111111,
+   "wayIds": [
+    45738145
+   ],
+   "fromNodeId": 582566933,
+   "toNodeId": 14305157484
+  }
+ ],
+ "junctions": [
+  {
+   "id": "hebbal",
+   "name": "Hebbal Fly Over Junction: Outer Ring Road x Bellary Road, beneath the Hebbal flyover",
+   "control": "signal",
+   "connections": [
+    {
+     "fromRoadId": "airport-ground-in",
+     "toRoadId": "tumkur-out",
+     "movement": "A right (phase 1)"
+    },
+    {
+     "fromRoadId": "airport-ground-in",
+     "toRoadId": "krpuram-out",
+     "movement": "A left (phases 1 and 3)"
+    },
+    {
+     "fromRoadId": "tumkur-in",
+     "toRoadId": "airport-out",
+     "movement": "B left (phases 1 and 2)"
+    },
+    {
+     "fromRoadId": "tumkur-in",
+     "toRoadId": "krpuram-out",
+     "movement": "B straight (phase 2)"
+    },
+    {
+     "fromRoadId": "tumkur-in",
+     "toRoadId": "tumkur-loop-ground",
+     "movement": "B straight (phase 2), then the loop towards the city"
+    },
+    {
+     "fromRoadId": "krpuram-in",
+     "toRoadId": "tumkur-out",
+     "movement": "C straight (phases 2 and 3)"
+    },
+    {
+     "fromRoadId": "krpuram-in",
+     "toRoadId": "airport-out",
+     "movement": "C right (phase 3)"
+    }
+   ],
+   "signalPlan": {
+    "phases": [
+     {
+      "greenRoadIds": [
+       "airport-ground-in"
+      ],
+      "greenS": 37
+     },
+     {
+      "greenRoadIds": [
+       "tumkur-in",
+       "krpuram-in"
+      ],
+      "greenS": 57
+     },
+     {
+      "greenRoadIds": [
+       "krpuram-in"
+      ],
+      "greenS": 47
+     },
+     {
+      "greenRoadIds": [],
+      "greenS": 7
+     }
+    ],
+    "amberS": 3,
+    "allRedS": 0
+   },
+   "publishedPlan": {
+    "citation": "Bengaluru Traffic Police, 'Signal Timings Data - Hebbal Fly Over and Kodigehalli Gate Junctions', sheet 'Hebbal Fly Over Junction, Hebbal Police Station - Fixed, Ring Road x Bellary Road' (page 60 of the source book; PDF created March 2010), OpenCity dataset 'Bengaluru City Traffic Signal Data', https://data.opencity.in/dataset/f1146fbc-5208-4991-ac0b-8c1371fc567c/resource/176f9707-2ff1-4de8-8b51-676a535be214/download/743ca31f-fa3f-4ed8-a8a3-9467154c38e0.pdf, read 2026-11-12",
+    "control": "Fixed time",
+    "roads": {
+     "A": "from Devanahalli (the airport side)",
+     "B": "from BEL Circle (Tumkur Road side)",
+     "C": "from Nagavara (K.R. Puram side)"
+    },
+    "phases": [
+     {
+      "phase": 1,
+      "movements": [
+       "A right",
+       "A left",
+       "B left"
+      ]
+     },
+     {
+      "phase": 2,
+      "movements": [
+       "B left",
+       "B straight",
+       "C straight"
+      ]
+     },
+     {
+      "phase": 3,
+      "movements": [
+       "A left",
+       "C right",
+       "C straight"
+      ]
+     },
+     {
+      "phase": 4,
+      "movements": [
+       "exclusive pedestrian"
+      ]
+     }
+    ],
+    "periods": [
+     {
+      "days": "weekdays",
+      "from": "07:00",
+      "to": "08:00",
+      "phaseS": [
+       30,
+       50,
+       40,
+       10
+      ],
+      "cycleS": 130
+     },
+     {
+      "days": "weekdays",
+      "from": "08:00",
+      "to": "11:00",
+      "phaseS": [
+       40,
+       60,
+       50,
+       10
+      ],
+      "cycleS": 160
+     },
+     {
+      "days": "weekdays",
+      "from": "11:00",
+      "to": "16:30",
+      "phaseS": [
+       30,
+       50,
+       40,
+       10
+      ],
+      "cycleS": 130
+     },
+     {
+      "days": "weekdays",
+      "from": "16:30",
+      "to": "21:30",
+      "phaseS": [
+       40,
+       60,
+       50,
+       10
+      ],
+      "cycleS": 160
+     },
+     {
+      "days": "weekdays",
+      "from": "21:30",
+      "to": "23:00",
+      "phaseS": [
+       30,
+       50,
+       40,
+       5
+      ],
+      "cycleS": 125
+     },
+     {
+      "days": "Sunday",
+      "from": "07:30",
+      "to": "23:00",
+      "phaseS": [
+       30,
+       50,
+       40,
+       10
+      ],
+      "cycleS": 130
+     }
+    ]
+   },
+   "evidence": {
+    "phasesAndTimings": {
+     "state": "confirmed",
+     "source": "Bengaluru Traffic Police, 'Signal Timings Data - Hebbal Fly Over and Kodigehalli Gate Junctions', sheet 'Hebbal Fly Over Junction, Hebbal Police Station - Fixed, Ring Road x Bellary Road' (page 60 of the source book; PDF created March 2010), OpenCity dataset 'Bengaluru City Traffic Signal Data', https://data.opencity.in/dataset/f1146fbc-5208-4991-ac0b-8c1371fc567c/resource/176f9707-2ff1-4de8-8b51-676a535be214/download/743ca31f-fa3f-4ed8-a8a3-9467154c38e0.pdf, read 2026-11-12. Three roads, four phases; the phase times of each period add up to its cycle time. The sheet dates from 2010: it predates the ramps opened since and adaptive control, so it may no longer be what runs on site."
+    },
+    "planUsed": {
+     "state": "confirmed",
+     "source": "The peak plan, 08:00 to 11:00 and 16:30 to 21:30: phases of 40, 60, 50 and 10 s, cycle 160 s."
+    },
+    "amberAndAllRed": {
+     "state": "assumed",
+     "source": "The sheet gives no amber or all-red time. Each phase's time is taken as green plus 3 s of amber, with no all-red, so the cycle stays 160 s. The pedestrian phase is a phase with no approach on green."
+    },
+    "greenByApproach": {
+     "state": "assumed",
+     "source": "The network format gives green to whole approaches; the published plan gives it to movements. Used here: phase 1 road A; phase 2 roads B and C; phase 3 road C. Left out: A's left turn in phase 3 and B's left turn in phase 1. Added: C's right turn also runs in phase 2, where it gives way to B's straight traffic by the engine's crossing rule."
+    },
+    "connections": {
+     "state": "confirmed",
+     "source": "The movements of the published plan (A right and left; B left and straight; C straight and right), each checked against the ways of the OpenStreetMap extract fetched 2026-11-12. There is no approach from the city side: city-bound and city-origin traffic use the flyover and ramps."
+    },
+    "stopLines": {
+     "state": "confirmed",
+     "source": "OpenStreetMap extract fetched 2026-11-12: the approaches end at the highway=traffic_signals nodes 2408586316 (A), 430127696 (B) and 335663834 (C)."
+    }
+   }
+  },
+  {
+   "id": "cbi-road",
+   "name": "Bellary Road service road x CBI Road, beneath the Ganga Nagar flyover: the next junction downstream of where the Hebbal flyover lands",
+   "control": "unconfirmed",
+   "connections": [
+    {
+     "fromRoadId": "cbi-service-in",
+     "toRoadId": "cbi-service-south-out",
+     "movement": "straight on, city-bound"
+    },
+    {
+     "fromRoadId": "cbi-service-in",
+     "toRoadId": "cbi-road-east-out",
+     "movement": "left into CBI Road"
+    },
+    {
+     "fromRoadId": "cbi-service-in",
+     "toRoadId": "cbi-cross-west",
+     "movement": "right, beneath the flyover"
+    },
+    {
+     "fromRoadId": "cbi-road-west-in",
+     "toRoadId": "cbi-service-south-out",
+     "movement": "left, city-bound"
+    },
+    {
+     "fromRoadId": "cbi-road-west-in",
+     "toRoadId": "cbi-cross-west",
+     "movement": "straight on, beneath the flyover"
+    }
+   ],
+   "evidence": {
+    "control": {
+     "state": "not-reached",
+     "source": "Whether this junction has signals is not known. The OpenStreetMap extract fetched 2026-11-12 has no traffic_signals node here; the OpenCity set of 124 Bengaluru Traffic Police signal sheets has none for it (list read 2026-11-12); the junction is hidden beneath the flyover deck in the imagery."
+    },
+    "connections": {
+     "state": "confirmed",
+     "source": "From the ways of the OpenStreetMap extract fetched 2026-11-12 meeting at node 582566933."
+    }
+   }
+  }
+ ],
+ "groundNetwork": {
+  "formatVersion": 3,
+  "roads": [
+   {
+    "id": "flyover-approach",
+    "points": [
+     {
+      "x": 137.046,
+      "y": 490.242
+     },
+     {
+      "x": 109.316,
+      "y": 435.116
+     },
+     {
+      "x": 101.084,
+      "y": 417.617
+     },
+     {
+      "x": 97.267,
+      "y": 404.737
+     },
+     {
+      "x": 91.856,
+      "y": 387.026
+     },
+     {
+      "x": 85.425,
+      "y": 358.807
+     },
+     {
+      "x": 82.551,
+      "y": 339.927
+     }
+    ],
+    "widthM": 10.5,
+    "lanes": 3,
+    "speedLimitMps": 16.666666666666668
+   },
+   {
+    "id": "bellary-landing",
+    "points": [
+     {
+      "x": -114.185,
+      "y": -367.111
+     },
+     {
+      "x": -117.558,
+      "y": -397.212
+     },
+     {
+      "x": -121.581,
+      "y": -422.292
+     },
+     {
+      "x": -130.745,
+      "y": -479.299
+     },
+     {
+      "x": -132.469,
+      "y": -493.571
+     },
+     {
+      "x": -133.228,
+      "y": -510.102
+     },
+     {
+      "x": -135.452,
+      "y": -536.785
+     },
+     {
+      "x": -139.79,
+      "y": -582.805
+     },
+     {
+      "x": -142.056,
+      "y": -691.576
+     },
+     {
+      "x": -142.945,
+      "y": -711.034
+     }
+    ],
+    "widthM": 10.5,
+    "lanes": 3,
+    "speedLimitMps": 16.666666666666668
+   },
+   {
+    "id": "bellary-south",
+    "points": [
+     {
+      "x": -142.945,
+      "y": -711.034
+     },
+     {
+      "x": -143.108,
+      "y": -714.708
+     },
+     {
+      "x": -146.73,
+      "y": -734.578
+     },
+     {
+      "x": -152.402,
+      "y": -753.124
+     },
+     {
+      "x": -160.189,
+      "y": -773.151
+     },
+     {
+      "x": -162.282,
+      "y": -778.227
+     },
+     {
+      "x": -167.39,
+      "y": -790.606
+     },
+     {
+      "x": -168.767,
+      "y": -793.945
+     },
+     {
+      "x": -202.299,
+      "y": -873.695
+     },
+     {
+      "x": -214.944,
+      "y": -904.119
+     },
+     {
+      "x": -225.474,
+      "y": -934.186
+     },
+     {
+      "x": -231.721,
+      "y": -959.077
+     },
+     {
+      "x": -237.176,
+      "y": -984.18
+     },
+     {
+      "x": -243.466,
+      "y": -1037.024
+     },
+     {
+      "x": -248.476,
+      "y": -1057.139
+     },
+     {
+      "x": -255.666,
+      "y": -1076.976
+     },
+     {
+      "x": -260.384,
+      "y": -1093.251
+     },
+     {
+      "x": -267.943,
+      "y": -1113.467
+     },
+     {
+      "x": -318.1,
+      "y": -1211.106
+     },
+     {
+      "x": -347.489,
+      "y": -1274.236
+     },
+     {
+      "x": -375.328,
+      "y": -1341.829
+     },
+     {
+      "x": -389.676,
+      "y": -1376.661
+     },
+     {
+      "x": -436.731,
+      "y": -1497.12
+     },
+     {
+      "x": -473.376,
+      "y": -1589.427
+     }
+    ],
+    "widthM": 10.5,
+    "lanes": 3,
+    "speedLimitMps": 16.666666666666668
+   },
+   {
+    "id": "krpuram-ramp-ground",
+    "points": [
+     {
+      "x": 355.439,
+      "y": -106.088
+     },
+     {
+      "x": 345.537,
+      "y": -98.373
+     },
+     {
+      "x": 329.802,
+      "y": -92.785
+     },
+     {
+      "x": 248.021,
+      "y": -65
+     },
+     {
+      "x": 210.563,
+      "y": -53.367
+     }
+    ],
+    "widthM": 7,
+    "lanes": 2,
+    "speedLimitMps": 8.333333333333334
+   },
+   {
+    "id": "city-ramp-landing",
+    "points": [
+     {
+      "x": -128.609,
+      "y": -618.661
+     },
+     {
+      "x": -133.467,
+      "y": -698.255
+     },
+     {
+      "x": -142.945,
+      "y": -711.034
+     }
+    ],
+    "widthM": 10.5,
+    "lanes": 3,
+    "speedLimitMps": 8.333333333333334
+   },
+   {
+    "id": "tumkur-loop-ground",
+    "points": [
+     {
+      "x": 82.074,
+      "y": 2.638
+     },
+     {
+      "x": 95.966,
+      "y": 2.75
+     },
+     {
+      "x": 109.836,
+      "y": 3.306
+     },
+     {
+      "x": 118.718,
+      "y": 3.796
+     },
+     {
+      "x": 126.526,
+      "y": 6.935
+     },
+     {
+      "x": 135.007,
+      "y": 11.499
+     },
+     {
+      "x": 143.303,
+      "y": 17.666
+     },
+     {
+      "x": 168.951,
+      "y": 45.218
+     }
+    ],
+    "widthM": 7,
+    "lanes": 2,
+    "speedLimitMps": 16.666666666666668
+   },
+   {
+    "id": "airport-ground-in",
+    "points": [
+     {
+      "x": 137.046,
+      "y": 490.242
+     },
+     {
+      "x": 136.894,
+      "y": 474.869
+     },
+     {
+      "x": 108.524,
+      "y": 400.463
+     },
+     {
+      "x": 108.925,
+      "y": 387.895
+     },
+     {
+      "x": 91.476,
+      "y": 346.695
+     },
+     {
+      "x": 80.154,
+      "y": 257.483
+     },
+     {
+      "x": 66.002,
+      "y": 153.377
+     },
+     {
+      "x": 62.629,
+      "y": 138.282
+     },
+     {
+      "x": 58.866,
+      "y": 126.482
+     },
+     {
+      "x": 54.441,
+      "y": 115.238
+     },
+     {
+      "x": 47.902,
+      "y": 104.763
+     },
+     {
+      "x": 36.612,
+      "y": 85.494
+     },
+     {
+      "x": 25.409,
+      "y": 66.881
+     },
+     {
+      "x": 19.727,
+      "y": 54.87
+     }
+    ],
+    "widthM": 7,
+    "lanes": 2,
+    "speedLimitMps": 11.11111111111111
+   },
+   {
+    "id": "tumkur-in",
+    "points": [
+     {
+      "x": -352.011,
+      "y": -7.569
+     },
+     {
+      "x": -319.358,
+      "y": -14.082
+     },
+     {
+      "x": -252.89,
+      "y": -23.978
+     },
+     {
+      "x": -234.215,
+      "y": -25.425
+     },
+     {
+      "x": -217.113,
+      "y": -24.557
+     },
+     {
+      "x": -199.371,
+      "y": -21.351
+     },
+     {
+      "x": -112.038,
+      "y": 3.139
+     },
+     {
+      "x": -86.303,
+      "y": 10.631
+     },
+     {
+      "x": -81.184,
+      "y": 11.321
+     },
+     {
+      "x": -79.644,
+      "y": 11.522
+     },
+     {
+      "x": -58.833,
+      "y": 16.486
+     }
+    ],
+    "widthM": 12,
+    "lanes": 3,
+    "speedLimitMps": 16.666666666666668
+   },
+   {
+    "id": "krpuram-in",
+    "points": [
+     {
+      "x": 355.439,
+      "y": -106.088
+     },
+     {
+      "x": 341.893,
+      "y": -104.863
+     },
+     {
+      "x": 316.799,
+      "y": -97.461
+     },
+     {
+      "x": 212.743,
+      "y": -63.397
+     },
+     {
+      "x": 115.833,
+      "y": -35.211
+     },
+     {
+      "x": 81.629,
+      "y": -26.238
+     },
+     {
+      "x": 69.992,
+      "y": -24.624
+     },
+     {
+      "x": 53.074,
+      "y": -22.208
+     },
+     {
+      "x": 40.516,
+      "y": -20.36
+     },
+     {
+      "x": 29.238,
+      "y": -19.392
+     },
+     {
+      "x": 22.167,
+      "y": -19.548
+     },
+     {
+      "x": 3.308,
+      "y": -21.54
+     }
+    ],
+    "widthM": 10.5,
+    "lanes": 3,
+    "speedLimitMps": 16.666666666666668
+   },
+   {
+    "id": "tumkur-out",
+    "points": [
+     {
+      "x": -49.604,
+      "y": -16.498
+     },
+     {
+      "x": -56.35,
+      "y": -15.251
+     },
+     {
+      "x": -63.171,
+      "y": -13.203
+     },
+     {
+      "x": -79.254,
+      "y": -11.321
+     },
+     {
+      "x": -96.118,
+      "y": -11.299
+     },
+     {
+      "x": -116.213,
+      "y": -13.481
+     },
+     {
+      "x": -139.377,
+      "y": -18.156
+     },
+     {
+      "x": -199.512,
+      "y": -34.531
+     },
+     {
+      "x": -213.643,
+      "y": -37.426
+     },
+     {
+      "x": -227.502,
+      "y": -38.45
+     },
+     {
+      "x": -241.026,
+      "y": -38.138
+     },
+     {
+      "x": -257.738,
+      "y": -36.279
+     },
+     {
+      "x": -275.285,
+      "y": -33.819
+     },
+     {
+      "x": -300.336,
+      "y": -28.821
+     },
+     {
+      "x": -344.532,
+      "y": -21.101
+     }
+    ],
+    "widthM": 10.5,
+    "lanes": 3,
+    "speedLimitMps": 16.666666666666668
+   },
+   {
+    "id": "krpuram-out",
+    "points": [
+     {
+      "x": 77.508,
+      "y": -9.473
+     },
+     {
+      "x": 88.092,
+      "y": -14.104
+     },
+     {
+      "x": 210.715,
+      "y": -48.825
+     },
+     {
+      "x": 340.657,
+      "y": -90.503
+     },
+     {
+      "x": 353.628,
+      "y": -93.898
+     },
+     {
+      "x": 379.547,
+      "y": -99.175
+     },
+     {
+      "x": 400.173,
+      "y": -98.752
+     }
+    ],
+    "widthM": 10.5,
+    "lanes": 3,
+    "speedLimitMps": 16.666666666666668
+   },
+   {
+    "id": "airport-out",
+    "points": [
+     {
+      "x": -16.43,
+      "y": 55.27
+     },
+     {
+      "x": -6.474,
+      "y": 76.154
+     },
+     {
+      "x": -1.117,
+      "y": 96.77
+     },
+     {
+      "x": 2.093,
+      "y": 109.127
+     },
+     {
+      "x": 4.902,
+      "y": 154.479
+     },
+     {
+      "x": 9.023,
+      "y": 209.738
+     },
+     {
+      "x": 17.764,
+      "y": 269.996
+     },
+     {
+      "x": 23.826,
+      "y": 294.363
+     },
+     {
+      "x": 26.689,
+      "y": 302.033
+     },
+     {
+      "x": 30.713,
+      "y": 310.026
+     },
+     {
+      "x": 48.032,
+      "y": 342.866
+     },
+     {
+      "x": 48.813,
+      "y": 344.359
+     }
+    ],
+    "widthM": 7,
+    "lanes": 2,
+    "speedLimitMps": 11.11111111111111
+   },
+   {
+    "id": "cbi-service-in",
+    "points": [
+     {
+      "x": -460.514,
+      "y": -1594.948
+     },
+     {
+      "x": -479.373,
+      "y": -1628.879
+     },
+     {
+      "x": -494.328,
+      "y": -1667.329
+     },
+     {
+      "x": -503.872,
+      "y": -1695.537
+     },
+     {
+      "x": -513.155,
+      "y": -1723.879
+     },
+     {
+      "x": -519.965,
+      "y": -1750.707
+     },
+     {
+      "x": -522.319,
+      "y": -1759.491
+     },
+     {
+      "x": -525.117,
+      "y": -1769.643
+     }
+    ],
+    "widthM": 7,
+    "lanes": 2,
+    "speedLimitMps": 11.11111111111111
+   },
+   {
+    "id": "cbi-service-south-out",
+    "points": [
+     {
+      "x": -525.117,
+      "y": -1769.643
+     },
+     {
+      "x": -561.436,
+      "y": -1898.863
+     },
+     {
+      "x": -563.084,
+      "y": -1905.32
+     },
+     {
+      "x": -571.229,
+      "y": -1937.313
+     },
+     {
+      "x": -572.085,
+      "y": -1940.708
+     },
+     {
+      "x": -572.975,
+      "y": -1944.092
+     },
+     {
+      "x": -576,
+      "y": -1955.737
+     }
+    ],
+    "widthM": 7,
+    "lanes": 2,
+    "speedLimitMps": 11.11111111111111
+   },
+   {
+    "id": "cbi-road-east-out",
+    "points": [
+     {
+      "x": -524.625,
+      "y": -1767.963
+     },
+     {
+      "x": -478.436,
+      "y": -1781.475
+     },
+     {
+      "x": -470.174,
+      "y": -1783.541
+     },
+     {
+      "x": -447.205,
+      "y": -1789.297
+     },
+     {
+      "x": -426.025,
+      "y": -1794.607
+     },
+     {
+      "x": -395.995,
+      "y": -1802.143
+     },
+     {
+      "x": -364.329,
+      "y": -1810.08
+     },
+     {
+      "x": -337.163,
+      "y": -1816.893
+     },
+     {
+      "x": -331.12,
+      "y": -1818.407
+     }
+    ],
+    "widthM": 3.5,
+    "lanes": 1,
+    "speedLimitMps": 11.11111111111111
+   },
+   {
+    "id": "cbi-road-west-in",
+    "points": [
+     {
+      "x": -332.103,
+      "y": -1821.769
+     },
+     {
+      "x": -338.014,
+      "y": -1820.288
+     },
+     {
+      "x": -365.18,
+      "y": -1813.475
+     },
+     {
+      "x": -396.847,
+      "y": -1805.538
+     },
+     {
+      "x": -426.876,
+      "y": -1798.001
+     },
+     {
+      "x": -448.056,
+      "y": -1792.692
+     },
+     {
+      "x": -471.025,
+      "y": -1786.936
+     },
+     {
+      "x": -479.399,
+      "y": -1784.84
+     },
+     {
+      "x": -525.608,
+      "y": -1771.323
+     }
+    ],
+    "widthM": 3.5,
+    "lanes": 1,
+    "speedLimitMps": 11.11111111111111
+   },
+   {
+    "id": "cbi-cross-west",
+    "points": [
+     {
+      "x": -525.117,
+      "y": -1769.643
+     },
+     {
+      "x": -561.23,
+      "y": -1759.858
+     }
+    ],
+    "widthM": 7,
+    "lanes": 2,
+    "speedLimitMps": 11.11111111111111
+   }
+  ],
+  "junctions": [
+   {
+    "id": "hebbal",
+    "control": "signal",
+    "connections": [
+     {
+      "fromRoadId": "airport-ground-in",
+      "toRoadId": "tumkur-out"
+     },
+     {
+      "fromRoadId": "airport-ground-in",
+      "toRoadId": "krpuram-out"
+     },
+     {
+      "fromRoadId": "tumkur-in",
+      "toRoadId": "airport-out"
+     },
+     {
+      "fromRoadId": "tumkur-in",
+      "toRoadId": "krpuram-out"
+     },
+     {
+      "fromRoadId": "tumkur-in",
+      "toRoadId": "tumkur-loop-ground"
+     },
+     {
+      "fromRoadId": "krpuram-in",
+      "toRoadId": "tumkur-out"
+     },
+     {
+      "fromRoadId": "krpuram-in",
+      "toRoadId": "airport-out"
+     }
+    ],
+    "signalPlan": {
+     "phases": [
+      {
+       "greenRoadIds": [
+        "airport-ground-in"
+       ],
+       "greenS": 37
+      },
+      {
+       "greenRoadIds": [
+        "tumkur-in",
+        "krpuram-in"
+       ],
+       "greenS": 57
+      },
+      {
+       "greenRoadIds": [
+        "krpuram-in"
+       ],
+       "greenS": 47
+      },
+      {
+       "greenRoadIds": [],
+       "greenS": 7
+      }
+     ],
+     "amberS": 3,
+     "allRedS": 0
+    }
+   }
+  ]
+ },
+ "groundDemand": {
+  "flows": [
+   {
+    "entryRoadId": "airport-ground-in",
+    "exitRoadId": "tumkur-out",
+    "vehiclesPerHour": 2982
+   },
+   {
+    "entryRoadId": "tumkur-in",
+    "exitRoadId": "airport-out",
+    "vehiclesPerHour": 1318
+   },
+   {
+    "entryRoadId": "tumkur-in",
+    "exitRoadId": "krpuram-out",
+    "vehiclesPerHour": 2755
+   },
+   {
+    "entryRoadId": "tumkur-in",
+    "exitRoadId": "tumkur-loop-ground",
+    "vehiclesPerHour": 1090
+   },
+   {
+    "entryRoadId": "krpuram-in",
+    "exitRoadId": "tumkur-out",
+    "vehiclesPerHour": 2890
+   },
+   {
+    "entryRoadId": "krpuram-in",
+    "exitRoadId": "airport-out",
+    "vehiclesPerHour": 1051
+   }
+  ],
+  "vehicleMix": {
+   "two-wheeler": 0.395,
+   "car": 0.488,
+   "auto-rickshaw": 0.081,
+   "bus": 0.035
+  }
+ }
+}

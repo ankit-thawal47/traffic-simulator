@@ -1,0 +1,1357 @@
+{
+  "corridorId": "hebbal-city-bound",
+  "name": "Hebbal, city-bound (Bengaluru)",
+  "checkedOn": "2026-11-12",
+  "attribution": "Road geometry and tags © OpenStreetMap contributors, ODbL 1.0 (https://www.openstreetmap.org/copyright)",
+  "origin": {
+    "lat": 13.0429,
+    "lon": 77.5906
+  },
+  "roads": [
+    {
+      "id": "flyover-approach",
+      "name": "Bellary Road city-bound, from where the ground-level road leaves it up to the start of the flyover deck",
+      "wayIds": [
+        377832181
+      ],
+      "level": "ground",
+      "lanes": 3,
+      "widthM": 10.5,
+      "speedLimitKmh": 60,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=3 on way 377832181."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 3 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 377832181; layer=(none) on way 377832181. The rising approach to the deck: on the ground in OpenStreetMap (no bridge or layer tag)."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=60 on way 377832181. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 377832181,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "60"
+        }
+      ]
+    },
+    {
+      "id": "flyover-main",
+      "name": "Hebbal flyover, city-bound deck over the junction",
+      "wayIds": [
+        377832186,
+        377832182,
+        842592053
+      ],
+      "level": "raised",
+      "lanes": 3,
+      "widthM": 10.5,
+      "speedLimitKmh": 60,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=3 on way 377832186, lanes=3 on way 377832182, lanes=3 on way 842592053."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 3 lanes of 3.5 m. Esri World Imagery, zoom 19 (0.29 m per pixel), viewed 2026-11-12: the two carriageways of the flyover together measure about 27 m across, which fits 3 lanes of 3.5 m each way with a median and parapets."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=yes on way 377832186, bridge=yes on way 377832182, bridge=yes on way 842592053; layer=1 on way 377832186, layer=1 on way 377832182, layer=1 on way 842592053. Esri World Imagery, zoom 19 (0.29 m per pixel), viewed 2026-11-12: the deck passes over the Outer Ring Road."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=60 on way 377832186, maxspeed=60 on way 377832182, maxspeed=60 on way 842592053. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 377832186,
+          "lanes": "3",
+          "layer": "1",
+          "bridge": "yes",
+          "oneway": "yes",
+          "maxspeed": "60"
+        },
+        {
+          "wayId": 377832182,
+          "lanes": "3",
+          "layer": "1",
+          "bridge": "yes",
+          "oneway": "yes",
+          "maxspeed": "60"
+        },
+        {
+          "wayId": 842592053,
+          "lanes": "3",
+          "layer": "1",
+          "bridge": "yes",
+          "oneway": "yes",
+          "maxspeed": "60"
+        }
+      ]
+    },
+    {
+      "id": "bellary-landing",
+      "name": "Bellary Road city-bound, from where the flyover lands to where the ramp from the Outer Ring Road joins",
+      "wayIds": [
+        1278555480,
+        377832174
+      ],
+      "toNodeId": 13052245180,
+      "level": "ground",
+      "lanes": 3,
+      "widthM": 10.5,
+      "speedLimitKmh": 60,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=3 on way 1278555480, lanes=3 on way 377832174."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 3 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 1278555480, bridge=(none) on way 377832174; layer=(none) on way 1278555480, layer=(none) on way 377832174."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=60 on way 1278555480, maxspeed=60 on way 377832174. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 1278555480,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "60"
+        },
+        {
+          "wayId": 377832174,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "60"
+        }
+      ]
+    },
+    {
+      "id": "bellary-south",
+      "name": "Bellary Road city-bound, from the ramp merge to the fork ahead of the Ganga Nagar flyover",
+      "wayIds": [
+        377832174,
+        377832185,
+        377832173
+      ],
+      "fromNodeId": 13052245180,
+      "level": "ground",
+      "lanes": 3,
+      "widthM": 10.5,
+      "speedLimitKmh": 60,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=3 on way 377832174, lanes=3 on way 377832185, lanes=3 on way 377832173."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 3 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "assumed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: way 377832185 (110 m) is tagged bridge=yes, layer=1; ways 377832174 and 377832173 have neither tag. The short bridge is taken as ground level because no road of the corridor passes beneath it. What it spans was not checked."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=60 on way 377832174, maxspeed=60 on way 377832185, maxspeed=60 on way 377832173. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 377832174,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "60"
+        },
+        {
+          "wayId": 377832185,
+          "lanes": "3",
+          "layer": "1",
+          "bridge": "yes",
+          "oneway": "yes",
+          "maxspeed": "60"
+        },
+        {
+          "wayId": 377832173,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "60"
+        }
+      ]
+    },
+    {
+      "id": "krpuram-ramp-ground",
+      "name": "Ramp from the Outer Ring Road (from K.R. Puram) towards the city: the part on the ground",
+      "wayIds": [
+        1422977939,
+        1446941081
+      ],
+      "level": "ground",
+      "lanes": 2,
+      "widthM": 7,
+      "speedLimitKmh": 30,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=2 on way 1422977939, lanes=2 on way 1446941081."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 2 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 1422977939, bridge=(none) on way 1446941081; layer=(none) on way 1422977939, layer=(none) on way 1446941081."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=30 on way 1422977939, maxspeed=30 on way 1446941081. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 1422977939,
+          "lanes": "2",
+          "oneway": "yes",
+          "maxspeed": "30"
+        },
+        {
+          "wayId": 1446941081,
+          "lanes": "2",
+          "oneway": "yes",
+          "maxspeed": "30"
+        }
+      ]
+    },
+    {
+      "id": "krpuram-ramp",
+      "name": "Ramp from K.R. Puram towards the city: raised, up to where the loop from Tumkur Road joins",
+      "wayIds": [
+        1420425473
+      ],
+      "toNodeId": 13052245188,
+      "level": "raised",
+      "lanes": 2,
+      "widthM": 7,
+      "speedLimitKmh": 30,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=2 on way 1420425473."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 2 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=yes on way 1420425473; layer=1 on way 1420425473. Esri World Imagery, zoom 19 (0.29 m per pixel), viewed 2026-11-12: a curved raised ramp from the east is visible south of the junction."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=30 on way 1420425473. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 1420425473,
+          "lanes": "2",
+          "layer": "1",
+          "bridge": "yes",
+          "oneway": "yes",
+          "maxspeed": "30"
+        }
+      ]
+    },
+    {
+      "id": "city-ramp-two-lane",
+      "name": "Ramp towards the city after the loop from Tumkur Road has joined, two lanes",
+      "wayIds": [
+        1420425473
+      ],
+      "fromNodeId": 13052245188,
+      "level": "raised",
+      "lanes": 2,
+      "widthM": 7,
+      "speedLimitKmh": 30,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=2 on way 1420425473."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 2 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=yes on way 1420425473; layer=1 on way 1420425473."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=30 on way 1420425473. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 1420425473,
+          "lanes": "2",
+          "layer": "1",
+          "bridge": "yes",
+          "oneway": "yes",
+          "maxspeed": "30"
+        }
+      ]
+    },
+    {
+      "id": "city-ramp",
+      "name": "Ramp towards the city, three lanes, down to Bellary Road",
+      "wayIds": [
+        1422993566
+      ],
+      "level": "raised",
+      "lanes": 3,
+      "widthM": 10.5,
+      "speedLimitKmh": 30,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=3 on way 1422993566."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 3 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=yes on way 1422993566; layer=1 on way 1422993566."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=30 on way 1422993566. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 1422993566,
+          "lanes": "3",
+          "layer": "1",
+          "bridge": "yes",
+          "oneway": "yes",
+          "maxspeed": "30"
+        }
+      ]
+    },
+    {
+      "id": "city-ramp-landing",
+      "name": "Ramp towards the city: the part on the ground, joining Bellary Road",
+      "wayIds": [
+        1422977938,
+        1423056973
+      ],
+      "level": "ground",
+      "lanes": 3,
+      "widthM": 10.5,
+      "speedLimitKmh": 30,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=3 on way 1422977938, lanes=3 on way 1423056973."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 3 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 1422977938, bridge=(none) on way 1423056973; layer=(none) on way 1422977938, layer=(none) on way 1423056973."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=30 on way 1422977938, maxspeed=30 on way 1423056973. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 1422977938,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "30"
+        },
+        {
+          "wayId": 1423056973,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "30"
+        }
+      ]
+    },
+    {
+      "id": "tumkur-loop-ground",
+      "name": "From the junction (Outer Ring Road eastbound, from Tumkur Road) to the foot of the loop towards the city",
+      "wayIds": [
+        36987760
+      ],
+      "level": "ground",
+      "lanes": 2,
+      "widthM": 7,
+      "speedLimitKmh": 60,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=2 on way 36987760."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 2 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 36987760; layer=(none) on way 36987760."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=60 on way 36987760. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 36987760,
+          "lanes": "2",
+          "oneway": "yes",
+          "maxspeed": "60"
+        }
+      ]
+    },
+    {
+      "id": "tumkur-loop",
+      "name": "Loop from the Outer Ring Road (from Tumkur Road) up to the ramp towards the city",
+      "wayIds": [
+        377832176,
+        1460084785
+      ],
+      "level": "raised",
+      "lanes": 2,
+      "widthM": 7,
+      "speedLimitKmh": 30,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=2 on way 377832176, lanes=2 on way 1460084785."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 2 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=yes on way 377832176, bridge=yes on way 1460084785; layer=1 on way 377832176, layer=1 on way 1460084785."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=30 on way 377832176, maxspeed=30 on way 1460084785. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 377832176,
+          "lanes": "2",
+          "layer": "1",
+          "bridge": "yes",
+          "oneway": "yes",
+          "maxspeed": "30"
+        },
+        {
+          "wayId": 1460084785,
+          "lanes": "2",
+          "layer": "1",
+          "bridge": "yes",
+          "oneway": "yes",
+          "maxspeed": "30"
+        }
+      ]
+    },
+    {
+      "id": "airport-ground-in",
+      "name": "Ground-level road from the airport side (BTP road A, from Devanahalli; OpenStreetMap name Tumkur Road Exit), to its stop line",
+      "wayIds": [
+        1278555484,
+        1278555482,
+        36987764
+      ],
+      "toNodeId": 2408586316,
+      "level": "ground",
+      "lanes": 2,
+      "widthM": 7,
+      "speedLimitKmh": 40,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=2 on way 1278555484, lanes=2 on way 1278555482, lanes=2 on way 36987764."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 2 lanes of 3.5 m. Esri World Imagery, zoom 19 (0.29 m per pixel), viewed 2026-11-12: the carriageway beside the flyover measures about 6.5 to 7 m across."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 1278555484, bridge=(none) on way 1278555482, bridge=(none) on way 36987764; layer=(none) on way 1278555484, layer=(none) on way 1278555482, layer=(none) on way 36987764."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "assumed",
+          "source": "No maxspeed tag in OpenStreetMap on every way (maxspeed=(none) on way 1278555484, maxspeed=(none) on way 1278555482, maxspeed=(none) on way 36987764). Taken as 40 km/h, the limit tagged on the nearest two-lane ground-level roads in the extract (CBI Road, RT Nagar Main Road)."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 1278555484,
+          "lanes": "2",
+          "oneway": "yes"
+        },
+        {
+          "wayId": 1278555482,
+          "lanes": "2",
+          "oneway": "yes"
+        },
+        {
+          "wayId": 36987764,
+          "lanes": "2",
+          "oneway": "yes"
+        }
+      ]
+    },
+    {
+      "id": "tumkur-in",
+      "name": "Outer Ring Road eastbound from Tumkur Road (BTP road B, from BEL Circle), last 300 m to its stop line",
+      "wayIds": [
+        379857264,
+        1382087678
+      ],
+      "toNodeId": 430127696,
+      "keepLastM": 300,
+      "level": "ground",
+      "lanes": 3,
+      "widthM": 12,
+      "speedLimitKmh": 60,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=3 on way 379857264, lanes=3 on way 1382087678."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap. Esri World Imagery, zoom 19 (0.29 m per pixel), viewed 2026-11-12: the queue at the stop line stands 4 to 5 vehicles abreast across about 12 m, wider than 3 lanes of 3.5 m. Taken as 12 m; a rough measurement, good to about 2 m."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 379857264, bridge=(none) on way 1382087678; layer=(none) on way 379857264, layer=(none) on way 1382087678."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=60 on way 379857264, maxspeed=60 on way 1382087678. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 379857264,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "60"
+        },
+        {
+          "wayId": 1382087678,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "60"
+        }
+      ]
+    },
+    {
+      "id": "krpuram-in",
+      "name": "Outer Ring Road westbound from K.R. Puram (BTP road C, from Nagavara), from where the city ramp leaves it to its stop line",
+      "wayIds": [
+        376649537,
+        1453501628,
+        1073384218
+      ],
+      "toNodeId": 335663834,
+      "level": "ground",
+      "lanes": 3,
+      "widthM": 10.5,
+      "speedLimitKmh": 60,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=3 on way 376649537, lanes=3 on way 1453501628, lanes=3 on way 1073384218."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 3 lanes of 3.5 m. Esri World Imagery, zoom 19 (0.29 m per pixel), viewed 2026-11-12: looked at, but tree shadow hides the carriageway edges; not measured."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 376649537, bridge=(none) on way 1453501628, bridge=(none) on way 1073384218; layer=(none) on way 376649537, layer=(none) on way 1453501628, layer=(none) on way 1073384218."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=60 on way 376649537, maxspeed=60 on way 1453501628, maxspeed=60 on way 1073384218. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 376649537,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "60"
+        },
+        {
+          "wayId": 1453501628,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "60"
+        },
+        {
+          "wayId": 1073384218,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "60"
+        }
+      ]
+    },
+    {
+      "id": "tumkur-out",
+      "name": "Outer Ring Road westbound towards Tumkur Road, first 300 m from the junction",
+      "wayIds": [
+        1382087677,
+        369786367
+      ],
+      "keepFirstM": 300,
+      "level": "ground",
+      "lanes": 3,
+      "widthM": 10.5,
+      "speedLimitKmh": 60,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=3 on way 1382087677, lanes=3 on way 369786367."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 3 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 1382087677, bridge=(none) on way 369786367; layer=(none) on way 1382087677, layer=(none) on way 369786367."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=60 on way 1382087677, maxspeed=60 on way 369786367. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 1382087677,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "60"
+        },
+        {
+          "wayId": 369786367,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "60"
+        }
+      ]
+    },
+    {
+      "id": "krpuram-out",
+      "name": "Outer Ring Road eastbound towards K.R. Puram, from the junction",
+      "wayIds": [
+        36987770
+      ],
+      "level": "ground",
+      "lanes": 3,
+      "widthM": 10.5,
+      "speedLimitKmh": 60,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=3 on way 36987770."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 3 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 36987770; layer=(none) on way 36987770."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "assumed",
+          "source": "No maxspeed tag in OpenStreetMap on every way (maxspeed=(none) on way 36987770). Taken as 60 km/h, the limit tagged on the Outer Ring Road ways either side of it."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 36987770,
+          "lanes": "3",
+          "oneway": "yes"
+        }
+      ]
+    },
+    {
+      "id": "airport-out",
+      "name": "Ground-level road towards the airport (OpenStreetMap name Srinagar - Kanyakumari Highway), first 300 m from the junction",
+      "wayIds": [
+        376530259
+      ],
+      "fromNodeId": 430127700,
+      "keepFirstM": 300,
+      "level": "ground",
+      "lanes": 2,
+      "widthM": 7,
+      "speedLimitKmh": 40,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=2 on way 376530259."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 2 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 376530259; layer=(none) on way 376530259."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "assumed",
+          "source": "No maxspeed tag in OpenStreetMap on every way (maxspeed=(none) on way 376530259). Taken as 40 km/h, as for the ground-level road from the airport side."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 376530259,
+          "lanes": "2",
+          "oneway": "yes"
+        }
+      ]
+    },
+    {
+      "id": "ganganagar-flyover",
+      "name": "Ganga Nagar flyover city-bound, over the CBI Road junction, with its short approaches",
+      "wayIds": [
+        1314600702,
+        377832180,
+        377832184
+      ],
+      "level": "raised",
+      "lanes": 3,
+      "widthM": 10.5,
+      "speedLimitKmh": 60,
+      "evidence": {
+        "lanes": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: lanes=3 on way 1314600702, lanes=3 on way 377832180, lanes=3 on way 377832184."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 3 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: way 377832180 (286 m) is bridge=yes, layer=1; its approaches, ways 1314600702 (12 m) and 377832184 (64 m), have neither tag and are carried with it as one raised road. Esri World Imagery, zoom 19 (0.29 m per pixel), viewed 2026-11-12: the deck is visible over CBI Road."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=60 on way 1314600702, maxspeed=60 on way 377832180, maxspeed=60 on way 377832184. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 1314600702,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "60"
+        },
+        {
+          "wayId": 377832180,
+          "lanes": "3",
+          "layer": "1",
+          "bridge": "yes",
+          "oneway": "yes",
+          "maxspeed": "60"
+        },
+        {
+          "wayId": 377832184,
+          "lanes": "3",
+          "oneway": "yes",
+          "maxspeed": "60"
+        }
+      ]
+    },
+    {
+      "id": "cbi-service-in",
+      "name": "Ground-level road beside the Ganga Nagar flyover, city-bound, to the CBI Road junction. Fed from Bellary Road at node 582566943 (11 m of way 327073709) and from the service road, way 238204954, which is outside the extent",
+      "wayIds": [
+        1158590090,
+        377832183,
+        238030314
+      ],
+      "level": "ground",
+      "lanes": 2,
+      "widthM": 7,
+      "speedLimitKmh": 40,
+      "evidence": {
+        "lanes": {
+          "state": "assumed",
+          "source": "No lanes tag in OpenStreetMap (lanes=(none) on way 1158590090, lanes=(none) on way 377832183, lanes=(none) on way 238030314). Taken as 2 lanes; not counted."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 2 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 1158590090, bridge=(none) on way 377832183, bridge=(none) on way 238030314; layer=(none) on way 1158590090, layer=(none) on way 377832183, layer=(none) on way 238030314."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "assumed",
+          "source": "No maxspeed tag in OpenStreetMap on every way (maxspeed=(none) on way 1158590090, maxspeed=(none) on way 377832183, maxspeed=(none) on way 238030314). Taken as 40 km/h, the limit tagged on CBI Road."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 1158590090,
+          "oneway": "yes"
+        },
+        {
+          "wayId": 377832183,
+          "oneway": "yes"
+        },
+        {
+          "wayId": 238030314,
+          "oneway": "yes"
+        }
+      ]
+    },
+    {
+      "id": "cbi-service-south-out",
+      "name": "Ground-level road beside the Ganga Nagar flyover, city-bound, leaving the CBI Road junction",
+      "wayIds": [
+        238030317
+      ],
+      "level": "ground",
+      "lanes": 2,
+      "widthM": 7,
+      "speedLimitKmh": 40,
+      "evidence": {
+        "lanes": {
+          "state": "assumed",
+          "source": "No lanes tag in OpenStreetMap (lanes=(none) on way 238030317). Taken as 2 lanes; not counted."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 2 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 238030317; layer=(none) on way 238030317."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "assumed",
+          "source": "No maxspeed tag in OpenStreetMap on every way (maxspeed=(none) on way 238030317). Taken as 40 km/h, the limit tagged on CBI Road."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 238030317,
+          "oneway": "yes"
+        }
+      ]
+    },
+    {
+      "id": "cbi-road-east-out",
+      "name": "CBI Road eastbound towards RT Nagar, first 200 m from the junction (one direction of a two-way way)",
+      "wayIds": [
+        503306660
+      ],
+      "keepFirstM": 200,
+      "offsetLeftM": 1.75,
+      "level": "ground",
+      "lanes": 1,
+      "widthM": 3.5,
+      "speedLimitKmh": 40,
+      "evidence": {
+        "lanes": {
+          "state": "assumed",
+          "source": "No lanes tag in OpenStreetMap (lanes=(none) on way 503306660). Taken as one lane each way; not counted."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 1 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 503306660; layer=(none) on way 503306660."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=no on way 503306660."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=40 on way 503306660. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 503306660,
+          "oneway": "no",
+          "maxspeed": "40"
+        }
+      ]
+    },
+    {
+      "id": "cbi-road-west-in",
+      "name": "CBI Road westbound from RT Nagar, last 200 m to the junction (the other direction of the same two-way way)",
+      "wayIds": [
+        503306660
+      ],
+      "keepLastM": 200,
+      "reversed": true,
+      "offsetLeftM": 1.75,
+      "level": "ground",
+      "lanes": 1,
+      "widthM": 3.5,
+      "speedLimitKmh": 40,
+      "evidence": {
+        "lanes": {
+          "state": "assumed",
+          "source": "No lanes tag in OpenStreetMap (lanes=(none) on way 503306660). Taken as one lane each way; not counted."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 1 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 503306660; layer=(none) on way 503306660."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=no on way 503306660."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=40 on way 503306660. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 503306660,
+          "oneway": "no",
+          "maxspeed": "40"
+        }
+      ]
+    },
+    {
+      "id": "cbi-cross-west",
+      "name": "Link beneath the Ganga Nagar flyover from the junction to the Bellary Road service road on the far side (OpenStreetMap name CBI Road)",
+      "wayIds": [
+        45738145
+      ],
+      "level": "ground",
+      "lanes": 2,
+      "widthM": 7,
+      "speedLimitKmh": 40,
+      "evidence": {
+        "lanes": {
+          "state": "assumed",
+          "source": "No lanes tag in OpenStreetMap (lanes=(none) on way 45738145). Taken as 2 lanes; not counted."
+        },
+        "widthM": {
+          "state": "assumed",
+          "source": "No width tag in OpenStreetMap on these ways. Taken as 2 lanes of 3.5 m. Not measured: lane markings and kerbs cannot be told apart in the imagery at 0.29 m per pixel."
+        },
+        "level": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: bridge=(none) on way 45738145; layer=(none) on way 45738145."
+        },
+        "oneWay": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: oneway=yes on every way; travel is in the direction the ways are drawn."
+        },
+        "speedLimit": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: maxspeed=40 on way 45738145. The tag as found; no posted sign was checked."
+        }
+      },
+      "osmAsChecked": [
+        {
+          "wayId": 45738145,
+          "oneway": "yes",
+          "maxspeed": "40"
+        }
+      ]
+    }
+  ],
+  "junctions": [
+    {
+      "id": "hebbal",
+      "name": "Hebbal Fly Over Junction: Outer Ring Road x Bellary Road, beneath the Hebbal flyover",
+      "control": "signal",
+      "connections": [
+        {
+          "fromRoadId": "airport-ground-in",
+          "toRoadId": "tumkur-out",
+          "movement": "A right (phase 1)"
+        },
+        {
+          "fromRoadId": "airport-ground-in",
+          "toRoadId": "krpuram-out",
+          "movement": "A left (phases 1 and 3)"
+        },
+        {
+          "fromRoadId": "tumkur-in",
+          "toRoadId": "airport-out",
+          "movement": "B left (phases 1 and 2)"
+        },
+        {
+          "fromRoadId": "tumkur-in",
+          "toRoadId": "krpuram-out",
+          "movement": "B straight (phase 2)"
+        },
+        {
+          "fromRoadId": "tumkur-in",
+          "toRoadId": "tumkur-loop-ground",
+          "movement": "B straight (phase 2), then the loop towards the city"
+        },
+        {
+          "fromRoadId": "krpuram-in",
+          "toRoadId": "tumkur-out",
+          "movement": "C straight (phases 2 and 3)"
+        },
+        {
+          "fromRoadId": "krpuram-in",
+          "toRoadId": "airport-out",
+          "movement": "C right (phase 3)"
+        }
+      ],
+      "signalPlan": {
+        "phases": [
+          {
+            "greenRoadIds": [
+              "airport-ground-in"
+            ],
+            "greenS": 37
+          },
+          {
+            "greenRoadIds": [
+              "tumkur-in",
+              "krpuram-in"
+            ],
+            "greenS": 57
+          },
+          {
+            "greenRoadIds": [
+              "krpuram-in"
+            ],
+            "greenS": 47
+          },
+          {
+            "greenRoadIds": [],
+            "greenS": 7
+          }
+        ],
+        "amberS": 3,
+        "allRedS": 0
+      },
+      "publishedPlan": {
+        "citation": "Bengaluru Traffic Police, 'Signal Timings Data - Hebbal Fly Over and Kodigehalli Gate Junctions', sheet 'Hebbal Fly Over Junction, Hebbal Police Station - Fixed, Ring Road x Bellary Road' (page 60 of the source book; PDF created March 2010), OpenCity dataset 'Bengaluru City Traffic Signal Data', https://data.opencity.in/dataset/f1146fbc-5208-4991-ac0b-8c1371fc567c/resource/176f9707-2ff1-4de8-8b51-676a535be214/download/743ca31f-fa3f-4ed8-a8a3-9467154c38e0.pdf, read 2026-11-12",
+        "control": "Fixed time",
+        "roads": {
+          "A": "from Devanahalli (the airport side)",
+          "B": "from BEL Circle (Tumkur Road side)",
+          "C": "from Nagavara (K.R. Puram side)"
+        },
+        "phases": [
+          {
+            "phase": 1,
+            "movements": [
+              "A right",
+              "A left",
+              "B left"
+            ]
+          },
+          {
+            "phase": 2,
+            "movements": [
+              "B left",
+              "B straight",
+              "C straight"
+            ]
+          },
+          {
+            "phase": 3,
+            "movements": [
+              "A left",
+              "C right",
+              "C straight"
+            ]
+          },
+          {
+            "phase": 4,
+            "movements": [
+              "exclusive pedestrian"
+            ]
+          }
+        ],
+        "periods": [
+          {
+            "days": "weekdays",
+            "from": "07:00",
+            "to": "08:00",
+            "phaseS": [
+              30,
+              50,
+              40,
+              10
+            ],
+            "cycleS": 130
+          },
+          {
+            "days": "weekdays",
+            "from": "08:00",
+            "to": "11:00",
+            "phaseS": [
+              40,
+              60,
+              50,
+              10
+            ],
+            "cycleS": 160
+          },
+          {
+            "days": "weekdays",
+            "from": "11:00",
+            "to": "16:30",
+            "phaseS": [
+              30,
+              50,
+              40,
+              10
+            ],
+            "cycleS": 130
+          },
+          {
+            "days": "weekdays",
+            "from": "16:30",
+            "to": "21:30",
+            "phaseS": [
+              40,
+              60,
+              50,
+              10
+            ],
+            "cycleS": 160
+          },
+          {
+            "days": "weekdays",
+            "from": "21:30",
+            "to": "23:00",
+            "phaseS": [
+              30,
+              50,
+              40,
+              5
+            ],
+            "cycleS": 125
+          },
+          {
+            "days": "Sunday",
+            "from": "07:30",
+            "to": "23:00",
+            "phaseS": [
+              30,
+              50,
+              40,
+              10
+            ],
+            "cycleS": 130
+          }
+        ]
+      },
+      "evidence": {
+        "phasesAndTimings": {
+          "state": "confirmed",
+          "source": "Bengaluru Traffic Police, 'Signal Timings Data - Hebbal Fly Over and Kodigehalli Gate Junctions', sheet 'Hebbal Fly Over Junction, Hebbal Police Station - Fixed, Ring Road x Bellary Road' (page 60 of the source book; PDF created March 2010), OpenCity dataset 'Bengaluru City Traffic Signal Data', https://data.opencity.in/dataset/f1146fbc-5208-4991-ac0b-8c1371fc567c/resource/176f9707-2ff1-4de8-8b51-676a535be214/download/743ca31f-fa3f-4ed8-a8a3-9467154c38e0.pdf, read 2026-11-12. Three roads, four phases; the phase times of each period add up to its cycle time. The sheet dates from 2010: it predates the ramps opened since and adaptive control, so it may no longer be what runs on site."
+        },
+        "planUsed": {
+          "state": "confirmed",
+          "source": "The peak plan, 08:00 to 11:00 and 16:30 to 21:30: phases of 40, 60, 50 and 10 s, cycle 160 s."
+        },
+        "amberAndAllRed": {
+          "state": "assumed",
+          "source": "The sheet gives no amber or all-red time. Each phase's time is taken as green plus 3 s of amber, with no all-red, so the cycle stays 160 s. The pedestrian phase is a phase with no approach on green."
+        },
+        "greenByApproach": {
+          "state": "assumed",
+          "source": "The network format gives green to whole approaches; the published plan gives it to movements. Used here: phase 1 road A; phase 2 roads B and C; phase 3 road C. Left out: A's left turn in phase 3 and B's left turn in phase 1. Added: C's right turn also runs in phase 2, where it gives way to B's straight traffic by the engine's crossing rule."
+        },
+        "connections": {
+          "state": "confirmed",
+          "source": "The movements of the published plan (A right and left; B left and straight; C straight and right), each checked against the ways of the OpenStreetMap extract fetched 2026-11-12. There is no approach from the city side: city-bound and city-origin traffic use the flyover and ramps."
+        },
+        "stopLines": {
+          "state": "confirmed",
+          "source": "OpenStreetMap extract fetched 2026-11-12: the approaches end at the highway=traffic_signals nodes 2408586316 (A), 430127696 (B) and 335663834 (C)."
+        }
+      }
+    },
+    {
+      "id": "cbi-road",
+      "name": "Bellary Road service road x CBI Road, beneath the Ganga Nagar flyover: the next junction downstream of where the Hebbal flyover lands",
+      "control": "unconfirmed",
+      "connections": [
+        {
+          "fromRoadId": "cbi-service-in",
+          "toRoadId": "cbi-service-south-out",
+          "movement": "straight on, city-bound"
+        },
+        {
+          "fromRoadId": "cbi-service-in",
+          "toRoadId": "cbi-road-east-out",
+          "movement": "left into CBI Road"
+        },
+        {
+          "fromRoadId": "cbi-service-in",
+          "toRoadId": "cbi-cross-west",
+          "movement": "right, beneath the flyover"
+        },
+        {
+          "fromRoadId": "cbi-road-west-in",
+          "toRoadId": "cbi-service-south-out",
+          "movement": "left, city-bound"
+        },
+        {
+          "fromRoadId": "cbi-road-west-in",
+          "toRoadId": "cbi-cross-west",
+          "movement": "straight on, beneath the flyover"
+        }
+      ],
+      "evidence": {
+        "control": {
+          "state": "not-reached",
+          "source": "Whether this junction has signals is not known. The OpenStreetMap extract fetched 2026-11-12 has no traffic_signals node here; the OpenCity set of 124 Bengaluru Traffic Police signal sheets has none for it (list read 2026-11-12); the junction is hidden beneath the flyover deck in the imagery."
+        },
+        "connections": {
+          "state": "confirmed",
+          "source": "From the ways of the OpenStreetMap extract fetched 2026-11-12 meeting at node 582566933."
+        }
+      }
+    }
+  ]
+}
