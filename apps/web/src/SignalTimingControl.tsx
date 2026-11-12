@@ -4,6 +4,7 @@ import { useState } from "react";
 import { NumberField } from "./NumberField";
 import type { ChangeControlProps } from "./RoadChanges";
 import { greenTimesIn } from "./proposal-values";
+import { roadName, roadNamesFor } from "./road-names";
 
 /** The control for the signal timing change: the green time of each phase of a signal junction in the proposal. */
 export function SignalTimingControl({ proposal, onChange }: ChangeControlProps) {
@@ -13,6 +14,7 @@ export function SignalTimingControl({ proposal, onChange }: ChangeControlProps) 
   const [junctionId, setJunctionId] = useState(junctions[0]?.id ?? "");
   const junction = junctions.find((one) => one.id === junctionId);
   const greenS = greenTimesIn(proposal, junctionId);
+  const names = roadNamesFor(proposal);
 
   return (
     <fieldset className="change-group" data-testid="signal-timing">
@@ -34,7 +36,7 @@ export function SignalTimingControl({ proposal, onChange }: ChangeControlProps) 
           {junction.signalPlan.phases.map((phase, at) => (
             <NumberField
               key={`${junctionId}-${at}`}
-              label={`Green for ${phase.greenRoadIds.join(", ")} (s)`}
+              label={`Green for ${phase.greenRoadIds.map((roadId) => roadName(names, roadId)).join(", ")} (s)`}
               testId={`change-green-${at}`}
               value={greenS[at]!}
               min={1}

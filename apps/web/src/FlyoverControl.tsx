@@ -1,6 +1,7 @@
 import { isFlyoverRoad, withFlyover } from "@traffic-simulator/scenario";
 import type { ChangeControlProps } from "./RoadChanges";
 import { flyoverBuiltIn } from "./proposal-values";
+import { roadName, roadNamesFor } from "./road-names";
 
 /**
  * The control for the flyover change: each flyover road the network has drawn
@@ -9,6 +10,7 @@ import { flyoverBuiltIn } from "./proposal-values";
  */
 export function FlyoverControl({ proposal, onChange }: ChangeControlProps) {
   const flyoverRoads = proposal.network.roads.filter(isFlyoverRoad);
+  const names = roadNamesFor(proposal);
 
   return (
     <fieldset className="change-group" data-testid="flyover">
@@ -25,7 +27,7 @@ export function FlyoverControl({ proposal, onChange }: ChangeControlProps) {
                 checked={flyoverBuiltIn(proposal, road.id)}
                 onChange={(event) => onChange(withFlyover(proposal, road.id, event.target.checked))}
               />
-              {road.id} built{" "}
+              {roadName(names, road.id)} built{" "}
               <span className="hint">({proposal.unbuiltRoadIds.includes(road.id) ? "not built" : "built"} in the baseline)</span>
             </label>
           ))}

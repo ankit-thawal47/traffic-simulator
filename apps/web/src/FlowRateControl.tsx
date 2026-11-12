@@ -3,6 +3,7 @@ import { useState } from "react";
 import { NumberField } from "./NumberField";
 import type { ChangeControlProps } from "./RoadChanges";
 import { demandScaleIn, flowRateIn } from "./proposal-values";
+import { roadName, roadNamesFor } from "./road-names";
 
 /** The control for the flow rate change: the vehicles per hour of one entry-to-exit pair in the proposal. */
 export function FlowRateControl({ proposal, onChange }: ChangeControlProps) {
@@ -12,6 +13,7 @@ export function FlowRateControl({ proposal, onChange }: ChangeControlProps) {
   if (!flow) return <p className="hint">The demand has no flows.</p>;
   const rate = flowRateIn(proposal, flow.entryRoadId, flow.exitRoadId) ?? flow.vehiclesPerHour;
   const scale = demandScaleIn(proposal);
+  const names = roadNamesFor(proposal);
 
   return (
     <div className="change-control">
@@ -20,7 +22,7 @@ export function FlowRateControl({ proposal, onChange }: ChangeControlProps) {
         <select data-testid="change-flow" className="wide" value={at} onChange={(event) => setAt(Number(event.target.value))}>
           {flows.map((one, index) => (
             <option key={`${one.entryRoadId}→${one.exitRoadId}`} value={index}>
-              {one.entryRoadId} → {one.exitRoadId}
+              {roadName(names, one.entryRoadId)} → {roadName(names, one.exitRoadId)}
             </option>
           ))}
         </select>
