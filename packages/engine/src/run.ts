@@ -190,7 +190,7 @@ interface Vehicle {
 interface WaitingVehicle {
   vehicleClass: VehicleClass;
   arrivedAtS: number;
-  /** Which of its flow's routes it chose when the demand produced it. */
+  /** Which of its flow's routes it chose; -1 until it comes to the front of those waiting and chooses. */
   route: number;
 }
 
@@ -1490,14 +1490,16 @@ export function createRun(input: RunInput): Run {
         flow.waiting.push({
           vehicleClass: drawVehicleClass(flow.classRandom),
           arrivedAtS: flow.nextArrivalS,
-          // The route is chosen once, here, from the travel times measured up to this step.
-          route: flow.choice ? flow.choice.choose(timeS) : 0,
+          route: flow.choice ? -1 : 0,
         });
         flow.nextArrivalS += exponential(flow.random, flow.meanHeadwayS);
       }
       // First come, first in: a vehicle with no room holds back those that arrived after it.
       while (flow.waiting.length > 0) {
         const waiting = flow.waiting[0]!;
+        // The route is chosen once, when the vehicle first comes to enter, from the travel
+        // times measured up to this step. It keeps that route while it waits for room.
+        if (waiting.route < 0) waiting.route = flow.choice!.choose(timeS);
         const vehicle = tryToEnter(flow.entryRoad, flow.routes[waiting.route]!, waiting);
         if (!vehicle) break;
         flow.waiting.shift();

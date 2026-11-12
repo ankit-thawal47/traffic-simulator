@@ -443,23 +443,25 @@ export const ROUTE_CHOICE_ASSUMPTIONS = {
       "is never all-or-nothing, and a route that was jammed goes on being tried: its travel time is measured from " +
       "the vehicles that use it, so without them it could never be seen to have cleared.",
   },
-  vehiclesMeasured: {
-    value: 20,
-    unit: "vehicles",
+  measuredOverS: {
+    value: 60,
+    unit: "s",
     state: "our-choice",
     source:
-      "Our choice; not from a measurement. A route's measured travel time is the mean over the last 20 vehicles to " +
-      "complete it (or the time so far of the vehicle longest on it, if that is more). Twenty vehicles is under a " +
-      "minute of traffic on a busy route: few enough to follow a jam as it builds, enough that one slow bus does not " +
-      "tip the choice.",
-    note: "Before any vehicle has completed a route, its travel time on empty roads at the speed limits is used.",
+      "Our choice; not from a measurement. A route's measured travel time is the mean over the vehicles that " +
+      "completed it in the last 60 s (or the time so far of the vehicle longest on it, if that is more). A minute is " +
+      "short enough to follow a jam as it builds and clears, and on a busy route long enough that one slow bus does " +
+      "not tip the choice.",
+    note:
+      "If no vehicle completed the route in that time, the last one to complete it is used; before any has, the " +
+      "route's travel time on empty roads at the speed limits.",
   },
 } satisfies Record<string, Assumption>;
 
 const ROUTE_CHOICE_NAMES: Record<keyof typeof ROUTE_CHOICE_ASSUMPTIONS, string> = {
   travelTimePower: "How strongly the faster route is preferred: a route's share falls with its measured travel time to this power",
   smallestShare: "Smallest share of through traffic a route gets, however slow it is",
-  vehiclesMeasured: "Vehicles a route's measured travel time is averaged over: the last ones to complete it",
+  measuredOverS: "Time a route's measured travel time is averaged over: the vehicles that completed it in this long",
 };
 
 /** Width of a strip, in metres (spec: Engine behaviour, Strips). */
@@ -637,11 +639,11 @@ export const RULES: readonly Rule[] = [
   },
   {
     id: "rule.route-choice",
-    name: "Route choice: through traffic that can take a flyover or the junction beneath chooses once, when the demand produces it, as a probability from each route's measured travel time at that moment; all other traffic takes the fastest path on empty roads",
+    name: "Route choice: through traffic that can take a flyover or the junction beneath chooses once, when it comes to enter the network, as a probability from each route's measured travel time at that moment; all other traffic takes the fastest path on empty roads",
     state: "our-choice",
     source:
       "Ours (ADR 0006); no source gives it. A route's measured travel time is the mean over the last vehicles of the " +
-      "same demand flow to complete it, from entering the network to leaving it, or the time so far of the vehicle " +
+      "same demand flow to complete it in the last minute, from entering the network to leaving it, or the time so far of the vehicle " +
       "longest on it if that is more; before any vehicle has completed it, its time on empty roads, which knows " +
       "nothing of signals. A vehicle never changes its route afterwards. Equilibrium routing and induced demand are " +
       "not modelled.",

@@ -8,18 +8,24 @@
  * a route the flow can take: the flyover, or the junction beneath. Traffic
  * whose exit can be reached one way only (turning traffic) has no choice.
  *
- * When the choice is made. Once, when the demand produces the vehicle; it is
+ * When the choice is made. Once, when the vehicle comes to enter the network
+ * (it reaches the front of those of its flow waiting to enter); it keeps that
+ * route while it waits for room, and it is
  * never changed afterwards.
  *
  * The measured travel time of a route, at a moment, is the larger of
- *  - the mean time taken by the last few vehicles of the flow to complete the
- *    route, from being placed on the network to leaving it (before any vehicle
- *    has completed it: the route's time on empty roads at the speed limits,
- *    which knows nothing of signals); and
+ *  - the mean time taken by the vehicles of the flow that completed the route
+ *    in the last minute, from being placed on the network to leaving it; if
+ *    none did in that minute, the time taken by the last one that completed
+ *    it; and before any vehicle has completed it, the route's time on empty
+ *    roads at the speed limits, which knows nothing of signals; and
  *  - the time so far of the vehicle of the flow that has been on the route
  *    longest and has not completed it.
  * The second part makes a jam count before anyone has got through it: on a
  * blocked route nobody completes, so the first part alone would never change.
+ * Measuring over a minute, not over a set number of vehicles, lets a route
+ * that has cleared show it with the first vehicle through: few vehicles use
+ * a route that was slow, so a count of them would take long to fill.
  *
  * The choice. Each route's weight is its measured travel time to the power
  * minus k, so equal times give equal shares and a route twice as slow gets
@@ -90,13 +96,13 @@ export interface RouteChoice {
 
 /** `emptyRoadTimesS` has each route's travel time on empty roads; `random` is used for nothing but this flow's choices. */
 export function createRouteChoice(emptyRoadTimesS: number[], random: RandomStream): RouteChoice {
-  const sample = ROUTE_CHOICE_ASSUMPTIONS.vehiclesMeasured.value;
+  const measuredOverS = ROUTE_CHOICE_ASSUMPTIONS.measuredOverS.value;
   const power = ROUTE_CHOICE_ASSUMPTIONS.travelTimePower.value;
   const smallest = Math.min(ROUTE_CHOICE_ASSUMPTIONS.smallestShare.value, 1 / emptyRoadTimesS.length);
   const routes = emptyRoadTimesS.map((emptyRoadTimeS) => ({
     emptyRoadTimeS,
-    /** Travel times of the last vehicles to complete the route, oldest first, and their sum. */
-    recent: [] as number[],
+    /** The vehicles that completed the route in the last minute (always at least the last one), oldest first, and the sum of their times. */
+    recent: [] as { finishedAtS: number; tookS: number }[],
     recentTotalS: 0,
     /** Trips in the order they started; finished ones are dropped from the front when next looked at. */
     underWay: [] as Trip[],
@@ -105,6 +111,9 @@ export function createRouteChoice(emptyRoadTimesS: number[], random: RandomStrea
 
   function measuredTimesS(nowS: number): number[] {
     return routes.map((route) => {
+      while (route.recent.length > 1 && route.recent[0]!.finishedAtS < nowS - measuredOverS) {
+        route.recentTotalS -= route.recent.shift()!.tookS;
+      }
       const completedS = route.recent.length > 0 ? route.recentTotalS / route.recent.length : route.emptyRoadTimeS;
       while (route.firstUnderWay < route.underWay.length && route.underWay[route.firstUnderWay]!.finished) route.firstUnderWay++;
       if (route.firstUnderWay > 64 && route.firstUnderWay * 2 > route.underWay.length) {
@@ -144,9 +153,8 @@ export function createRouteChoice(emptyRoadTimesS: number[], random: RandomStrea
       trip.finished = true;
       const route = routes[trip.route]!;
       const tookS = nowS - trip.startedAtS;
-      route.recent.push(tookS);
+      route.recent.push({ finishedAtS: nowS, tookS });
       route.recentTotalS += tookS;
-      if (route.recent.length > sample) route.recentTotalS -= route.recent.shift()!;
     },
   };
 }

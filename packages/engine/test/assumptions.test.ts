@@ -80,7 +80,7 @@ describe("the list of assumptions shown to the planner", () => {
 
   it("has every assumption behind the choice between a flyover and the junction beneath, each marked as our choice with its reason", () => {
     const names = Object.keys(ROUTE_CHOICE_ASSUMPTIONS) as (keyof typeof ROUTE_CHOICE_ASSUMPTIONS)[];
-    // How strongly the faster route is preferred, the smallest share, and how many vehicles a travel time is measured over.
+    // How strongly the faster route is preferred, the smallest share, and how long a travel time is measured over.
     expect(names).toHaveLength(3);
     for (const name of names) {
       expect(listed(`routeChoice.${name}`).value).toBe(ROUTE_CHOICE_ASSUMPTIONS[name].value);
