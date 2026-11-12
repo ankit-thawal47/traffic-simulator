@@ -219,6 +219,8 @@ export function App() {
           <figcaption>Baseline · {baseline.name}</figcaption>
           <RoadScene
             network={baselineInput.network}
+            laneDiscipline={baselineInput.laneDiscipline}
+            withSurroundings={corridorId !== undefined}
             frames={baselineFrames}
             sharedCamera={sharedCamera}
             colourBy={colourBy}
@@ -230,6 +232,8 @@ export function App() {
           </figcaption>
           <RoadScene
             network={proposalInput.network}
+            laneDiscipline={proposalInput.laneDiscipline}
+            withSurroundings={corridorId !== undefined}
             frames={proposalFrames}
             sharedCamera={sharedCamera}
             colourBy={colourBy}

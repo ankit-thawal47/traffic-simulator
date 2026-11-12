@@ -10,7 +10,9 @@ const GROUND_THICKNESS_M = 0.2;
 const PARAPET_HEIGHT_M = 0.9;
 const PARAPET_WIDTH_M = 0.3;
 const PILLAR_EVERY_M = 30;
-const PILLAR_SIZE_M = 1.4;
+const PILLAR_SIZE_M = 1.6;
+const CROSSHEAD_DEPTH_M = 1.1;
+const CROSSHEAD_ALONG_M = 1.8;
 
 export interface FlyoverDrawing {
   /** What to add to the scene: every raised road as a ramp, a deck with parapets, and pillars. */
@@ -46,7 +48,7 @@ function insideOutline(point: Point, outline: Point[]): boolean {
 export function createFlyoverDrawing(network: Network, surface: THREE.Material): FlyoverDrawing {
   const objects: THREE.Object3D[] = [];
   const disposable: { dispose(): void }[] = [];
-  const concrete = new THREE.MeshLambertMaterial({ color: 0xa9aaa6, side: THREE.DoubleSide });
+  const concrete = new THREE.MeshLambertMaterial({ color: 0xc6c2b8, side: THREE.DoubleSide });
   const surfaceBothSides = surface.clone();
   surfaceBothSides.side = THREE.DoubleSide;
   disposable.push(concrete, surfaceBothSides);
@@ -131,12 +133,19 @@ export function createFlyoverDrawing(network: Network, surface: THREE.Material):
       if (heightM < FILLED_BELOW_M) continue;
       const { point, direction } = positionAlongRoad(road, distanceM);
       if (outlines.some((outline) => insideOutline(point, outline))) continue;
-      const geometry = new THREE.BoxGeometry(PILLAR_SIZE_M, heightM - DECK_THICKNESS_M, PILLAR_SIZE_M);
+      // A round pier, and on it a crosshead as wide as most of the deck, which the deck rests on.
+      const underM = heightM - DECK_THICKNESS_M;
+      const pierM = underM - CROSSHEAD_DEPTH_M;
+      const geometry = new THREE.CylinderGeometry(PILLAR_SIZE_M / 2, PILLAR_SIZE_M / 2 + 0.1, pierM, 12);
       const pillar = new THREE.Mesh(geometry, concrete);
-      pillar.position.set(point.x, (heightM - DECK_THICKNESS_M) / 2, -point.y);
-      pillar.rotation.y = Math.atan2(direction.y, direction.x);
-      objects.push(pillar);
-      disposable.push(geometry);
+      pillar.position.set(point.x, pierM / 2, -point.y);
+      const crossheadGeometry = new THREE.BoxGeometry(CROSSHEAD_ALONG_M, CROSSHEAD_DEPTH_M, road.widthM * 0.8);
+      const crosshead = new THREE.Mesh(crossheadGeometry, concrete);
+      crosshead.position.set(point.x, pierM + CROSSHEAD_DEPTH_M / 2, -point.y);
+      crosshead.rotation.y = Math.atan2(direction.y, direction.x);
+      pillar.name = `pillar:${road.id}`;
+      objects.push(pillar, crosshead);
+      disposable.push(geometry, crossheadGeometry);
       pillars++;
     }
   }
