@@ -403,3 +403,22 @@ h3 {
   font-size: 12px;
   color: #55616a;
 }
+
+/* A phone-width window: the proposal above the results, and a wide results table scrolls sideways within its own section. */
+@media (max-width: 760px) {
+  .panels {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panels > section {
+    overflow-x: auto;
+  }
+
+  .results table {
+    display: block;
+    /* So that its visually hidden labels are kept inside it, not off the side of the page. */
+    position: relative;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
