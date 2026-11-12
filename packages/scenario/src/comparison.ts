@@ -3,7 +3,7 @@
  * set of measures, each as an absolute number and as a change from the
  * baseline, and every result carries the uncalibrated estimate label.
  */
-import { VEHICLE_CLASSES, type Results, type VehicleClass } from "@traffic-simulator/engine";
+import { VEHICLE_CLASSES, type Network, type Results, type VehicleClass } from "@traffic-simulator/engine";
 
 /** The label every result carries. An estimate is never presented as calibrated. */
 export const ESTIMATE_LABEL = "Uncalibrated estimate";
@@ -57,12 +57,27 @@ export const MEASURES: readonly Measure[] = [
  * the approaches. Pass every set of results that will be compared (each seed
  * of baseline and proposal); an approach that only some of them have is still
  * a measure, with nothing to measure in the others.
+ *
+ * Pass the networks the results came from (the baseline's and the proposal's)
+ * and only the approaches of their signal junctions are measures. The engine
+ * also reports a queue for every road that ends where a road divides or roads
+ * join; nothing holds traffic there, so those queues are almost always zero
+ * and are left out. Without networks, every approach the results have is a measure.
  */
-export function measuresFor(results: readonly Results[]): Measure[] {
+export function measuresFor(results: readonly Results[], networks?: readonly Network[]): Measure[] {
+  const atSignals =
+    networks &&
+    new Set(
+      networks.flatMap((network) =>
+        (network.junctions ?? [])
+          .filter((junction) => junction.control === "signal")
+          .flatMap((junction) => junction.connections.map((connection) => connection.fromRoadId)),
+      ),
+    );
   const approaches: string[] = [];
   for (const one of results) {
     for (const roadId of Object.keys(one.longestQueueByApproach)) {
-      if (!approaches.includes(roadId)) approaches.push(roadId);
+      if (!approaches.includes(roadId) && (!atSignals || atSignals.has(roadId))) approaches.push(roadId);
     }
   }
   return [
@@ -78,6 +93,27 @@ export function measuresFor(results: readonly Results[]): Measure[] {
   ];
 }
 
+/**
+ * The smallest baseline figure a percentage change is given for, by the
+ * measure's unit. Below it only the absolute change is given: against a
+ * baseline of zero there is no percentage, and against one close to zero the
+ * percentage is enormous and says nothing the absolute change does not (a
+ * mean delay of 0.4 s that becomes 19 s is +4650%).
+ *
+ * The thresholds are a judgement, not a measurement: a mean delay under 5 s
+ * is within what one signal cycle's luck gives; a longest queue under 10 m is
+ * one or two vehicles; fewer than 10 vehicles is too few to take a share of.
+ */
+export const SMALLEST_BASELINE_FOR_PERCENT: Readonly<Record<string, number>> = { s: 5, m: 10, vehicles: 10 };
+
+/** The change as a percentage of the baseline, or null when the baseline is too small to carry one. */
+function percentOf(change: number | null, baseline: number | null, unit: string): number | null {
+  if (change === null || baseline === null) return null;
+  // A unit with no threshold of its own still never divides by zero.
+  const smallest = SMALLEST_BASELINE_FOR_PERCENT[unit] ?? Number.MIN_VALUE;
+  return Math.abs(baseline) < smallest ? null : (100 * change) / baseline;
+}
+
 /** One measure for both scenarios. */
 export interface ComparedMeasure {
   id: string;
@@ -88,7 +124,7 @@ export interface ComparedMeasure {
   proposal: number | null;
   /** Proposal minus baseline, in the measure's own unit; null when either is. */
   change: number | null;
-  /** The change as a percentage of the baseline; null when the baseline is zero or there is no change to give. */
+  /** The change as a percentage of the baseline; null when the baseline is zero or close to it (SMALLEST_BASELINE_FOR_PERCENT) or there is no change to give. */
   changePercent: number | null;
   estimateLabel: typeof ESTIMATE_LABEL;
 }
@@ -109,7 +145,7 @@ export function compareResults(
       baseline: before,
       proposal: after,
       change,
-      changePercent: change === null || before === null || before === 0 ? null : (100 * change) / before,
+      changePercent: percentOf(change, before, measure.unit),
       estimateLabel: ESTIMATE_LABEL,
     };
   });
@@ -147,7 +183,7 @@ export interface ComparedMeasureAcrossSeeds {
   proposal: AcrossSeeds;
   /** The proposal's average minus the baseline's, in the measure's own unit; null when either is. */
   change: number | null;
-  /** The change as a percentage of the baseline's average; null when that is zero or there is no change to give. */
+  /** The change as a percentage of the baseline's average; null when that is zero or close to it (SMALLEST_BASELINE_FOR_PERCENT) or there is no change to give. */
   changePercent: number | null;
   estimateLabel: typeof ESTIMATE_LABEL;
 }
@@ -173,7 +209,7 @@ export function compareAcrossSeeds(
       baseline: before,
       proposal: after,
       change,
-      changePercent: change === null || !before.average ? null : (100 * change) / before.average,
+      changePercent: percentOf(change, before.average, measure.unit),
       estimateLabel: ESTIMATE_LABEL,
     };
   });

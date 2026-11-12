@@ -52,6 +52,7 @@ export {
 } from "./codec";
 export {
   ESTIMATE_LABEL,
+  SMALLEST_BASELINE_FOR_PERCENT,
   MEASURES,
   acrossSeeds,
   compareAcrossSeeds,

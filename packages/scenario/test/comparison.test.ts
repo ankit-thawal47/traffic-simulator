@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Results, VehicleClassDelay } from "@traffic-simulator/engine";
-import { compareResults, formatChange, type Measure } from "../src/index";
+import { SMALLEST_BASELINE_FOR_PERCENT, compareResults, formatChange, type Measure } from "../src/index";
 
 const noVehicles: VehicleClassDelay = { vehicles: 0, vehiclesThrough: 0, meanDelayS: null, totalDelayS: 0 };
 const delays = (twoWheelerS: number, carS: number): Results["delayByVehicleClass"] => ({
@@ -69,6 +69,26 @@ describe("comparing a proposal's results against the baseline's", () => {
     );
 
     expect(through).toMatchObject({ baseline: 0, proposal: 20, change: 20, changePercent: null });
+  });
+
+  it("gives no percentage when the baseline is close to zero: a change of +4650% says nothing the absolute change does not", () => {
+    // A mean delay of 0.4 s that becomes 19 s is +4650%; a queue of 2 m that becomes 95 m likewise.
+    const rows = compareResults({ ...baseline, delayByVehicleClass: delays(0.4, 4.9) }, { ...proposal, delayByVehicleClass: delays(19, 25) });
+
+    expect(rows.find((row) => row.id === "mean-delay-two-wheeler")).toMatchObject({ change: 18.6, changePercent: null });
+    expect(rows.find((row) => row.id === "mean-delay-car")).toMatchObject({ baseline: 4.9, changePercent: null });
+  });
+
+  it("gives the percentage from the smallest baseline that carries one: 5 s, 10 m, 10 vehicles", () => {
+    expect(SMALLEST_BASELINE_FOR_PERCENT).toEqual({ s: 5, m: 10, vehicles: 10 });
+    const rows = compareResults(
+      { ...baseline, vehiclesThrough: 10, delayByVehicleClass: delays(5, 10) },
+      { ...proposal, vehiclesThrough: 20, delayByVehicleClass: delays(10, 10) },
+    );
+
+    expect(rows.find((row) => row.id === "vehicles-through")!.changePercent).toBe(100);
+    expect(rows.find((row) => row.id === "mean-delay-two-wheeler")!.changePercent).toBe(100);
+    expect(compareResults({ ...baseline, vehiclesThrough: 9 }, proposal)[0]!.changePercent).toBeNull();
   });
 
   it("gives the mean delay of each vehicle class, and nothing for a vehicle class with no vehicles", () => {
