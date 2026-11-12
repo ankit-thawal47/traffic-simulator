@@ -222,11 +222,14 @@ describe("changing signal timing", () => {
 
   it("more green for an approach shortens its queue", () => {
     // The third phase is the green of south-in: 25 s in the baseline, 50 s in the proposal.
-    const busier = withDemandScale(signalJunctionExample(), 1.6);
+    // Demand 2.5 times the example's, so that south-in is queued at its 25 s green: since turns leave from their own side
+    // of the approach (ticket 24) it discharges more a green, and at 1.6 times its longest queue in ten minutes was short
+    // and moved either way with the seed (seeds 1 to 3: 51 to 42 m, 45 to 52 m, 42 to 36 m).
+    const busier = withDemandScale(signalJunctionExample(), 2.5);
     const before = resultsAfter(busier, TEN_MINUTES_S);
     const after = resultsAfter(withSignalTiming(busier, "cross", [25, 25, 50, 25]), TEN_MINUTES_S);
 
-    // Seen: 78 m before, 45 m after. The other approaches wait longer for their green: north-in 69 m to 94 m.
+    // Seen: 104 m before, 57 m after (seeds 2 and 3: 115 to 77 m, 80 to 59 m).
     expect(after.longestQueueByApproach["south-in"]!.lengthM).toBeLessThan(
       before.longestQueueByApproach["south-in"]!.lengthM * 0.8,
     );
