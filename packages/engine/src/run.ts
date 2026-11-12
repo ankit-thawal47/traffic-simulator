@@ -21,6 +21,7 @@ import {
   type TurningCurve,
   type TurningPath,
 } from "./junction-geometry";
+import { atStandingQueue, filteringSpeedCapMps, filters, standingQueueBackM } from "./filtering";
 import { checkFlyoverFormat } from "./levels";
 import { stripsStraightOn } from "./merge-diverge";
 import { checkPriorityFormat, gapIsLargeEnough, mainRoadsOf } from "./priority-junction";
@@ -77,6 +78,11 @@ interface RoadState {
   aspect: SignalAspect;
   /** For an approach: the longest queue it has had so far. */
   longestQueue: ApproachQueue;
+  /**
+   * For an approach whose signal is red or amber, in mixed traffic: the back of its standing queue at the start of
+   * the step (filtering.ts). NaN otherwise: on green, at a junction with no signal, and with lane discipline.
+   */
+  queueBackM: number;
   /** The vehicles standing in strips they have to leave (strips that do not lead onto their way on, or are blocked ahead), waiting to get across, this step. */
   waitingToSort: Vehicle[];
   /**
@@ -191,7 +197,9 @@ interface Vehicle {
 
   // Working values of one step.
   index: number;
-  /** The speed the vehicle aims for this step: its desired speed, or less when slowing for a turn. */
+  /** At a standing queue on an approach at red or amber (filtering.ts), at the start of the step. */
+  atQueue: boolean;
+  /** The speed the vehicle aims for this step: its desired speed, or less when slowing for a turn or filtering. */
   speedCapMps: number;
   /**
    * Strips the vehicle has to move to be in strips that lead on along its route (positive to the right),
@@ -267,6 +275,8 @@ function lateralM(vehicle: Vehicle): number {
 
 export function createRun(input: RunInput): Run {
   const laneDiscipline = input.laneDiscipline === true;
+  /** Filtering: on by default in mixed traffic; never with lane discipline. */
+  const filtering = !laneDiscipline && input.filtering !== false;
   const formatVersion = input.network.formatVersion;
   if (formatVersion !== 1 && formatVersion !== 2 && formatVersion !== 3 && formatVersion !== 4 && formatVersion !== 5) {
     throw new Error(`Unsupported network format version: ${String(formatVersion)}`);
@@ -309,6 +319,7 @@ export function createRun(input: RunInput): Run {
       longestQueue: { lengthM: 0, vehicles: 0, eachMinute: [] },
       waitingToSort: [],
       blockedFrom: undefined,
+      queueBackM: Number.NaN,
     });
   }
 
@@ -717,6 +728,7 @@ export function createRun(input: RunInput): Run {
       curve: undefined,
       waitingForGap: false,
       index: 0,
+      atQueue: false,
       speedCapMps: Math.min(assumptions.desiredSpeedMps, road.road.speedLimitMps),
       sorting: 0,
       mustSort: false,
@@ -1002,6 +1014,8 @@ export function createRun(input: RunInput): Run {
       }
       return;
     }
+    // At a standing queue only a vehicle class that filters shifts sideways to pass it; the others keep their strips.
+    if (vehicle.atQueue && vehicle.sorting === 0 && !(filtering && filters(vehicle.vehicleClass))) return;
     const threshold = SIDEWAYS_ASSUMPTIONS.gainThresholdMps2.value;
     const current = vehicle.currentAcceleration;
     const fitsTurn = vehicle.ahead !== undefined && curveThrough(vehicle.ahead, vehicle.strip, vehicle.strips) !== undefined;
@@ -1154,6 +1168,10 @@ export function createRun(input: RunInput): Run {
         const slowing = vehicle.assumptions.comfortableDecelerationMps2 / 2;
         cap = Math.min(cap, Math.sqrt(turnMps * turnMps + 2 * slowing * toStopLineM));
       }
+    }
+    // Filtering: a two-wheeler at a standing queue moves through it slowly.
+    if (filtering && filters(vehicle.vehicleClass) && !Number.isNaN(vehicle.road.queueBackM) && vehicle.place === ON_ROAD && !vehicle.admitted) {
+      cap = Math.min(cap, filteringSpeedCapMps(vehicle.positionM, vehicle.road.queueBackM, vehicle.assumptions.comfortableDecelerationMps2));
     }
     vehicle.speedCapMps = cap;
   }
@@ -1724,6 +1742,21 @@ export function createRun(input: RunInput): Run {
     }
   }
 
+  /** Filtering (filtering.ts): the back of an approach's standing queue while its signal is red or amber, in mixed traffic. */
+  function findStandingQueue(road: RoadState): void {
+    road.queueBackM = Number.NaN;
+    if (laneDiscipline || road.endsAt?.junction.control !== "signal" || road.aspect.state === "green") return;
+    road.queueBackM = standingQueueBackM(
+      road.vehicles.map((vehicle) => ({
+        positionM: vehicle.positionM,
+        lengthM: vehicle.assumptions.lengthM,
+        speedMps: vehicle.speedMps,
+        waiting: vehicle.place === ON_ROAD && !vehicle.admitted && !vehicle.stationary,
+      })),
+      road.lengthM,
+    );
+  }
+
   /**
    * Stuck vehicles (stuck-vehicles.ts): from the state at the start of the step,
    * add the step to the time each vehicle has stood, and find the vehicle to
@@ -1781,9 +1814,14 @@ export function createRun(input: RunInput): Run {
     for (const road of roads.values()) {
       const vehicles = road.vehicles;
       vehicles.sort(frontFirst);
+      const control = road.endsAt?.junction;
+      if (control?.control === "signal") road.aspect = signalAspect(control.signalPlan, road.road.id, stepCount * STEP_SECONDS);
+      findStandingQueue(road);
       for (let i = 0; i < vehicles.length; i++) {
-        vehicles[i]!.index = i;
-        setSpeedCap(vehicles[i]!);
+        const vehicle = vehicles[i]!;
+        vehicle.index = i;
+        vehicle.atQueue = !Number.isNaN(road.queueBackM) && vehicle.place === ON_ROAD && !vehicle.admitted && atStandingQueue(vehicle.positionM, road.queueBackM);
+        setSpeedCap(vehicle);
       }
       // Sorting for the way on: how far each vehicle is from the strips its route leaves from, and who is waiting to get to them.
       // Leaving a blocked strip: the same, for a vehicle in strips with a stationary vehicle ahead.
@@ -1809,8 +1847,6 @@ export function createRun(input: RunInput): Run {
       }
       findNeighbours(road, true);
       if (road.startsAtJunction) findLastInStrips(road);
-      const control = road.endsAt?.junction;
-      if (control?.control === "signal") road.aspect = signalAspect(control.signalPlan, road.road.id, stepCount * STEP_SECONDS);
     }
     const stuck = findStuckVehicle();
     for (const junction of junctions) letIn(junction);

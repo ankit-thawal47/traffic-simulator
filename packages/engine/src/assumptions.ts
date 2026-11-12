@@ -537,6 +537,82 @@ export const ROUTE_CHOICE_ASSUMPTIONS = {
 } satisfies Record<string, Assumption>;
 
 /**
+ * Filtering (filtering.ts): two-wheelers moving through the gaps in a standing queue at a red signal to reach
+ * the front. All are our own choices; none comes from a measurement.
+ */
+export const FILTERING_ASSUMPTIONS = {
+  filteringSpeedMps: {
+    value: 2.5,
+    unit: "m/s",
+    state: "our-choice",
+    source:
+      "Our choice; not from a measurement. About 9 km/h, a slow cycling pace: a two-wheeler moving through a standing " +
+      "queue goes slowly, as it passes vehicles that are close beside it. At its comfortable braking (2 m/s2) it stops " +
+      "from this speed in about 1.6 m, less than its own length. Coming up to the queue it slows to this speed by the " +
+      "queue's back at its comfortable braking. (A first try had it slow at half that, from 10 m behind the back: " +
+      "two-wheelers then reached the stop line late when the signal turned green, and the Hebbal corridor carried 2% " +
+      "fewer vehicles in an hour.)",
+  },
+  standingBelowMps: {
+    value: 1.4,
+    unit: "m/s",
+    state: "our-choice",
+    source:
+      "Our choice; not from a measurement. The same 5 km/h as the queue speed at junctions: a vehicle slower than " +
+      "this on an approach whose signal is not green is part of the standing queue.",
+  },
+  lookAheadM: {
+    value: 10,
+    unit: "m",
+    state: "our-choice",
+    source:
+      "Our choice; not from a measurement. About two car lengths. A vehicle is at the standing queue once its front " +
+      "bumper is within this distance of the queue's back (or inside the queue); from there a car, auto-rickshaw or bus " +
+      "keeps its strips, while a two-wheeler may still shift to pass. Further back, any vehicle may still choose " +
+      "where across the road to join the queue. The queue is counted back from the stop line, as the longest " +
+      "queue is, to the first stretch of this length with no standing vehicle.",
+  },
+} satisfies Record<string, Assumption>;
+
+/** Whether a vehicle class filters: 1 it does, 0 it does not. */
+export const FILTERING_CLASSES: Record<VehicleClass, Assumption> = {
+  "two-wheeler": {
+    value: 1,
+    unit: "1 filters, 0 does not",
+    state: "our-choice",
+    source:
+      "Our choice, fixed in the v1 spec (\"two-wheelers move through gaps to the front\"). Two-wheelers are narrow " +
+      "enough (0.7 m) to pass between and beside queued vehicles.",
+  },
+  car: {
+    value: 0,
+    unit: "1 filters, 0 does not",
+    state: "our-choice",
+    source: "Our choice, fixed in the v1 spec: only two-wheelers filter. A car waits in the strips it reached the queue in.",
+  },
+  "auto-rickshaw": {
+    value: 0,
+    unit: "1 filters, 0 does not",
+    state: "our-choice",
+    source:
+      "Our choice, fixed in the v1 spec: only two-wheelers filter. Auto-rickshaws are seen squeezing forward in queues " +
+      "too; that is not modelled.",
+  },
+  bus: {
+    value: 0,
+    unit: "1 filters, 0 does not",
+    state: "our-choice",
+    source: "Our choice, fixed in the v1 spec: only two-wheelers filter. A bus waits in the strips it reached the queue in.",
+  },
+};
+
+const FILTERING_NAMES: Record<keyof typeof FILTERING_ASSUMPTIONS, string> = {
+  filteringSpeedMps: "Filtering: greatest speed of a two-wheeler at a standing queue",
+  standingBelowMps: "Filtering: speed below which a vehicle on an approach at red or amber is part of the standing queue",
+  lookAheadM: "Filtering: how far behind the back of the standing queue a vehicle counts as at the queue",
+};
+
+/**
  * When a vehicle counts as a stuck vehicle and is released (stuck-vehicles.ts). Both are our own
  * choices, taken from the defaults of SUMO, which handles locks the same way.
  */
@@ -783,6 +859,26 @@ export const RULES: readonly Rule[] = [
       "road is blocked right across for its width) is left as it was.",
   },
   {
+    id: "rule.filtering",
+    name: "Filtering: at a standing queue on an approach whose signal is red or amber, a two-wheeler moves through gaps between and beside the queued vehicles at low speed, and the other vehicle classes keep their strips",
+    state: "our-choice",
+    source:
+      "Ours; no source gives it in this form. The standing queue is counted back from the stop line through vehicles " +
+      "slower than 1.4 m/s, to the first 10 m with none. A two-wheeler inside the queue goes no faster than 2.5 m/s " +
+      "(it slows to that comfortably as it comes up to the queue's back) and shifts sideways as anywhere else: into a gap wide enough for it and its side clearance (its strips), when that lets it move on further, " +
+      "the way alongside is free and the vehicle behind there need not brake hard. It keeps to strips that lead onto " +
+      "its turn. A car, auto-rickshaw or bus within 10 m of the queue's back, or inside the queue, does not shift sideways to pass it (only to sort for its way " +
+      "on or leave a blocked strip). Filtering stops when the signal turns green, so on green no vehicle moves in " +
+      "front of the head of the queue: vehicles are let in, nearest the stop line first, each after the vehicles ahead " +
+      "of it in its strips, and two-wheelers that reached the front go first and pull away faster than a car. It can " +
+      "be switched off in the scenario to compare; with lane discipline there is no filtering.",
+    note:
+      "Gap filling at standstill follows the strip-based rule set synthesised from Mathew et al. and Kanagaraj and " +
+      "Treiber (2018); the cap so the head of the queue still discharges is in the spirit of the restricted seepage of " +
+      "Agarwal and Laemmel (2016), but here it is a time cap (not on green), not a count. Not calibrated: how many " +
+      "two-wheelers reach the front, and how fast they filter, have not been compared with video.",
+  },
+  {
     id: "rule.priority-junction",
     name: "Priority junction: main-road traffic goes first; a side-road vehicle at the stop line goes only into a large enough gap",
     state: "our-choice",
@@ -937,6 +1033,32 @@ export function listAssumptions(): AssumptionGroup[] {
     }),
   };
 
+  const filteringGroup: AssumptionGroup = {
+    id: "filtering",
+    title: "Filtering",
+    about:
+      "Two-wheelers moving through the gaps in a standing queue at a red signal to reach the front. Only in mixed " +
+      "traffic, and only while the signal is red or amber. None of these comes from a measurement.",
+    assumptions: [
+      ...VEHICLE_CLASSES.map((vehicleClass) => {
+        const { value, unit, state, source, note } = FILTERING_CLASSES[vehicleClass];
+        return {
+          id: `filtering.${vehicleClass}.filters`,
+          name: `Filters: ${VEHICLE_CLASS_TITLES[vehicleClass].toLowerCase()}`,
+          value,
+          unit,
+          state,
+          source,
+          note,
+        };
+      }),
+      ...(Object.keys(FILTERING_NAMES) as (keyof typeof FILTERING_NAMES)[]).map((name) => {
+        const { value, unit, state, source } = FILTERING_ASSUMPTIONS[name];
+        return { id: `filtering.${name}`, name: FILTERING_NAMES[name], value, unit, state, source };
+      }),
+    ],
+  };
+
   const routeChoiceGroup: AssumptionGroup = {
     id: "route-choice",
     title: "Choosing between a flyover and the junction beneath",
@@ -983,5 +1105,5 @@ export function listAssumptions(): AssumptionGroup[] {
     assumptions: RULES.map(({ id, name, state, source, note }) => ({ id, name, value: null, unit: "", state, source, note })),
   };
 
-  return [...perClass, sharedGroup, junctionGroup, priorityGroup, routeChoiceGroup, stuckGroup, mixGroup, rulesGroup];
+  return [...perClass, sharedGroup, junctionGroup, priorityGroup, filteringGroup, routeChoiceGroup, stuckGroup, mixGroup, rulesGroup];
 }

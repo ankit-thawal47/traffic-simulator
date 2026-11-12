@@ -189,6 +189,13 @@ export interface RunInput {
    * the road carries mixed traffic, with vehicles sharing its width strip by strip.
    */
   laneDiscipline?: boolean;
+  /**
+   * Filtering: two-wheelers moving through the gaps in a standing queue at a red
+   * signal to reach the front (filtering.ts). On by default in mixed traffic; off
+   * here to compare the same scenario without it. With lane discipline on there
+   * is no filtering, whatever this says.
+   */
+  filtering?: boolean;
   initialVehicles?: InitialVehicle[];
 }
 

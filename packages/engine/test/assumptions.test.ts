@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   BENGALURU_VEHICLE_MIX,
+  FILTERING_ASSUMPTIONS,
   JUNCTION_ASSUMPTIONS,
   listAssumptions,
   NOT_MODELLED,
@@ -74,6 +75,7 @@ describe("the list of assumptions shown to the planner", () => {
       "shared",
       "junctions",
       "priority-junctions",
+      "filtering",
       "route-choice",
       "stuck-vehicles",
       "vehicle-mix",
@@ -93,6 +95,19 @@ describe("the list of assumptions shown to the planner", () => {
     for (const rule of ["rule.route-choice", "rule.diverge-and-merge", "rule.levels", "rule.sorting", "rule.blocked-strip"]) {
       expect(listed(rule).state).toBe("our-choice");
     }
+  });
+
+  it("has filtering: only two-wheelers filter, with its speed, what counts as standing and how far it looks, each our choice", () => {
+    expect(listed("filtering.two-wheeler.filters").value).toBe(1);
+    for (const vehicleClass of ["car", "auto-rickshaw", "bus"]) expect(listed(`filtering.${vehicleClass}.filters`).value).toBe(0);
+    const names = Object.keys(FILTERING_ASSUMPTIONS) as (keyof typeof FILTERING_ASSUMPTIONS)[];
+    expect(names).toHaveLength(3);
+    for (const name of names) {
+      expect(listed(`filtering.${name}`).value).toBe(FILTERING_ASSUMPTIONS[name].value);
+      expect(listed(`filtering.${name}`).state).toBe("our-choice");
+      expect(listed(`filtering.${name}`).source.length).toBeGreaterThan(80);
+    }
+    expect(listed("rule.filtering").state).toBe("our-choice");
   });
 
   it("has an accepted gap at a priority junction for every vehicle class, smallest for two-wheelers, with its source", () => {

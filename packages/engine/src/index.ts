@@ -2,6 +2,8 @@ export { createRun } from "./run";
 export { resultsExcludingWarmUp } from "./warm-up";
 export {
   BENGALURU_VEHICLE_MIX,
+  FILTERING_ASSUMPTIONS,
+  FILTERING_CLASSES,
   JUNCTION_ASSUMPTIONS,
   listAssumptions,
   ROUTE_CHOICE_ASSUMPTIONS,
