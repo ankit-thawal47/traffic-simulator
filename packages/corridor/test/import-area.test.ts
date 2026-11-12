@@ -52,6 +52,14 @@ describe("importing an area", () => {
     for (const road of network.roads) expect(roadLengthM(road)).toBeLessThan(334);
   });
 
+  it("keeps a signal node's tags when the Overpass answer lists the node again without them", () => {
+    const lesser = crossing.elements.map((element) =>
+      element.type === "way" ? { ...element, tags: { ...element.tags, highway: "secondary" } } : element,
+    );
+    const { network } = imported(area([...lesser, node(2, 0, 0)]));
+    expect(network.junctions![0]!.control).toBe("signal");
+  });
+
   it("takes lanes from OpenStreetMap where tagged, and guesses them by class where not, saying which", () => {
     const { network, guesses } = imported(crossing);
     const eastRoads = network.roads.filter((road) => road.id.startsWith("w200"));
@@ -146,6 +154,28 @@ describe("importing an area", () => {
       ]),
     );
     expect(outcome).toEqual({ ok: false, message: expect.stringMatching(/cross without meeting.*neither is tagged as a bridge/) });
+  });
+
+  it("raises the whole of a bridge drawn as several ways, not only the way that passes over the road", () => {
+    const { network } = imported(
+      area([
+        node(1, -0.004, 0),
+        node(2, -0.0015, 0),
+        node(7, -0.0005, 0),
+        node(3, 0.0015, 0),
+        node(9, 0.004, 0),
+        node(4, 0, -0.004),
+        node(5, 0, 0.004),
+        way(100, [1, 2], { highway: "trunk", oneway: "yes" }),
+        way(101, [2, 7], { highway: "trunk", oneway: "yes", bridge: "yes", layer: "1", lanes: "2" }),
+        way(102, [7, 3], { highway: "trunk", oneway: "yes", bridge: "yes", layer: "1" }),
+        way(103, [3, 9], { highway: "trunk", oneway: "yes" }),
+        way(200, [4, 5], { highway: "primary" }),
+      ]),
+    );
+    const flyover = network.roads.find((road) => road.id.startsWith("w100"))!;
+    const crossingAt = flyover.points.find((point) => Math.abs(point.y) < 1);
+    expect(crossingAt?.z ?? Math.max(...flyover.points.map((point) => point.z ?? 0))).toBeGreaterThan(3.5);
   });
 
   it("raises a bridge that passes over another road, and keeps it out of the junctions beneath", () => {

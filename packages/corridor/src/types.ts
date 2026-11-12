@@ -183,6 +183,12 @@ export interface NetworkCorrections {
    * point by point, just far enough. Applied after the joins.
    */
   keepApart?: { roadId: string; fromRoadId: string; reason: string }[];
+  /**
+   * Roads cut short while raised (as at the edge of an imported area), by
+   * their ids in the network: at a cut start or end the road is at the deck
+   * height, not on the ground.
+   */
+  raisedWhereCut?: { atStart: string[]; atEnd: string[] };
 }
 
 export interface NetworkRoadCorrection {

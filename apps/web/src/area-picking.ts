@@ -22,14 +22,19 @@ export const AREA_PRESETS: readonly AreaPreset[] = [
     bounds: { south: 12.9335, west: 77.6225, north: 12.94, east: 77.6305 },
   },
   {
-    id: "gemini",
-    name: "Chennai, Anna Salai at the Gemini flyover",
-    bounds: { south: 13.056, west: 80.2475, north: 13.063, east: 80.2555 },
+    id: "kolkata-ajc-bose",
+    name: "Kolkata, AJC Bose Road flyover over Camac Street",
+    bounds: { south: 22.54, west: 88.35, north: 22.547, east: 88.358 },
   },
   {
-    id: "gurugram-nh48",
-    name: "Gurugram, NH 48 with its service roads",
-    bounds: { south: 28.495, west: 77.087, north: 28.502, east: 77.095 },
+    id: "mumbai-eeh-vikhroli",
+    name: "Mumbai, Eastern Express Highway at Vikhroli",
+    bounds: { south: 19.104, west: 72.923, north: 19.111, east: 72.931 },
+  },
+  {
+    id: "gemini",
+    name: "Chennai, Anna Salai at Nungambakkam High Road",
+    bounds: { south: 13.056, west: 80.2475, north: 13.063, east: 80.2555 },
   },
 ];
 

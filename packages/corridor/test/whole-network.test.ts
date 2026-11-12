@@ -114,6 +114,24 @@ describe("the whole network of a corridor", () => {
     ]);
   });
 
+  it("keeps a raised road at the deck height where it is cut while raised, as at the edge of an imported area", () => {
+    const network = networkOf(
+      corrections([road("deck", [11], { level: "raised" }), road("down", [12])], {
+        roads: [{ id: "flyover", name: "The flyover", parts: ["deck", "down"] }],
+        raisedWhereCut: { atStart: ["flyover"], atEnd: [] },
+      }),
+    );
+
+    // Starting cut at the deck, it comes down over the last 150 m before the ground part at 668 m.
+    expect(byId(network, "flyover").points.map((point) => [Math.round(point.y), point.z ?? 0])).toEqual([
+      [223, 6],
+      [445, 6],
+      [518, 6],
+      [668, 0],
+      [891, 0],
+    ]);
+  });
+
   it("where a road divides, puts the two roads side by side after one road as wide as both", () => {
     const input = corrections(
       [road("in", [10]), road("on", [11]), road("off", [30], { lanes: 2, widthM: 7 })],

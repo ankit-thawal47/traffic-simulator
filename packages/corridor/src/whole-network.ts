@@ -521,8 +521,10 @@ function heightsOf(roads: Working[], junctions: Junction[], settings: NetworkCor
   const atStart = new Map<string, number>();
   const atEnd = new Map<string, number>();
   for (const road of roads) {
-    atStart.set(road.id, road.line.raised[0] && before.has(road.id) ? Infinity : 0);
-    atEnd.set(road.id, road.line.raised[road.line.raised.length - 1] && after.has(road.id) ? Infinity : 0);
+    const cutStart = settings.raisedWhereCut?.atStart.includes(road.id) ?? false;
+    const cutEnd = settings.raisedWhereCut?.atEnd.includes(road.id) ?? false;
+    atStart.set(road.id, road.line.raised[0] && (before.has(road.id) || cutStart) ? Infinity : 0);
+    atEnd.set(road.id, road.line.raised[road.line.raised.length - 1] && (after.has(road.id) || cutEnd) ? Infinity : 0);
   }
   for (let pass = 0; pass < roads.length; pass++) {
     for (const road of roads) {
@@ -570,7 +572,12 @@ function heightsOf(roads: Working[], junctions: Junction[], settings: NetworkCor
       const fromBack = back[i]!;
       const fromOn = on[i + 1]!;
       const highest = (fromOn + step - fromBack) / 2;
-      const breaks = [highest, ...(slopeM - fromBack < highest ? [slopeM - fromBack, step - (slopeM - fromOn)] : [])]
+      // A stretch cut while raised at one end (an infinite distance to the ground that way) has only the slope from the other end.
+      const breaks = (
+        Number.isFinite(highest)
+          ? [highest, ...(slopeM - fromBack < highest ? [slopeM - fromBack, step - (slopeM - fromOn)] : [])]
+          : [fromBack === Infinity ? step - (slopeM - fromOn) : slopeM - fromBack]
+      )
         .filter((alongM) => alongM > 0.5 && alongM < step - 0.5)
         .sort((p, q) => p - q)
         .filter((alongM, at, all) => at === 0 || alongM - all[at - 1]! > 0.5);

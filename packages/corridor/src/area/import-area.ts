@@ -16,7 +16,7 @@
  *
  * Pure: no browser, no Node.
  */
-import { createRun, roadLengthM, type Demand, type DemandFlow, type Junction, type Network, type Point, type SignalPlan } from "@traffic-simulator/engine";
+import { createRun, junctionOutline, type Demand, type DemandFlow, type Junction, type Network, type Point, type SignalPlan } from "@traffic-simulator/engine";
 import { importCorridor } from "../import-corridor";
 import type { Corrections, Evidence, JoinCorrection, JunctionCorrection, OsmElement, OsmNode, OsmWay, RoadCorrection, RoadEvidence } from "../types";
 import {
@@ -146,8 +146,8 @@ interface Carriageway {
 type ClusterKind =
   | { kind: "continue"; from: Carriageway; to: Carriageway }
   | { kind: "ends" }
-  | { kind: "diverge"; from: Carriageway; main: Carriageway; other: Carriageway }
-  | { kind: "merge"; main: Carriageway; other: Carriageway; onto: Carriageway }
+  | { kind: "diverge"; from?: Carriageway; main: Carriageway; other: Carriageway }
+  | { kind: "merge"; main: Carriageway; other: Carriageway; onto?: Carriageway }
   | { kind: "crossing"; ins: Carriageway[]; outs: Carriageway[] };
 
 const stretch = (a: Point, b: Point): number => Math.hypot(b.x - a.x, b.y - a.y);
@@ -226,7 +226,7 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
   const nodes = new Map<number, OsmNode>();
   const osmWays: OsmWay[] = [];
   for (const element of data.elements) {
-    if (element.type === "node") nodes.set(element.id, element);
+    if (element.type === "node") nodes.set(element.id, element.tags ? element : { ...element, ...(nodes.get(element.id)?.tags ? { tags: nodes.get(element.id)!.tags } : {}) });
     else if (element.type === "way") osmWays.push(element);
   }
   const inside = (node: { lat: number; lon: number }): boolean =>
@@ -357,6 +357,18 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
       refuse(`${describeWay(over)} passes over ${describeWay(under)}, itself a bridge. The importer cannot express three levels.`);
     }
     raisedWays.add(over.id);
+  }
+  // The rest of the same structure: bridge ways on a raised layer joined end to end, or dividing and joining, with a raised way.
+  for (let grown = true; grown; ) {
+    grown = false;
+    const raisedNodes = new Set(ways.filter((way) => raisedWays.has(way.id)).flatMap((way) => [way.nodes[0]!, way.nodes[way.nodes.length - 1]!]));
+    for (const way of ways) {
+      if (raisedWays.has(way.id) || !isBridge(way) || layerOf(way) < 1) continue;
+      if (raisedNodes.has(way.nodes[0]!) || raisedNodes.has(way.nodes[way.nodes.length - 1]!)) {
+        raisedWays.add(way.id);
+        grown = true;
+      }
+    }
   }
 
   // --- Vertices and edges: ways split where they meet, and joined end to end where nothing else meets. ---
@@ -501,6 +513,8 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
 
   const internalEdges = new Set<Edge>();
   const dropped = new Set<string>();
+  /** Places where roads divide or join that the engine cannot run side by side: made junctions instead. */
+  const asCrossing = new Set<number>();
   const adjustments: string[] = [];
   /** Vertices joined into one junction: each vertex's representative. */
   let cluster = new Map<number, number>();
@@ -538,14 +552,56 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
   const allCarriageways = edges.flatMap(carriagewaysOf);
   const rankOf = (road: Carriageway): number => CLASS_RANK[road.cls];
 
-  // The shape of the network is settled by trying, then leaving out or joining what does not fit, and trying again.
-  let settled: Settled | undefined;
-  for (let attempt = 0; attempt < 60 && !settled; attempt++) {
-    cluster = clustersOf(edges, internalEdges, ends, endsAt);
-    const result = settle();
-    if (result.ok) settled = result.value;
+  // The shape of the network is settled by trying, then leaving out or joining what does not fit, and trying again;
+  // then built, and a road that would overlap another on the same level is left out and it is tried again.
+  let built: Built | undefined;
+  let turnNotes: string[] = [];
+  let demand: Demand = { flows: [] };
+  for (let round = 0; !built; round++) {
+    let settled: Settled | undefined;
+    for (let attempt = 0; attempt < 60 && !settled; attempt++) {
+      cluster = clustersOf(edges, internalEdges, ends, endsAt);
+      const result = settle();
+      if (result.ok) settled = result.value;
+    }
+    if (!settled) refuse("its roads meet in too many places too close together for the importer to lay them out. Pick a smaller or simpler area.");
+    const candidate = build(settled);
+    const overlap = overlapIn(candidate.network);
+    const judged = overlap ? undefined : engineJudges(candidate.network, candidate.imported.roadNames);
+    if (judged?.ok) {
+      built = { ...candidate, network: judged.network };
+      turnNotes = judged.notes;
+      demand = judged.demand;
+      break;
+    }
+    const sideBySide = judged && !judged.ok ? /Junction "([dm])(\d+)(-in|-out)?" has no signal/.exec(judged.message) : null;
+    if (sideBySide && round < 40) {
+      const key = cluster.get(Number(sideBySide[2])) ?? cluster.get(-Number(sideBySide[2]));
+      if (key !== undefined && !asCrossing.has(key)) {
+        asCrossing.add(key);
+        adjustments.push(`Where roads divide or join at ${placeName(key)} they turn too sharply to lie side by side, so it is made a junction: ${judged!.message}.`);
+        continue;
+      }
+    }
+    const roadIds = overlap ? overlap.roadIds : judged!.roadIds;
+    const what = overlap
+      ? `as OpenStreetMap draws it, it would overlap ${overlap.what} on the same level`
+      : `the engine cannot run the network with it (${judged!.message})`;
+    const chains = roadIds.map((id) => candidate.chainOf.get(id)).filter((chain): chain is Carriageway[] => chain !== undefined);
+    const culprit = chains
+      .filter((chain) => chain.every((road) => road.edge.oneway))
+      .sort((p, q) => Math.max(...p.map(rankOf)) - Math.max(...q.map(rankOf)) || chainLengthOf(p) - chainLengthOf(q))[0];
+    if (!culprit || round >= 40) {
+      refuse(
+        overlap
+          ? `two of its roads would overlap on the same level as OpenStreetMap draws them (${overlap.what}), and the importer cannot lay them apart.`
+          : `the engine would not run its network: ${judged!.message}.`,
+      );
+    }
+    for (const road of culprit) dropped.add(road.id);
+    adjustments.push(`"${culprit[0]!.name}" (${culprit[0]!.id}) is left out: ${what}.`);
   }
-  if (!settled) refuse("its roads meet in too many places too close together for the importer to lay them out. Pick a smaller or simpler area.");
+  const { imported, guesses, junctionNames, corrections } = built;
 
   interface Settled {
     chains: Carriageway[][];
@@ -576,8 +632,24 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
     for (const [key, vertices] of members) {
       const i = ins.get(key) ?? [];
       const o = outs.get(key) ?? [];
-      const single = vertices.length === 1;
-      if (i.length === 0 || o.length === 0) kinds.set(key, { kind: "ends" });
+      const single = vertices.length === 1 && !asCrossing.has(key);
+      if (asCrossing.has(key) && i.length > 0 && o.length > 0) {
+        kinds.set(key, { kind: "crossing", ins: i, outs: o });
+        continue;
+      }
+      const byRank = (list: Carriageway[]) => list.slice().sort((p, q) => rankOf(q) - rankOf(p) || q.lanes - p.lanes || q.lengthM - p.lengthM);
+      if ((i.length === 0 && o.length > 2) || (o.length === 0 && i.length > 2)) {
+        // Several roads start (or end) at one node with nothing arriving (or leaving): keep the two most major.
+        const least = byRank(i.length === 0 ? o : i).at(-1)!;
+        return drop(least, "it starts or ends at the same node as two or more other roads, with no road to divide from or join, which the importer cannot lay out.");
+      } else if (single && i.length === 0 && o.length === 2) {
+        // Two roads start at one node where the road they divide from is outside the area, or left out: they still divide there.
+        const [main, other] = byRank(o);
+        kinds.set(key, { kind: "diverge", main: main!, other: other! });
+      } else if (single && o.length === 0 && i.length === 2) {
+        const [main, other] = byRank(i);
+        kinds.set(key, { kind: "merge", main: main!, other: other! });
+      } else if (i.length === 0 || o.length === 0) kinds.set(key, { kind: "ends" });
       else if (i.length === 1 && o.length === 1) {
         if (i[0]!.edge === o[0]!.edge) kinds.set(key, { kind: "ends" });
         else if (single) kinds.set(key, { kind: "continue", from: i[0]!, to: o[0]! });
@@ -643,6 +715,12 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
     for (const chain of chains) {
       const first = chain[0]!;
       const last = chain[chain.length - 1]!;
+      const startKey = keyOf(first.fromVertex);
+      if (startKey !== undefined && startKey === keyOf(last.toVertex) && kinds.get(startKey)?.kind === "crossing") {
+        // A road that leaves a junction and comes back to it (a slip road inside it): part of the junction.
+        for (const road of chain) internalEdges.add(road.edge);
+        return { ok: false };
+      }
       const left = chainLength(chain) - cutAt(first.fromVertex, "start", first) - cutAt(last.toVertex, "end", last);
       if (left >= LEAST_ROAD_M) continue;
       const fromKey = keyOf(first.fromVertex);
@@ -707,14 +785,25 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
     return Math.round(Math.min(45, most) * 10) / 10;
   }
 
-  // --- The corrections the importer works from. ---
-  const { chains, kinds, setBacks } = settled;
+  interface Built {
+    network: Network;
+    imported: ReturnType<typeof importCorridor>;
+    guesses: Guess[];
+    junctionNames: Map<string, string>;
+    corrections: Corrections;
+    /** The carriageways each road of the network is made of. */
+    chainOf: Map<string, Carriageway[]>;
+  }
+
+  /** The corrections the importer works from, and what it makes of them. */
+  function build({ chains, kinds, setBacks }: Settled): Built {
   const syntheticWays: OsmWay[] = [];
   const roads: RoadCorrection[] = [];
   const networkRoads: { id: string; name: string; parts: string[] }[] = [];
   /** Each chain's road id, the id of its first and last part, and the edges it comes from. */
   const chainInfo = new Map<Carriageway, { id: string; firstPart: string; lastPart: string; road: Carriageway }>();
   const guesses: Guess[] = [];
+  const raisedWhereCut = { atStart: [] as string[], atEnd: [] as string[] };
   let nextWayId = -1;
   for (const chain of chains) {
     const id = chain[0]!.id;
@@ -752,6 +841,11 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
       }
     }
     if (partIds.length > 1) networkRoads.push({ id, name: longest.name, parts: partIds });
+    // A flyover cut by the edge of the area is at its deck height there, not on the ground.
+    const firstLevel = roads[roads.length - partIds.length]!.level;
+    const lastLevel = roads[roads.length - 1]!.level;
+    if (chain[0]!.fromVertex < 0 && firstLevel === "raised") raisedWhereCut.atStart.push(id);
+    if (chain[chain.length - 1]!.toVertex < 0 && lastLevel === "raised") raisedWhereCut.atEnd.push(id);
     const info = { id, firstPart: partIds[0]!, lastPart: partIds[partIds.length - 1]!, road: longest };
     for (const road of chain) chainInfo.set(road, info);
     for (const guess of longest.guesses) guesses.push({ ...guess, roadId: id });
@@ -774,9 +868,9 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
       const reason = `Where ${kind.kind === "diverge" ? `${kind.other.name} leaves ${kind.main.name}` : `${kind.other.name} joins ${kind.main.name}`} (${placeName(key)}).`;
       const shared = { id: `s${Math.abs(key)}`, name: kind.main.name };
       if (kind.kind === "diverge") {
-        joins.push({ id, kind: "diverge", fromRoadId: chainInfo.get(kind.from)!.id, mainRoadId: main.id, otherRoadId: other.id, shared, reason });
+        joins.push({ id, kind: "diverge", ...(kind.from ? { fromRoadId: chainInfo.get(kind.from)!.id } : {}), mainRoadId: main.id, otherRoadId: other.id, shared, reason });
       } else {
-        joins.push({ id, kind: "merge", mainRoadId: main.id, otherRoadId: other.id, ontoRoadId: chainInfo.get(kind.onto)!.id, shared, reason });
+        joins.push({ id, kind: "merge", mainRoadId: main.id, otherRoadId: other.id, ...(kind.onto ? { ontoRoadId: chainInfo.get(kind.onto)!.id } : {}), shared, reason });
       }
       continue;
     }
@@ -860,6 +954,7 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
       roads: networkRoads,
       joins,
       keepApart: keepApartPairs(chains.map((chain) => ({ id: chain[0]!.id, chain }))),
+      raisedWhereCut,
     },
   };
   const syntheticElements: OsmElement[] = [...[...nodes.values()].filter((node) => node.id < 0 || position.has(node.id)), ...syntheticWays];
@@ -867,8 +962,19 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
   if (imported.problems.length > 0 || !imported.network) {
     refuse(`its roads could not be laid out as the engine needs: ${imported.problems.slice(0, 2).join("; ")}.`);
   }
-  let network = imported.network;
-  checkLevels(network, crossings.map((crossing) => crossing.point));
+  checkLevels(imported.network, crossings.map((crossing) => crossing.point));
+  const chainOf = new Map<string, Carriageway[]>();
+  for (const chain of chains) chainOf.set(chain[0]!.id, chain);
+  for (const [key, kind] of kinds) {
+    if (kind.kind === "diverge" || kind.kind === "merge") {
+      const other = chains.find((chain) => chain.includes(kind.other));
+      if (other) chainOf.set(`s${Math.abs(key)}`, other);
+    }
+  }
+  return { network: imported.network, imported, guesses, junctionNames, corrections, chainOf };
+  }
+
+  const network = built.network;
   if (network.roads.length > AREA_NETWORK_LIMITS.roads || (network.junctions?.length ?? 0) > AREA_NETWORK_LIMITS.junctions) {
     refuse(
       `it makes ${network.roads.length} roads and ${network.junctions?.length ?? 0} junctions; the most is ${AREA_NETWORK_LIMITS.roads} roads ` +
@@ -878,26 +984,19 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
   const roadNames: Record<string, string> = { ...imported.roadNames };
   const allAdjustments = [...adjustments, ...imported.adjustments];
 
-  // The engine is the judge: a turn it cannot make is left out, with the reason, and it is asked again.
-  let demand = demandFor(network);
-  for (let attempt = 0; ; attempt++) {
-    if (demand.flows.length === 0) refuse("no traffic can cross it: no road entering the area leads to a road leaving it.");
-    try {
-      createRun({ network, demand, seed: 1 });
-      break;
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      const turn = /turn from road "([^"]+)" to road "([^"]+)" is too (tight|short)/.exec(message);
-      if (!turn || attempt > 40) refuse(`the engine would not run its network: ${message}.`);
-      network = withoutConnection(network, turn[1]!, turn[2]!);
-      allAdjustments.push(`The turn from "${roadNames[turn[1]!] ?? turn[1]}" to "${roadNames[turn[2]!] ?? turn[2]}" is left out: ${message.replace(/^The turn[^:]*: /, "")}.`);
-      demand = demandFor(network);
-    }
-  }
+  allAdjustments.push(...turnNotes);
   for (const flowEntry of new Set(demand.flows.map((flow) => flow.entryRoadId))) {
     const flows = demand.flows.filter((flow) => flow.entryRoadId === flowEntry);
     const total = flows.reduce((sum, flow) => sum + flow.vehiclesPerHour, 0);
     guesses.push({ kind: "demand", roadId: flowEntry, value: `${Math.round(total)} vehicles per hour, to ${flows.length} exit(s)`, guessed: true, rule: DEMAND_RULE });
+  }
+  // The one wide road where roads divide or join has what both have.
+  for (const road of network.roads) {
+    if (guesses.some((guess) => guess.kind === "lanes" && guess.roadId === road.id)) continue;
+    const rule = "Where roads divide or join, the one road as wide as both has the lanes and the width of both together.";
+    guesses.push({ kind: "lanes", roadId: road.id, value: String(road.lanes), guessed: true, rule });
+    guesses.push({ kind: "width", roadId: road.id, value: `${road.widthM} m`, guessed: true, rule });
+    guesses.push({ kind: "speed-limit", roadId: road.id, value: `${Math.round(road.speedLimitMps * 3.6)} km/h`, guessed: true, rule: "That of the main road of the two." });
   }
   guesses.push({ kind: "vehicle-mix", value: "65% two-wheelers, 22% cars, 5.5% auto-rickshaws, 4% buses", guessed: true, rule: VEHICLE_MIX_RULE });
 
@@ -919,7 +1018,7 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
     fingerprint: fingerprintOf(network),
   };
 
-  /** Pairs of roads on the same level drawn closer than half of both widths, away from their ends: the narrower is moved. */
+  /** Pairs of roads drawn alongside closer than half of both widths, away from their ends (on any level: ramps rise beside roads): the narrower is moved. */
   function keepApartPairs(list: { id: string; chain: Carriageway[] }[]) {
     const pairs: { roadId: string; fromRoadId: string; reason: string }[] = [];
     const lines = list.map(({ id, chain }) => {
@@ -927,13 +1026,16 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
         const line = road.offsetM ? movedLeft(road.points, road.offsetM) : road.points;
         return i === 0 ? line : line.slice(1);
       });
-      const raised = chain.some((road) => road.edge.parts.some((part) => raisedWays.has(part.way.id)));
-      return { id, chain, points, raised, widthM: chain[0]!.widthM, rank: Math.max(...chain.map(rankOf)) };
+      const ends = [chain[0]!.fromVertex, chain[chain.length - 1]!.toVertex].map((vertex) => cluster.get(vertex) ?? vertex);
+      return { id, chain, points, ends, widthM: chain[0]!.widthM, rank: Math.max(...chain.map(rankOf)) };
     });
     for (const a of lines) {
       for (const b of lines) {
-        if (a === b || a.raised || b.raised) continue;
+        if (a === b) continue;
         if (a.chain.some((road) => b.chain.some((other) => other.edge === road.edge))) continue;
+        // Roads that divide or join, or meet at a junction, are laid out there by the importer; roads that cross pass over one another.
+        if (a.ends.some((end) => b.ends.includes(end))) continue;
+        if (linesCross(a.points, b.points)) continue;
         // a is the one moved: the lesser, or the later id of two alike.
         if (a.rank > b.rank || (a.rank === b.rank && (a.widthM > b.widthM || (a.widthM === b.widthM && a.id < b.id)))) continue;
         const needM = (a.widthM + b.widthM) / 2;
@@ -949,6 +1051,187 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
     }
     return pairs;
   }
+}
+
+/** The OpenStreetMap road (edge) a road of the network comes from: its id without the direction letter. */
+const sourceRoad = (id: string): string => id.replace(/[fb]?(~\d+)?$/, "");
+
+const chainLengthOf = (chain: { lengthM: number }[]): number => chain.reduce((sum, road) => sum + road.lengthM, 0);
+
+/** Two vehicles closer in height than this are on the same level (the engine's consistency checks use 3 m). */
+const SAME_LEVEL_M = 3;
+/** Roads that only touch at their edges do not overlap. */
+const EDGE_SLACK_M = 0.25;
+
+interface Piece {
+  corners: Point[];
+  z: number;
+}
+
+/** The ground each stretch of a road covers, with its mean height. */
+function piecesOf(points: Point[], widthM: number): Piece[] {
+  const pieces: Piece[] = [];
+  const half = Math.max(0.1, widthM / 2 - EDGE_SLACK_M);
+  for (let i = 1; i < points.length; i++) {
+    const a = points[i - 1]!;
+    const b = points[i]!;
+    const length = stretch(a, b);
+    if (length < 1e-6) continue;
+    const ux = (b.x - a.x) / length;
+    const uy = (b.y - a.y) / length;
+    // Shortened at each end too, so that two roads meeting end to end do not count.
+    const trim = Math.min(EDGE_SLACK_M, length / 4);
+    const a2 = { x: a.x + ux * trim, y: a.y + uy * trim };
+    const b2 = { x: b.x - ux * trim, y: b.y - uy * trim };
+    const nx = -uy * half;
+    const ny = ux * half;
+    pieces.push({
+      corners: [
+        { x: a2.x + nx, y: a2.y + ny },
+        { x: b2.x + nx, y: b2.y + ny },
+        { x: b2.x - nx, y: b2.y - ny },
+        { x: a2.x - nx, y: a2.y - ny },
+      ],
+      z: ((a.z ?? 0) + (b.z ?? 0)) / 2,
+    });
+  }
+  return pieces;
+}
+
+function convexOverlap(a: Point[], b: Point[]): boolean {
+  for (const shape of [a, b]) {
+    for (let i = 0; i < shape.length; i++) {
+      const p = shape[i]!;
+      const q = shape[(i + 1) % shape.length]!;
+      const nx = q.y - p.y;
+      const ny = p.x - q.x;
+      let minA = Infinity;
+      let maxA = -Infinity;
+      for (const point of a) {
+        const d = point.x * nx + point.y * ny;
+        minA = Math.min(minA, d);
+        maxA = Math.max(maxA, d);
+      }
+      let minB = Infinity;
+      let maxB = -Infinity;
+      for (const point of b) {
+        const d = point.x * nx + point.y * ny;
+        minB = Math.min(minB, d);
+        maxB = Math.max(maxB, d);
+      }
+      if (maxA <= minB || maxB <= minA) return false;
+    }
+  }
+  return true;
+}
+
+function boundsOf(points: Point[]): { minX: number; maxX: number; minY: number; maxY: number } {
+  return {
+    minX: Math.min(...points.map((point) => point.x)),
+    maxX: Math.max(...points.map((point) => point.x)),
+    minY: Math.min(...points.map((point) => point.y)),
+    maxY: Math.max(...points.map((point) => point.y)),
+  };
+}
+
+/**
+ * The first place where two roads of the network, or a road and a junction it
+ * is not part of, cover the same ground on the same level: vehicles there
+ * would drive through one another. Roads of one junction are laid out by the
+ * importer and the engine, and are not compared.
+ */
+function overlapIn(network: Network): { roadIds: string[]; what: string } | undefined {
+  const junctions = network.junctions ?? [];
+  const junctionsOf = new Map<string, Set<string>>();
+  for (const junction of junctions) {
+    for (const { fromRoadId, toRoadId } of junction.connections) {
+      for (const id of [fromRoadId, toRoadId]) junctionsOf.set(id, new Set([...(junctionsOf.get(id) ?? []), junction.id]));
+    }
+  }
+  const roads = network.roads.map((road) => {
+    const pieces = piecesOf(road.points, road.widthM);
+    return { road, pieces, box: boundsOf(pieces.flatMap((piece) => piece.corners)) };
+  });
+  const apart = (p: { minX: number; maxX: number; minY: number; maxY: number }, q: typeof p) =>
+    p.maxX < q.minX || q.maxX < p.minX || p.maxY < q.minY || q.maxY < p.minY;
+  for (let i = 0; i < roads.length; i++) {
+    for (let j = i + 1; j < roads.length; j++) {
+      const a = roads[i]!;
+      const b = roads[j]!;
+      if (apart(a.box, b.box)) continue;
+      const shared = [...(junctionsOf.get(a.road.id) ?? [])].some((id) => junctionsOf.get(b.road.id)?.has(id));
+      // The two directions of one two-way road lie side by side by construction (they may touch on a sharp bend).
+      if (shared || sourceRoad(a.road.id) === sourceRoad(b.road.id)) continue;
+      for (const pa of a.pieces) {
+        for (const pb of b.pieces) {
+          if (Math.abs(pa.z - pb.z) < SAME_LEVEL_M && convexOverlap(pa.corners, pb.corners)) {
+            return { roadIds: [a.road.id, b.road.id], what: `roads "${a.road.id}" and "${b.road.id}"` };
+          }
+        }
+      }
+    }
+  }
+  for (const junction of junctions) {
+    if (junction.control === "none") continue;
+    const outline = junctionOutline(network, junction);
+    if (outline.length < 3) continue;
+    const own = new Set(junction.connections.flatMap((connection) => [connection.fromRoadId, connection.toRoadId]));
+    const box = boundsOf(outline);
+    for (const { road, pieces, box: roadBox } of roads) {
+      if (own.has(road.id) || apart(box, roadBox)) continue;
+      if (pieces.some((piece) => piece.z < SAME_LEVEL_M && convexHullOverlap(outline, piece.corners))) {
+        return { roadIds: [road.id], what: `road "${road.id}" and junction "${junction.id}"` };
+      }
+    }
+  }
+  return undefined;
+}
+
+/** A junction's outline may not be convex: compare its convex hull, which errs towards finding an overlap. */
+function convexHullOverlap(outline: Point[], piece: Point[]): boolean {
+  const sorted = outline.slice().sort((p, q) => p.x - q.x || p.y - q.y);
+  const cross = (o: Point, a: Point, b: Point) => (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+  const lower: Point[] = [];
+  for (const point of sorted) {
+    while (lower.length >= 2 && cross(lower[lower.length - 2]!, lower[lower.length - 1]!, point) <= 0) lower.pop();
+    lower.push(point);
+  }
+  const upper: Point[] = [];
+  for (const point of sorted.reverse()) {
+    while (upper.length >= 2 && cross(upper[upper.length - 2]!, upper[upper.length - 1]!, point) <= 0) upper.pop();
+    upper.push(point);
+  }
+  const hull = [...lower.slice(0, -1), ...upper.slice(0, -1)];
+  return hull.length >= 3 && convexOverlap(hull, piece);
+}
+
+/**
+ * The engine is the judge. A turn it cannot make is left out, with the
+ * reason, and it is asked again; any other refusal names the roads it is
+ * about, for the importer to leave one out.
+ */
+function engineJudges(
+  given: Network,
+  roadNames: Record<string, string>,
+): { ok: true; network: Network; demand: Demand; notes: string[] } | { ok: false; roadIds: string[]; message: string } {
+  let network = given;
+  let demand = demandFor(network);
+  const notes: string[] = [];
+  for (let attempt = 0; attempt < 60; attempt++) {
+    if (demand.flows.length === 0) refuse("no traffic can cross it: no road entering the area leads to a road leaving it.");
+    try {
+      createRun({ network, demand, seed: 1 });
+      return { ok: true, network, demand, notes };
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      const turn = /turn from road "([^"]+)" to road "([^"]+)" is too (tight|short)/.exec(message);
+      if (!turn) return { ok: false, roadIds: [...message.matchAll(/road "([^"]+)"/g)].map((match) => match[1]!), message };
+      network = withoutConnection(network, turn[1]!, turn[2]!);
+      notes.push(`The turn from "${roadNames[turn[1]!] ?? turn[1]}" to "${roadNames[turn[2]!] ?? turn[2]}" is left out: ${message.replace(/^The turn[^:]*: /, "")}.`);
+      demand = demandFor(network);
+    }
+  }
+  return { ok: false, roadIds: [], message: "too many turns it cannot make" };
 }
 
 /** The network without one connection; a signal phase left with no approach is dropped with it. */
@@ -990,7 +1273,7 @@ export function demandFor(network: Network): Demand {
       feeds.add(fromRoadId);
     }
   }
-  const sourceOf = (id: string): string => id.replace(/[fb]?(~\d+)?$/, "");
+  const sourceOf = sourceRoad;
   const flows: DemandFlow[] = [];
   for (const entry of network.roads) {
     if (fed.has(entry.id)) continue;
@@ -1021,21 +1304,34 @@ export function demandFor(network: Network): Demand {
 /** Where a raised road passes over another, the two must be at least a vehicle's height apart, or the area is refused. */
 function checkLevels(network: Network, points: Point[]): void {
   for (const point of points) {
-    const heights: { id: string; z: number }[] = [];
-    for (const road of network.roads) {
-      const near = nearestHeight(road.points, point);
-      if (near && near.distanceM < road.widthM / 2 + 0.5) heights.push({ id: road.id, z: near.z });
-    }
-    heights.sort((p, q) => q.z - p.z);
-    const top = heights[0];
-    const below = heights.filter((one) => one.id !== top?.id);
-    if (top && below.some((one) => top.z - one.z < 3.5) && top.z > 0) {
-      refuse(
-        `road "${top.id}" is a bridge too short to rise over the road beneath it: rising ${RAMP_GRADIENT * 100} m in 100 m from its ends, ` +
-          `it is only ${top.z.toFixed(1)} m up where it crosses.`,
-      );
+    const near = network.roads.filter((road) => (nearestHeight(road.points, point)?.distanceM ?? Infinity) < 20);
+    // Each pair of roads whose centre lines cross here: the one over must clear the one under.
+    for (let i = 0; i < near.length; i++) {
+      for (let j = i + 1; j < near.length; j++) {
+        const crossing = crossingOf(near[i]!.points, near[j]!.points);
+        if (!crossing || stretch(crossing, point) > 20) continue;
+        const zi = nearestHeight(near[i]!.points, crossing)!.z;
+        const zj = nearestHeight(near[j]!.points, crossing)!.z;
+        if (Math.abs(zi - zj) < 3.5) {
+          const top = zi >= zj ? near[i]! : near[j]!;
+          refuse(
+            `road "${top.id}" is a bridge too short to rise over the road beneath it: rising ${RAMP_GRADIENT * 100} m in 100 m from its ends, ` +
+              `it is only ${Math.max(zi, zj).toFixed(1)} m up where it crosses.`,
+          );
+        }
+      }
     }
   }
+}
+
+function crossingOf(p: Point[], q: Point[]): Point | undefined {
+  for (let i = 1; i < p.length; i++) {
+    for (let j = 1; j < q.length; j++) {
+      const at = properCrossing(p[i - 1]!, p[i]!, q[j - 1]!, q[j]!);
+      if (at) return at;
+    }
+  }
+  return undefined;
 }
 
 function nearestHeight(points: Point[], to: Point): { distanceM: number; z: number } | undefined {
@@ -1078,6 +1374,13 @@ function movedLeft(points: Point[], byM: number): Point[] {
     const length = Math.hypot(dx, dy) || 1;
     return { x: point.x - (dy / length) * byM, y: point.y + (dx / length) * byM };
   });
+}
+
+function linesCross(p: Point[], q: Point[]): boolean {
+  for (let i = 1; i < p.length; i++) {
+    for (let j = 1; j < q.length; j++) if (properCrossing(p[i - 1]!, p[i]!, q[j - 1]!, q[j]!)) return true;
+  }
+  return false;
 }
 
 /** Where two stretches cross, away from their ends; undefined when they do not. */
