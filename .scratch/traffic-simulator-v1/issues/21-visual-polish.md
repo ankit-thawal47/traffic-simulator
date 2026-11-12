@@ -4,7 +4,7 @@
 
 **Blocked by:** 18
 
-**Status:** ready-for-agent
+**Status:** done (merged; unfinished items listed below the criteria)
 
 - [x] Each vehicle class has a recognisable shape generated in code, drawn to scale
 - [x] Shadows, lighting and road markings are in place
