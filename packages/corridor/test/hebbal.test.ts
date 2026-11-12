@@ -46,7 +46,8 @@ describe("the Hebbal corridor, city-bound", () => {
     expect(corridor.groundNetwork.junctions).toHaveLength(1);
     expect(junction!.id).toBe("hebbal");
     expect(junction!.connections).toHaveLength(7);
-    const plan = junction!.signalPlan;
+    if (junction!.control !== "signal") throw new Error("the Hebbal junction should be a signal junction");
+    const plan = junction.signalPlan;
     const cycleS = plan.phases.reduce((sum, phase) => sum + phase.greenS + plan.amberS + plan.allRedS, 0);
     expect(cycleS).toBe(160);
     // Each phase's green and amber together are the published phase time.
