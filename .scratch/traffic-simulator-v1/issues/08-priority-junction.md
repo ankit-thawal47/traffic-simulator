@@ -4,7 +4,7 @@
 
 **Blocked by:** 04, 05
 
-**Status:** ready-for-agent
+**Status:** done (merged to integration branch)
 
 - [x] A network can contain a priority junction with a main road and a side road
 - [x] Side-road vehicles enter only when the gap in main-road traffic is at least their accepted gap
