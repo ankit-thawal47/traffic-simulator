@@ -58,7 +58,8 @@ export const LEVEL_RULE =
 export const SIGNAL_NODE_WITHIN_M = 30;
 export const CONTROL_RULE =
   `A signal junction where OpenStreetMap has a traffic_signals node within ${SIGNAL_NODE_WITHIN_M} m, or where roads of primary class or above ` +
-  "meet from two directions that cross (a major crossing); every other junction is a priority junction, the main road being the " +
+  "meet from two directions that cross (a major crossing), or where two approaches come from the same direction (they would " +
+  "merge at a shallow angle, which the engine's give-way does not judge); every other junction is a priority junction, the main road being the " +
   "approaches of the most major class (or the straightest pair when all are alike) and the others giving way.";
 
 export const GREEN_S = 30;
@@ -66,7 +67,7 @@ export const AMBER_S = 3;
 export const ALL_RED_S = 2;
 export const SIGNAL_PLAN_RULE =
   `No signal plan is published in OpenStreetMap: one phase for each direction the approaches come from (approaches from opposite ` +
-  `or the same directions share a phase), ${GREEN_S} s green each, ${AMBER_S} s amber and ${ALL_RED_S} s all-red after each.`;
+  `directions share a phase), ${GREEN_S} s green each, ${AMBER_S} s amber and ${ALL_RED_S} s all-red after each.`;
 
 /** Vehicles per hour for each lane of an entry road. */
 export const DEMAND_PER_LANE_VPH = 150;

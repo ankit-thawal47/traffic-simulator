@@ -36,6 +36,18 @@ _Avoid_: Map, graph, canvas
 A network of a real place, prepared and checked by hand. The first corridor is Hebbal, Bengaluru, city-bound.
 _Avoid_: Prepared network, preset, hardcoded map
 
+**Imported area**:
+A network of a real place imported from OpenStreetMap in the browser, with nothing checked by hand: every value OpenStreetMap does not give is guessed by a stated rule.
+_Avoid_: Corridor (a corridor is checked by hand), map import
+
+**Guessed value**:
+A value of an imported area that a stated rule gave because OpenStreetMap does not: lanes, width, speed limit, height, junction control, signal plan, demand. Shown as guessed; the planner can correct lanes, widths and green times.
+_Avoid_: Default, estimate (an estimate is a result)
+
+**Correction**:
+What the planner says an imported area is today, where the import guessed. It alters the baseline; a change alters only the proposal.
+_Avoid_: Change, override
+
 **Building block**:
 A ready-made piece of network (straight road, T-junction, four-way junction, flyover over a junction) whose lanes, width, length and signal timing the planner sets.
 _Avoid_: Template, component, tile

@@ -422,10 +422,10 @@ export function wholeNetwork(
     const road = get(what, apart.roadId);
     const from = get(what, apart.fromRoadId);
     if (!road || !from) continue;
-    const movedM = keepApart(road, from);
+    const movedM = keepApart(road, from, apart.marginM ?? 0);
     adjustments.push(
       `"${road.id}" is moved up to ${metres(movedM)} m away from "${from.id}", wherever OpenStreetMap draws the two closer than ` +
-        `half of both widths (${metres((road.widthM + from.widthM) / 2)} m). ${apart.reason}`,
+        `half of both widths${apart.marginM ? ` and ${metres(apart.marginM)} m` : ""} (${metres((road.widthM + from.widthM) / 2 + (apart.marginM ?? 0))} m). ${apart.reason}`,
     );
   }
 
@@ -461,8 +461,8 @@ const KEEP_APART_STEP_M = 10;
  * straight away from the nearest place on `from`, just far enough. Gives the
  * furthest any point moved.
  */
-function keepApart(road: Working, from: Working): number {
-  const needM = (road.widthM + from.widthM) / 2;
+function keepApart(road: Working, from: Working, marginM: number): number {
+  const needM = (road.widthM + from.widthM) / 2 + marginM;
   const points: Point[] = [];
   const raised: boolean[] = [];
   for (let i = 1; i < road.line.points.length; i++) {

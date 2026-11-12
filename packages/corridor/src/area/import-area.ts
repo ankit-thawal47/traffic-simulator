@@ -95,8 +95,12 @@ const CLUSTER_M = 35;
 const LEAST_ROAD_M = 25;
 /** The room kept between the two directions of a two-way road, in metres. */
 const MEDIAN_M = 0.3;
+/** Room kept between the edges of two roads drawn alongside, in metres. */
+const KEEP_APART_MARGIN_M = 1;
 /** A turn sharper than this, in degrees, is a U-turn, and not made. */
 const U_TURN_DEG = 150;
+/** How far ahead the road beyond a junction must start, along both roads' directions, in metres. */
+const MIN_AHEAD_M = 5;
 /** The most roads and junctions an area may have: what a browser runs for an hour in reasonable time. */
 export const AREA_NETWORK_LIMITS = { roads: 400, junctions: 120 } as const;
 
@@ -889,10 +893,21 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
         const heading = endDirection(from);
         const leaving = directionFrom(to.points);
         if (angleDeg(heading, leaving) > U_TURN_DEG) continue;
+        // Where the roads stop and start once set back: the road beyond must lie ahead of the one arriving, and the
+        // arriving one behind the road beyond, or the turn runs sideways (OpenStreetMap draws such a junction as several nodes).
+        const setBack = setBacks.get(key)!;
+        const stop = pointAlong(reversedPoints(from.points), setBack);
+        const start = pointAlong(to.points, setBack);
+        const gap = { x: start.x - stop.x, y: start.y - stop.y };
+        const ahead = gap.x * heading.x + gap.y * heading.y;
+        if (ahead < MIN_AHEAD_M || gap.x * leaving.x + gap.y * leaving.y < MIN_AHEAD_M) continue;
+        // Nearly straight on, but the road beyond starts further to one side than ahead: vehicles side by side would cross.
+        const sideways = Math.abs(gap.x * heading.y - gap.y * heading.x);
+        if (angleDeg(heading, leaving) < 30 && sideways > ahead) continue;
         connections.push({ fromRoadId: chainInfo.get(from)!.lastPart, toRoadId: chainInfo.get(to)!.firstPart });
       }
     }
-    // Approaches: grouped by the direction they come from (the same or opposite directions share a group), most major first.
+    // Approaches: grouped by the direction they come from (opposite directions share a group), most major first.
     const approaches = kind.ins
       .filter((road) => connections.some((connection) => connection.fromRoadId === chainInfo.get(road)!.lastPart))
       .sort((p, q) => rankOf(q) - rankOf(p) || q.lanes - p.lanes || (p.id < q.id ? -1 : 1));
@@ -901,7 +916,7 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
       const heading = endDirection(road);
       const group = groups.find((members) => members.every((member) => {
         const angle = angleDeg(endDirection(member), heading);
-        return angle < 45 || angle > 135;
+        return angle > 135;
       }));
       if (group) group.push(road);
       else groups.push([road]);
@@ -911,7 +926,9 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
     junctionNames.set(id, name);
     const signalled = signalNodes.some((signal) => vertices.some((vertex) => stretch(signal, at(vertex)) <= SIGNAL_NODE_WITHIN_M));
     const majorGroups = groups.filter((group) => group.some((road) => CLASS_RANK[road.cls] >= CLASS_RANK.primary));
-    const signal = signalled || majorGroups.length >= 2;
+    // Approaches from the same direction would merge at a shallow angle, which the engine's give-way does not judge: signalled, one at a time.
+    const sameDirection = approaches.some((p, at) => approaches.slice(at + 1).some((q) => angleDeg(endDirection(p), endDirection(q)) < 45));
+    const signal = signalled || majorGroups.length >= 2 || sameDirection;
     const lastPart = (road: Carriageway) => chainInfo.get(road)!.lastPart;
     if (approaches.length < 1 || connections.length === 0) continue;
     if (signal || approaches.length < 2) {
@@ -1020,7 +1037,7 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
 
   /** Pairs of roads drawn alongside closer than half of both widths, away from their ends (on any level: ramps rise beside roads): the narrower is moved. */
   function keepApartPairs(list: { id: string; chain: Carriageway[] }[]) {
-    const pairs: { roadId: string; fromRoadId: string; reason: string }[] = [];
+    const pairs: { roadId: string; fromRoadId: string; reason: string; marginM: number }[] = [];
     const lines = list.map(({ id, chain }) => {
       const points = chain.flatMap((road, i) => {
         const line = road.offsetM ? movedLeft(road.points, road.offsetM) : road.points;
@@ -1038,14 +1055,20 @@ function importOrRefuse(data: AreaData, givenName: string | undefined): Imported
         if (linesCross(a.points, b.points)) continue;
         // a is the one moved: the lesser, or the later id of two alike.
         if (a.rank > b.rank || (a.rank === b.rank && (a.widthM > b.widthM || (a.widthM === b.widthM && a.id < b.id)))) continue;
-        const needM = (a.widthM + b.widthM) / 2;
+        // A metre between their edges besides: the engine's roads are drawn stretch by stretch, and stretches overhang at bends.
+        const needM = (a.widthM + b.widthM) / 2 + KEEP_APART_MARGIN_M;
         const total = lengthOf(a.points);
         let closest = Infinity;
         for (let along = 40; along < total - 40; along += 10) {
           closest = Math.min(closest, distanceToLine(b.points, pointAlong(a.points, along)));
         }
         if (closest < needM - 0.05 && closest > 0.5) {
-          pairs.push({ roadId: a.id, fromRoadId: b.id, reason: `OpenStreetMap draws the two ${metres(closest)} m apart at the closest, less than their widths need.` });
+          pairs.push({
+            roadId: a.id,
+            fromRoadId: b.id,
+            marginM: KEEP_APART_MARGIN_M,
+            reason: `OpenStreetMap draws the two ${metres(closest)} m apart at the closest, less than their widths and ${KEEP_APART_MARGIN_M} m between need.`,
+          });
         }
       }
     }
@@ -1061,7 +1084,7 @@ const chainLengthOf = (chain: { lengthM: number }[]): number => chain.reduce((su
 /** Two vehicles closer in height than this are on the same level (the engine's consistency checks use 3 m). */
 const SAME_LEVEL_M = 3;
 /** Roads that only touch at their edges do not overlap. */
-const EDGE_SLACK_M = 0.25;
+const EDGE_SLACK_M = 0.05;
 
 interface Piece {
   corners: Point[];
@@ -1161,7 +1184,7 @@ function overlapIn(network: Network): { roadIds: string[]; what: string } | unde
       if (apart(a.box, b.box)) continue;
       const shared = [...(junctionsOf.get(a.road.id) ?? [])].some((id) => junctionsOf.get(b.road.id)?.has(id));
       // The two directions of one two-way road lie side by side by construction (they may touch on a sharp bend).
-      if (shared || sourceRoad(a.road.id) === sourceRoad(b.road.id)) continue;
+      if (sourceRoad(a.road.id) === sourceRoad(b.road.id)) continue;
       for (const pa of a.pieces) {
         for (const pb of b.pieces) {
           if (Math.abs(pa.z - pb.z) < SAME_LEVEL_M && convexOverlap(pa.corners, pb.corners)) {

@@ -182,7 +182,7 @@ export interface NetworkCorrections {
    * widths, on the same level: `roadId` is moved away from `fromRoadId`,
    * point by point, just far enough. Applied after the joins.
    */
-  keepApart?: { roadId: string; fromRoadId: string; reason: string }[];
+  keepApart?: { roadId: string; fromRoadId: string; reason: string; /** Room left between the two roads' edges besides, in metres; none unless given. */ marginM?: number }[];
   /**
    * Roads cut short while raised (as at the edge of an imported area), by
    * their ids in the network: at a cut start or end the road is at the deck

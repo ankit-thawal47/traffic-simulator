@@ -23,7 +23,7 @@ export const AREA_PRESETS: readonly AreaPreset[] = [
   },
   {
     id: "kolkata-ajc-bose",
-    name: "Kolkata, AJC Bose Road flyover over Camac Street",
+    name: "Kolkata, the AJC Bose Road flyover",
     bounds: { south: 22.54, west: 88.35, north: 22.547, east: 88.358 },
   },
   {
