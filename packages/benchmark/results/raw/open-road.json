@@ -1,0 +1,7682 @@
+[
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l1-w3.5-s1",
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.67,
+  "result": {
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 2220,
+   "throughPerLane": 2220,
+   "meanSpeedMps": 10.074701220364698,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l1-w3.5-s2",
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.808,
+  "result": {
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 2220,
+   "throughPerLane": 2220,
+   "meanSpeedMps": 10.074704437019701,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l1-w3.5-s3",
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 2.113,
+  "result": {
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 2221,
+   "throughPerLane": 2221,
+   "meanSpeedMps": 10.074695417113567,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l1-w3.5-s4",
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.576,
+  "result": {
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 2220,
+   "throughPerLane": 2220,
+   "meanSpeedMps": 10.074723984719906,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l1-w3.5-s5",
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.711,
+  "result": {
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 2221,
+   "throughPerLane": 2221,
+   "meanSpeedMps": 10.074690231147942,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l1-w3.5-s6",
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.908,
+  "result": {
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 2221,
+   "throughPerLane": 2221,
+   "meanSpeedMps": 10.074690231147942,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l1-w3.5-s7",
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.728,
+  "result": {
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 2221,
+   "throughPerLane": 2221,
+   "meanSpeedMps": 10.074690231147942,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l1-w3.5-s8",
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.814,
+  "result": {
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 2221,
+   "throughPerLane": 2221,
+   "meanSpeedMps": 10.074690231147942,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l1-w3.5-s9",
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 1.63,
+  "result": {
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 2221,
+   "throughPerLane": 2221,
+   "meanSpeedMps": 10.074690231147942,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l1-w3.5-s10",
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 1.441,
+  "result": {
+   "mix": "cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 2221,
+   "throughPerLane": 2221,
+   "meanSpeedMps": 10.074690231147942,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l2-w3.5-s1",
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.367,
+  "result": {
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 4440,
+   "throughPerLane": 2220,
+   "meanSpeedMps": 10.07470122036438,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l2-w3.5-s2",
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.336,
+  "result": {
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 4440,
+   "throughPerLane": 2220,
+   "meanSpeedMps": 10.074896478539602,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l2-w3.5-s3",
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.18,
+  "result": {
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 4442,
+   "throughPerLane": 2221,
+   "meanSpeedMps": 10.074695417113237,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l2-w3.5-s4",
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.532,
+  "result": {
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 4439,
+   "throughPerLane": 2219.5,
+   "meanSpeedMps": 10.074726888372455,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l2-w3.5-s5",
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.459,
+  "result": {
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 4442,
+   "throughPerLane": 2221,
+   "meanSpeedMps": 10.074690231147612,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l2-w3.5-s6",
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.255,
+  "result": {
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 4441,
+   "throughPerLane": 2220.5,
+   "meanSpeedMps": 10.074696361420159,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l2-w3.5-s7",
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.277,
+  "result": {
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 4441,
+   "throughPerLane": 2220.5,
+   "meanSpeedMps": 10.07469572544684,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l2-w3.5-s8",
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.198,
+  "result": {
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 4441,
+   "throughPerLane": 2220.5,
+   "meanSpeedMps": 10.074697333284151,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l2-w3.5-s9",
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 1.218,
+  "result": {
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 4442,
+   "throughPerLane": 2221,
+   "meanSpeedMps": 10.07469282405748,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l2-w3.5-s10",
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 1.6,
+  "result": {
+   "mix": "cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 4441,
+   "throughPerLane": 2220.5,
+   "meanSpeedMps": 10.074696361420159,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l3-w3.5-s1",
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.109,
+  "result": {
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 6660,
+   "throughPerLane": 2220,
+   "meanSpeedMps": 10.074701644469844,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l3-w3.5-s2",
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.169,
+  "result": {
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 6659,
+   "throughPerLane": 2219.6666666666665,
+   "meanSpeedMps": 10.074921594642973,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l3-w3.5-s3",
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.513,
+  "result": {
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 6662,
+   "throughPerLane": 2220.6666666666665,
+   "meanSpeedMps": 10.074697775474707,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l3-w3.5-s4",
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.371,
+  "result": {
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 6658,
+   "throughPerLane": 2219.3333333333335,
+   "meanSpeedMps": 10.074727856293368,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l3-w3.5-s5",
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.362,
+  "result": {
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 6663,
+   "throughPerLane": 2221,
+   "meanSpeedMps": 10.074690231147919,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l3-w3.5-s6",
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.25,
+  "result": {
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 6661,
+   "throughPerLane": 2220.3333333333335,
+   "meanSpeedMps": 10.07469905303441,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l3-w3.5-s7",
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.547,
+  "result": {
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 6661,
+   "throughPerLane": 2220.3333333333335,
+   "meanSpeedMps": 10.074697981038153,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l3-w3.5-s8",
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.166,
+  "result": {
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 6661,
+   "throughPerLane": 2220.3333333333335,
+   "meanSpeedMps": 10.075421515157167,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l3-w3.5-s9",
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 1.2,
+  "result": {
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 6663,
+   "throughPerLane": 2221,
+   "meanSpeedMps": 10.074693688393491,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-cars-l3-w3.5-s10",
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 1.276,
+  "result": {
+   "mix": "cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 6661,
+   "throughPerLane": 2220.3333333333335,
+   "meanSpeedMps": 10.074827925624545,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l1-w3.5-s1",
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.691,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 3514,
+   "throughPerLane": 3514,
+   "meanSpeedMps": 9.222123769609126,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l1-w3.5-s2",
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 2.196,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 3583,
+   "throughPerLane": 3583,
+   "meanSpeedMps": 9.250783768323931,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l1-w3.5-s3",
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.789,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 3600,
+   "throughPerLane": 3600,
+   "meanSpeedMps": 9.260684720418512,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l1-w3.5-s4",
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.803,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 3579,
+   "throughPerLane": 3579,
+   "meanSpeedMps": 9.261313844450127,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l1-w3.5-s5",
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 2.145,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 3569,
+   "throughPerLane": 3569,
+   "meanSpeedMps": 9.23643504381094,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l1-w3.5-s6",
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.743,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 3578,
+   "throughPerLane": 3578,
+   "meanSpeedMps": 9.2921393919049,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l1-w3.5-s7",
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.796,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 3567,
+   "throughPerLane": 3567,
+   "meanSpeedMps": 9.239934308352456,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l1-w3.5-s8",
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.918,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 3592,
+   "throughPerLane": 3592,
+   "meanSpeedMps": 9.260279916114662,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l1-w3.5-s9",
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 2.086,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 3623,
+   "throughPerLane": 3623,
+   "meanSpeedMps": 9.236341082558031,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l1-w3.5-s10",
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 2.908,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 3530,
+   "throughPerLane": 3530,
+   "meanSpeedMps": 9.260266799156632,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l2-w3.5-s1",
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 2.458,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 5666,
+   "throughPerLane": 2833,
+   "meanSpeedMps": 9.991240380838834,
+   "betweenLanesShare": 0.05448957776590059,
+   "laneChangesStarted": 4472,
+   "meanLaneChangeS": 3.6652057245080503,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l2-w3.5-s2",
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 2.78,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 5662,
+   "throughPerLane": 2831,
+   "meanSpeedMps": 9.833007049462228,
+   "betweenLanesShare": 0.055269867694127325,
+   "laneChangesStarted": 4586,
+   "meanLaneChangeS": 3.680767553423463,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l2-w3.5-s3",
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 2.724,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 5728,
+   "throughPerLane": 2864,
+   "meanSpeedMps": 9.875737655264695,
+   "betweenLanesShare": 0.05956743189967735,
+   "laneChangesStarted": 4972,
+   "meanLaneChangeS": 3.680772325020113,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l2-w3.5-s4",
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 2.765,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 5654,
+   "throughPerLane": 2827,
+   "meanSpeedMps": 9.765811193683769,
+   "betweenLanesShare": 0.05351933071855015,
+   "laneChangesStarted": 4433,
+   "meanLaneChangeS": 3.699210466952403,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l2-w3.5-s5",
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 3.156,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 5620,
+   "throughPerLane": 2810,
+   "meanSpeedMps": 9.916798598509565,
+   "betweenLanesShare": 0.05847959388291416,
+   "laneChangesStarted": 4800,
+   "meanLaneChangeS": 3.6631250000000004,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l2-w3.5-s6",
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 2.765,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 5715,
+   "throughPerLane": 2857.5,
+   "meanSpeedMps": 9.783318915447701,
+   "betweenLanesShare": 0.05384228441006299,
+   "laneChangesStarted": 4540,
+   "meanLaneChangeS": 3.6751541850220266,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l2-w3.5-s7",
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 3.014,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 5663,
+   "throughPerLane": 2831.5,
+   "meanSpeedMps": 9.659486581886924,
+   "betweenLanesShare": 0.05872986373065002,
+   "laneChangesStarted": 4956,
+   "meanLaneChangeS": 3.6814366424535923,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l2-w3.5-s8",
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 3.403,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 5800,
+   "throughPerLane": 2900,
+   "meanSpeedMps": 9.679882169035876,
+   "betweenLanesShare": 0.052046882442634335,
+   "laneChangesStarted": 4500,
+   "meanLaneChangeS": 3.6771111111111114,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l2-w3.5-s9",
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 2.388,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 5773,
+   "throughPerLane": 2886.5,
+   "meanSpeedMps": 9.810845625742413,
+   "betweenLanesShare": 0.05652378805189874,
+   "laneChangesStarted": 4787,
+   "meanLaneChangeS": 3.682807603927303,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l2-w3.5-s10",
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 2.59,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 5570,
+   "throughPerLane": 2785,
+   "meanSpeedMps": 10.012389343282397,
+   "betweenLanesShare": 0.05512004253636723,
+   "laneChangesStarted": 4440,
+   "meanLaneChangeS": 3.660225225225225,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w3.5-s1",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 2.951,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 6471,
+   "throughPerLane": 2157,
+   "meanSpeedMps": 6.2482998250236506,
+   "betweenLanesShare": 0.14635572795361623,
+   "laneChangesStarted": 21647,
+   "meanLaneChangeS": 3.735150367256433,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w3.5-s2",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 3.013,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 6515,
+   "throughPerLane": 2171.6666666666665,
+   "meanSpeedMps": 6.742555364746874,
+   "betweenLanesShare": 0.1550876489473334,
+   "laneChangesStarted": 21346,
+   "meanLaneChangeS": 3.7366813454511387,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w3.5-s3",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 2.923,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 6460,
+   "throughPerLane": 2153.3333333333335,
+   "meanSpeedMps": 6.660180974433552,
+   "betweenLanesShare": 0.14855787137720633,
+   "laneChangesStarted": 20417,
+   "meanLaneChangeS": 3.739785472890239,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w3.5-s4",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 2.998,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 6557,
+   "throughPerLane": 2185.6666666666665,
+   "meanSpeedMps": 6.464201331465044,
+   "betweenLanesShare": 0.14543518246547113,
+   "laneChangesStarted": 20861,
+   "meanLaneChangeS": 3.7507406164613393,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w3.5-s5",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 2.706,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 6529,
+   "throughPerLane": 2176.3333333333335,
+   "meanSpeedMps": 6.304218847104105,
+   "betweenLanesShare": 0.1485288963161655,
+   "laneChangesStarted": 21835,
+   "meanLaneChangeS": 3.743760018319213,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w3.5-s6",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 3.036,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 6424,
+   "throughPerLane": 2141.3333333333335,
+   "meanSpeedMps": 6.450007786275537,
+   "betweenLanesShare": 0.1523704599471261,
+   "laneChangesStarted": 21587,
+   "meanLaneChangeS": 3.7429749386204665,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w3.5-s7",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 2.965,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 6494,
+   "throughPerLane": 2164.6666666666665,
+   "meanSpeedMps": 6.4468890182704985,
+   "betweenLanesShare": 0.1478566829323721,
+   "laneChangesStarted": 21139,
+   "meanLaneChangeS": 3.7456171058233596,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w3.5-s8",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 3.054,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 6494,
+   "throughPerLane": 2164.6666666666665,
+   "meanSpeedMps": 6.227241364147365,
+   "betweenLanesShare": 0.1474798650735624,
+   "laneChangesStarted": 21770,
+   "meanLaneChangeS": 3.748736793752871,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w3.5-s9",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 2.999,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 6538,
+   "throughPerLane": 2179.3333333333335,
+   "meanSpeedMps": 6.203152689508756,
+   "betweenLanesShare": 0.14849160828320485,
+   "laneChangesStarted": 22258,
+   "meanLaneChangeS": 3.728987330398059,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w3.5-s10",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 2.946,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 6423,
+   "throughPerLane": 2141,
+   "meanSpeedMps": 6.686161036209087,
+   "betweenLanesShare": 0.15525735056569576,
+   "laneChangesStarted": 21084,
+   "meanLaneChangeS": 3.7557674065642197,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l1-w3.5-s1",
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.735,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 5846,
+   "throughPerLane": 5846,
+   "meanSpeedMps": 9.845979613220297,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l1-w3.5-s2",
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.292,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 5845,
+   "throughPerLane": 5845,
+   "meanSpeedMps": 9.846217917879201,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l1-w3.5-s3",
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.488,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 5846,
+   "throughPerLane": 5846,
+   "meanSpeedMps": 9.845976653106385,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l1-w3.5-s4",
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.512,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 5843,
+   "throughPerLane": 5843,
+   "meanSpeedMps": 9.846000035758655,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l1-w3.5-s5",
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.954,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 5846,
+   "throughPerLane": 5846,
+   "meanSpeedMps": 9.845974497540965,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l1-w3.5-s6",
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.543,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 5846,
+   "throughPerLane": 5846,
+   "meanSpeedMps": 9.845974497540965,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l1-w3.5-s7",
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.498,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 5846,
+   "throughPerLane": 5846,
+   "meanSpeedMps": 9.845974497540965,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l1-w3.5-s8",
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.438,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 5846,
+   "throughPerLane": 5846,
+   "meanSpeedMps": 9.846120079919235,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l1-w3.5-s9",
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 1.362,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 5846,
+   "throughPerLane": 5846,
+   "meanSpeedMps": 9.845974497540965,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l1-w3.5-s10",
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 1.296,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 5846,
+   "throughPerLane": 5846,
+   "meanSpeedMps": 9.845974497540965,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l2-w3.5-s1",
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.225,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 11660,
+   "throughPerLane": 5830,
+   "meanSpeedMps": 9.908825330374103,
+   "betweenLanesShare": 0.000005752098754738292,
+   "laneChangesStarted": 1,
+   "meanLaneChangeS": 3.6,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l2-w3.5-s2",
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.108,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 11636,
+   "throughPerLane": 5818,
+   "meanSpeedMps": 10.036439575852787,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l2-w3.5-s3",
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.103,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 11692,
+   "throughPerLane": 5846,
+   "meanSpeedMps": 9.846476512322774,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l2-w3.5-s4",
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.136,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 11572,
+   "throughPerLane": 5786,
+   "meanSpeedMps": 10.100730528560808,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l2-w3.5-s5",
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.147,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 11679,
+   "throughPerLane": 5839.5,
+   "meanSpeedMps": 9.874319310913398,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l2-w3.5-s6",
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.216,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 11648,
+   "throughPerLane": 5824,
+   "meanSpeedMps": 9.997637218971926,
+   "betweenLanesShare": 0.000005809358055683039,
+   "laneChangesStarted": 1,
+   "meanLaneChangeS": 3.6,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l2-w3.5-s7",
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.163,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 11626,
+   "throughPerLane": 5813,
+   "meanSpeedMps": 10.006771579307928,
+   "betweenLanesShare": 0.000011650806150117896,
+   "laneChangesStarted": 2,
+   "meanLaneChangeS": 3.6,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l2-w3.5-s8",
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.097,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 11632,
+   "throughPerLane": 5816,
+   "meanSpeedMps": 9.948336970179357,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l2-w3.5-s9",
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 1.181,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 11646,
+   "throughPerLane": 5823,
+   "meanSpeedMps": 9.951893881139519,
+   "betweenLanesShare": 0.000005783981229960206,
+   "laneChangesStarted": 1,
+   "meanLaneChangeS": 3.6,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l2-w3.5-s10",
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 1.277,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 11687,
+   "throughPerLane": 5843.5,
+   "meanSpeedMps": 9.851060727572703,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l3-w3.5-s1",
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.035,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 12045,
+   "throughPerLane": 4015,
+   "meanSpeedMps": 12.926553987196211,
+   "betweenLanesShare": 0.00017454060101002538,
+   "laneChangesStarted": 24,
+   "meanLaneChangeS": 3.6,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l3-w3.5-s2",
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.094,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 11713,
+   "throughPerLane": 3904.3333333333335,
+   "meanSpeedMps": 12.989821909563588,
+   "betweenLanesShare": 0.0001952607305048506,
+   "laneChangesStarted": 26,
+   "meanLaneChangeS": 3.6,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l3-w3.5-s3",
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.117,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 11937,
+   "throughPerLane": 3979,
+   "meanSpeedMps": 12.951788350775944,
+   "betweenLanesShare": 0.0001618330229370184,
+   "laneChangesStarted": 22,
+   "meanLaneChangeS": 3.6,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l3-w3.5-s4",
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.026,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 11843,
+   "throughPerLane": 3947.6666666666665,
+   "meanSpeedMps": 12.958526113992814,
+   "betweenLanesShare": 0.00015565898908861007,
+   "laneChangesStarted": 21,
+   "meanLaneChangeS": 3.6,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l3-w3.5-s5",
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.179,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 11966,
+   "throughPerLane": 3988.6666666666665,
+   "meanSpeedMps": 12.944664923109157,
+   "betweenLanesShare": 0.0001539824520389951,
+   "laneChangesStarted": 21,
+   "meanLaneChangeS": 3.6,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l3-w3.5-s6",
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 0.989,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 11865,
+   "throughPerLane": 3955,
+   "meanSpeedMps": 12.960392517662553,
+   "betweenLanesShare": 0.0001954475945798769,
+   "laneChangesStarted": 27,
+   "meanLaneChangeS": 3.525925925925926,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l3-w3.5-s7",
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.022,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 11798,
+   "throughPerLane": 3932.6666666666665,
+   "meanSpeedMps": 12.96676139870617,
+   "betweenLanesShare": 0.0001710582556170325,
+   "laneChangesStarted": 23,
+   "meanLaneChangeS": 3.6,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l3-w3.5-s8",
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 0.972,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 11963,
+   "throughPerLane": 3987.6666666666665,
+   "meanSpeedMps": 12.929166835143802,
+   "betweenLanesShare": 0.0001462083865130504,
+   "laneChangesStarted": 20,
+   "meanLaneChangeS": 3.6,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l3-w3.5-s9",
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 1.079,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 11922,
+   "throughPerLane": 3974,
+   "meanSpeedMps": 12.956507617694111,
+   "betweenLanesShare": 0.00014719576907408233,
+   "laneChangesStarted": 20,
+   "meanLaneChangeS": 3.6,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheeler-l3-w3.5-s10",
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 0.974,
+  "result": {
+   "mix": "two-wheeler",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 11811,
+   "throughPerLane": 3937,
+   "meanSpeedMps": 12.96861758830119,
+   "betweenLanesShare": 0.00017849713288980296,
+   "laneChangesStarted": 24,
+   "meanLaneChangeS": 3.6,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l1-w3.5-s1",
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.529,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 1954,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492087431442013,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l1-w3.5-s2",
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.316,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 1954,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492097576764934,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l1-w3.5-s3",
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.35,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 1954,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492083250844727,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l1-w3.5-s4",
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.301,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 1953,
+   "throughPerLane": 1953,
+   "meanSpeedMps": 7.492111298693572,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l1-w3.5-s5",
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.342,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 1954,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492079678032238,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l1-w3.5-s6",
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.286,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 1954,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492079678032238,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l1-w3.5-s7",
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.49,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 1954,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492079678032238,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l1-w3.5-s8",
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.291,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 1954,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492079678032238,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l1-w3.5-s9",
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 1.356,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 1954,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492079678032238,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l1-w3.5-s10",
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 1.464,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 1954,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492079678032238,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l2-w3.5-s1",
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.304,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 3908,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492087431442611,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l2-w3.5-s2",
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.383,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 3908,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492097576765543,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l2-w3.5-s3",
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.506,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 3908,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492083250845321,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l2-w3.5-s4",
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.458,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 3906,
+   "throughPerLane": 1953,
+   "meanSpeedMps": 7.492113043816965,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l2-w3.5-s5",
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.296,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 3908,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492079678032834,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l2-w3.5-s6",
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.51,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 3908,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.4920859437908645,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l2-w3.5-s7",
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.305,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 3908,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.4920835545186675,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l2-w3.5-s8",
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.459,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 3908,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492088626387765,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l2-w3.5-s9",
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 1.401,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 3908,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492081464388607,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l2-w3.5-s10",
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 1.424,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 3908,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.4920859437908645,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l3-w3.5-s1",
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.473,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 5862,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492089024438691,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l3-w3.5-s2",
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.598,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 5860,
+   "throughPerLane": 1953.3333333333333,
+   "meanSpeedMps": 7.492314948811716,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l3-w3.5-s3",
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.627,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 5862,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492086237208828,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l3-w3.5-s4",
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.85,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 5859,
+   "throughPerLane": 1953,
+   "meanSpeedMps": 7.492113625546399,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l3-w3.5-s5",
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.652,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 5862,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.4920796780327485,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l3-w3.5-s6",
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.77,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 5862,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492089821083807,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l3-w3.5-s7",
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.911,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 5862,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492086439665357,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l3-w3.5-s8",
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.75,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 5861,
+   "throughPerLane": 1953.6666666666667,
+   "meanSpeedMps": 7.492093588887732,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l3-w3.5-s9",
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 1.889,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 5862,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492082059862877,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-auto-rickshaw-l3-w3.5-s10",
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 2.089,
+  "result": {
+   "mix": "auto-rickshaw",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 5862,
+   "throughPerLane": 1954,
+   "meanSpeedMps": 7.492089821083807,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l1-w3.5-s1",
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.619,
+  "result": {
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 1376,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334567782673325,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l1-w3.5-s2",
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.595,
+  "result": {
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 1376,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334567197926745,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l1-w3.5-s3",
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.478,
+  "result": {
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 1376,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334567015400557,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l1-w3.5-s4",
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.425,
+  "result": {
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 1376,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334576247062776,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l1-w3.5-s5",
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.37,
+  "result": {
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 1376,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334566833858243,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l1-w3.5-s6",
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.317,
+  "result": {
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 1376,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334566833858243,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l1-w3.5-s7",
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.305,
+  "result": {
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 1376,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334566833858243,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l1-w3.5-s8",
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.282,
+  "result": {
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 1376,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334566833858243,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l1-w3.5-s9",
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 1.337,
+  "result": {
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 1376,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334566833858243,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l1-w3.5-s10",
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 1.349,
+  "result": {
+   "mix": "bus",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 1376,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334566833858243,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l2-w3.5-s1",
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.149,
+  "result": {
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 2752,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334567782672913,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l2-w3.5-s2",
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.246,
+  "result": {
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 2752,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334567197926331,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l2-w3.5-s3",
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.268,
+  "result": {
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 2752,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334567015400141,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l2-w3.5-s4",
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.222,
+  "result": {
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 2751,
+   "throughPerLane": 1375.5,
+   "meanSpeedMps": 9.334578049228714,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l2-w3.5-s5",
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.257,
+  "result": {
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 2752,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334566833857828,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l2-w3.5-s6",
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.24,
+  "result": {
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 2752,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334567012291044,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l2-w3.5-s7",
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.218,
+  "result": {
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 2752,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334567308238036,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l2-w3.5-s8",
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.3,
+  "result": {
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 2752,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.3345670158716,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l2-w3.5-s9",
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 1.235,
+  "result": {
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 2752,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334566924626369,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l2-w3.5-s10",
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 1.337,
+  "result": {
+   "mix": "bus",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 2752,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334567012291044,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l3-w3.5-s1",
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.207,
+  "result": {
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 4128,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334567585374359,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l3-w3.5-s2",
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.331,
+  "result": {
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 4127,
+   "throughPerLane": 1375.6666666666667,
+   "meanSpeedMps": 9.334570947561296,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l3-w3.5-s3",
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.369,
+  "result": {
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 4128,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334567073847566,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l3-w3.5-s4",
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.312,
+  "result": {
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 4126,
+   "throughPerLane": 1375.3333333333333,
+   "meanSpeedMps": 9.334578649973103,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l3-w3.5-s5",
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.406,
+  "result": {
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 4128,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.33456683385815,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l3-w3.5-s6",
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.497,
+  "result": {
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 4128,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334567074164022,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l3-w3.5-s7",
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.527,
+  "result": {
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 4128,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334567269080159,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l3-w3.5-s8",
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.419,
+  "result": {
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 4128,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334567279148706,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l3-w3.5-s9",
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 1.419,
+  "result": {
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 4128,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.33456695488403,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bus-l3-w3.5-s10",
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 1.525,
+  "result": {
+   "mix": "bus",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 4128,
+   "throughPerLane": 1376,
+   "meanSpeedMps": 9.334567074164022,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l1-w3.5-s1",
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.76,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 4100,
+   "throughPerLane": 4100,
+   "meanSpeedMps": 9.823765754475897,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l1-w3.5-s2",
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.593,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 4129,
+   "throughPerLane": 4129,
+   "meanSpeedMps": 9.822360615378646,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l1-w3.5-s3",
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.71,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 4160,
+   "throughPerLane": 4160,
+   "meanSpeedMps": 9.825573246007979,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l1-w3.5-s4",
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.539,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 4095,
+   "throughPerLane": 4095,
+   "meanSpeedMps": 9.825689516948657,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l1-w3.5-s5",
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.679,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 4176,
+   "throughPerLane": 4176,
+   "meanSpeedMps": 9.822263788372753,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l1-w3.5-s6",
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.553,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 4149,
+   "throughPerLane": 4149,
+   "meanSpeedMps": 9.827997718503159,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l1-w3.5-s7",
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.714,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 4141,
+   "throughPerLane": 4141,
+   "meanSpeedMps": 9.82571013275875,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l1-w3.5-s8",
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.89,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 4140,
+   "throughPerLane": 4140,
+   "meanSpeedMps": 9.828497835121556,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l1-w3.5-s9",
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 2.068,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 4205,
+   "throughPerLane": 4205,
+   "meanSpeedMps": 9.825312675874054,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l1-w3.5-s10",
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 1.94,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 4129,
+   "throughPerLane": 4129,
+   "meanSpeedMps": 9.827388460021254,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l2-w3.5-s1",
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.681,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 6998,
+   "throughPerLane": 3499,
+   "meanSpeedMps": 11.60476327237417,
+   "betweenLanesShare": 0.012804259970410991,
+   "laneChangesStarted": 1117,
+   "meanLaneChangeS": 3.6649955237242615,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l2-w3.5-s2",
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.658,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 7003,
+   "throughPerLane": 3501.5,
+   "meanSpeedMps": 11.615675184366628,
+   "betweenLanesShare": 0.011596959181350635,
+   "laneChangesStarted": 996,
+   "meanLaneChangeS": 3.719076305220884,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l2-w3.5-s3",
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.564,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 6971,
+   "throughPerLane": 3485.5,
+   "meanSpeedMps": 11.655674289207692,
+   "betweenLanesShare": 0.012839887713478715,
+   "laneChangesStarted": 1100,
+   "meanLaneChangeS": 3.7020000000000004,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l2-w3.5-s4",
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.554,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 6955,
+   "throughPerLane": 3477.5,
+   "meanSpeedMps": 11.590283940768868,
+   "betweenLanesShare": 0.012746908957782105,
+   "laneChangesStarted": 1092,
+   "meanLaneChangeS": 3.7073260073260075,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l2-w3.5-s5",
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.411,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 7044,
+   "throughPerLane": 3522,
+   "meanSpeedMps": 11.641777412153736,
+   "betweenLanesShare": 0.011408124466644482,
+   "laneChangesStarted": 1002,
+   "meanLaneChangeS": 3.655489021956088,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l2-w3.5-s6",
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.636,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 7030,
+   "throughPerLane": 3515,
+   "meanSpeedMps": 11.655269519393045,
+   "betweenLanesShare": 0.012029099480990029,
+   "laneChangesStarted": 1043,
+   "meanLaneChangeS": 3.687440076701822,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l2-w3.5-s7",
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.39,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 6977,
+   "throughPerLane": 3488.5,
+   "meanSpeedMps": 11.626704700483009,
+   "betweenLanesShare": 0.011988979866859994,
+   "laneChangesStarted": 1027,
+   "meanLaneChangeS": 3.7135345666991237,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l2-w3.5-s8",
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.83,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 7028,
+   "throughPerLane": 3514,
+   "meanSpeedMps": 11.654034926620918,
+   "betweenLanesShare": 0.011147740662774226,
+   "laneChangesStarted": 956,
+   "meanLaneChangeS": 3.7230125523012556,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l2-w3.5-s9",
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 2.238,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 7111,
+   "throughPerLane": 3555.5,
+   "meanSpeedMps": 11.57280700090897,
+   "betweenLanesShare": 0.011614912153181592,
+   "laneChangesStarted": 1026,
+   "meanLaneChangeS": 3.6886939571150097,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l2-w3.5-s10",
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 2.159,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 6993,
+   "throughPerLane": 3496.5,
+   "meanSpeedMps": 11.72970320590077,
+   "betweenLanesShare": 0.012014243463162697,
+   "laneChangesStarted": 1007,
+   "meanLaneChangeS": 3.7676266137040715,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l3-w3.5-s1",
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 2.541,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 7499,
+   "throughPerLane": 2499.6666666666665,
+   "meanSpeedMps": 7.937635774522121,
+   "betweenLanesShare": 0.11272964209046869,
+   "laneChangesStarted": 15051,
+   "meanLaneChangeS": 3.742754634243572,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l3-w3.5-s2",
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 2.427,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 7375,
+   "throughPerLane": 2458.3333333333335,
+   "meanSpeedMps": 8.998829355212576,
+   "betweenLanesShare": 0.0986156158608674,
+   "laneChangesStarted": 11433,
+   "meanLaneChangeS": 3.7486923817020905,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l3-w3.5-s3",
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 2.538,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 7256,
+   "throughPerLane": 2418.6666666666665,
+   "meanSpeedMps": 7.99124969173427,
+   "betweenLanesShare": 0.12188619624978361,
+   "laneChangesStarted": 15671,
+   "meanLaneChangeS": 3.749384212877289,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l3-w3.5-s4",
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 2.398,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 7395,
+   "throughPerLane": 2465,
+   "meanSpeedMps": 8.475754432451481,
+   "betweenLanesShare": 0.11600779039093681,
+   "laneChangesStarted": 14336,
+   "meanLaneChangeS": 3.7399693080357146,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l3-w3.5-s5",
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 2.444,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 7363,
+   "throughPerLane": 2454.3333333333335,
+   "meanSpeedMps": 8.07930216553728,
+   "betweenLanesShare": 0.12423340348929206,
+   "laneChangesStarted": 16069,
+   "meanLaneChangeS": 3.7315701039268157,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l3-w3.5-s6",
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 2.407,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 7303,
+   "throughPerLane": 2434.3333333333335,
+   "meanSpeedMps": 7.763811646855168,
+   "betweenLanesShare": 0.12269450312774073,
+   "laneChangesStarted": 16314,
+   "meanLaneChangeS": 3.7450288096113766,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l3-w3.5-s7",
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 2.35,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 7671,
+   "throughPerLane": 2557,
+   "meanSpeedMps": 8.825517649129328,
+   "betweenLanesShare": 0.1073642761010317,
+   "laneChangesStarted": 13173,
+   "meanLaneChangeS": 3.7584301222196923,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l3-w3.5-s8",
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 2.173,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 7523,
+   "throughPerLane": 2507.6666666666665,
+   "meanSpeedMps": 8.499909293045677,
+   "betweenLanesShare": 0.10973861592858021,
+   "laneChangesStarted": 13716,
+   "meanLaneChangeS": 3.7530621172353458,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l3-w3.5-s9",
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 1.825,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 7900,
+   "throughPerLane": 2633.3333333333335,
+   "meanSpeedMps": 9.357046627535476,
+   "betweenLanesShare": 0.0940397369747566,
+   "laneChangesStarted": 11199,
+   "meanLaneChangeS": 3.758264130725958,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-two-wheelers_and_cars-l3-w3.5-s10",
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 2.099,
+  "result": {
+   "mix": "two-wheelers and cars",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 7124,
+   "throughPerLane": 2374.6666666666665,
+   "meanSpeedMps": 7.7088712729499695,
+   "betweenLanesShare": 0.12462997643931614,
+   "laneChangesStarted": 16354,
+   "meanLaneChangeS": 3.732102237984591,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l1-w3.5-s1",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.82,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 3244,
+   "throughPerLane": 3244,
+   "meanSpeedMps": 8.126448717355137,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l1-w3.5-s2",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.608,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 3299,
+   "throughPerLane": 3299,
+   "meanSpeedMps": 8.12653133081283,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l1-w3.5-s3",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.939,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 3306,
+   "throughPerLane": 3306,
+   "meanSpeedMps": 8.13670732470173,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l1-w3.5-s4",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.753,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 3293,
+   "throughPerLane": 3293,
+   "meanSpeedMps": 8.128171056413363,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l1-w3.5-s5",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.701,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 3283,
+   "throughPerLane": 3283,
+   "meanSpeedMps": 8.138681736819823,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l1-w3.5-s6",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.773,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 3293,
+   "throughPerLane": 3293,
+   "meanSpeedMps": 8.132398676095198,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l1-w3.5-s7",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.612,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 3274,
+   "throughPerLane": 3274,
+   "meanSpeedMps": 8.131078100686949,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l1-w3.5-s8",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.818,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 3304,
+   "throughPerLane": 3304,
+   "meanSpeedMps": 8.13806420923088,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l1-w3.5-s9",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 1.93,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 3339,
+   "throughPerLane": 3339,
+   "meanSpeedMps": 8.127763111811674,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l1-w3.5-s10",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 1.641,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 1,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 3250,
+   "throughPerLane": 3250,
+   "meanSpeedMps": 8.137990125793895,
+   "betweenLanesShare": 0,
+   "laneChangesStarted": 0,
+   "meanLaneChangeS": null,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l2-w3.5-s1",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 1.977,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 5956,
+   "throughPerLane": 2978,
+   "meanSpeedMps": 9.344528625229376,
+   "betweenLanesShare": 0.00917430047051537,
+   "laneChangesStarted": 901,
+   "meanLaneChangeS": 3.4617092119866815,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l2-w3.5-s2",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.847,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 6030,
+   "throughPerLane": 3015,
+   "meanSpeedMps": 9.290144530252771,
+   "betweenLanesShare": 0.008009766299385981,
+   "laneChangesStarted": 793,
+   "meanLaneChangeS": 3.488020176544767,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l2-w3.5-s3",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.962,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 6055,
+   "throughPerLane": 3027.5,
+   "meanSpeedMps": 9.305243819529718,
+   "betweenLanesShare": 0.00801556539457356,
+   "laneChangesStarted": 809,
+   "meanLaneChangeS": 3.4336217552534,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l2-w3.5-s4",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.651,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 6009,
+   "throughPerLane": 3004.5,
+   "meanSpeedMps": 9.30146809974556,
+   "betweenLanesShare": 0.008804728092726278,
+   "laneChangesStarted": 873,
+   "meanLaneChangeS": 3.470332187857961,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l2-w3.5-s5",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 1.894,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 6000,
+   "throughPerLane": 3000,
+   "meanSpeedMps": 9.30293536572492,
+   "betweenLanesShare": 0.009192514499049051,
+   "laneChangesStarted": 907,
+   "meanLaneChangeS": 3.4804851157662626,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l2-w3.5-s6",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.952,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 6085,
+   "throughPerLane": 3042.5,
+   "meanSpeedMps": 9.308155092561515,
+   "betweenLanesShare": 0.008070661227751623,
+   "laneChangesStarted": 791,
+   "meanLaneChangeS": 3.5501896333754743,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l2-w3.5-s7",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.752,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 5940,
+   "throughPerLane": 2970,
+   "meanSpeedMps": 9.36268004644411,
+   "betweenLanesShare": 0.010224988669590184,
+   "laneChangesStarted": 980,
+   "meanLaneChangeS": 3.524285714285714,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l2-w3.5-s8",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 2.096,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 6055,
+   "throughPerLane": 3027.5,
+   "meanSpeedMps": 9.298929034185587,
+   "betweenLanesShare": 0.008292521910176697,
+   "laneChangesStarted": 819,
+   "meanLaneChangeS": 3.506715506715507,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l2-w3.5-s9",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 2.223,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 6067,
+   "throughPerLane": 3033.5,
+   "meanSpeedMps": 9.311553145730727,
+   "betweenLanesShare": 0.008634944189671248,
+   "laneChangesStarted": 862,
+   "meanLaneChangeS": 3.47262180974478,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l2-w3.5-s10",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 2.062,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 2,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 5991,
+   "throughPerLane": 2995.5,
+   "meanSpeedMps": 9.319281425382416,
+   "betweenLanesShare": 0.008901175684296868,
+   "laneChangesStarted": 866,
+   "meanLaneChangeS": 3.515704387990762,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l3-w3.5-s1",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 1
+  },
+  "wallClockS": 2.003,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 1,
+   "vehiclesThrough": 8315,
+   "throughPerLane": 2771.6666666666665,
+   "meanSpeedMps": 9.445322501815658,
+   "betweenLanesShare": 0.022996362769496386,
+   "laneChangesStarted": 3001,
+   "meanLaneChangeS": 3.594468510496501,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l3-w3.5-s2",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 2
+  },
+  "wallClockS": 1.99,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 2,
+   "vehiclesThrough": 8444,
+   "throughPerLane": 2814.6666666666665,
+   "meanSpeedMps": 9.601170060946,
+   "betweenLanesShare": 0.01733420392254171,
+   "laneChangesStarted": 2301,
+   "meanLaneChangeS": 3.52742285962625,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l3-w3.5-s3",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 3
+  },
+  "wallClockS": 1.959,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 3,
+   "vehiclesThrough": 8451,
+   "throughPerLane": 2817,
+   "meanSpeedMps": 9.582193626106204,
+   "betweenLanesShare": 0.017830181344105366,
+   "laneChangesStarted": 2374,
+   "meanLaneChangeS": 3.5229149115417018,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l3-w3.5-s4",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 4
+  },
+  "wallClockS": 1.909,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 4,
+   "vehiclesThrough": 8456,
+   "throughPerLane": 2818.6666666666665,
+   "meanSpeedMps": 9.629757747432324,
+   "betweenLanesShare": 0.015480693072904178,
+   "laneChangesStarted": 2044,
+   "meanLaneChangeS": 3.5353228962818,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l3-w3.5-s5",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 5
+  },
+  "wallClockS": 2.116,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 5,
+   "vehiclesThrough": 8386,
+   "throughPerLane": 2795.3333333333335,
+   "meanSpeedMps": 9.37408279101341,
+   "betweenLanesShare": 0.022859832219206948,
+   "laneChangesStarted": 3027,
+   "meanLaneChangeS": 3.588965972910472,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l3-w3.5-s6",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 6
+  },
+  "wallClockS": 1.816,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 6,
+   "vehiclesThrough": 8507,
+   "throughPerLane": 2835.6666666666665,
+   "meanSpeedMps": 9.582122215626612,
+   "betweenLanesShare": 0.016978997143589965,
+   "laneChangesStarted": 2280,
+   "meanLaneChangeS": 3.515701754385965,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l3-w3.5-s7",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 7
+  },
+  "wallClockS": 1.775,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 7,
+   "vehiclesThrough": 8152,
+   "throughPerLane": 2717.3333333333335,
+   "meanSpeedMps": 9.5086483563707,
+   "betweenLanesShare": 0.023678600370240954,
+   "laneChangesStarted": 2988,
+   "meanLaneChangeS": 3.6109103078982603,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l3-w3.5-s8",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 8
+  },
+  "wallClockS": 1.921,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 8,
+   "vehiclesThrough": 8334,
+   "throughPerLane": 2778,
+   "meanSpeedMps": 9.461196823746011,
+   "betweenLanesShare": 0.022541383174559657,
+   "laneChangesStarted": 2919,
+   "meanLaneChangeS": 3.613840356286399,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l3-w3.5-s9",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 9
+  },
+  "wallClockS": 1.855,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 9,
+   "vehiclesThrough": 8496,
+   "throughPerLane": 2832,
+   "meanSpeedMps": 9.49871003108376,
+   "betweenLanesShare": 0.022028995071176772,
+   "laneChangesStarted": 2938,
+   "meanLaneChangeS": 3.5631722260040846,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru_at_one_desired_speed-l3-w3.5-s10",
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 10
+  },
+  "wallClockS": 1.979,
+  "result": {
+   "mix": "bengaluru at one desired speed",
+   "lanes": 3,
+   "laneWidthM": 3.5,
+   "seed": 10,
+   "vehiclesThrough": 8319,
+   "throughPerLane": 2773,
+   "meanSpeedMps": 9.557029305720262,
+   "betweenLanesShare": 0.020552397282738583,
+   "laneChangesStarted": 2635,
+   "meanLaneChangeS": 3.6006831119544596,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w2.5-s1",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 1
+  },
+  "wallClockS": 2.501,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 1,
+   "vehiclesThrough": 6852,
+   "throughPerLane": 2284,
+   "meanSpeedMps": 7.157495294687746,
+   "betweenLanesShare": 0.11329575888595002,
+   "laneChangesStarted": 21816,
+   "meanLaneChangeS": 2.702191052438577,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w2.5-s2",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 2
+  },
+  "wallClockS": 2.044,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 2,
+   "vehiclesThrough": 7039,
+   "throughPerLane": 2346.3333333333335,
+   "meanSpeedMps": 7.747348446252991,
+   "betweenLanesShare": 0.10962237280188394,
+   "laneChangesStarted": 20007,
+   "meanLaneChangeS": 2.7053931124106563,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w2.5-s3",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 3
+  },
+  "wallClockS": 2.203,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 3,
+   "vehiclesThrough": 6888,
+   "throughPerLane": 2296,
+   "meanSpeedMps": 7.724327047689034,
+   "betweenLanesShare": 0.12442448688520936,
+   "laneChangesStarted": 22220,
+   "meanLaneChangeS": 2.712736273627363,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w2.5-s4",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 4
+  },
+  "wallClockS": 2.026,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 4,
+   "vehiclesThrough": 6927,
+   "throughPerLane": 2309,
+   "meanSpeedMps": 7.765004874592056,
+   "betweenLanesShare": 0.11617332457731822,
+   "laneChangesStarted": 20843,
+   "meanLaneChangeS": 2.7038046346495226,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w2.5-s5",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 5
+  },
+  "wallClockS": 2.209,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 5,
+   "vehiclesThrough": 6907,
+   "throughPerLane": 2302.3333333333335,
+   "meanSpeedMps": 7.731238199938312,
+   "betweenLanesShare": 0.11707350136473677,
+   "laneChangesStarted": 20976,
+   "meanLaneChangeS": 2.7032799389778797,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w2.5-s6",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 6
+  },
+  "wallClockS": 2.163,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 6,
+   "vehiclesThrough": 7007,
+   "throughPerLane": 2335.6666666666665,
+   "meanSpeedMps": 7.303861038343093,
+   "betweenLanesShare": 0.11292656149202383,
+   "laneChangesStarted": 21703,
+   "meanLaneChangeS": 2.7052296917476846,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w2.5-s7",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 7
+  },
+  "wallClockS": 2.249,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 7,
+   "vehiclesThrough": 6934,
+   "throughPerLane": 2311.3333333333335,
+   "meanSpeedMps": 7.5617516126262,
+   "betweenLanesShare": 0.11743177790698382,
+   "laneChangesStarted": 21588,
+   "meanLaneChangeS": 2.7035945895868077,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w2.5-s8",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 8
+  },
+  "wallClockS": 2.305,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 8,
+   "vehiclesThrough": 6900,
+   "throughPerLane": 2300,
+   "meanSpeedMps": 7.290717277445297,
+   "betweenLanesShare": 0.11456321952229147,
+   "laneChangesStarted": 21793,
+   "meanLaneChangeS": 2.699224521635388,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w2.5-s9",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 9
+  },
+  "wallClockS": 2.256,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 9,
+   "vehiclesThrough": 6931,
+   "throughPerLane": 2310.3333333333335,
+   "meanSpeedMps": 7.413100106237731,
+   "betweenLanesShare": 0.11845784938817407,
+   "laneChangesStarted": 22240,
+   "meanLaneChangeS": 2.70113309352518,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w2.5-s10",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 10
+  },
+  "wallClockS": 2.238,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 2.5,
+   "seed": 10,
+   "vehiclesThrough": 6861,
+   "throughPerLane": 2287,
+   "meanSpeedMps": 7.683425385169023,
+   "betweenLanesShare": 0.11546767478073741,
+   "laneChangesStarted": 20688,
+   "meanLaneChangeS": 2.705433101314772,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w5-s1",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 1
+  },
+  "wallClockS": 2.646,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 1,
+   "vehiclesThrough": 6351,
+   "throughPerLane": 2117,
+   "meanSpeedMps": 6.177267903300065,
+   "betweenLanesShare": 0.1798078051603412,
+   "laneChangesStarted": 18675,
+   "meanLaneChangeS": 5.171362784471219,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w5-s2",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 2
+  },
+  "wallClockS": 2.401,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 2,
+   "vehiclesThrough": 6315,
+   "throughPerLane": 2105,
+   "meanSpeedMps": 6.099576186766469,
+   "betweenLanesShare": 0.17726263101945522,
+   "laneChangesStarted": 18638,
+   "meanLaneChangeS": 5.160135207640305,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w5-s3",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 3
+  },
+  "wallClockS": 2.423,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 3,
+   "vehiclesThrough": 6349,
+   "throughPerLane": 2116.3333333333335,
+   "meanSpeedMps": 6.016839938943944,
+   "betweenLanesShare": 0.17567332014910006,
+   "laneChangesStarted": 18863,
+   "meanLaneChangeS": 5.147505698987437,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w5-s4",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 4
+  },
+  "wallClockS": 2.436,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 4,
+   "vehiclesThrough": 6273,
+   "throughPerLane": 2091,
+   "meanSpeedMps": 5.878151819610812,
+   "betweenLanesShare": 0.17629817129063288,
+   "laneChangesStarted": 19130,
+   "meanLaneChangeS": 5.1646210141139575,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w5-s5",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 5
+  },
+  "wallClockS": 2.381,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 5,
+   "vehiclesThrough": 6262,
+   "throughPerLane": 2087.3333333333335,
+   "meanSpeedMps": 6.038006561855257,
+   "betweenLanesShare": 0.1795810630622613,
+   "laneChangesStarted": 18845,
+   "meanLaneChangeS": 5.1683947996816135,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w5-s6",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 6
+  },
+  "wallClockS": 2.468,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 6,
+   "vehiclesThrough": 6192,
+   "throughPerLane": 2064,
+   "meanSpeedMps": 5.568942940226345,
+   "betweenLanesShare": 0.1705621954724015,
+   "laneChangesStarted": 19335,
+   "meanLaneChangeS": 5.148383760020688,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w5-s7",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 7
+  },
+  "wallClockS": 2.321,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 7,
+   "vehiclesThrough": 6197,
+   "throughPerLane": 2065.6666666666665,
+   "meanSpeedMps": 6.333348432440181,
+   "betweenLanesShare": 0.1951751367052746,
+   "laneChangesStarted": 19175,
+   "meanLaneChangeS": 5.198279009126467,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w5-s8",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 8
+  },
+  "wallClockS": 2.599,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 8,
+   "vehiclesThrough": 6190,
+   "throughPerLane": 2063.3333333333335,
+   "meanSpeedMps": 6.005011267552578,
+   "betweenLanesShare": 0.18350672392782508,
+   "laneChangesStarted": 19160,
+   "meanLaneChangeS": 5.178152400835073,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w5-s9",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 9
+  },
+  "wallClockS": 2.38,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 9,
+   "vehiclesThrough": 6378,
+   "throughPerLane": 2126,
+   "meanSpeedMps": 6.167457319204756,
+   "betweenLanesShare": 0.18661990371957607,
+   "laneChangesStarted": 19557,
+   "meanLaneChangeS": 5.165413918290127,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w5-s10",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 10
+  },
+  "wallClockS": 2.52,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 5,
+   "seed": 10,
+   "vehiclesThrough": 6240,
+   "throughPerLane": 2080,
+   "meanSpeedMps": 6.087361014152845,
+   "betweenLanesShare": 0.18373700774046497,
+   "laneChangesStarted": 19100,
+   "meanLaneChangeS": 5.1684083769633515,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w7-s1",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 1
+  },
+  "wallClockS": 2.282,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 1,
+   "vehiclesThrough": 6148,
+   "throughPerLane": 2049.3333333333335,
+   "meanSpeedMps": 6.123795141724503,
+   "betweenLanesShare": 0.20850869453031123,
+   "laneChangesStarted": 15236,
+   "meanLaneChangeS": 7.126739301653977,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w7-s2",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 2
+  },
+  "wallClockS": 2.471,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 2,
+   "vehiclesThrough": 6048,
+   "throughPerLane": 2016,
+   "meanSpeedMps": 5.957066443675482,
+   "betweenLanesShare": 0.2207374916124857,
+   "laneChangesStarted": 16234,
+   "meanLaneChangeS": 7.158691634840459,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w7-s3",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 3
+  },
+  "wallClockS": 2.383,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 3,
+   "vehiclesThrough": 6220,
+   "throughPerLane": 2073.3333333333335,
+   "meanSpeedMps": 5.832200133873416,
+   "betweenLanesShare": 0.19834751083339855,
+   "laneChangesStarted": 15441,
+   "meanLaneChangeS": 7.0950327051356785,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w7-s4",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 4
+  },
+  "wallClockS": 2.394,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 4,
+   "vehiclesThrough": 6241,
+   "throughPerLane": 2080.3333333333335,
+   "meanSpeedMps": 5.9358739381083865,
+   "betweenLanesShare": 0.19634090574109697,
+   "laneChangesStarted": 14987,
+   "meanLaneChangeS": 7.132941882965238,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w7-s5",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 5
+  },
+  "wallClockS": 2.541,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 5,
+   "vehiclesThrough": 6088,
+   "throughPerLane": 2029.3333333333333,
+   "meanSpeedMps": 5.7263651901011015,
+   "betweenLanesShare": 0.20171866662922294,
+   "laneChangesStarted": 15626,
+   "meanLaneChangeS": 7.095238704722899,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w7-s6",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 6
+  },
+  "wallClockS": 2.418,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 6,
+   "vehiclesThrough": 6195,
+   "throughPerLane": 2065,
+   "meanSpeedMps": 5.7051734725504035,
+   "betweenLanesShare": 0.2002357705445025,
+   "laneChangesStarted": 15871,
+   "meanLaneChangeS": 7.09015184928486,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w7-s7",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 7
+  },
+  "wallClockS": 2.459,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 7,
+   "vehiclesThrough": 6212,
+   "throughPerLane": 2070.6666666666665,
+   "meanSpeedMps": 6.241425957814105,
+   "betweenLanesShare": 0.21873402429706906,
+   "laneChangesStarted": 15771,
+   "meanLaneChangeS": 7.1343858981675226,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w7-s8",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 8
+  },
+  "wallClockS": 2.712,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 8,
+   "vehiclesThrough": 6183,
+   "throughPerLane": 2061,
+   "meanSpeedMps": 5.781354246257158,
+   "betweenLanesShare": 0.19705382852419875,
+   "laneChangesStarted": 15343,
+   "meanLaneChangeS": 7.1241347845923215,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w7-s9",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 9
+  },
+  "wallClockS": 2.224,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 9,
+   "vehiclesThrough": 6075,
+   "throughPerLane": 2025,
+   "meanSpeedMps": 5.830382631723299,
+   "betweenLanesShare": 0.21194112945814372,
+   "laneChangesStarted": 16047,
+   "meanLaneChangeS": 7.117654390228704,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ },
+ {
+  "job": {
+   "kind": "open-road",
+   "id": "open-bengaluru-l3-w7-s10",
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 10
+  },
+  "wallClockS": 2.316,
+  "result": {
+   "mix": "bengaluru",
+   "lanes": 3,
+   "laneWidthM": 7,
+   "seed": 10,
+   "vehiclesThrough": 6063,
+   "throughPerLane": 2021,
+   "meanSpeedMps": 5.860156862709619,
+   "betweenLanesShare": 0.2153905500470496,
+   "laneChangesStarted": 16243,
+   "meanLaneChangeS": 7.116382441667181,
+   "tier0": {
+    "conservationViolations": 0,
+    "overlaps": 0,
+    "negativeSpeeds": 0,
+    "outsideRoad": 0,
+    "momentsChecked": 18001,
+    "examples": []
+   },
+   "stuckVehicles": 0
+  }
+ }
+]

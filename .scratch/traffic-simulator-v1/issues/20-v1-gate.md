@@ -2,7 +2,7 @@
 
 **What to build:** A written check of the four gate conditions, and the decision on whether v2 starts. If the gate is not passed by hour 48 of the 72, v2 stays a written roadmap.
 
-**Blocked by:** 02, 03, 09, 11, 12, 13, 14, 15, 16, 17, 19
+**Blocked by:** 02, 03, 09, 11, 12, 13, 14, 15, 16, 17, 19, 23
 
 **Status:** ready-for-agent
 
