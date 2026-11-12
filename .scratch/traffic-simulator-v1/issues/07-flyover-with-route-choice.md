@@ -4,7 +4,7 @@
 
 **Blocked by:** 04
 
-**Status:** ready-for-agent
+**Status:** done (merged to integration branch)
 
 - [x] A network can contain a flyover that shares no junction with the road beneath it
 - [x] A vehicle on the flyover is unaffected by vehicles beneath, and the reverse

@@ -4,7 +4,7 @@
 
 **Blocked by:** 07
 
-**Status:** ready-for-agent
+**Status:** in progress (data, sources and ground-level importer merged; raised roads, merges, full run and attribution remain)
 
 - [ ] An importer written in TypeScript turns OpenStreetMap data plus a corrections file into a network
 - [ ] The corridor includes the flyover, the junction beneath and the next junction downstream
