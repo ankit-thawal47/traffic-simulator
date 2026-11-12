@@ -55,7 +55,7 @@ describe("side-road throughput", () => {
   function sideThrough(mainPerHour: number): number {
     let total = 0;
     for (const seed of [51, 52, 53]) {
-      const run = createRun({ network: tJunction(), demand: saturating(mainPerHour), seed });
+      const run = createRun({ network: tJunction(), demand: saturating(mainPerHour, 3000), seed });
       const out = new Set<number>();
       while (run.timeS < 1500 - 1e-9) {
         run.step();
