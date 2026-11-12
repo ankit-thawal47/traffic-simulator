@@ -1,0 +1,700 @@
+{
+ "machine": {
+  "date": "2026-11-12",
+  "measuredAt": "2026-11-12T07:45:45.423Z",
+  "model": "Mac15,7",
+  "cpu": "Apple M3 Pro",
+  "logicalCpus": 12,
+  "memoryGB": 18,
+  "os": "Darwin 27.0.0 (arm64)",
+  "osProduct": "macOS 27.0.1",
+  "node": "v22.7.0",
+  "v8": "12.4.254.21-node.18",
+  "power": "Now drawing from 'Battery Power'",
+  "display": "Resolution: 3456 x 2234 Retina",
+  "loadAverageAtStart": [
+   4.51,
+   15.88,
+   19.06
+  ],
+  "loadAverageAtEnd": [
+   8.23,
+   15.24,
+   18.64
+  ]
+ },
+ "options": {
+  "counts": [
+   3000
+  ],
+  "reps": 2,
+  "protocolReps": 1,
+  "speeds": [
+   16
+  ],
+  "warmS": 2,
+  "measureS": 4,
+  "quick": true,
+  "window": {
+   "width": 1600,
+   "height": 900,
+   "scale": 2
+  },
+  "engineScenarios": [
+   "mixed",
+   "cars-only"
+  ],
+  "browserScenarios": [
+   "mixed"
+  ]
+ },
+ "scenarios": {
+  "mixed": {
+   "description": "Mixed traffic without lane discipline. Parallel straight one-way roads, 1,000 m long, 10.5 m wide (3 lanes), 25 m apart, speed limit 13.9 m/s, no junctions. One road for every 125 vehicles asked for (8, 24 and 40 roads for 1,000, 3,000 and 5,000 vehicles). Each road starts with 125 vehicles of the Bengaluru vehicle mix in three files at 12 m/s and has a demand of 6,000 vehicles an hour of the same mix, which replaces the vehicles that leave. Traffic is busy but flowing: there is no signal and no queue.",
+   "roadLengthM": 1000,
+   "widthM": 10.5,
+   "lanes": 3,
+   "vehiclesPerRoad": 125,
+   "vehiclesPerHourPerRoad": 6000,
+   "initialSpeedMps": 12,
+   "mixed": true
+  },
+  "cars-only": {
+   "description": "Cars only, single file. Parallel straight one-way roads, 2,000 m long, 3.5 m wide (1 lane), 25 m apart, speed limit 13.9 m/s, no junctions. One road for every 50 vehicles asked for (20, 60 and 100 roads). Each road starts with 50 cars spaced evenly at 13 m/s and has a demand of 1,200 cars an hour.",
+   "roadLengthM": 2000,
+   "widthM": 3.5,
+   "lanes": 1,
+   "vehiclesPerRoad": 50,
+   "vehiclesPerHourPerRoad": 1200,
+   "initialSpeedMps": 13,
+   "mixed": false
+  }
+ },
+ "chromeVersion": "Google Chrome 157.0.8103.51",
+ "browsers": [
+  {
+   "mode": "headed-gpu",
+   "flags": [
+    "--user-data-dir=<temporary profile>",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--disable-extensions",
+    "--disable-background-timer-throttling",
+    "--disable-renderer-backgrounding",
+    "--disable-backgrounding-occluded-windows",
+    "--disable-features=CalculateNativeWinOcclusion",
+    "--window-size=1600,900",
+    "--force-device-scale-factor=2",
+    "--window-position=40,40"
+   ],
+   "environment": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "webglRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+    "webglVendor": "Google Inc. (Apple)",
+    "devicePixelRatio": 2,
+    "windowWidth": 1600,
+    "windowHeight": 813,
+    "visibilityState": "visible",
+    "hardwareConcurrency": 12,
+    "crossOriginIsolated": true
+   },
+   "results": [
+    {
+     "address": "?mode=protocol&scenario=mixed&n=3000&steps=100&rep=0",
+     "environment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+      "webglRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+      "webglVendor": "Google Inc. (Apple)",
+      "devicePixelRatio": 2,
+      "windowWidth": 1600,
+      "windowHeight": 813,
+      "visibilityState": "visible",
+      "hardwareConcurrency": 12,
+      "crossOriginIsolated": true
+     },
+     "result": {
+      "mode": "protocol",
+      "scenario": "mixed",
+      "targetVehicles": 3000,
+      "seed": 1,
+      "warmUpSteps": 500,
+      "steps": 100,
+      "stepSeconds": 0.2,
+      "engineInWorker": {
+       "scenario": "mixed",
+       "targetVehicles": 3000,
+       "seed": 1,
+       "warmUpSteps": 500,
+       "blocks": 5,
+       "stepsPerBlock": 100,
+       "snapshotEveryStep": false,
+       "stepSeconds": 0.2,
+       "simSecondsPerRealSecond": 208.3832584931542,
+       "blockRates": [
+        221.45941755588527,
+        218.12629513054915,
+        186.61938975148175,
+        206.04749395241598,
+        213.56113189438747
+       ],
+       "msPerStep": 0.9597699999809265,
+       "vehiclesOnNetwork": {
+        "min": 2940,
+        "mean": 3047.5,
+        "max": 3145
+       },
+       "vehiclesThrough": 7899,
+       "vehiclesWaitingToEnterAtEnd": 0,
+       "snapshotVehiclesSeen": 0
+      },
+      "variants": [
+       {
+        "variant": "step",
+        "steps": 100,
+        "workerMs": 101.31999999284744,
+        "pageMs": 101.54999999701977,
+        "messages": 0,
+        "pageReadMs": 0,
+        "vehiclesOnNetwork": 2987
+       },
+       {
+        "variant": "snapshot",
+        "steps": 100,
+        "workerMs": 153.51999999582767,
+        "pageMs": 153.76000000536442,
+        "messages": 0,
+        "pageReadMs": 0,
+        "vehiclesOnNetwork": 3085
+       },
+       {
+        "variant": "post-object",
+        "steps": 100,
+        "workerMs": 212.17000000178814,
+        "pageMs": 213.1000000089407,
+        "messages": 100,
+        "pageReadMs": 97.68499989807606,
+        "vehiclesOnNetwork": 3145
+       },
+       {
+        "variant": "post-typed",
+        "steps": 100,
+        "workerMs": 154.92499999701977,
+        "pageMs": 154.05500000715256,
+        "messages": 100,
+        "pageReadMs": 0.2199999988079071,
+        "vehiclesOnNetwork": 3090
+       }
+      ],
+      "checksum": 98122.54669189453
+     }
+    },
+    {
+     "address": "?mode=views&scenario=mixed&n=3000&runs=1&draw=0&seeds=1&speed=16&warm=2&measure=4",
+     "environment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+      "webglRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+      "webglVendor": "Google Inc. (Apple)",
+      "devicePixelRatio": 2,
+      "windowWidth": 1600,
+      "windowHeight": 813,
+      "visibilityState": "visible",
+      "hardwareConcurrency": 12,
+      "crossOriginIsolated": true
+     },
+     "result": {
+      "mode": "views",
+      "scenario": "mixed",
+      "targetVehicles": 3000,
+      "runs": 1,
+      "draw": false,
+      "requestedSpeed": 16,
+      "unseenSeeds": true,
+      "unseenSeedEvents": 6,
+      "warmS": 2,
+      "measureS": 4,
+      "elapsedMs": 4000.2100000083447,
+      "achievedSpeed": 15.996260874011167,
+      "framesPerSecond": 119.99370033048233,
+      "frameIntervalMs": {
+       "median": 8.335000000000036,
+       "p95": 8.634999999999764,
+       "max": 9.329999999999927
+      },
+      "drawCallbackMsPerFrame": 0,
+      "messagesPerSecond": 39.99790011016078,
+      "receiveMsPerMessage": 0.872874999511987,
+      "longTasks": 0,
+      "longTaskMs": 0,
+      "canvases": [],
+      "vehiclesOnNetwork": [
+       2898
+      ],
+      "simulatedSecondsAtEnd": 95.60000000000001
+     }
+    },
+    {
+     "address": "?mode=views&scenario=mixed&n=3000&runs=1&draw=1&seeds=1&speed=16&warm=2&measure=4",
+     "environment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+      "webglRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+      "webglVendor": "Google Inc. (Apple)",
+      "devicePixelRatio": 2,
+      "windowWidth": 1600,
+      "windowHeight": 813,
+      "visibilityState": "visible",
+      "hardwareConcurrency": 12,
+      "crossOriginIsolated": true
+     },
+     "result": {
+      "mode": "views",
+      "scenario": "mixed",
+      "targetVehicles": 3000,
+      "runs": 1,
+      "draw": true,
+      "requestedSpeed": 16,
+      "unseenSeeds": true,
+      "unseenSeedEvents": 3,
+      "warmS": 2,
+      "measureS": 4,
+      "elapsedMs": 4000.464999988675,
+      "achievedSpeed": 16.053230712709638,
+      "framesPerSecond": 119.98605162183867,
+      "frameIntervalMs": {
+       "median": 8.330000000000382,
+       "p95": 9.30999999999949,
+       "max": 9.329999999999927
+      },
+      "drawCallbackMsPerFrame": 1.6069687497491638,
+      "messagesPerSecond": 39.99535054061289,
+      "receiveMsPerMessage": 1.0484374997206032,
+      "longTasks": 0,
+      "longTaskMs": 0,
+      "canvases": [
+       {
+        "width": 3200,
+        "height": 1626
+       }
+      ],
+      "vehiclesOnNetwork": [
+       2876
+      ],
+      "simulatedSecondsAtEnd": 83
+     }
+    },
+    {
+     "address": "?mode=views&scenario=mixed&n=3000&runs=2&draw=0&seeds=1&speed=16&warm=2&measure=4",
+     "environment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+      "webglRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+      "webglVendor": "Google Inc. (Apple)",
+      "devicePixelRatio": 2,
+      "windowWidth": 1600,
+      "windowHeight": 813,
+      "visibilityState": "visible",
+      "hardwareConcurrency": 12,
+      "crossOriginIsolated": true
+     },
+     "result": {
+      "mode": "views",
+      "scenario": "mixed",
+      "targetVehicles": 3000,
+      "runs": 2,
+      "draw": false,
+      "requestedSpeed": 16,
+      "unseenSeeds": true,
+      "unseenSeedEvents": 2,
+      "warmS": 2,
+      "measureS": 4,
+      "elapsedMs": 4001.765000000596,
+      "achievedSpeed": 15.99558879414858,
+      "framesPerSecond": 119.94707335386474,
+      "frameIntervalMs": {
+       "median": 8.329999999999927,
+       "p95": 8.829999999999927,
+       "max": 10.5
+      },
+      "drawCallbackMsPerFrame": 0,
+      "messagesPerSecond": 40.232247520775466,
+      "receiveMsPerMessage": 1.6929503102665362,
+      "longTasks": 0,
+      "longTaskMs": 0,
+      "canvases": [],
+      "vehiclesOnNetwork": [
+       2898,
+       3046
+      ],
+      "simulatedSecondsAtEnd": 95.60000000000001
+     }
+    },
+    {
+     "address": "?mode=views&scenario=mixed&n=3000&runs=2&draw=1&seeds=1&speed=16&warm=2&measure=4",
+     "environment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+      "webglRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+      "webglVendor": "Google Inc. (Apple)",
+      "devicePixelRatio": 2,
+      "windowWidth": 1600,
+      "windowHeight": 813,
+      "visibilityState": "visible",
+      "hardwareConcurrency": 12,
+      "crossOriginIsolated": true
+     },
+     "result": {
+      "mode": "views",
+      "scenario": "mixed",
+      "targetVehicles": 3000,
+      "runs": 2,
+      "draw": true,
+      "requestedSpeed": 16,
+      "unseenSeeds": true,
+      "unseenSeedEvents": 2,
+      "warmS": 2,
+      "measureS": 4,
+      "elapsedMs": 4001.354999989271,
+      "achievedSpeed": 15.999260034213883,
+      "framesPerSecond": 119.95936376584608,
+      "frameIntervalMs": {
+       "median": 8.335000000000036,
+       "p95": 8.804999999999836,
+       "max": 9.329999999999927
+      },
+      "drawCallbackMsPerFrame": 2.7621874998944502,
+      "messagesPerSecond": 39.98645458861536,
+      "receiveMsPerMessage": 1.8982187496498226,
+      "longTasks": 0,
+      "longTaskMs": 0,
+      "canvases": [
+       {
+        "width": 1600,
+        "height": 1626
+       },
+       {
+        "width": 1600,
+        "height": 1626
+       }
+      ],
+      "vehiclesOnNetwork": [
+       2890,
+       3045
+      ],
+      "simulatedSecondsAtEnd": 92.60000000000001
+     }
+    }
+   ],
+   "failures": []
+  },
+  {
+   "mode": "headed-gpu-uncapped",
+   "flags": [
+    "--user-data-dir=<temporary profile>",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--disable-extensions",
+    "--disable-background-timer-throttling",
+    "--disable-renderer-backgrounding",
+    "--disable-backgrounding-occluded-windows",
+    "--disable-features=CalculateNativeWinOcclusion",
+    "--window-size=1600,900",
+    "--force-device-scale-factor=2",
+    "--window-position=40,40",
+    "--disable-frame-rate-limit",
+    "--disable-gpu-vsync"
+   ],
+   "environment": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "webglRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+    "webglVendor": "Google Inc. (Apple)",
+    "devicePixelRatio": 2,
+    "windowWidth": 1600,
+    "windowHeight": 813,
+    "visibilityState": "visible",
+    "hardwareConcurrency": 12,
+    "crossOriginIsolated": true
+   },
+   "results": [
+    {
+     "address": "?mode=protocol&scenario=mixed&n=3000&steps=100&rep=0",
+     "environment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+      "webglRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+      "webglVendor": "Google Inc. (Apple)",
+      "devicePixelRatio": 2,
+      "windowWidth": 1600,
+      "windowHeight": 813,
+      "visibilityState": "visible",
+      "hardwareConcurrency": 12,
+      "crossOriginIsolated": true
+     },
+     "result": {
+      "mode": "protocol",
+      "scenario": "mixed",
+      "targetVehicles": 3000,
+      "seed": 1,
+      "warmUpSteps": 500,
+      "steps": 100,
+      "stepSeconds": 0.2,
+      "engineInWorker": {
+       "scenario": "mixed",
+       "targetVehicles": 3000,
+       "seed": 1,
+       "warmUpSteps": 500,
+       "blocks": 5,
+       "stepsPerBlock": 100,
+       "snapshotEveryStep": false,
+       "stepSeconds": 0.2,
+       "simSecondsPerRealSecond": 211.54395354334738,
+       "blockRates": [
+        218.61507351074277,
+        221.17777164124038,
+        189.96960486107085,
+        209.6106482065261,
+        221.95094884177442
+       ],
+       "msPerStep": 0.9454300000071526,
+       "vehiclesOnNetwork": {
+        "min": 2940,
+        "mean": 3047.5,
+        "max": 3145
+       },
+       "vehiclesThrough": 7899,
+       "vehiclesWaitingToEnterAtEnd": 0,
+       "snapshotVehiclesSeen": 0
+      },
+      "variants": [
+       {
+        "variant": "step",
+        "steps": 100,
+        "workerMs": 97.96500000357628,
+        "pageMs": 98.17000000178814,
+        "messages": 0,
+        "pageReadMs": 0,
+        "vehiclesOnNetwork": 2987
+       },
+       {
+        "variant": "snapshot",
+        "steps": 100,
+        "workerMs": 132.46500000357628,
+        "pageMs": 132.65999999642372,
+        "messages": 0,
+        "pageReadMs": 0,
+        "vehiclesOnNetwork": 3085
+       },
+       {
+        "variant": "post-object",
+        "steps": 100,
+        "workerMs": 200,
+        "pageMs": 200.90000000596046,
+        "messages": 100,
+        "pageReadMs": 95.53499990701675,
+        "vehiclesOnNetwork": 3145
+       },
+       {
+        "variant": "post-typed",
+        "steps": 100,
+        "workerMs": 158.25499999523163,
+        "pageMs": 157.40000000596046,
+        "messages": 100,
+        "pageReadMs": 0.434999942779541,
+        "vehiclesOnNetwork": 3090
+       }
+      ],
+      "checksum": 98122.54669189453
+     }
+    },
+    {
+     "address": "?mode=views&scenario=mixed&n=3000&runs=1&draw=0&seeds=1&speed=16&warm=2&measure=4",
+     "environment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+      "webglRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+      "webglVendor": "Google Inc. (Apple)",
+      "devicePixelRatio": 2,
+      "windowWidth": 1600,
+      "windowHeight": 813,
+      "visibilityState": "visible",
+      "hardwareConcurrency": 12,
+      "crossOriginIsolated": true
+     },
+     "result": {
+      "mode": "views",
+      "scenario": "mixed",
+      "targetVehicles": 3000,
+      "runs": 1,
+      "draw": false,
+      "requestedSpeed": 16,
+      "unseenSeeds": true,
+      "unseenSeedEvents": 6,
+      "warmS": 2,
+      "measureS": 4,
+      "elapsedMs": 4000.7749999910593,
+      "achievedSpeed": 16.001920230384727,
+      "framesPerSecond": 96.48130674703341,
+      "frameIntervalMs": {
+       "median": 16.985000000000127,
+       "p95": 17.715000000000146,
+       "max": 18.0049999999992
+      },
+      "drawCallbackMsPerFrame": 0,
+      "messagesPerSecond": 39.992251501361,
+      "receiveMsPerMessage": 0.8531875000335276,
+      "longTasks": 0,
+      "longTaskMs": 0,
+      "canvases": [],
+      "vehiclesOnNetwork": [
+       2897
+      ],
+      "simulatedSecondsAtEnd": 95.4
+     }
+    },
+    {
+     "address": "?mode=views&scenario=mixed&n=3000&runs=1&draw=1&seeds=1&speed=16&warm=2&measure=4",
+     "environment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+      "webglRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+      "webglVendor": "Google Inc. (Apple)",
+      "devicePixelRatio": 2,
+      "windowWidth": 1600,
+      "windowHeight": 813,
+      "visibilityState": "visible",
+      "hardwareConcurrency": 12,
+      "crossOriginIsolated": true
+     },
+     "result": {
+      "mode": "views",
+      "scenario": "mixed",
+      "targetVehicles": 3000,
+      "runs": 1,
+      "draw": true,
+      "requestedSpeed": 16,
+      "unseenSeeds": true,
+      "unseenSeedEvents": 4,
+      "warmS": 2,
+      "measureS": 4,
+      "elapsedMs": 4007.1599999964237,
+      "achievedSpeed": 16.013431265430928,
+      "framesPerSecond": 269.7671168610599,
+      "frameIntervalMs": {
+       "median": 3.6150000000002365,
+       "p95": 4.895000000000437,
+       "max": 15.590000000000146
+      },
+      "drawCallbackMsPerFrame": 3.1967483809929442,
+      "messagesPerSecond": 39.92852793503199,
+      "receiveMsPerMessage": 1.0165312500670551,
+      "longTasks": 0,
+      "longTaskMs": 0,
+      "canvases": [
+       {
+        "width": 3200,
+        "height": 1626
+       }
+      ],
+      "vehiclesOnNetwork": [
+       2886
+      ],
+      "simulatedSecondsAtEnd": 93.60000000000001
+     }
+    },
+    {
+     "address": "?mode=views&scenario=mixed&n=3000&runs=2&draw=0&seeds=1&speed=16&warm=2&measure=4",
+     "environment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+      "webglRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+      "webglVendor": "Google Inc. (Apple)",
+      "devicePixelRatio": 2,
+      "windowWidth": 1600,
+      "windowHeight": 813,
+      "visibilityState": "visible",
+      "hardwareConcurrency": 12,
+      "crossOriginIsolated": true
+     },
+     "result": {
+      "mode": "views",
+      "scenario": "mixed",
+      "targetVehicles": 3000,
+      "runs": 2,
+      "draw": false,
+      "requestedSpeed": 16,
+      "unseenSeeds": true,
+      "unseenSeedEvents": 2,
+      "warmS": 2,
+      "measureS": 4,
+      "elapsedMs": 4000.670000001788,
+      "achievedSpeed": 15.98846831726429,
+      "framesPerSecond": 96.2338808249188,
+      "frameIntervalMs": {
+       "median": 17.049999999999272,
+       "p95": 17.715000000000146,
+       "max": 17.94000000000051
+      },
+      "drawCallbackMsPerFrame": 0,
+      "messagesPerSecond": 39.99330112204418,
+      "receiveMsPerMessage": 1.7220625005662442,
+      "longTasks": 0,
+      "longTaskMs": 0,
+      "canvases": [],
+      "vehiclesOnNetwork": [
+       2897,
+       3040
+      ],
+      "simulatedSecondsAtEnd": 95.4
+     }
+    },
+    {
+     "address": "?mode=views&scenario=mixed&n=3000&runs=2&draw=1&seeds=1&speed=16&warm=2&measure=4",
+     "environment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+      "webglRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+      "webglVendor": "Google Inc. (Apple)",
+      "devicePixelRatio": 2,
+      "windowWidth": 1600,
+      "windowHeight": 813,
+      "visibilityState": "visible",
+      "hardwareConcurrency": 12,
+      "crossOriginIsolated": true
+     },
+     "result": {
+      "mode": "views",
+      "scenario": "mixed",
+      "targetVehicles": 3000,
+      "runs": 2,
+      "draw": true,
+      "requestedSpeed": 16,
+      "unseenSeeds": true,
+      "unseenSeedEvents": 1,
+      "warmS": 2,
+      "measureS": 4,
+      "elapsedMs": 4003.744999989867,
+      "achievedSpeed": 15.985553056387175,
+      "framesPerSecond": 223.290943854382,
+      "frameIntervalMs": {
+       "median": 3.985000000000582,
+       "p95": 6.695000000000164,
+       "max": 33.92499999999927
+      },
+      "drawCallbackMsPerFrame": 3.7107550337143924,
+      "messagesPerSecond": 39.96258502986702,
+      "receiveMsPerMessage": 1.9476874995976687,
+      "longTasks": 0,
+      "longTaskMs": 0,
+      "canvases": [
+       {
+        "width": 1600,
+        "height": 1626
+       },
+       {
+        "width": 1600,
+        "height": 1626
+       }
+      ],
+      "vehiclesOnNetwork": [
+       2891,
+       3046
+      ],
+      "simulatedSecondsAtEnd": 92
+     }
+    }
+   ],
+   "failures": []
+  }
+ ]
+}
