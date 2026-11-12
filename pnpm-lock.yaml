@@ -98,6 +98,9 @@ importers:
 
   packages/scenario:
     dependencies:
+      '@traffic-simulator/corridor':
+        specifier: workspace:*
+        version: link:../corridor
       '@traffic-simulator/engine':
         specifier: workspace:*
         version: link:../engine

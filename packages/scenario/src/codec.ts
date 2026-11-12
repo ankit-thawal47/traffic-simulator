@@ -50,8 +50,18 @@ function prefixed<T>(prefix: string, outcome: Outcome<T>): Outcome<T> {
  * or a link that cannot be opened again is never made. It also puts the parts
  * in one fixed order, so the same scenario always gives the same text.
  */
-function toWrite(scenario: Scenario, cannot: string): Outcome<Scenario> {
-  return prefixed(cannot, readScenario(scenario));
+function toWrite(scenario: Scenario, cannot: string): Outcome<Saved> {
+  const checked = prefixed(cannot, readScenario(asSaved(scenario)));
+  return checked.ok ? { ok: true, value: asSaved(checked.value) } : checked;
+}
+
+/** What is saved of a scenario: all of it, but a scenario on a prepared corridor names it by id and leaves its network out. */
+type Saved = Omit<Scenario, "network"> & { network?: Scenario["network"] };
+
+function asSaved(scenario: Scenario): Saved {
+  if (scenario.corridorId === undefined) return scenario;
+  const { network: _network, ...rest } = scenario;
+  return rest;
 }
 
 /** The scenario as the text of a file, or why it cannot be saved. */

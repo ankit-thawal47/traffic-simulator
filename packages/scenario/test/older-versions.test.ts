@@ -116,3 +116,26 @@ describe("a scenario saved by version 2 of the scenario description", () => {
     expect(resultsAfter(now, 120)).toEqual(resultsAfter(asVersion2RanIt, 120));
   });
 });
+
+describe("a scenario saved by version 3 of the scenario description", () => {
+  const saved = fixture("v3-flyover-every-kind-of-change.json") as Record<string, unknown>;
+
+  it("loads as the current version, carrying its own network and naming no corridor, as version 3 always did", () => {
+    const scenario = loaded("v3-flyover-every-kind-of-change.json");
+    const { formatVersion: _saved, ...asSaved } = saved;
+    const { formatVersion, ...asLoaded } = scenario;
+
+    expect(saved.formatVersion).toBe(3);
+    expect(formatVersion).toBe(SCENARIO_FORMAT_VERSION);
+    expect(scenario.corridorId).toBeUndefined();
+    expect(asLoaded).toEqual(asSaved);
+  });
+
+  it("means the same thing: it resolves to the same engine input whatever version reads it", () => {
+    const scenario = loaded("v3-flyover-every-kind-of-change.json");
+    const asVersion3 = { ...scenario, formatVersion: SCENARIO_FORMAT_VERSION } as Scenario;
+
+    expect(resolveScenario(scenario).network).toEqual(resolveScenario(asVersion3).network);
+    expect(scenario.network).toEqual(saved.network);
+  });
+});

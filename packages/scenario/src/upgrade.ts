@@ -20,4 +20,6 @@ export const UPGRADE_STEPS: Record<number, (older: Saved) => Saved> = {
   1: (version1) => ({ ...version1, formatVersion: 2, laneDiscipline: false }),
   // Version 2 had no roads left unbuilt: every road of its network existed in the baseline.
   2: (version2) => ({ ...version2, formatVersion: 3, unbuiltRoadIds: [] }),
+  // Version 3 always carried its network: none named a prepared corridor.
+  3: (version3) => ({ ...version3, formatVersion: 4 }),
 };
