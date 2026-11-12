@@ -11,7 +11,9 @@
   "scripts": {
     "build-corridor": "tsx scripts/build-corridor.ts",
     "run-corridor": "tsx scripts/run-corridor.ts",
-    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.node.json"
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.node.json",
+    "fetch-area": "tsx scripts/fetch-area.ts",
+    "run-area": "tsx scripts/run-area.ts"
   },
   "dependencies": {
     "@traffic-simulator/engine": "workspace:*"
