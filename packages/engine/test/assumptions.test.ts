@@ -4,6 +4,7 @@ import {
   JUNCTION_ASSUMPTIONS,
   listAssumptions,
   NOT_MODELLED,
+  ROUTE_CHOICE_ASSUMPTIONS,
   SIDEWAYS_ASSUMPTIONS,
   STEP_SECONDS,
   VEHICLE_CLASSES,
@@ -66,14 +67,29 @@ describe("the list of assumptions shown to the planner", () => {
     }
   });
 
-  it("groups them by vehicle class, then those shared, those for junctions, the vehicle mix, then the rules", () => {
+  it("groups them by vehicle class, then those shared, those for junctions, those for route choice, the vehicle mix, then the rules", () => {
     expect(listAssumptions().map((group) => group.id)).toEqual([
       ...VEHICLE_CLASSES,
       "shared",
       "junctions",
+      "route-choice",
       "vehicle-mix",
       "rules",
     ]);
+  });
+
+  it("has every assumption behind the choice between a flyover and the junction beneath, each marked as our choice with its reason", () => {
+    const names = Object.keys(ROUTE_CHOICE_ASSUMPTIONS) as (keyof typeof ROUTE_CHOICE_ASSUMPTIONS)[];
+    // How strongly the faster route is preferred, the smallest share, and how many vehicles a travel time is measured over.
+    expect(names).toHaveLength(3);
+    for (const name of names) {
+      expect(listed(`routeChoice.${name}`).value).toBe(ROUTE_CHOICE_ASSUMPTIONS[name].value);
+      expect(listed(`routeChoice.${name}`).state).toBe("our-choice");
+      expect(listed(`routeChoice.${name}`).source.length).toBeGreaterThan(80);
+    }
+    for (const rule of ["rule.route-choice", "rule.diverge-and-merge", "rule.levels"]) {
+      expect(listed(rule).state).toBe("our-choice");
+    }
   });
 
   it("has every assumption the engine uses at junctions, as the engine has it, each marked as our choice", () => {

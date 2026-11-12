@@ -416,6 +416,52 @@ const JUNCTION_NAMES: Record<keyof typeof JUNCTION_ASSUMPTIONS, string> = {
   keepClearSlackM: "Room on the road beyond a junction, over its length and standstill gap, that a vehicle wants before it enters",
 };
 
+/**
+ * Assumptions about how through traffic chooses between a flyover and the
+ * junction beneath it (ADR 0006; route-choice.ts). All are our own choices.
+ */
+export const ROUTE_CHOICE_ASSUMPTIONS = {
+  travelTimePower: {
+    value: 4,
+    unit: "",
+    state: "our-choice",
+    source:
+      "Our choice; not from a measurement. A route's share is in proportion to its measured travel time to the power " +
+      "minus 4: equal times give equal shares, a route a quarter slower gets about 30% of the traffic, and one twice " +
+      "as slow about 6% (before the smallest share is added). High enough that most drivers take the clearly faster route, low enough that the split does " +
+      "not swing from one route to the other when the times are close.",
+    note:
+      "No study of how drivers in Indian cities choose between a flyover and the road beneath it was found. The " +
+      "form (shares in proportion to a power of travel time) is the textbook Kirchhoff split.",
+  },
+  smallestShare: {
+    value: 0.05,
+    unit: "of the vehicles choosing",
+    state: "our-choice",
+    source:
+      "Our choice; not from a measurement. Every route keeps at least this share however slow it is, so the choice " +
+      "is never all-or-nothing, and a route that was jammed goes on being tried: its travel time is measured from " +
+      "the vehicles that use it, so without them it could never be seen to have cleared.",
+  },
+  vehiclesMeasured: {
+    value: 20,
+    unit: "vehicles",
+    state: "our-choice",
+    source:
+      "Our choice; not from a measurement. A route's measured travel time is the mean over the last 20 vehicles to " +
+      "complete it (or the time so far of the vehicle longest on it, if that is more). Twenty vehicles is under a " +
+      "minute of traffic on a busy route: few enough to follow a jam as it builds, enough that one slow bus does not " +
+      "tip the choice.",
+    note: "Before any vehicle has completed a route, its travel time on empty roads at the speed limits is used.",
+  },
+} satisfies Record<string, Assumption>;
+
+const ROUTE_CHOICE_NAMES: Record<keyof typeof ROUTE_CHOICE_ASSUMPTIONS, string> = {
+  travelTimePower: "How strongly the faster route is preferred: a route's share falls with its measured travel time to this power",
+  smallestShare: "Smallest share of through traffic a route gets, however slow it is",
+  vehiclesMeasured: "Vehicles a route's measured travel time is averaged over: the last ones to complete it",
+};
+
 /** Width of a strip, in metres (spec: Engine behaviour, Strips). */
 export const STRIP_WIDTH_M = SIDEWAYS_ASSUMPTIONS.stripWidthM.value;
 
@@ -571,6 +617,35 @@ export const RULES: readonly Rule[] = [
       "Ours; no source gives it. Vehicles do not sort themselves by turn before the stop line, so a vehicle turning " +
       "right from the left of an approach waits for the traffic beside it.",
   },
+  {
+    id: "rule.levels",
+    name: "Flyovers: a flyover is a road of its own that shares no junction with what it passes over; a vehicle looks for neighbours only on its own road and in the junction it is in, so traffic on a flyover and traffic beneath it never react to each other",
+    state: "our-choice",
+    source:
+      "Ours, fixed in the v1 spec. Heights are used for drawing and for checking that vehicles do not overlap; a ramp's " +
+      "slope does not slow vehicles, and its length is measured on the plan.",
+  },
+  {
+    id: "rule.diverge-and-merge",
+    name: "Diverge and merge: where a flyover leaves the main road and where it rejoins it, the road divides or joins by position across it, with no signal; a vehicle enters the network in the strips that lead onto its route and keeps to them up to the diverge",
+    state: "our-choice",
+    source:
+      "Ours; no source gives it. Roads that join onto a road wide enough for both arrive side by side and share no " +
+      "space. Where two roads join onto the same strips, vehicles go first come, first served: each is let in when the " +
+      "road beyond has room and the one let in before it is clear. No road has priority, and vehicles do not sort " +
+      "themselves for the diverge on the way to it: they are sorted from where they enter.",
+  },
+  {
+    id: "rule.route-choice",
+    name: "Route choice: through traffic that can take a flyover or the junction beneath chooses once, when the demand produces it, as a probability from each route's measured travel time at that moment; all other traffic takes the fastest path on empty roads",
+    state: "our-choice",
+    source:
+      "Ours (ADR 0006); no source gives it. A route's measured travel time is the mean over the last vehicles of the " +
+      "same demand flow to complete it, from entering the network to leaving it, or the time so far of the vehicle " +
+      "longest on it if that is more; before any vehicle has completed it, its time on empty roads, which knows " +
+      "nothing of signals. A vehicle never changes its route afterwards. Equilibrium routing and induced demand are " +
+      "not modelled.",
+  },
 ];
 
 /** One assumption as shown to the planner. */
@@ -660,6 +735,18 @@ export function listAssumptions(): AssumptionGroup[] {
     }),
   };
 
+  const routeChoiceGroup: AssumptionGroup = {
+    id: "route-choice",
+    title: "Choosing between a flyover and the junction beneath",
+    about:
+      "Through traffic that can take either chooses once, on entering, from each route's measured travel time at that " +
+      "moment. None of these comes from a measurement.",
+    assumptions: (Object.keys(ROUTE_CHOICE_NAMES) as (keyof typeof ROUTE_CHOICE_NAMES)[]).map((name) => {
+      const { value, unit, state, source, note } = (ROUTE_CHOICE_ASSUMPTIONS as Record<string, Assumption>)[name]!;
+      return { id: `routeChoice.${name}`, name: ROUTE_CHOICE_NAMES[name], value, unit, state, source, note };
+    }),
+  };
+
   const mixGroup: AssumptionGroup = {
     id: "vehicle-mix",
     title: "Vehicle mix for a Bengaluru arterial",
@@ -682,5 +769,5 @@ export function listAssumptions(): AssumptionGroup[] {
     assumptions: RULES.map(({ id, name, state, source, note }) => ({ id, name, value: null, unit: "", state, source, note })),
   };
 
-  return [...perClass, sharedGroup, junctionGroup, mixGroup, rulesGroup];
+  return [...perClass, sharedGroup, junctionGroup, routeChoiceGroup, mixGroup, rulesGroup];
 }

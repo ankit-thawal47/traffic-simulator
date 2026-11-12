@@ -24,6 +24,7 @@ import {
 import { checkFlyoverFormat } from "./levels";
 import { stripsStraightOn } from "./merge-diverge";
 import { createRandomStream, exponential, type RandomStream } from "./random";
+import { createRouteChoice, routesWithChoice, type RouteChoice, type Trip } from "./route-choice";
 import type {
   ApproachQueue,
   Junction,
@@ -154,6 +155,9 @@ interface Vehicle {
   /** Time the roads and junctions already left behind take at the vehicle's desired speed. */
   freeTimeBeforeS: number;
 
+  /** For a vehicle that chose between routes: its flow's route choice and its journey, for measuring the route's travel time. */
+  choice: RouteChoice | undefined;
+  trip: Trip | undefined;
   /** The roads of the vehicle's route, and which of them it is on. */
   route: RoadState[];
   routeIndex: number;
@@ -186,11 +190,16 @@ interface Vehicle {
 interface WaitingVehicle {
   vehicleClass: VehicleClass;
   arrivedAtS: number;
+  /** Which of its flow's routes it chose when the demand produced it. */
+  route: number;
 }
 
 interface FlowState {
   entryRoad: RoadState;
-  route: RoadState[];
+  /** The routes the flow can take: one, or, for through traffic at a flyover, one each way (route-choice.ts). */
+  routes: RoadState[][];
+  /** Only for a flow with more than one route. */
+  choice: RouteChoice | undefined;
   meanHeadwayS: number;
   random: RandomStream;
   classRandom: RandomStream;
@@ -424,6 +433,25 @@ export function createRun(input: RunInput): Run {
     return route;
   }
 
+  /** A route's travel time on empty roads, counted as routeBetween() counts it. */
+  function emptyRoadTimeS(route: RoadState[]): number {
+    let time = 0;
+    route.forEach((road, at) => {
+      time += road.lengthM / road.road.speedLimitMps;
+      const next = route[at + 1];
+      if (!next) return;
+      const [start, , , end] = road.connections.get(next.road.id)!.path.control;
+      time += Math.hypot(end.x - start.x, end.y - start.y) / road.road.speedLimitMps;
+    });
+    return time;
+  }
+
+  /** The roads a road leads to when it ends at a diverge (a junction with no signal where it divides). */
+  function waysOnAtDiverge(road: RoadState): RoadState[] | undefined {
+    if (road.endsAt?.junction.control !== "none" || road.connections.size < 2) return undefined;
+    return [...road.connections.values()].map((connection) => connection.to);
+  }
+
   /** How many strips a vehicle class occupies on a road; throws when the road cannot take it. */
   function stripsNeeded(road: RoadState, vehicleClass: VehicleClass): number {
     const assumptions = VEHICLE_CLASS_ASSUMPTIONS[vehicleClass];
@@ -504,18 +532,28 @@ export function createRun(input: RunInput): Run {
     if (!roads.has(flow.exitRoadId)) {
       throw new Error(`Demand names an exit road that is not in the network: "${flow.exitRoadId}"`);
     }
-    const route = routeFor(entryRoad, roads.get(flow.exitRoadId)!);
+    const exitRoad = roads.get(flow.exitRoadId)!;
+    routeFor(entryRoad, exitRoad);
+    // Through traffic that can take a flyover or the junction beneath has a route each way; all other traffic has one.
+    const routes = routesWithChoice(entryRoad, exitRoad, routeBetween, waysOnAtDiverge);
     if (entryRoad.startsAtJunction) {
       throw new Error(`Demand cannot enter on road "${flow.entryRoadId}": it starts at a junction`);
     }
     if (!(flow.vehiclesPerHour >= 0)) throw new Error(`Demand for road "${flow.entryRoadId}" has an invalid rate`);
     if (flow.vehiclesPerHour === 0) return;
-    for (const vehicleClass of classesInMix) checkRouteTakes(route, vehicleClass);
+    for (const route of routes) {
+      for (const vehicleClass of classesInMix) checkRouteTakes(route, vehicleClass);
+    }
     const meanHeadwayS = 3600 / flow.vehiclesPerHour;
     const random = createRandomStream(input.seed, `demand:${index}`);
     flows.push({
       entryRoad,
-      route,
+      routes,
+      // Its own stream, so the choice of route disturbs neither when vehicles arrive nor what they are.
+      choice:
+        routes.length > 1
+          ? createRouteChoice(routes.map(emptyRoadTimeS), createRandomStream(input.seed, `route-choice:${index}`))
+          : undefined,
       meanHeadwayS,
       random,
       // Its own stream, so the vehicle mix does not disturb when vehicles arrive.
@@ -563,6 +601,8 @@ export function createRun(input: RunInput): Run {
       arrivedAtS,
       entryPositionM: positionM,
       freeTimeBeforeS: 0,
+      choice: undefined,
+      trip: undefined,
       route,
       routeIndex: 0,
       ahead: next && road.connections.get(next.road.id),
@@ -622,7 +662,7 @@ export function createRun(input: RunInput): Run {
    * nearest vehicle. Of the places with room it takes the one with the longest clear
    * road ahead, and of equals the one nearest the middle of the road.
    */
-  function tryToEnter(road: RoadState, route: RoadState[], waiting: WaitingVehicle): boolean {
+  function tryToEnter(road: RoadState, route: RoadState[], waiting: WaitingVehicle): Vehicle | undefined {
     const assumptions = VEHICLE_CLASS_ASSUMPTIONS[waiting.vehicleClass];
     const strips = stripsNeeded(road, waiting.vehicleClass);
     const desired = Math.min(assumptions.desiredSpeedMps, road.road.speedLimitMps);
@@ -664,9 +704,8 @@ export function createRun(input: RunInput): Run {
         bestSpeedMps = speedMps;
       }
     }
-    if (bestStrip < 0) return false;
-    placeVehicle(road, waiting.vehicleClass, assumptions.lengthM, bestSpeedMps, bestStrip, waiting.arrivedAtS, route);
-    return true;
+    if (bestStrip < 0) return undefined;
+    return placeVehicle(road, waiting.vehicleClass, assumptions.lengthM, bestSpeedMps, bestStrip, waiting.arrivedAtS, route);
   }
 
   /**
@@ -1432,6 +1471,7 @@ export function createRun(input: RunInput): Run {
         const through = throughByClass.get(vehicle.vehicleClass)!;
         through.count++;
         through.delayS += delayS(vehicle, timeS - overshootS, road.lengthM);
+        if (vehicle.trip) vehicle.choice!.finish(vehicle.trip, timeS - overshootS);
       }
       road.vehicles = remaining;
     }
@@ -1447,11 +1487,25 @@ export function createRun(input: RunInput): Run {
 
     for (const flow of flows) {
       while (flow.nextArrivalS <= timeS) {
-        flow.waiting.push({ vehicleClass: drawVehicleClass(flow.classRandom), arrivedAtS: flow.nextArrivalS });
+        flow.waiting.push({
+          vehicleClass: drawVehicleClass(flow.classRandom),
+          arrivedAtS: flow.nextArrivalS,
+          // The route is chosen once, here, from the travel times measured up to this step.
+          route: flow.choice ? flow.choice.choose(timeS) : 0,
+        });
         flow.nextArrivalS += exponential(flow.random, flow.meanHeadwayS);
       }
       // First come, first in: a vehicle with no room holds back those that arrived after it.
-      while (flow.waiting.length > 0 && tryToEnter(flow.entryRoad, flow.route, flow.waiting[0]!)) flow.waiting.shift();
+      while (flow.waiting.length > 0) {
+        const waiting = flow.waiting[0]!;
+        const vehicle = tryToEnter(flow.entryRoad, flow.routes[waiting.route]!, waiting);
+        if (!vehicle) break;
+        flow.waiting.shift();
+        if (flow.choice) {
+          vehicle.choice = flow.choice;
+          vehicle.trip = flow.choice.start(waiting.route, timeS);
+        }
+      }
     }
   }
 
