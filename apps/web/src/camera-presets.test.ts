@@ -152,15 +152,17 @@ describe("the close-up camera the views open with", () => {
     expect(shownM).toBeLessThan(90);
   });
 
-  it("stands further back for a network with a flyover: it looks at the signal junction beneath, with the deck and a ramp in view", () => {
+  it("stands a little further back for a network with a flyover: it looks at the signal junction beneath, with the deck over it in view", () => {
     const pose = closeUpPose(flyover.network as Network);
 
     // The junction beneath the flyover is centred on the origin; the first junction in the list is a diverge 200 m south.
     expect(pose.target).toEqual([0, 0, 0]);
     const distanceM = Math.hypot(...pose.position);
-    // The deck is 200 m long and the ramps another 100 m each.
-    expect(2 * distanceM * TAN_HALF_FOV).toBeGreaterThan(120);
-    expect(2 * distanceM * TAN_HALF_FOV).toBeLessThan(250);
+    // The junction (30 m across), the deck over it and its first pillars either side are in view (ticket 21:
+    // the opening view frames the action, not the whole network)...
+    expect(2 * distanceM * TAN_HALF_FOV).toBeGreaterThan(70);
+    // ...and near enough that a 4 m car is over 4% of the view's height (it was under 3%, which read as specks).
+    expect(2 * distanceM * TAN_HALF_FOV).toBeLessThan(90);
     // From the side and above, so that the deck is seen to be raised.
     expect(pose.position[0]).toBeGreaterThan(60);
     expect(pose.position[1]).toBeGreaterThan(40);
