@@ -61,7 +61,8 @@ describe("a scenario whose network has a signal junction (network format version
   it("keeps a signal plan's offset when it has one", () => {
     const withOffset = saved((scenario) => (scenario.network.junctions[0].signalPlan.offsetS = 30));
     const read = readScenario(withOffset);
-    expect(read.ok && read.value.network.junctions![0]!.signalPlan.offsetS).toBe(30);
+    const junction = read.ok ? read.value.network.junctions![0] : undefined;
+    expect(junction?.control === "signal" && junction.signalPlan.offsetS).toBe(30);
   });
 
   it("reads a version 3 network with no junctions", () => {

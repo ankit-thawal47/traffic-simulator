@@ -21,6 +21,8 @@ import {
   type TurningCurve,
   type TurningPath,
 } from "./junction-geometry";
+import { checkFlyoverFormat } from "./levels";
+import { stripsStraightOn } from "./merge-diverge";
 import { createRandomStream, exponential, type RandomStream } from "./random";
 import type {
   ApproachQueue,
@@ -229,9 +231,10 @@ function lateralM(vehicle: Vehicle): number {
 export function createRun(input: RunInput): Run {
   const laneDiscipline = input.laneDiscipline === true;
   const formatVersion = input.network.formatVersion;
-  if (formatVersion !== 1 && formatVersion !== 2 && formatVersion !== 3) {
+  if (formatVersion !== 1 && formatVersion !== 2 && formatVersion !== 3 && formatVersion !== 4) {
     throw new Error(`Unsupported network format version: ${String(formatVersion)}`);
   }
+  checkFlyoverFormat(input.network);
   if (formatVersion < 3 && (input.network.junctions?.length ?? 0) > 0) {
     throw new Error("A network with junctions needs format version 3");
   }
@@ -275,9 +278,11 @@ export function createRun(input: RunInput): Run {
   for (const junction of input.network.junctions ?? []) {
     if (junctionIds.has(junction.id)) throw new Error(`The network has two junctions with the id "${junction.id}"`);
     junctionIds.add(junction.id);
-    if (junction.control !== "signal") {
-      throw new Error(`Junction "${junction.id}" is of a kind this version does not know: "${String(junction.control)}"`);
+    if (junction.control !== "signal" && junction.control !== "none") {
+      const unknown = junction as Junction;
+      throw new Error(`Junction "${unknown.id}" is of a kind this version does not know: "${String(unknown.control)}"`);
     }
+    const sideBySide = junction.control === "none";
     const state: JunctionState = { junction, connections: [], approaches: [], admitted: [], crossings: [] };
     for (const connection of junction.connections) {
       const from = roads.get(connection.fromRoadId);
@@ -297,19 +302,22 @@ export function createRun(input: RunInput): Run {
       if (from.connections.has(to.road.id)) {
         throw new Error(`Junction "${junction.id}" connects road "${from.road.id}" to road "${to.road.id}" twice`);
       }
-      const path = createTurningPath(junction.id, from.road, to.road);
-      const stripCount = Math.min(from.stripCount, to.stripCount);
+      const path = createTurningPath(junction.id, from.road, to.road, sideBySide);
       const alignRight = path.direction === "right";
-      const connectionState: ConnectionState = {
-        index: state.connections.length,
-        junction: state,
-        from,
-        to,
-        path,
-        stripCount,
-        fromShift: alignRight ? from.stripCount - stripCount : 0,
-        toShift: alignRight ? to.stripCount - stripCount : 0,
+      let strips = {
+        stripCount: Math.min(from.stripCount, to.stripCount),
+        fromShift: alignRight ? from.stripCount - Math.min(from.stripCount, to.stripCount) : 0,
+        toShift: alignRight ? to.stripCount - Math.min(from.stripCount, to.stripCount) : 0,
       };
+      if (sideBySide) {
+        // Where roads divide or join, a connection takes the strips in which the two roads line up.
+        const lined = stripsStraightOn(path.referenceFromLateralM - path.referenceToLateralM, from, to);
+        if (!lined) {
+          throw new Error(`Junction "${junction.id}" connects road "${from.road.id}" to road "${to.road.id}", which does not lie ahead of it`);
+        }
+        strips = lined;
+      }
+      const connectionState: ConnectionState = { index: state.connections.length, junction: state, from, to, path, ...strips };
       state.connections.push(connectionState);
       if (!from.endsAt) state.approaches.push(from);
       from.endsAt = state;
@@ -335,6 +343,9 @@ export function createRun(input: RunInput): Run {
       }
     }
 
+    junctions.push(state);
+    // A junction with no signal has no plan: its approaches always show green.
+    if (junction.control !== "signal") continue;
     const plan = junction.signalPlan;
     const name = `The signal plan of junction "${junction.id}"`;
     if (!plan || !Array.isArray(plan.phases) || plan.phases.length === 0) throw new Error(`${name} needs at least one phase`);
@@ -355,7 +366,6 @@ export function createRun(input: RunInput): Run {
         throw new Error(`Approach "${approach.road.id}" of junction "${junction.id}" never has green`);
       }
     }
-    junctions.push(state);
   }
 
   /** How far a vehicle's centre is from the left edge of a road, given the strips it occupies. */
@@ -1002,7 +1012,7 @@ export function createRun(input: RunInput): Run {
    */
   function letIn(junction: JunctionState): void {
     const asking: Vehicle[] = [];
-    const amberS = junction.junction.signalPlan.amberS;
+    const amberS = junction.junction.control === "signal" ? junction.junction.signalPlan.amberS : 0;
     for (const road of junction.approaches) {
       // Nobody is let in on amber or red.
       if (road.aspect.state !== "green") continue;
@@ -1334,7 +1344,8 @@ export function createRun(input: RunInput): Run {
       }
       findNeighbours(road, true);
       if (road.startsAtJunction) findLastInStrips(road);
-      if (road.endsAt) road.aspect = signalAspect(road.endsAt.junction.signalPlan, road.road.id, stepCount * STEP_SECONDS);
+      const control = road.endsAt?.junction;
+      if (control?.control === "signal") road.aspect = signalAspect(control.signalPlan, road.road.id, stepCount * STEP_SECONDS);
     }
     for (const junction of junctions) letIn(junction);
 

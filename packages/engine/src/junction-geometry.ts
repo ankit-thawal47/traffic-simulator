@@ -12,6 +12,7 @@
  * taken from another simulator.
  */
 import { positionAlongRoad, roadLengthM } from "./geometry";
+import { sidewaysOffsetM } from "./merge-diverge";
 import type { Junction, Network, Point, Road, SignalPlan, VehicleState } from "./types";
 
 export type TurnDirection = "left" | "straight" | "right";
@@ -60,7 +61,13 @@ function pointAcross(at: { point: Point; direction: Point }, widthM: number, lat
   return { x: at.point.x + right.x * offset, y: at.point.y + right.y * offset };
 }
 
-export function createTurningPath(junctionId: string, from: Road, to: Road): TurningPath {
+/**
+ * The turning path of a connection. `sideBySide` is for a junction with no
+ * signal where roads divide or join (merge-diverge.ts): the path then runs
+ * straight on from the part of the wider road that the narrower one lines up
+ * with, instead of from the road's edge.
+ */
+export function createTurningPath(junctionId: string, from: Road, to: Road, sideBySide = false): TurningPath {
   const end = positionAlongRoad(from, roadLengthM(from));
   const start = positionAlongRoad(to, 0);
   const cross = end.direction.x * start.direction.y - end.direction.y * start.direction.x;
@@ -68,8 +75,18 @@ export function createTurningPath(junctionId: string, from: Road, to: Road): Tur
   const turnRad = Math.atan2(cross, dot);
   const direction: TurnDirection = Math.abs(turnRad) < STRAIGHT_WITHIN_RAD ? "straight" : turnRad > 0 ? "left" : "right";
 
-  const referenceFromLateralM = direction === "right" ? from.widthM : 0;
-  const referenceToLateralM = direction === "right" ? to.widthM : 0;
+  let referenceFromLateralM = direction === "right" ? from.widthM : 0;
+  let referenceToLateralM = direction === "right" ? to.widthM : 0;
+  if (sideBySide) {
+    if (direction !== "straight") {
+      throw new Error(
+        `Junction "${junctionId}" has no signal, so its roads must run straight on: road "${from.id}" turns onto road "${to.id}"`,
+      );
+    }
+    const offsetM = sidewaysOffsetM(from, to);
+    referenceFromLateralM = Math.max(0, offsetM);
+    referenceToLateralM = Math.max(0, -offsetM);
+  }
   const p0 = pointAcross(end, from.widthM, referenceFromLateralM);
   const p3 = pointAcross(start, to.widthM, referenceToLateralM);
   const chord = Math.hypot(p3.x - p0.x, p3.y - p0.y);
@@ -283,7 +300,10 @@ export function createNetworkLayout(network: Network): NetworkLayout {
       const from = roads.get(connection.fromRoadId);
       const to = roads.get(connection.toRoadId);
       if (!from || !to) continue;
-      paths.set(JSON.stringify([from.road.id, to.road.id]), createTurningPath(junction.id, from.road, to.road));
+      paths.set(
+        JSON.stringify([from.road.id, to.road.id]),
+        createTurningPath(junction.id, from.road, to.road, junction.control === "none"),
+      );
     }
   }
   return {

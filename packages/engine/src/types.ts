@@ -4,13 +4,26 @@
  * Vocabulary follows GLOSSARY.md.
  */
 
-/** A point on the ground plane, in metres. x grows east, y grows north. */
+/**
+ * A point, in metres. x grows east, y grows north. `z` is its height above
+ * the ground (from format version 4); without it the point is on the ground.
+ */
 export interface Point {
   x: number;
   y: number;
+  z?: number;
 }
 
-/** One carriageway carrying traffic in one direction, from its first point to its last. */
+/**
+ * One carriageway carrying traffic in one direction, from its first point to its last.
+ *
+ * A road whose points have heights is raised: a flyover is such a road, rising
+ * on a ramp, crossing over what is beneath and coming down again. It shares no
+ * junction with what it crosses over, and its vehicles and those beneath never
+ * react to each other. Heights are for drawing and for the consistency checks;
+ * lengths and distances are measured on the plan, so a ramp is as long as its
+ * shadow on the ground.
+ */
 export interface Road {
   id: string;
   /** Centreline, in the direction of travel. At least two points. */
@@ -58,7 +71,10 @@ export interface SignalPlan {
  * The path of each connection is worked out from where the two roads end and
  * start. `control` says what decides who may go; later versions add other kinds.
  */
-export interface Junction {
+export type Junction = SignalJunction | DividingJunction;
+
+/** A junction where a fixed, repeating signal plan decides which movements may go. */
+export interface SignalJunction {
   id: string;
   control: "signal";
   connections: Connection[];
@@ -66,16 +82,38 @@ export interface Junction {
 }
 
 /**
- * The roads and junctions a scenario runs on. Later versions add flyovers.
+ * A junction with no signal, where a road divides into roads lying side by
+ * side (a diverge) or roads lying side by side join into one (a merge): where
+ * a flyover leaves the main road and where it comes back to it. From format
+ * version 4.
+ *
+ * Each connection runs straight on, between the part of the wider road's
+ * width that the narrower road lines up with: a road that starts across the
+ * right half of the road before it is reached from that half only. Roads
+ * that join side by side onto a road wide enough for both never share
+ * space, so nothing has to decide who goes. Where two approaches lead onto
+ * the same part of a road, vehicles are let in first come, first served, each
+ * waiting until the one let in before it is clear (see merge-diverge.ts).
+ */
+export interface DividingJunction {
+  id: string;
+  control: "none";
+  connections: Connection[];
+}
+
+/**
+ * The roads, junctions and flyovers a scenario runs on.
  *
  * Format versions: 1 is a road with a centreline, width and speed limit;
  * 2 adds each road's lane count; 3 adds junctions, with the connections
- * through them and their signal plans. The engine reads all three.
+ * through them and their signal plans; 4 adds heights to a road's points
+ * (flyovers) and junctions with no signal where roads divide or join. The
+ * engine reads all four.
  */
 export interface Network {
-  formatVersion: 1 | 2 | 3;
+  formatVersion: 1 | 2 | 3 | 4;
   roads: Road[];
-  /** From format version 3. */
+  /** From format version 3; junctions with no signal from version 4. */
   junctions?: Junction[];
 }
 

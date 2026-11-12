@@ -5,6 +5,7 @@ import {
   roadLengthM,
   signalState,
   type Network,
+  type SignalJunction,
   type SignalState,
 } from "@traffic-simulator/engine";
 import * as THREE from "three";
@@ -38,8 +39,7 @@ export interface JunctionDrawing {
 export function createJunctionDrawing(network: Network, surface: THREE.Material): JunctionDrawing {
   const objects: THREE.Object3D[] = [];
   const disposable: { dispose(): void }[] = [];
-  const signals: { roadId: string; junction: NonNullable<Network["junctions"]>[number]; material: THREE.MeshBasicMaterial; state?: SignalState }[] =
-    [];
+  const signals: { roadId: string; junction: SignalJunction; material: THREE.MeshBasicMaterial; state?: SignalState }[] = [];
   const roads = new Map(network.roads.map((road) => [road.id, road]));
 
   for (const junction of network.junctions ?? []) {
@@ -56,6 +56,8 @@ export function createJunctionDrawing(network: Network, surface: THREE.Material)
       disposable.push(geometry);
     }
 
+    // A junction with no signal (where roads divide or join) has no stop line and no lamp.
+    if (junction.control !== "signal") continue;
     for (const roadId of approachRoadIds(junction)) {
       const road = roads.get(roadId);
       if (!road) continue;
