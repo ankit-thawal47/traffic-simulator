@@ -4,7 +4,7 @@
 
 **Blocked by:** 06
 
-**Status:** ready-for-agent
+**Status:** done (merged; T2.4 now passes; T3.4 newly fails; T2.2, T2.3, T3.1–3.3 still fail, see results after ticket 24)
 
 - [x] The causes are established inside the engine, with numbers, before anything is changed
 - [x] No vehicle waiting at a junction stands 300 s or more in T2.4 and the weaving scenario, seeds 81 to 86
