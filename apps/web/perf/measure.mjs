@@ -309,7 +309,13 @@ async function measureInChrome(chrome, mode, served) {
     served.state.onResult = () => undefined;
     child.kill("SIGTERM");
     await new Promise((exited) => (child.exitCode !== null ? exited() : child.once("exit", exited)));
-    rmSync(profileDir, { recursive: true, force: true, maxRetries: 5 });
+    // Chrome's helper processes can still be writing to the profile for a moment after it exits;
+    // a temporary profile left behind is not worth losing the measurements for.
+    try {
+      rmSync(profileDir, { recursive: true, force: true, maxRetries: 10, retryDelay: 300 });
+    } catch (error) {
+      log(`could not remove the temporary Chrome profile ${profileDir}: ${error.message}`);
+    }
   }
   return { mode, flags: chromeFlags(mode, "<temporary profile>"), environment: results[0]?.environment, results, failures };
 }
