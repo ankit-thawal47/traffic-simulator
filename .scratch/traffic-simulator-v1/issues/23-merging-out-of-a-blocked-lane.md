@@ -4,7 +4,7 @@
 
 **Blocked by:** 07 (the flyover's ramp merge is the same situation; build on whatever merge rule it lands)
 
-**Status:** ready-for-agent
+**Status:** partly done (merged: no stuck vehicles, T1.5 improved from -32% to -19.5% of SUMO; still outside the 10% tolerance; ring tests not fully re-run)
 
 - [x] The cause is established inside the engine, with evidence, before anything is changed
 - [x] Benchmark test T1.5 is re-run with ten seeds; discharge is within 10% of SUMO's, or the remaining difference is reported with its cause
