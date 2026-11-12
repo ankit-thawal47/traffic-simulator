@@ -32,6 +32,55 @@ export interface JunctionDrawing {
   dispose(): void;
 }
 
+const MARKING_COLOUR = 0xf2f2ee;
+const DASH_M = 0.6;
+const TRIANGLE_LENGTH_M = 3.5;
+const TRIANGLE_WIDTH_M = 1.6;
+const TRIANGLE_BACK_M = 4;
+
+/**
+ * The give-way marking on a side road of a priority junction, named
+ * "give-way:<road id>": a broken line across the road at its end, and a
+ * triangle painted on the road just before it, pointing at the oncoming driver.
+ */
+function giveWayMarking(road: Network["roads"][number]): { group: THREE.Group; disposable: { dispose(): void }[] } {
+  const group = new THREE.Group();
+  group.name = `give-way:${road.id}`;
+  const material = new THREE.MeshBasicMaterial({ color: MARKING_COLOUR });
+  const disposable: { dispose(): void }[] = [material];
+  const { point, direction } = positionAlongRoad(road, roadLengthM(road));
+  // In the group's own frame x runs along the road (direction of travel) and z across it, positive to the right.
+  group.position.set(point.x, 0.03, -point.y);
+  group.rotation.y = Math.atan2(direction.y, direction.x);
+
+  const dash = new THREE.BoxGeometry(STOP_LINE_DEPTH_M, 0.05, DASH_M);
+  disposable.push(dash);
+  for (let acrossM = -road.widthM / 2 + DASH_M / 2; acrossM <= road.widthM / 2 - DASH_M / 2 + 1e-9; acrossM += 2 * DASH_M) {
+    const mesh = new THREE.Mesh(dash, material);
+    mesh.position.set(-STOP_LINE_DEPTH_M, 0, acrossM);
+    group.add(mesh);
+  }
+
+  // The triangle: its point towards the driver, its base towards the line.
+  const shape = new THREE.Shape([
+    new THREE.Vector2(-TRIANGLE_BACK_M - TRIANGLE_LENGTH_M, 0),
+    new THREE.Vector2(-TRIANGLE_BACK_M, TRIANGLE_WIDTH_M / 2),
+    new THREE.Vector2(-TRIANGLE_BACK_M, -TRIANGLE_WIDTH_M / 2),
+  ]);
+  const triangle = new THREE.ShapeGeometry(shape);
+  // From the x-y plane of the shape to the ground of the group (y up).
+  triangle.rotateX(-Math.PI / 2);
+  disposable.push(triangle);
+  for (const lane of road.lanes && road.lanes > 1 ? Array.from({ length: road.lanes }, (_, i) => i) : [0]) {
+    const lanes = road.lanes ?? 1;
+    const mesh = new THREE.Mesh(triangle, material);
+    // Lane centres, from the left edge (negative z in the group's frame) to the right.
+    mesh.position.z = -road.widthM / 2 + ((lane + 0.5) * road.widthM) / lanes;
+    group.add(mesh);
+  }
+  return { group, disposable };
+}
+
 /**
  * The drawing of a network's junctions. Ground coordinates (x east, y north)
  * map to the scene as (x, up, -y), as in RoadScene.
@@ -56,6 +105,17 @@ export function createJunctionDrawing(network: Network, surface: THREE.Material)
       disposable.push(geometry);
     }
 
+    // A priority junction has no lamps; each side road has a give-way marking where it meets the main road.
+    if (junction.control === "priority") {
+      for (const roadId of approachRoadIds(junction)) {
+        const road = roads.get(roadId);
+        if (!road || junction.mainRoadIds.includes(roadId)) continue;
+        const marking = giveWayMarking(road);
+        objects.push(marking.group);
+        disposable.push(...marking.disposable);
+      }
+      continue;
+    }
     // A junction with no signal (where roads divide or join) has no stop line and no lamp.
     if (junction.control !== "signal") continue;
     for (const roadId of approachRoadIds(junction)) {

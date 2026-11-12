@@ -1,6 +1,7 @@
 import type { Demand, Network } from "@traffic-simulator/engine";
 import flyover from "@traffic-simulator/engine/examples/flyover.json";
 import mixedTraffic from "@traffic-simulator/engine/examples/mixed-traffic.json";
+import priorityJunction from "@traffic-simulator/engine/examples/priority-junction.json";
 import signalJunction from "@traffic-simulator/engine/examples/signal-junction.json";
 import { createBaseline, isFlyoverRoad, type Scenario } from "@traffic-simulator/scenario";
 
@@ -22,6 +23,15 @@ export const EXAMPLES: readonly { id: string; scenario: Scenario }[] = [
       network: signalJunction.network as Network,
       demand: signalJunction.demand as Demand,
       seed: signalJunction.seed,
+    }),
+  },
+  {
+    id: "priority-junction",
+    scenario: createBaseline({
+      name: "Priority junction (T, no signal)",
+      network: priorityJunction.network as Network,
+      demand: priorityJunction.demand as Demand,
+      seed: priorityJunction.seed,
     }),
   },
   {
