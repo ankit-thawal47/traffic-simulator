@@ -102,6 +102,17 @@ describe("the longest queue per approach in the fixed result set", () => {
     ]);
   });
 
+  it("names an approach's row by the road's name for a planner where one is given, and by its id otherwise", () => {
+    const measures = measuresFor([results({ "airport-ground-in": 5, "tumkur-in": 9 })], undefined, {
+      "airport-ground-in": "Ground road from the airport",
+    });
+
+    expect(measures.slice(MEASURES.length).map((measure) => measure.name)).toEqual([
+      "Longest queue on Ground road from the airport (m)",
+      "Longest queue on tumkur-in (m)",
+    ]);
+  });
+
   it("an approach that is at a signal junction in only one of the networks is still a measure", () => {
     const sideRoadOnly: Network = {
       formatVersion: 3,

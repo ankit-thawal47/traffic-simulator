@@ -15,11 +15,20 @@ import { formatAcrossSeeds } from "./results-text";
  * (ADR 0005) for baseline and proposal as the average and range across seeds,
  * with the change from the baseline.
  */
-export function ResultsPanel({ collected, networks }: { collected: FiveSeeds; networks: readonly Network[] }) {
+export function ResultsPanel({
+  collected,
+  networks,
+  roadNames,
+}: {
+  collected: FiveSeeds;
+  networks: readonly Network[];
+  /** Names for a planner of the roads of a prepared corridor, whose ids come from OpenStreetMap. */
+  roadNames?: Readonly<Record<string, string>>;
+}) {
   const { plan } = collected;
   const results = collectedResults(collected);
   // The longest queue per approach is one row for each approach of a signal junction, in either network.
-  const measures = measuresFor([...results.baseline, ...results.proposal], networks);
+  const measures = measuresFor([...results.baseline, ...results.proposal], networks, roadNames);
   const rows = compareAcrossSeeds(results.baseline, results.proposal, measures);
   const waiting = {
     baseline: acrossSeeds(results.baseline.map((seed) => seed.vehiclesWaitingToEnter)),

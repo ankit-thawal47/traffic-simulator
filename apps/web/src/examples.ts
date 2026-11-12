@@ -2,7 +2,7 @@ import type { Demand, Network } from "@traffic-simulator/engine";
 import flyover from "@traffic-simulator/engine/examples/flyover.json";
 import mixedTraffic from "@traffic-simulator/engine/examples/mixed-traffic.json";
 import signalJunction from "@traffic-simulator/engine/examples/signal-junction.json";
-import { createBaseline, isFlyoverRoad, type Scenario } from "@traffic-simulator/scenario";
+import { corridorBaseline, createBaseline, isFlyoverRoad, type Scenario } from "@traffic-simulator/scenario";
 
 /** The scenarios the planner can start from. The first is the one the page opens with. */
 export const EXAMPLES: readonly { id: string; scenario: Scenario }[] = [
@@ -43,5 +43,10 @@ export const EXAMPLES: readonly { id: string; scenario: Scenario }[] = [
       demand: flyover.demand as Demand,
       seed: flyover.seed,
     }),
+  },
+  {
+    // A real place, prepared from OpenStreetMap and checked by hand: named by its id, so links stay short.
+    id: "hebbal-city-bound",
+    scenario: corridorBaseline("hebbal-city-bound"),
   },
 ];

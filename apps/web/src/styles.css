@@ -20,6 +20,28 @@ main {
   height: 100%;
 }
 
+/* With a prepared corridor on screen, a line under the views for its map data attribution and licence. */
+main.with-corridor {
+  grid-template-rows: auto auto minmax(0, 1fr) auto minmax(0, 45%);
+}
+
+.corridor-notice {
+  padding: 4px 16px;
+  font-size: 0.85rem;
+  background: #fff;
+  border-top: 1px solid #c9d2d6;
+}
+
+.corridor-notice p,
+.corridor-notice ul {
+  margin: 2px 0;
+}
+
+.corridor-notice details[open] {
+  max-height: 9rem;
+  overflow-y: auto;
+}
+
 /* Watch controls: speed, camera and colouring, shared by both views. */
 .watch-controls {
   display: flex;
