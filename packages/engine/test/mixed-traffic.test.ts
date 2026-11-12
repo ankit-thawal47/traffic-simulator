@@ -100,11 +100,13 @@ describe("vehicle classes", () => {
     expect(size.bus![1]).toBeLessThanOrEqual(2.9);
   });
 
-  it("every vehicle class's assumptions name their source and are marked unconfirmed", () => {
+  it("every value of every vehicle class names its source and says how far it has been checked", () => {
     for (const vehicleClass of ["two-wheeler", "car", "auto-rickshaw", "bus"] as const) {
       const assumptions = VEHICLE_CLASS_ASSUMPTIONS[vehicleClass];
-      expect(assumptions.source.length).toBeGreaterThan(20);
-      expect(assumptions.confirmed).toBe(false);
+      for (const name of ["lengthM", "widthM", "desiredSpeedMps", "timeGapS", "standstillGapM"] as const) {
+        expect(assumptions.evidence[name].source.length).toBeGreaterThan(20);
+        expect(["confirmed", "secondary-source", "our-choice", "unconfirmed"]).toContain(assumptions.evidence[name].state);
+      }
     }
   });
 
@@ -486,8 +488,11 @@ describe("lane discipline", () => {
 
     const versionTwo: Network = { ...versionOne, formatVersion: 2 };
     expect(() => createRun({ network: versionTwo, demand: noDemand, seed: 1 })).toThrow(/lane count/i);
-    const versionThree = { ...versionOne, formatVersion: 3 } as unknown as Network;
-    expect(() => createRun({ network: versionThree, demand: noDemand, seed: 1 })).toThrow(/version/i);
+    // Version 3 (junctions) still needs lane counts; a version this engine does not know is refused.
+    const versionThree: Network = { ...versionOne, formatVersion: 3 };
+    expect(() => createRun({ network: versionThree, demand: noDemand, seed: 1 })).toThrow(/lane count/i);
+    const versionFour = { ...versionOne, formatVersion: 4 } as unknown as Network;
+    expect(() => createRun({ network: versionFour, demand: noDemand, seed: 1 })).toThrow(/version/i);
   });
 });
 
@@ -505,7 +510,7 @@ describe("mean delay per vehicle class", () => {
     expect(delay.car.vehicles).toBe(1);
     expect(delay.car.vehiclesThrough).toBe(1);
     expect(Math.abs(delay.car.meanDelayS!)).toBeLessThan(0.01);
-    expect(delay.bus).toEqual({ vehicles: 0, vehiclesThrough: 0, meanDelayS: null });
+    expect(delay.bus).toEqual({ vehicles: 0, vehiclesThrough: 0, meanDelayS: null, totalDelayS: 0 });
   });
 
   it("delay is actual travel time less travel time at desired speed: a car held behind a slow bus loses about a fifth", () => {

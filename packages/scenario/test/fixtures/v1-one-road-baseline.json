@@ -1,0 +1,1 @@
+{"formatVersion":1,"name":"One road today","network":{"formatVersion":1,"roads":[{"id":"main","points":[{"x":-200,"y":0},{"x":200,"y":0}],"widthM":3.5,"speedLimitMps":13.9}]},"changes":[],"demand":{"flows":[{"entryRoadId":"main","exitRoadId":"main","vehiclesPerHour":1200}]},"seed":1}

@@ -1,0 +1,64 @@
+{
+  "network": {
+    "formatVersion": 3,
+    "roads": [
+      { "id": "south-in", "points": [{ "x": -3.5, "y": -215 }, { "x": -3.5, "y": -15 }], "widthM": 7, "lanes": 2, "speedLimitMps": 13.9 },
+      { "id": "north-out", "points": [{ "x": -3.5, "y": 15 }, { "x": -3.5, "y": 215 }], "widthM": 7, "lanes": 2, "speedLimitMps": 13.9 },
+      { "id": "north-in", "points": [{ "x": 3.5, "y": 215 }, { "x": 3.5, "y": 15 }], "widthM": 7, "lanes": 2, "speedLimitMps": 13.9 },
+      { "id": "south-out", "points": [{ "x": 3.5, "y": -15 }, { "x": 3.5, "y": -215 }], "widthM": 7, "lanes": 2, "speedLimitMps": 13.9 },
+      { "id": "west-in", "points": [{ "x": -215, "y": 3.5 }, { "x": -15, "y": 3.5 }], "widthM": 7, "lanes": 2, "speedLimitMps": 13.9 },
+      { "id": "east-out", "points": [{ "x": 15, "y": 3.5 }, { "x": 215, "y": 3.5 }], "widthM": 7, "lanes": 2, "speedLimitMps": 13.9 },
+      { "id": "east-in", "points": [{ "x": 215, "y": -3.5 }, { "x": 15, "y": -3.5 }], "widthM": 7, "lanes": 2, "speedLimitMps": 13.9 },
+      { "id": "west-out", "points": [{ "x": -15, "y": -3.5 }, { "x": -215, "y": -3.5 }], "widthM": 7, "lanes": 2, "speedLimitMps": 13.9 }
+    ],
+    "junctions": [
+      {
+        "id": "cross",
+        "control": "signal",
+        "connections": [
+          { "fromRoadId": "north-in", "toRoadId": "east-out" },
+          { "fromRoadId": "north-in", "toRoadId": "south-out" },
+          { "fromRoadId": "north-in", "toRoadId": "west-out" },
+          { "fromRoadId": "east-in", "toRoadId": "south-out" },
+          { "fromRoadId": "east-in", "toRoadId": "west-out" },
+          { "fromRoadId": "east-in", "toRoadId": "north-out" },
+          { "fromRoadId": "south-in", "toRoadId": "west-out" },
+          { "fromRoadId": "south-in", "toRoadId": "north-out" },
+          { "fromRoadId": "south-in", "toRoadId": "east-out" },
+          { "fromRoadId": "west-in", "toRoadId": "north-out" },
+          { "fromRoadId": "west-in", "toRoadId": "east-out" },
+          { "fromRoadId": "west-in", "toRoadId": "south-out" }
+        ],
+        "signalPlan": {
+          "phases": [
+            { "greenRoadIds": ["north-in"], "greenS": 25 },
+            { "greenRoadIds": ["east-in"], "greenS": 25 },
+            { "greenRoadIds": ["south-in"], "greenS": 25 },
+            { "greenRoadIds": ["west-in"], "greenS": 25 }
+          ],
+          "amberS": 3,
+          "allRedS": 2
+        }
+      }
+    ]
+  },
+  "demand": {
+    "flows": [
+      { "entryRoadId": "north-in", "exitRoadId": "east-out", "vehiclesPerHour": 100 },
+      { "entryRoadId": "north-in", "exitRoadId": "south-out", "vehiclesPerHour": 300 },
+      { "entryRoadId": "north-in", "exitRoadId": "west-out", "vehiclesPerHour": 100 },
+      { "entryRoadId": "east-in", "exitRoadId": "south-out", "vehiclesPerHour": 100 },
+      { "entryRoadId": "east-in", "exitRoadId": "west-out", "vehiclesPerHour": 300 },
+      { "entryRoadId": "east-in", "exitRoadId": "north-out", "vehiclesPerHour": 100 },
+      { "entryRoadId": "south-in", "exitRoadId": "west-out", "vehiclesPerHour": 100 },
+      { "entryRoadId": "south-in", "exitRoadId": "north-out", "vehiclesPerHour": 300 },
+      { "entryRoadId": "south-in", "exitRoadId": "east-out", "vehiclesPerHour": 100 },
+      { "entryRoadId": "west-in", "exitRoadId": "north-out", "vehiclesPerHour": 100 },
+      { "entryRoadId": "west-in", "exitRoadId": "east-out", "vehiclesPerHour": 300 },
+      { "entryRoadId": "west-in", "exitRoadId": "south-out", "vehiclesPerHour": 100 }
+    ],
+    "vehicleMix": { "two-wheeler": 0.65, "car": 0.22, "auto-rickshaw": 0.055, "bus": 0.04 }
+  },
+  "laneDiscipline": false,
+  "seed": 1
+}

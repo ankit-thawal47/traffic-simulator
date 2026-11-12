@@ -1,10 +1,11 @@
-import { positionAlongRoad, type Network, type Road, type VehicleClass } from "@traffic-simulator/engine";
+import { createNetworkLayout, vehiclePose, type Network, type Road, type VehicleClass } from "@traffic-simulator/engine";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { angledPose, networkBounds } from "./camera-presets";
+import { closeUpPose } from "./camera-presets";
 import type { FrameStore } from "./frame-store";
 import { interpolateVehicles } from "./interpolate";
+import { createJunctionDrawing } from "./junction-drawing";
 import type { SharedCamera } from "./shared-camera";
 import { vehicleColour, type ColourBy } from "./vehicle-colours";
 
@@ -94,11 +95,14 @@ export function RoadScene({
     scene.add(ground);
 
     const roadMaterial = new THREE.MeshLambertMaterial({ color: 0x4a4d52 });
-    const roadsById = new Map<string, Road>();
     for (const road of network.roads) {
-      roadsById.set(road.id, road);
       for (const mesh of roadMeshes(road, roadMaterial)) scene.add(mesh);
     }
+    // Junctions: their surface, and a stop line and signal lamp for each approach.
+    const junctions = createJunctionDrawing(network, roadMaterial);
+    for (const object of junctions.objects) scene.add(object);
+    // Where vehicles are on the ground, on roads and along turning paths inside junctions.
+    const layout = createNetworkLayout(network);
 
     // All vehicles are drawn in one batch: a unit box scaled to each vehicle's size.
     const vehicles = new THREE.InstancedMesh(
@@ -112,7 +116,7 @@ export function RoadScene({
     scene.add(vehicles);
 
     const camera = new THREE.PerspectiveCamera(CAMERA_FOV_DEGREES, 1, 1, extent * 20);
-    const startPose = angledPose(networkBounds(network));
+    const startPose = closeUpPose(network);
     camera.position.fromArray(startPose.position);
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.target.fromArray(startPose.target);
@@ -164,15 +168,20 @@ export function RoadScene({
       }
       const fraction = (nowMs - frames.laterArrivedAtMs) / frames.intervalMs;
       const drawn = interpolateVehicles(frames.earlier, frames.later, fraction);
+      // The signals are shown for the same moment of the run as the vehicles.
+      const earlierS = frames.earlier?.timeS ?? frames.later.timeS;
+      const shownS = earlierS + (frames.later.timeS - earlierS) * Math.min(1, Math.max(0, fraction));
+      const signals = junctions.showSignals(shownS);
+      if (host.dataset.signals !== signals) host.dataset.signals = signals;
       let count = 0;
+      let inJunctions = 0;
       for (const vehicle of drawn) {
-        const road = roadsById.get(vehicle.roadId);
-        if (!road || count >= MAX_VEHICLES_DRAWN) continue;
-        const { point, direction } = positionAlongRoad(road, vehicle.positionM - vehicle.lengthM / 2);
-        // lateralM is measured from the road's left edge; left of (dx, dy) is (-dy, dx).
-        const toLeftM = road.widthM / 2 - vehicle.lateralM;
-        const x = point.x - direction.y * toLeftM;
-        const y = point.y + direction.x * toLeftM;
+        if (count >= MAX_VEHICLES_DRAWN) continue;
+        const pose = vehiclePose(layout, vehicle);
+        if (!pose) continue;
+        if (vehicle.turn) inJunctions++;
+        const { x, y } = pose.centre;
+        const direction = pose.direction;
         const heightM = VEHICLE_HEIGHT_M[vehicle.vehicleClass];
         placement.position.set(x, heightM / 2, -y);
         placement.rotation.set(0, Math.atan2(direction.y, direction.x), 0);
@@ -189,6 +198,8 @@ export function RoadScene({
       // Written to the page so that what each view draws can be checked from outside.
       const summary = [...coloursDrawn].map(([drawnHex, drawn]) => `${drawnHex}:${drawn}`).join(" ");
       if (host.dataset.vehicleColours !== summary) host.dataset.vehicleColours = summary;
+      host.dataset.vehiclesDrawn = String(count);
+      host.dataset.vehiclesInJunctions = String(inJunctions);
       coloursDrawn.clear();
     };
 
@@ -205,6 +216,7 @@ export function RoadScene({
       leaveSharedCamera?.();
       controls.removeEventListener("change", onCameraMoved);
       controls.dispose();
+      junctions.dispose();
       renderer.dispose();
       host.removeChild(renderer.domElement);
     };

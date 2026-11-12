@@ -1,6 +1,7 @@
 import type { Network } from "@traffic-simulator/engine";
+import signalJunction from "@traffic-simulator/engine/examples/signal-junction.json";
 import { describe, expect, it } from "vitest";
-import { angledPose, networkBounds, straightDownPose } from "./camera-presets";
+import { angledPose, closeUpPose, networkBounds, straightDownPose } from "./camera-presets";
 
 /** One road 400 m long from west to east, and a side road running 100 m north from its middle. */
 const network: Network = {
@@ -89,5 +90,64 @@ describe("the angled camera the views start with", () => {
     // Angled, not straight down: further away along the ground than it is high.
     const alongGroundM = Math.hypot(pose.position[0] - pose.target[0], pose.position[2] - pose.target[2]);
     expect(alongGroundM).toBeGreaterThan(pose.position[1]);
+  });
+});
+
+describe("the close-up camera the views open with", () => {
+  it("looks at the first road 50 m from where traffic enters it, from its right-hand side and above", () => {
+    const pose = closeUpPose(network);
+
+    // The main road runs east from x = -200 to 200; its right-hand side is the south, positive z in the scene.
+    // Vehicles reach a point 50 m along within a few seconds of the start, so the opening view is not of an empty road.
+    expect(pose.target).toEqual([-150, 0, 0]);
+    expect(pose.position[1]).toBeGreaterThan(10);
+    expect(pose.position[2]).toBeGreaterThan(20);
+  });
+
+  it("is close enough to tell vehicles apart by size: a 4 m car is over a tenth of the view's height", () => {
+    const pose = closeUpPose(network);
+    const distanceM = Math.hypot(
+      pose.position[0] - pose.target[0],
+      pose.position[1] - pose.target[1],
+      pose.position[2] - pose.target[2],
+    );
+
+    // What the view shows from top to bottom at the road, in metres.
+    const shownM = 2 * distanceM * TAN_HALF_FOV;
+    expect(shownM).toBeLessThan(40);
+    // And not so close that only a vehicle or two fits.
+    expect(shownM).toBeGreaterThan(20);
+  });
+
+  it("follows the road's direction: for a road running north it stands to the east", () => {
+    const north: Network = { formatVersion: 1, roads: [network.roads[1]!] };
+    const pose = closeUpPose(north);
+
+    // The side road runs north from (0, 0) to (0, 100): 50 m along is 50 m north, which is z = -50.
+    expect(pose.target).toEqual([0, 0, -50]);
+    expect(pose.position[0]).toBeGreaterThan(20);
+  });
+
+  it("looks at the middle of a road shorter than 100 m", () => {
+    const short: Network = {
+      formatVersion: 1,
+      roads: [{ id: "short", points: [{ x: 0, y: 0 }, { x: 60, y: 0 }], widthM: 7, speedLimitMps: 13.9 }],
+    };
+
+    expect(closeUpPose(short).target).toEqual([30, 0, 0]);
+  });
+
+  it("looks at the middle of the first junction when the network has one, from the south and above, with the whole junction in view", () => {
+    const pose = closeUpPose(signalJunction.network as Network);
+
+    // The example's junction is centred on the origin; its stop lines are 15 m out.
+    expect(pose.target).toEqual([0, 0, 0]);
+    expect(pose.position[1]).toBeGreaterThan(20);
+    expect(pose.position[2]).toBeGreaterThan(20);
+    const distanceM = Math.hypot(...pose.position);
+    const shownM = 2 * distanceM * TAN_HALF_FOV;
+    // All four stop lines, 30 m apart, and some of each queue.
+    expect(shownM).toBeGreaterThan(45);
+    expect(shownM).toBeLessThan(90);
   });
 });

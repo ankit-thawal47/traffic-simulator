@@ -4,10 +4,10 @@
 
 **Blocked by:** 05
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Every assumption in the assumptions table is shown with its value, unit and source
-- [ ] Each value has been confirmed against its source, or is marked as assumed
-- [ ] The panel reads the same table the engine uses
-- [ ] The list of what is not modelled is shown
-- [ ] The panel is read-only
+- [x] Every assumption in the assumptions table is shown with its value, unit and source
+- [x] Each value has been confirmed against its source, or is marked as assumed
+- [x] The panel reads the same table the engine uses
+- [x] The list of what is not modelled is shown
+- [x] The panel is read-only

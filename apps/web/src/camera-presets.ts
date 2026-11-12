@@ -1,4 +1,4 @@
-import type { Network } from "@traffic-simulator/engine";
+import { junctionOutline, positionAlongRoad, roadLengthM, type Network } from "@traffic-simulator/engine";
 import type { CameraPose } from "./shared-camera";
 
 /**
@@ -54,9 +54,47 @@ export function straightDownPose(bounds: SceneBounds, view: { fovDegrees: number
   return { position: [target[0], heightM, target[2]], target };
 }
 
-/** The angled view from the south that the views start with. */
+/** The angled view of the whole network from the south. */
 export function angledPose(bounds: SceneBounds): CameraPose {
   const target = centreOf(bounds);
   const extentM = Math.max(Math.hypot(bounds.maxX - bounds.minX, bounds.maxZ - bounds.minZ), 50);
   return { position: [target[0] - extentM * 0.1, extentM * 0.3, target[2] + extentM * 0.65], target };
+}
+
+/** Where the close-up camera stands, in metres from the point on the road it looks at. */
+const CLOSE_UP = { toTheRightM: 38, upM: 23, behindM: 8 };
+/** How far along the first road the close-up looks: near where traffic enters, so vehicles are there from the first seconds. */
+const CLOSE_UP_ALONG_M = 50;
+
+/** Where the close-up camera stands to look at a junction, in metres from its middle. */
+const JUNCTION_CLOSE_UP = { toTheEastM: 20, upM: 55, toTheSouthM: 55 };
+
+/**
+ * The view the views open with: close to the network's first road, 50 m from
+ * where traffic enters it (or its middle, if it is shorter than 100 m), from
+ * its right-hand side and a little behind, near enough that each vehicle and
+ * its size can be made out. Under 40 m of ground fills the view from top to bottom.
+ */
+export function closeUpPose(network: Network): CameraPose {
+  const road = network.roads[0];
+  if (!road) return angledPose(networkBounds(network));
+  // A network with a junction opens on its first junction: the whole of it and the front of each queue.
+  const junction = network.junctions?.[0];
+  const outline = junction ? junctionOutline(network, junction) : [];
+  if (outline.length > 0) {
+    const xs = outline.map((corner) => corner.x);
+    const ys = outline.map((corner) => corner.y);
+    const x = (Math.min(...xs) + Math.max(...xs)) / 2;
+    const y = (Math.min(...ys) + Math.max(...ys)) / 2;
+    return {
+      position: [x + JUNCTION_CLOSE_UP.toTheEastM, JUNCTION_CLOSE_UP.upM, 0 - y + JUNCTION_CLOSE_UP.toTheSouthM],
+      target: [x, 0, 0 - y],
+    };
+  }
+  const { point, direction } = positionAlongRoad(road, Math.min(CLOSE_UP_ALONG_M, roadLengthM(road) / 2));
+  // On the ground, the right of the direction (dx, dy) is (dy, -dx).
+  const x = point.x + direction.y * CLOSE_UP.toTheRightM - direction.x * CLOSE_UP.behindM;
+  const y = point.y - direction.x * CLOSE_UP.toTheRightM - direction.y * CLOSE_UP.behindM;
+  // `0 -` and not a plain minus, so that y = 0 gives 0 and not -0.
+  return { position: [x, CLOSE_UP.upM, 0 - y], target: [point.x, 0, 0 - point.y] };
 }

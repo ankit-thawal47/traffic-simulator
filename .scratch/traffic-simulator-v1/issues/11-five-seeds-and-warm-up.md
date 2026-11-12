@@ -4,10 +4,10 @@
 
 **Blocked by:** 10
 
-**Status:** ready-for-agent
+**Status:** done (merged to integration branch)
 
-- [ ] Results exclude the warm-up period
-- [ ] Each scenario runs with five seeds; the first is shown, the others run unseen
-- [ ] Progress across seeds is shown and the page stays responsive
-- [ ] Each result is shown as the average and the range across seeds
-- [ ] Running the same scenario again gives the same averages and ranges
+- [x] Results exclude the warm-up period
+- [x] Each scenario runs with five seeds; the first is shown, the others run unseen
+- [x] Progress across seeds is shown and the page stays responsive
+- [x] Each result is shown as the average and the range across seeds
+- [x] Running the same scenario again gives the same averages and ranges

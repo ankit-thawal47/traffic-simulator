@@ -5,9 +5,17 @@
  *
  * They read only what a run gives back (snapshots and results), never the
  * engine's internals, so they apply unchanged to any network and demand.
+ *
+ * On a road, two vehicles overlap when they overlap both along and across it.
+ * Inside a junction, a vehicle's footprint follows its turning path (it is the
+ * vehicle's length along the path and its width across it), and two vehicles
+ * overlap when their footprints do, whichever turning paths they are on. The
+ * shape of a turning path comes from junction-geometry.ts, which the engine
+ * uses too: the checks do not have their own idea of where a turning path runs.
  */
 import { createRun as createEngineRun } from "./run";
 import { roadLengthM } from "./geometry";
+import { convexShapesOverlap, createNetworkLayout, footprintInJunction, turningCurve } from "./junction-geometry";
 import type { Network, Results, Run, RunInput, Snapshot, VehicleState } from "./types";
 
 export type ConsistencyCheck = "no-vehicle-lost" | "no-overlap" | "no-negative-speed" | "inside-road" | "repeatable";
@@ -29,6 +37,7 @@ const TOLERANCE_M = 1e-9;
 
 export function createConsistencyChecker(network: Network): ConsistencyChecker {
   const roads = new Map(network.roads.map((road) => [road.id, { widthM: road.widthM, lengthM: roadLengthM(road) }]));
+  const layout = createNetworkLayout(network);
   const violations: ConsistencyViolation[] = [];
   let previous: { ids: Set<number>; highestId: number; results: Results } | undefined;
 
@@ -37,6 +46,8 @@ export function createConsistencyChecker(network: Network): ConsistencyChecker {
       violations.push({ check, timeS: snapshot.timeS, message });
 
     const byRoad = new Map<string, VehicleState[]>();
+    /** Vehicles with any part inside a junction, by junction. */
+    const turning = new Map<string, VehicleState[]>();
     const ids = new Set<number>();
     for (const vehicle of snapshot.vehicles) {
       if (ids.has(vehicle.id)) report("no-vehicle-lost", `Vehicle ${vehicle.id} appears twice`);
@@ -50,7 +61,42 @@ export function createConsistencyChecker(network: Network): ConsistencyChecker {
         continue;
       }
       const rearM = vehicle.positionM - vehicle.lengthM;
-      if (rearM < -TOLERANCE_M || vehicle.positionM > road.lengthM + TOLERANCE_M) {
+      // A vehicle on a turning path may reach past the end of the road it came
+      // from, or back from the start of the road it is heading for, by no more
+      // than the length of its line through the junction.
+      let beyondEndM = 0;
+      let beforeStartM = 0;
+      const turn = vehicle.turn;
+      if (turn) {
+        const path = layout.turningPath(turn.fromRoadId, turn.toRoadId);
+        if (!path || path.junctionId !== turn.junctionId) {
+          report(
+            "inside-road",
+            `Vehicle ${vehicle.id} is on a turning path that is not in the network: "${turn.fromRoadId}" to "${turn.toRoadId}"`,
+          );
+          continue;
+        }
+        const turnLengthM = turningCurve(path, turn.fromLateralM, turn.toLateralM).lengthM;
+        if (vehicle.roadId === turn.fromRoadId) beyondEndM = turnLengthM;
+        else if (vehicle.roadId === turn.toRoadId) beforeStartM = turnLengthM;
+        else {
+          report("inside-road", `Vehicle ${vehicle.id} is on road "${vehicle.roadId}", which its turning path neither leaves nor joins`);
+          continue;
+        }
+        for (const [roadId, lateralM] of [
+          [turn.fromRoadId, turn.fromLateralM],
+          [turn.toRoadId, turn.toLateralM],
+        ] as const) {
+          const widthM = roads.get(roadId)!.widthM;
+          if (lateralM - vehicle.widthM / 2 < -TOLERANCE_M || lateralM + vehicle.widthM / 2 > widthM + TOLERANCE_M) {
+            report("inside-road", `Vehicle ${vehicle.id} turns ${lateralM} m across road "${roadId}", outside its ${widthM} m width`);
+          }
+        }
+        const inJunction = turning.get(turn.junctionId);
+        if (inJunction) inJunction.push(vehicle);
+        else turning.set(turn.junctionId, [vehicle]);
+      }
+      if (rearM < -beforeStartM - TOLERANCE_M || vehicle.positionM > road.lengthM + beyondEndM + TOLERANCE_M) {
         report("inside-road", `Vehicle ${vehicle.id} spans ${rearM} to ${vehicle.positionM} m on a ${road.lengthM} m road`);
       }
       const leftM = vehicle.lateralM - vehicle.widthM / 2;
@@ -72,9 +118,46 @@ export function createConsistencyChecker(network: Network): ConsistencyChecker {
           const behind = onRoad[j]!;
           // Sorted front first, so once one vehicle is clear of the rear, the rest are too.
           if (behind.positionM <= rearM + TOLERANCE_M) break;
+          if (ahead.turn && behind.turn) {
+            // Both reach into a junction. Only the stretch they share on the road itself is
+            // compared here; inside the junction their footprints are compared below.
+            const sharedFromM = Math.max(rearM, behind.positionM - behind.lengthM, 0);
+            const sharedToM = Math.min(behind.positionM, roads.get(ahead.roadId)!.lengthM);
+            if (sharedToM <= sharedFromM + TOLERANCE_M) continue;
+          }
           const sideBySide =
             Math.abs(ahead.lateralM - behind.lateralM) >= (ahead.widthM + behind.widthM) / 2 - TOLERANCE_M;
           if (!sideBySide) report("no-overlap", `Vehicles ${ahead.id} and ${behind.id} overlap on road "${ahead.roadId}"`);
+        }
+      }
+    }
+
+    // Inside each junction: no two vehicles' footprints overlap, whatever turning paths they are on.
+    for (const [junctionId, inJunction] of turning) {
+      const footprints = inJunction.map((vehicle) => {
+        const pieces = footprintInJunction(layout, vehicle);
+        let minX = Infinity;
+        let minY = Infinity;
+        let maxX = -Infinity;
+        let maxY = -Infinity;
+        for (const piece of pieces) {
+          for (const point of piece) {
+            if (point.x < minX) minX = point.x;
+            if (point.x > maxX) maxX = point.x;
+            if (point.y < minY) minY = point.y;
+            if (point.y > maxY) maxY = point.y;
+          }
+        }
+        return { vehicle, pieces, minX, minY, maxX, maxY };
+      });
+      for (let i = 0; i < footprints.length; i++) {
+        const a = footprints[i]!;
+        for (let j = i + 1; j < footprints.length; j++) {
+          const b = footprints[j]!;
+          if (a.maxX <= b.minX || b.maxX <= a.minX || a.maxY <= b.minY || b.maxY <= a.minY) continue;
+          if (a.pieces.some((piece) => b.pieces.some((other) => convexShapesOverlap(piece, other)))) {
+            report("no-overlap", `Vehicles ${a.vehicle.id} and ${b.vehicle.id} overlap inside junction "${junctionId}"`);
+          }
         }
       }
     }

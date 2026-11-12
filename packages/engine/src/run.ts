@@ -1,4 +1,5 @@
 import {
+  JUNCTION_ASSUMPTIONS,
   SIDEWAYS_ASSUMPTIONS,
   STANDARD_LANE_WIDTH_M,
   STEP_SECONDS,
@@ -8,9 +9,31 @@ import {
   VEHICLE_CLASS_ASSUMPTIONS,
   type VehicleClassAssumptions,
 } from "./assumptions";
+import { bandPieces, findCrossings, NO_CROSSING } from "./crossings";
 import { roadLengthM } from "./geometry";
+import {
+  createTurningPath,
+  curveDistanceM,
+  curveParameter,
+  signalAspect,
+  turningCurve,
+  type SignalAspect,
+  type TurningCurve,
+  type TurningPath,
+} from "./junction-geometry";
 import { createRandomStream, exponential, type RandomStream } from "./random";
-import type { Results, Road, Run, RunInput, Snapshot, VehicleClass, VehicleClassDelay, VehicleState } from "./types";
+import type {
+  ApproachQueue,
+  Junction,
+  Results,
+  Road,
+  Run,
+  RunInput,
+  Snapshot,
+  VehicleClass,
+  VehicleClassDelay,
+  VehicleState,
+} from "./types";
 
 /**
  * How vehicles share a road's width.
@@ -37,7 +60,65 @@ interface RoadState {
    */
   aheadOf: Int32Array;
   behindOf: Int32Array;
+
+  /** The junction this road is an approach of, and its connections from here by the id of the road they lead to. */
+  endsAt: JunctionState | undefined;
+  connections: Map<string, ConnectionState>;
+  /** Whether a junction's connections lead onto this road. */
+  startsAtJunction: boolean;
+  /** For a road that starts at a junction: the rearmost vehicle in each strip at the start of the step. */
+  lastInStrip: (Vehicle | undefined)[];
+  /** For an approach: what its signal shows at the start of the step. */
+  aspect: SignalAspect;
+  /** For an approach: the longest queue it has had so far. */
+  longestQueue: ApproachQueue;
 }
+
+/**
+ * A connection through a junction, as the engine uses it: a band of strips
+ * from the approach to the next road. It has as many strips as the narrower of
+ * the two roads. Its strips line up with the left of both roads for a left turn
+ * or straight on, and with the right of both for a right turn (left-hand
+ * traffic: the left turn is the near-side turn). A vehicle keeps its strips all
+ * the way through, so strip i of the connection is strip i + fromShift of the
+ * approach and strip i + toShift of the next road.
+ */
+interface ConnectionState {
+  index: number;
+  junction: JunctionState;
+  from: RoadState;
+  to: RoadState;
+  path: TurningPath;
+  stripCount: number;
+  fromShift: number;
+  toShift: number;
+}
+
+interface JunctionState {
+  junction: Junction;
+  connections: ConnectionState[];
+  approaches: RoadState[];
+  /**
+   * Vehicles that have been let into the junction and have not left it yet,
+   * in the order they were let in. They may still be on the approach.
+   */
+  admitted: Vehicle[];
+  /**
+   * Where the junction's connections cross: for connections a and b, the table
+   * of findCrossings() at [a.index * connections.length + b.index], or
+   * undefined where the two nowhere overlap (and for a connection with itself).
+   */
+  crossings: (Int16Array | undefined)[];
+}
+
+const STEPS_PER_MINUTE = Math.round(60 / STEP_SECONDS);
+
+/** Where a vehicle is relative to a junction on its route. */
+const ON_ROAD = 0;
+/** Front bumper inside the junction. The vehicle's position is still measured on the approach, past its end. */
+const FRONT_IN_JUNCTION = 1;
+/** Front bumper on the next road, rear bumper still inside the junction. */
+const REAR_IN_JUNCTION = 2;
 
 interface Vehicle {
   id: number;
@@ -65,12 +146,31 @@ interface Vehicle {
   reservedLow: number;
   reservedHigh: number;
 
-  /** When the demand produced the vehicle, and where its front bumper was when it was placed. */
+  /** When the demand produced the vehicle, and where its front bumper was when it was placed (or 0 on a later road of its route). */
   arrivedAtS: number;
   entryPositionM: number;
+  /** Time the roads and junctions already left behind take at the vehicle's desired speed. */
+  freeTimeBeforeS: number;
+
+  /** The roads of the vehicle's route, and which of them it is on. */
+  route: RoadState[];
+  routeIndex: number;
+  /** The connection the route takes at the end of the vehicle's road, if the route goes on. */
+  ahead: ConnectionState | undefined;
+  /** ON_ROAD, FRONT_IN_JUNCTION or REAR_IN_JUNCTION. */
+  place: number;
+  /** While any part of the vehicle is in a junction: the connection it is on. */
+  turning: ConnectionState | undefined;
+  /** Whether the vehicle has been let into the junction ahead, and its place in the order of those let in. */
+  admitted: boolean;
+  order: number;
+  /** From being let in until leaving the junction: the line the vehicle's centre follows through it. */
+  curve: TurningCurve | undefined;
 
   // Working values of one step.
   index: number;
+  /** The speed the vehicle aims for this step: its desired speed, or less when slowing for a turn. */
+  speedCapMps: number;
   /** Acceleration the following rule gives from the state at the start of the step. */
   currentAcceleration: number;
   /** A sideways claim made this step: direction (0 for none) and the strips it would newly occupy. */
@@ -88,6 +188,7 @@ interface WaitingVehicle {
 
 interface FlowState {
   entryRoad: RoadState;
+  route: RoadState[];
   meanHeadwayS: number;
   random: RandomStream;
   classRandom: RandomStream;
@@ -128,8 +229,11 @@ function lateralM(vehicle: Vehicle): number {
 export function createRun(input: RunInput): Run {
   const laneDiscipline = input.laneDiscipline === true;
   const formatVersion = input.network.formatVersion;
-  if (formatVersion !== 1 && formatVersion !== 2) {
+  if (formatVersion !== 1 && formatVersion !== 2 && formatVersion !== 3) {
     throw new Error(`Unsupported network format version: ${String(formatVersion)}`);
+  }
+  if (formatVersion < 3 && (input.network.junctions?.length ?? 0) > 0) {
+    throw new Error("A network with junctions needs format version 3");
   }
 
   const roads = new Map<string, RoadState>();
@@ -156,7 +260,158 @@ export function createRun(input: RunInput): Run {
       vehicles: [],
       aheadOf: new Int32Array(0),
       behindOf: new Int32Array(0),
+      endsAt: undefined,
+      connections: new Map(),
+      startsAtJunction: false,
+      lastInStrip: [],
+      aspect: { state: "green", remainingS: Infinity },
+      longestQueue: { lengthM: 0, vehicles: 0, eachMinute: [] },
     });
+  }
+
+  const junctions: JunctionState[] = [];
+  const junctionIds = new Set<string>();
+  const fedByJunction = new Map<RoadState, string>();
+  for (const junction of input.network.junctions ?? []) {
+    if (junctionIds.has(junction.id)) throw new Error(`The network has two junctions with the id "${junction.id}"`);
+    junctionIds.add(junction.id);
+    if (junction.control !== "signal") {
+      throw new Error(`Junction "${junction.id}" is of a kind this version does not know: "${String(junction.control)}"`);
+    }
+    const state: JunctionState = { junction, connections: [], approaches: [], admitted: [], crossings: [] };
+    for (const connection of junction.connections) {
+      const from = roads.get(connection.fromRoadId);
+      const to = roads.get(connection.toRoadId);
+      if (!from || !to) {
+        const missing = from ? connection.toRoadId : connection.fromRoadId;
+        throw new Error(`Junction "${junction.id}" connects a road that is not in the network: "${missing}"`);
+      }
+      if (from === to) throw new Error(`Junction "${junction.id}" connects road "${from.road.id}" to itself`);
+      if (from.endsAt && from.endsAt !== state) {
+        throw new Error(`Road "${from.road.id}" ends at two junctions: "${from.endsAt.junction.id}" and "${junction.id}"`);
+      }
+      const feeder = fedByJunction.get(to);
+      if (feeder !== undefined && feeder !== junction.id) {
+        throw new Error(`Road "${to.road.id}" starts at two junctions: "${feeder}" and "${junction.id}"`);
+      }
+      if (from.connections.has(to.road.id)) {
+        throw new Error(`Junction "${junction.id}" connects road "${from.road.id}" to road "${to.road.id}" twice`);
+      }
+      const path = createTurningPath(junction.id, from.road, to.road);
+      const stripCount = Math.min(from.stripCount, to.stripCount);
+      const alignRight = path.direction === "right";
+      const connectionState: ConnectionState = {
+        index: state.connections.length,
+        junction: state,
+        from,
+        to,
+        path,
+        stripCount,
+        fromShift: alignRight ? from.stripCount - stripCount : 0,
+        toShift: alignRight ? to.stripCount - stripCount : 0,
+      };
+      state.connections.push(connectionState);
+      if (!from.endsAt) state.approaches.push(from);
+      from.endsAt = state;
+      from.connections.set(to.road.id, connectionState);
+      fedByJunction.set(to, junction.id);
+      to.startsAtJunction = true;
+    }
+
+    // Crossing paths: found once, here, for every pair of the junction's connections.
+    const bands = state.connections.map((connection) =>
+      bandPieces({
+        path: connection.path,
+        stripCount: connection.stripCount,
+        fromLeftM: connection.from.stripOffsetM + connection.fromShift * connection.from.stripWidthM,
+        fromStripWidthM: connection.from.stripWidthM,
+        toLeftM: connection.to.stripOffsetM + connection.toShift * connection.to.stripWidthM,
+        toStripWidthM: connection.to.stripWidthM,
+      }),
+    );
+    for (const a of state.connections) {
+      for (const b of state.connections) {
+        state.crossings.push(a === b ? undefined : findCrossings(bands[a.index]!, bands[b.index]!));
+      }
+    }
+
+    const plan = junction.signalPlan;
+    const name = `The signal plan of junction "${junction.id}"`;
+    if (!plan || !Array.isArray(plan.phases) || plan.phases.length === 0) throw new Error(`${name} needs at least one phase`);
+    if (!(plan.amberS >= 0) || !Number.isFinite(plan.amberS)) throw new Error(`${name} has an invalid amber time`);
+    if (!(plan.allRedS >= 0) || !Number.isFinite(plan.allRedS)) throw new Error(`${name} has an invalid all-red time`);
+    const withGreen = new Set<string>();
+    for (const phase of plan.phases) {
+      if (!(phase.greenS > 0) || !Number.isFinite(phase.greenS)) throw new Error(`${name} has a phase without a green time above zero`);
+      for (const roadId of phase.greenRoadIds) {
+        if (roads.get(roadId)?.endsAt !== state) {
+          throw new Error(`${name} gives green to a road that is not an approach of the junction: "${roadId}"`);
+        }
+        withGreen.add(roadId);
+      }
+    }
+    for (const approach of state.approaches) {
+      if (!withGreen.has(approach.road.id)) {
+        throw new Error(`Approach "${approach.road.id}" of junction "${junction.id}" never has green`);
+      }
+    }
+    junctions.push(state);
+  }
+
+  /** How far a vehicle's centre is from the left edge of a road, given the strips it occupies. */
+  function lateralOnRoad(road: RoadState, strip: number, strips: number): number {
+    return road.stripOffsetM + (strip + strips / 2) * road.stripWidthM;
+  }
+
+  /**
+   * The line through a connection for a vehicle occupying `strips` strips from
+   * strip `strip` of the approach, or undefined when the connection has no room
+   * for the vehicle in those strips.
+   */
+  function curveThrough(connection: ConnectionState, strip: number, strips: number): TurningCurve | undefined {
+    const own = strip - connection.fromShift;
+    if (own < 0 || own + strips > connection.stripCount) return undefined;
+    return turningCurve(
+      connection.path,
+      lateralOnRoad(connection.from, strip, strips),
+      lateralOnRoad(connection.to, own + connection.toShift, strips),
+    );
+  }
+
+  /**
+   * The route between two roads: the fastest path on empty roads (spec: Engine
+   * behaviour, Routes), found once when the run is created. A connection counts
+   * as the straight line between its two roads, at the speed limit of the road left.
+   */
+  function routeBetween(entry: RoadState, exit: RoadState): RoadState[] | undefined {
+    const timeTo = new Map<RoadState, number>([[entry, 0]]);
+    const cameFrom = new Map<RoadState, RoadState>();
+    const done = new Set<RoadState>();
+    for (;;) {
+      let nearest: RoadState | undefined;
+      // Roads in the network's order, so equal times always settle the same way.
+      for (const road of roads.values()) {
+        const time = timeTo.get(road);
+        if (time === undefined || done.has(road)) continue;
+        if (!nearest || time < timeTo.get(nearest)!) nearest = road;
+      }
+      if (!nearest) return undefined;
+      if (nearest === exit) break;
+      done.add(nearest);
+      const leaveAt = timeTo.get(nearest)! + nearest.lengthM / nearest.road.speedLimitMps;
+      for (const connection of nearest.connections.values()) {
+        const [start, , , end] = connection.path.control;
+        const time = leaveAt + Math.hypot(end.x - start.x, end.y - start.y) / nearest.road.speedLimitMps;
+        const known = timeTo.get(connection.to);
+        if (known === undefined || time < known) {
+          timeTo.set(connection.to, time);
+          cameFrom.set(connection.to, nearest);
+        }
+      }
+    }
+    const route = [exit];
+    while (route[0] !== entry) route.unshift(cameFrom.get(route[0]!)!);
+    return route;
   }
 
   /** How many strips a vehicle class occupies on a road; throws when the road cannot take it. */
@@ -201,6 +456,37 @@ export function createRun(input: RunInput): Run {
     return classesInMix[classesInMix.length - 1]!;
   }
 
+  /** The route between two roads; throws when there is none, or when it would end at a junction. */
+  function routeFor(entry: RoadState, exit: RoadState): RoadState[] {
+    const route = routeBetween(entry, exit);
+    if (!route) throw new Error(`There is no route from road "${entry.road.id}" to road "${exit.road.id}"`);
+    if (exit.endsAt) {
+      throw new Error(`A route cannot end on road "${exit.road.id}": it ends at junction "${exit.endsAt.junction.id}"`);
+    }
+    return route;
+  }
+
+  /** Throws when a road or a turn of a route has no room for a vehicle class. */
+  function checkRouteTakes(route: RoadState[], vehicleClass: VehicleClass): void {
+    const lengthM = VEHICLE_CLASS_ASSUMPTIONS[vehicleClass].lengthM;
+    for (let i = 0; i < route.length; i++) {
+      const road = route[i]!;
+      const strips = stripsNeeded(road, vehicleClass);
+      const next = route[i + 1];
+      if (!next) continue;
+      const connection = road.connections.get(next.road.id)!;
+      // The shortest line through the connection is the one nearest the inside of the turn.
+      const inside = connection.path.direction === "right" ? road.stripCount - strips : connection.fromShift;
+      const shortest = curveThrough(connection, inside, stripsNeeded(next, vehicleClass));
+      if (!shortest || shortest.lengthM < lengthM) {
+        throw new Error(
+          `The turn from road "${road.road.id}" to road "${next.road.id}" is too short for a ${vehicleClass}: ` +
+            "a turning path must be at least as long as the vehicle",
+        );
+      }
+    }
+  }
+
   const flows: FlowState[] = [];
   input.demand.flows.forEach((flow, index) => {
     const entryRoad = roads.get(flow.entryRoadId);
@@ -208,17 +494,18 @@ export function createRun(input: RunInput): Run {
     if (!roads.has(flow.exitRoadId)) {
       throw new Error(`Demand names an exit road that is not in the network: "${flow.exitRoadId}"`);
     }
-    if (flow.exitRoadId !== flow.entryRoadId) {
-      // Routes across junctions arrive with the junction tickets; until then a route is one road.
-      throw new Error(`There is no route from road "${flow.entryRoadId}" to road "${flow.exitRoadId}"`);
+    const route = routeFor(entryRoad, roads.get(flow.exitRoadId)!);
+    if (entryRoad.startsAtJunction) {
+      throw new Error(`Demand cannot enter on road "${flow.entryRoadId}": it starts at a junction`);
     }
     if (!(flow.vehiclesPerHour >= 0)) throw new Error(`Demand for road "${flow.entryRoadId}" has an invalid rate`);
     if (flow.vehiclesPerHour === 0) return;
-    for (const vehicleClass of classesInMix) stripsNeeded(entryRoad, vehicleClass);
+    for (const vehicleClass of classesInMix) checkRouteTakes(route, vehicleClass);
     const meanHeadwayS = 3600 / flow.vehiclesPerHour;
     const random = createRandomStream(input.seed, `demand:${index}`);
     flows.push({
       entryRoad,
+      route,
       meanHeadwayS,
       random,
       // Its own stream, so the vehicle mix does not disturb when vehicles arrive.
@@ -242,8 +529,10 @@ export function createRun(input: RunInput): Run {
     speedMps: number,
     strip: number,
     arrivedAtS: number,
+    route: RoadState[],
   ): Vehicle {
     const assumptions = VEHICLE_CLASS_ASSUMPTIONS[vehicleClass];
+    const next = route[1];
     const vehicle: Vehicle = {
       id: nextVehicleId++,
       vehicleClass,
@@ -263,7 +552,17 @@ export function createRun(input: RunInput): Run {
       reservedHigh: -1,
       arrivedAtS,
       entryPositionM: positionM,
+      freeTimeBeforeS: 0,
+      route,
+      routeIndex: 0,
+      ahead: next && road.connections.get(next.road.id),
+      place: ON_ROAD,
+      turning: undefined,
+      admitted: false,
+      order: 0,
+      curve: undefined,
       index: 0,
+      speedCapMps: Math.min(assumptions.desiredSpeedMps, road.road.speedLimitMps),
       currentAcceleration: 0,
       claimDirection: 0,
       claimLow: 0,
@@ -293,7 +592,17 @@ export function createRun(input: RunInput): Run {
       strip = Math.min(room, Math.max(0, strip));
     }
     const speedMps = initial.stationary ? 0 : initial.speedMps;
-    const vehicle = placeVehicle(road, vehicleClass, initial.positionM, speedMps, strip, 0);
+    let route = [road];
+    if (!initial.stationary) {
+      const exit = initial.exitRoadId === undefined ? road : roads.get(initial.exitRoadId);
+      if (!exit) throw new Error(`An initial vehicle has an exit road that is not in the network: "${initial.exitRoadId}"`);
+      if (initial.exitRoadId === undefined && road.endsAt) {
+        throw new Error(`An initial vehicle on road "${initial.roadId}" needs an exit road: its road ends at a junction`);
+      }
+      route = routeFor(road, exit);
+      checkRouteTakes(route, vehicleClass);
+    }
+    const vehicle = placeVehicle(road, vehicleClass, initial.positionM, speedMps, strip, 0, route);
     vehicle.stationary = initial.stationary === true;
   }
 
@@ -303,7 +612,7 @@ export function createRun(input: RunInput): Run {
    * nearest vehicle. Of the places with room it takes the one with the longest clear
    * road ahead, and of equals the one nearest the middle of the road.
    */
-  function tryToEnter(road: RoadState, waiting: WaitingVehicle): boolean {
+  function tryToEnter(road: RoadState, route: RoadState[], waiting: WaitingVehicle): boolean {
     const assumptions = VEHICLE_CLASS_ASSUMPTIONS[waiting.vehicleClass];
     const strips = stripsNeeded(road, waiting.vehicleClass);
     const desired = Math.min(assumptions.desiredSpeedMps, road.road.speedLimitMps);
@@ -322,7 +631,11 @@ export function createRun(input: RunInput): Run {
     let bestStrip = -1;
     let bestGapM = 0;
     let bestSpeedMps = 0;
+    const next = route[1];
+    const ahead = next && road.connections.get(next.road.id);
     for (let strip = 0; strip + strips <= road.stripCount; strip++) {
+      // Where the road it turns onto is narrower, it enters in strips that lead onto it.
+      if (ahead && !curveThrough(ahead, strip, strips)) continue;
       let nearest: Vehicle | undefined;
       for (let s = strip; s < strip + strips; s++) {
         const other = last[s];
@@ -342,7 +655,7 @@ export function createRun(input: RunInput): Run {
       }
     }
     if (bestStrip < 0) return false;
-    placeVehicle(road, waiting.vehicleClass, assumptions.lengthM, bestSpeedMps, bestStrip, waiting.arrivedAtS);
+    placeVehicle(road, waiting.vehicleClass, assumptions.lengthM, bestSpeedMps, bestStrip, waiting.arrivedAtS, route);
     return true;
   }
 
@@ -355,7 +668,7 @@ export function createRun(input: RunInput): Run {
   function acceleration(vehicle: Vehicle, gapM: number | undefined, leaderSpeedMps: number): number {
     const { maxAccelerationMps2: a, comfortableDecelerationMps2: b, timeGapS, standstillGapM } = vehicle.assumptions;
     const v = vehicle.speedMps;
-    const ratio = v / vehicle.desiredSpeedMps;
+    const ratio = v / vehicle.speedCapMps;
     let interaction = 0;
     if (gapM !== undefined) {
       const gap = Math.max(gapM, MIN_GAP_M);
@@ -383,6 +696,8 @@ export function createRun(input: RunInput): Run {
     for (let i = 0; i < vehicles.length; i++) {
       road.aheadOf.set(nearest, i * stripCount);
       const vehicle = vehicles[i]!;
+      // A vehicle that has wholly left the road for the junction is nobody's neighbour on the road.
+      if (rearM(vehicle) >= road.lengthM) continue;
       for (let s = lowStrip(vehicle); s <= highStrip(vehicle); s++) nearest[s] = i;
     }
     if (!behindToo) return;
@@ -390,6 +705,7 @@ export function createRun(input: RunInput): Run {
     for (let i = vehicles.length - 1; i >= 0; i--) {
       road.behindOf.set(nearest, i * stripCount);
       const vehicle = vehicles[i]!;
+      if (rearM(vehicle) >= road.lengthM) continue;
       for (let s = lowStrip(vehicle); s <= highStrip(vehicle); s++) nearest[s] = i;
     }
   }
@@ -452,8 +768,15 @@ export function createRun(input: RunInput): Run {
   function claimSpace(vehicle: Vehicle): void {
     vehicle.claimDirection = 0;
     if (vehicle.stationary) return;
+    // A vehicle keeps its strips from being let into a junction until it has left it.
+    if (vehicle.admitted || vehicle.place !== ON_ROAD) return;
     if (vehicle.shiftDirection !== 0) {
-      // Already shifting: it keeps heading for the strips it set out for.
+      // Already shifting: it keeps heading for the strips it set out for, unless
+      // a vehicle since let into the junction is just behind one of them.
+      if (vehicle.road.endsAt && letInBehind(vehicle, vehicle.reservedLow, vehicle.reservedHigh)) {
+        vehicle.reservedHigh = vehicle.reservedLow - 1;
+        return;
+      }
       if (vehicle.reservedLow <= vehicle.reservedHigh) {
         vehicle.claimDirection = vehicle.shiftDirection;
         vehicle.claimLow = vehicle.reservedLow;
@@ -467,6 +790,8 @@ export function createRun(input: RunInput): Run {
     if (acceleration(vehicle, undefined, 0) - current <= threshold) return;
 
     const road = vehicle.road;
+    const held = vehicle.ahead !== undefined && stopLineHolds(vehicle);
+    const fitsTurn = vehicle.ahead !== undefined && curveThrough(vehicle.ahead, vehicle.strip, vehicle.strips) !== undefined;
     const politeness = SIDEWAYS_ASSUMPTIONS.politeness.value;
     const safeBraking = SIDEWAYS_ASSUMPTIONS.safeBrakingMps2.value;
     let bestGain = threshold;
@@ -477,8 +802,20 @@ export function createRun(input: RunInput): Run {
         if (strip < 0 || strip + vehicle.strips > road.stripCount) break;
         const entered = direction < 0 ? strip : strip + vehicle.strips - 1;
         if (stripTakenAlongside(vehicle, entered)) break;
+        // It does not leave the strips that lead onto its turn for strips that do not.
+        if (fitsTurn && !curveThrough(vehicle.ahead!, strip, vehicle.strips)) break;
+        // Not in front of a vehicle already let into the junction: those let in go in the order they were let in.
+        if (road.endsAt && letInBehind(vehicle, entered, entered)) break;
 
-        const there = accelerationBehind(vehicle, leaderIn(vehicle, strip, strip + vehicle.strips - 1));
+        let there = accelerationBehind(vehicle, leaderIn(vehicle, strip, strip + vehicle.strips - 1));
+        // A stop line that holds the vehicle holds it in every strip, except, on green,
+        // in strips from which the junction and the road beyond have room for it.
+        const couldGo =
+          held &&
+          road.aspect.state === "green" &&
+          curveThrough(vehicle.ahead!, strip, vehicle.strips) !== undefined &&
+          roomBeyond(vehicle, vehicle.ahead!, strip);
+        if (held && !couldGo) there = Math.min(there, acceleration(vehicle, road.lengthM - vehicle.positionM, 0));
         if (there < current - EPSILON) break;
 
         let braking = 0;
@@ -555,10 +892,369 @@ export function createRun(input: RunInput): Run {
     }
   }
 
+  let nextOrder = 1;
+
+  /**
+   * The speed a vehicle can hold on a line through a junction: the speed at
+   * which the turn's sideways acceleration is the assumed one. The radius is
+   * taken as the line's length over the angle it turns through.
+   */
+  function turnSpeedMps(curve: TurningCurve): number {
+    const turnRad = Math.abs(curve.path.turnRad);
+    if (turnRad < 0.1) return Infinity;
+    return Math.sqrt((JUNCTION_ASSUMPTIONS.turnAccelerationMps2.value * curve.lengthM) / turnRad);
+  }
+
+  /**
+   * Set the speed a vehicle aims for this step. Approaching a turn it is the
+   * speed from which the vehicle can still slow to the turn's speed by the stop
+   * line at half its comfortable deceleration, so the following rule, which
+   * aims for this speed, brings it down gently.
+   */
+  function setSpeedCap(vehicle: Vehicle): void {
+    let cap = vehicle.desiredSpeedMps;
+    const connection = vehicle.ahead;
+    if (connection && vehicle.place !== REAR_IN_JUNCTION && !vehicle.stationary) {
+      const curve = vehicle.curve ?? curveThrough(connection, vehicle.strip, vehicle.strips);
+      const turnMps = curve ? turnSpeedMps(curve) : Infinity;
+      if (turnMps < cap) {
+        const toStopLineM = Math.max(0, vehicle.road.lengthM - vehicle.positionM);
+        const slowing = vehicle.assumptions.comfortableDecelerationMps2 / 2;
+        cap = Math.min(cap, Math.sqrt(turnMps * turnMps + 2 * slowing * toStopLineM));
+      }
+    }
+    vehicle.speedCapMps = cap;
+  }
+
+  /** For a road that starts at a junction: the rearmost vehicle in each strip. */
+  function findLastInStrips(road: RoadState): void {
+    const last = road.lastInStrip;
+    last.length = road.stripCount;
+    last.fill(undefined);
+    for (const vehicle of road.vehicles) {
+      const rear = rearM(vehicle);
+      for (let s = lowStrip(vehicle); s <= highStrip(vehicle); s++) {
+        const other = last[s];
+        if (!other || rear < rearM(other)) last[s] = vehicle;
+      }
+    }
+  }
+
+  /** How far a vehicle's rear bumper is along the connection it is let into: negative while still on the approach. */
+  function rearAlongTurnM(vehicle: Vehicle): number {
+    if (vehicle.place === REAR_IN_JUNCTION) return vehicle.curve!.lengthM + rearM(vehicle);
+    return rearM(vehicle) - vehicle.road.lengthM;
+  }
+
+  /** Whether two vehicles on the same connection, or from the same approach, share a strip. */
+  function shareStrips(a: Vehicle, b: Vehicle): boolean {
+    const lowA = a.place === REAR_IN_JUNCTION ? a.strip - a.turning!.toShift + a.turning!.fromShift : a.strip;
+    const lowB = b.place === REAR_IN_JUNCTION ? b.strip - b.turning!.toShift + b.turning!.fromShift : b.strip;
+    return lowA < lowB + b.strips && lowB < lowA + a.strips;
+  }
+
+  /**
+   * The distance from the stop line within which a vehicle asks to be let into
+   * the junction: the gap the following rule wants to a stopped vehicle at its
+   * speed, so one that is refused can still stop comfortably.
+   */
+  function askingDistanceM(vehicle: Vehicle): number {
+    const { maxAccelerationMps2: a, comfortableDecelerationMps2: b, timeGapS, standstillGapM } = vehicle.assumptions;
+    const v = vehicle.speedMps;
+    return standstillGapM + v * timeGapS + (v * v) / (2 * Math.sqrt(a * b)) + v * STEP_SECONDS;
+  }
+
+  /**
+   * Whether the stop line ahead holds a vehicle that has not been let into the
+   * junction (spec: restrictions as leaders). It then acts as a stopped vehicle
+   * across the whole width of the approach.
+   */
+  function stopLineHolds(vehicle: Vehicle): boolean {
+    const road = vehicle.road;
+    // Red or amber holds every vehicle not yet let in. On green, a vehicle near
+    // enough to have asked and not been let in is held as well.
+    if (road.aspect.state !== "green") return true;
+    return road.lengthM - vehicle.positionM <= askingDistanceM(vehicle);
+  }
+
+  /**
+   * The soonest a vehicle can cover a distance: speeding up at its full
+   * acceleration (or slowing at its comfortable deceleration) to a speed and
+   * holding it. Used to tell when a vehicle will be at a place in the junction.
+   */
+  function soonestS(vehicle: Vehicle, distanceM: number, cruiseMps: number): number {
+    if (distanceM <= 0) return 0;
+    const v = vehicle.speedMps;
+    const faster = cruiseMps >= v;
+    const rate = faster ? vehicle.assumptions.maxAccelerationMps2 : -vehicle.assumptions.comfortableDecelerationMps2;
+    // Distance covered while changing speed from v to the cruising speed.
+    const changingM = (cruiseMps * cruiseMps - v * v) / (2 * rate);
+    if (distanceM >= changingM) return (cruiseMps - v) / rate + (distanceM - changingM) / cruiseMps;
+    return (Math.sqrt(Math.max(0, v * v + 2 * rate * distanceM)) - v) / rate;
+  }
+
+  /**
+   * Let vehicles into a junction. A vehicle near the stop line asks; those that
+   * ask are taken nearest the stop line first (of equals, the lower id), and
+   * each is let in or refused from the state at the start of the step and the
+   * vehicles let in before it. A vehicle is let in only after every vehicle
+   * ahead of it in its strips, so the order of letting in is the order of going.
+   */
+  function letIn(junction: JunctionState): void {
+    const asking: Vehicle[] = [];
+    const amberS = junction.junction.signalPlan.amberS;
+    for (const road of junction.approaches) {
+      // Nobody is let in on amber or red.
+      if (road.aspect.state !== "green") continue;
+      for (const vehicle of road.vehicles) {
+        if (vehicle.place !== ON_ROAD || vehicle.admitted || vehicle.stationary || vehicle.shiftDirection !== 0) continue;
+        if (!vehicle.ahead) continue;
+        const toStopLineM = road.lengthM - vehicle.positionM;
+        if (toStopLineM > askingDistanceM(vehicle)) continue;
+        // It must be able to reach the stop line before the amber ends.
+        if (soonestS(vehicle, toStopLineM, vehicle.speedCapMps) > road.aspect.remainingS + amberS) continue;
+        asking.push(vehicle);
+      }
+    }
+    asking.sort(
+      (a, b) => a.road.lengthM - a.positionM - (b.road.lengthM - b.positionM) || a.id - b.id,
+    );
+    for (const vehicle of asking) {
+      const connection = vehicle.ahead!;
+      const curve = curveThrough(connection, vehicle.strip, vehicle.strips);
+      if (!curve) continue;
+      if (!leadersLetIn(vehicle)) continue;
+      if (!roomBeyond(vehicle, connection, vehicle.strip)) continue;
+      vehicle.turning = connection;
+      vehicle.curve = curve;
+      if (!crossingsWillBeFree(vehicle)) {
+        vehicle.turning = undefined;
+        vehicle.curve = undefined;
+        continue;
+      }
+      vehicle.admitted = true;
+      vehicle.order = nextOrder++;
+      junction.admitted.push(vehicle);
+    }
+  }
+
+  /** Whether every vehicle just ahead of this one in its strips, and still short of the stop line, has been let in. */
+  function leadersLetIn(vehicle: Vehicle): boolean {
+    const road = vehicle.road;
+    const base = vehicle.index * road.stripCount;
+    for (let s = lowStrip(vehicle); s <= highStrip(vehicle); s++) {
+      const j = road.aheadOf[base + s]!;
+      if (j < 0) continue;
+      const other = road.vehicles[j]!;
+      if (other.place === ON_ROAD && !other.admitted) return false;
+    }
+    return true;
+  }
+
+  // The nearest thing ahead found by lookAhead: the gap to it and its speed.
+  let aheadGapM = Infinity;
+  let aheadSpeedMps = 0;
+  function consider(gapM: number, speedMps: number): void {
+    if (gapM < aheadGapM) {
+      aheadGapM = gapM;
+      aheadSpeedMps = speedMps;
+    }
+  }
+
+  /**
+   * Find what a vehicle follows or stops for, from the state at the start of the
+   * step: the nearest of its leader on the road, the stop line if it holds the
+   * vehicle, and, once it is let into a junction, what is ahead of it there.
+   */
+  function lookAhead(vehicle: Vehicle): void {
+    aheadGapM = Infinity;
+    aheadSpeedMps = 0;
+    if (vehicle.place !== FRONT_IN_JUNCTION) {
+      const leader = leaderIn(vehicle, lowStrip(vehicle), highStrip(vehicle));
+      if (leader) consider(rearM(leader) - vehicle.positionM, leader.speedMps);
+    }
+    if (!vehicle.ahead) return;
+    const beyondStopLineM = vehicle.positionM - vehicle.road.lengthM;
+    // A vehicle whose rear is still in the last junction has not asked to be let into this one.
+    if (!vehicle.admitted || vehicle.place === REAR_IN_JUNCTION) {
+      if (stopLineHolds(vehicle)) consider(-beyondStopLineM, 0);
+      return;
+    }
+    lookThroughJunction(vehicle, beyondStopLineM);
+  }
+
+  /**
+   * What is ahead of a vehicle that has been let into a junction, measured along
+   * its own line through it (`alongM` is where its front bumper is: negative
+   * before the stop line).
+   */
+  function lookThroughJunction(vehicle: Vehicle, alongM: number): void {
+    const connection = vehicle.turning!;
+    const curve = vehicle.curve!;
+    // The rearmost vehicle in its strips on the road it is heading for.
+    const exitStrip = vehicle.strip - connection.fromShift + connection.toShift;
+    for (let s = exitStrip; s < exitStrip + vehicle.strips; s++) {
+      const last = connection.to.lastInStrip[s];
+      if (last) consider(curve.lengthM - alongM + rearM(last), last.speedMps);
+    }
+    // Vehicles let in before it.
+    for (const other of connection.junction.admitted) {
+      if (other.order >= vehicle.order) break;
+      const otherConnection = other.turning!;
+      const otherRearM = rearAlongTurnM(other);
+      if (otherConnection === connection) {
+        // Same connection: follow it if they share a strip, as on a road.
+        if (!shareStrips(vehicle, other)) continue;
+        const rearOnMyLineM =
+          otherRearM <= 0 ? otherRearM : curveDistanceM(curve, curveParameter(other.curve!, otherRearM));
+        consider(rearOnMyLineM - alongM, other.speedMps);
+        continue;
+      }
+      // Another connection: the vehicle let in first goes first. This one may go
+      // as far as the first place where its strips cross ground the other may
+      // still cover, and no further until the other's rear bumper has passed.
+      const first = firstCrossingPiece(vehicle, other, otherRearM);
+      if (first === NO_CROSSING) continue;
+      // A vehicle ahead in its own strips that takes another way is followed as
+      // a moving vehicle; any other is a place to stop short of.
+      const followed = otherConnection.from === connection.from && shareStrips(vehicle, other);
+      consider(curveDistanceM(curve, first / connection.path.pieces) - alongM, followed ? other.speedMps : 0);
+    }
+  }
+
+  /** The leftmost strip of its connection that a vehicle let into a junction occupies. */
+  function ownStrip(vehicle: Vehicle): number {
+    const connection = vehicle.turning!;
+    return vehicle.strip - (vehicle.place === REAR_IN_JUNCTION ? connection.toShift : connection.fromShift);
+  }
+
+  /** The piece of the other vehicle's connection that its rear bumper is in. */
+  function rearPiece(other: Vehicle, otherRearM: number): number {
+    if (otherRearM <= 0) return 0;
+    const pieces = other.turning!.path.pieces;
+    return Math.min(pieces - 1, Math.floor(curveParameter(other.curve!, otherRearM) * pieces));
+  }
+
+  /**
+   * The first piece of `vehicle`'s connection where its strips cross ground that
+   * `other`, on another connection with its rear bumper at `otherRearM`, may
+   * still cover; NO_CROSSING when there is none.
+   */
+  function firstCrossingPiece(vehicle: Vehicle, other: Vehicle, otherRearM: number): number {
+    const a = vehicle.turning!;
+    const b = other.turning!;
+    const table = a.junction.crossings[a.index * a.junction.connections.length + b.index];
+    if (!table) return NO_CROSSING;
+    const piecesB = b.path.pieces;
+    const k = rearPiece(other, otherRearM);
+    const mine = ownStrip(vehicle);
+    const its = ownStrip(other);
+    let first = NO_CROSSING;
+    for (let i = mine; i < mine + vehicle.strips; i++) {
+      for (let j = its; j < its + other.strips; j++) {
+        const piece = table[(i * b.stripCount + j) * piecesB + k]!;
+        if (piece < first) first = piece;
+      }
+    }
+    return first;
+  }
+
+  /** The last piece of `other`'s connection where its strips cross `vehicle`'s. Call only when they do cross. */
+  function lastCrossingPiece(vehicle: Vehicle, other: Vehicle): number {
+    const a = vehicle.turning!;
+    const b = other.turning!;
+    const table = a.junction.crossings[a.index * a.junction.connections.length + b.index]!;
+    const piecesB = b.path.pieces;
+    const mine = ownStrip(vehicle);
+    const its = ownStrip(other);
+    for (let k = piecesB - 1; k > 0; k--) {
+      for (let i = mine; i < mine + vehicle.strips; i++) {
+        for (let j = its; j < its + other.strips; j++) {
+          if (table[(i * b.stripCount + j) * piecesB + k]! !== NO_CROSSING) return k;
+        }
+      }
+    }
+    return 0;
+  }
+
+  /**
+   * Whether a vehicle asking to be let in will find every crossing free (spec:
+   * a vehicle reserves its time at each crossing before entering). Those let in
+   * before it go first at every place where their strips cross its own. It is
+   * let in only if, for each of them, the soonest it can reach the first such
+   * place is later, by a margin, than the time by which the other's rear bumper
+   * should have passed the last.
+   */
+  function crossingsWillBeFree(vehicle: Vehicle): boolean {
+    const connection = vehicle.turning!;
+    const curve = vehicle.curve!;
+    const toStopLineM = vehicle.road.lengthM - vehicle.positionM;
+    const fastestMps = Math.max(vehicle.speedMps, Math.min(vehicle.desiredSpeedMps, turnSpeedMps(curve)));
+    const marginS = JUNCTION_ASSUMPTIONS.crossingMarginS.value;
+    for (const other of connection.junction.admitted) {
+      const otherConnection = other.turning!;
+      // Vehicles it follows, on its own connection or out of its own strips, need no free crossing.
+      if (otherConnection === connection) continue;
+      if (otherConnection.from === connection.from && shareStrips(vehicle, other)) continue;
+      const otherRearM = rearAlongTurnM(other);
+      const first = firstCrossingPiece(vehicle, other, otherRearM);
+      if (first === NO_CROSSING) continue;
+      const arriveS = (toStopLineM + curveDistanceM(curve, first / connection.path.pieces)) / fastestMps;
+      const last = lastCrossingPiece(vehicle, other);
+      const toClearM = curveDistanceM(other.curve!, (last + 1) / otherConnection.path.pieces) - otherRearM;
+      const cruiseMps = Math.min(other.desiredSpeedMps, turnSpeedMps(other.curve!));
+      if (arriveS < soonestS(other, toClearM, cruiseMps) + marginS) return false;
+    }
+    return true;
+  }
+
+  /**
+   * Keep clear: whether the road beyond the junction has room for a vehicle that
+   * enters from strip `strip` of its approach (spec: a vehicle does not enter
+   * unless it can clear the junction). The room is what is left behind the
+   * rearmost vehicle in its strips on that road, allowing for the distance that
+   * vehicle still covers if it brakes comfortably to a stop, less the room the
+   * vehicles already let in and heading for those strips will take up.
+   */
+  function roomBeyond(vehicle: Vehicle, connection: ConnectionState, strip: number): boolean {
+    const exitStrip = strip - connection.fromShift + connection.toShift;
+    const to = connection.to;
+    let roomM = Infinity;
+    for (let s = exitStrip; s < exitStrip + vehicle.strips; s++) {
+      const last = to.lastInStrip[s];
+      if (!last) continue;
+      const stopsAtM = rearM(last) + (last.speedMps * last.speedMps) / (2 * last.assumptions.comfortableDecelerationMps2);
+      if (stopsAtM < roomM) roomM = stopsAtM;
+    }
+    if (roomM === Infinity) return true;
+    for (const other of connection.junction.admitted) {
+      if (other === vehicle || other.place === REAR_IN_JUNCTION || other.turning!.to !== to) continue;
+      const otherExitStrip = other.strip - other.turning!.fromShift + other.turning!.toShift;
+      if (otherExitStrip < exitStrip + vehicle.strips && exitStrip < otherExitStrip + other.strips) {
+        roomM -= other.assumptions.lengthM + other.assumptions.standstillGapM;
+      }
+    }
+    const { lengthM, standstillGapM } = vehicle.assumptions;
+    return roomM >= lengthM + standstillGapM + JUNCTION_ASSUMPTIONS.keepClearSlackM.value;
+  }
+
+  /** Whether a vehicle that has been let into the junction is just behind the vehicle in any of the strips low..high. */
+  function letInBehind(vehicle: Vehicle, low: number, high: number): boolean {
+    const road = vehicle.road;
+    const base = vehicle.index * road.stripCount;
+    for (let s = low; s <= high; s++) {
+      const j = road.behindOf[base + s]!;
+      if (j >= 0 && road.vehicles[j]!.admitted) return true;
+    }
+    return false;
+  }
+
   /** Decide a vehicle's next position and speed along the road. */
-  function decide(vehicle: Vehicle, leader: Vehicle | undefined): void {
+  function decide(vehicle: Vehicle): void {
     if (vehicle.stationary) return;
-    const a = accelerationBehind(vehicle, leader);
+    lookAhead(vehicle);
+    const hasLeader = aheadGapM < Infinity;
+    const a = acceleration(vehicle, hasLeader ? aheadGapM : undefined, aheadSpeedMps);
     const v = vehicle.speedMps;
     const dt = STEP_SECONDS;
     let nextSpeed = v + a * dt;
@@ -570,12 +1266,12 @@ export function createRun(input: RunInput): Run {
     } else {
       advance = v * dt + 0.5 * a * dt * dt;
     }
-    if (leader) {
+    if (hasLeader) {
       // Safety net (ours, not part of the published rule): a vehicle never advances
-      // further in one step than the clear gap it started the step with. The leader
-      // only moves forward, so this holds whatever the leader does, and it depends
+      // further in one step than the clear gap it started the step with. What is
+      // ahead only moves forward, so this holds whatever it does, and it depends
       // only on the state at the start of the step.
-      const clearM = Math.max(0, rearM(leader) - vehicle.positionM);
+      const clearM = Math.max(0, aheadGapM);
       if (advance > clearM) {
         advance = clearM;
         nextSpeed = Math.min(nextSpeed, advance / dt);
@@ -587,7 +1283,37 @@ export function createRun(input: RunInput): Run {
 
   /** A vehicle's delay so far: time since the demand produced it, less the time its distance takes at its desired speed. */
   function delayS(vehicle: Vehicle, timeS: number, positionM: number): number {
-    return timeS - vehicle.arrivedAtS - (positionM - vehicle.entryPositionM) / vehicle.desiredSpeedMps;
+    const freeTimeS = vehicle.freeTimeBeforeS + (positionM - vehicle.entryPositionM) / vehicle.desiredSpeedMps;
+    return timeS - vehicle.arrivedAtS - freeTimeS;
+  }
+
+  /** Measure the queue on an approach as it is now, and keep it if it is the longest so far (see ApproachQueue). */
+  function measureQueue(approach: RoadState): void {
+    const queueSpeedMps = JUNCTION_ASSUMPTIONS.queueSpeedMps.value;
+    const breakM = JUNCTION_ASSUMPTIONS.queueBreakM.value;
+    approach.vehicles.sort(frontFirst);
+    let backM = approach.lengthM;
+    let vehicles = 0;
+    for (const vehicle of approach.vehicles) {
+      if (vehicle.place !== ON_ROAD || vehicle.stationary || vehicle.speedMps >= queueSpeedMps) continue;
+      if (backM - vehicle.positionM > breakM) break;
+      backM = Math.min(backM, rearM(vehicle));
+      vehicles++;
+    }
+    const lengthM = approach.lengthM - backM;
+    const longest = approach.longestQueue;
+    if (lengthM > longest.lengthM) {
+      longest.lengthM = lengthM;
+      longest.vehicles = vehicles;
+    }
+    // Counted in steps, so a minute ends on the same step whatever the rounding of run time.
+    const minute = Math.floor((stepCount - 1) / STEPS_PER_MINUTE);
+    while (longest.eachMinute.length <= minute) longest.eachMinute.push({ lengthM: 0, vehicles: 0 });
+    const thisMinute = longest.eachMinute[minute]!;
+    if (lengthM > thisMinute.lengthM) {
+      thisMinute.lengthM = lengthM;
+      thisMinute.vehicles = vehicles;
+    }
   }
 
   /**
@@ -602,21 +1328,39 @@ export function createRun(input: RunInput): Run {
     for (const road of roads.values()) {
       const vehicles = road.vehicles;
       vehicles.sort(frontFirst);
-      for (let i = 0; i < vehicles.length; i++) vehicles[i]!.index = i;
-
+      for (let i = 0; i < vehicles.length; i++) {
+        vehicles[i]!.index = i;
+        setSpeedCap(vehicles[i]!);
+      }
       findNeighbours(road, true);
+      if (road.startsAtJunction) findLastInStrips(road);
+      if (road.endsAt) road.aspect = signalAspect(road.endsAt.junction.signalPlan, road.road.id, stepCount * STEP_SECONDS);
+    }
+    for (const junction of junctions) letIn(junction);
+
+    for (const road of roads.values()) {
+      const vehicles = road.vehicles;
       for (const vehicle of vehicles) {
-        vehicle.currentAcceleration = accelerationBehind(vehicle, leaderIn(vehicle, lowStrip(vehicle), highStrip(vehicle)));
+        lookAhead(vehicle);
+        vehicle.currentAcceleration = acceleration(vehicle, aheadGapM < Infinity ? aheadGapM : undefined, aheadSpeedMps);
       }
       for (const vehicle of vehicles) claimSpace(vehicle);
       settleClaims(road);
-
+    }
+    // Along the road only after every road's claims are settled: a vehicle in a
+    // junction follows vehicles on the road it is heading for.
+    for (const road of roads.values()) {
       findNeighbours(road, false);
-      for (const vehicle of vehicles) decide(vehicle, leaderIn(vehicle, lowStrip(vehicle), highStrip(vehicle)));
+      if (road.startsAtJunction) findLastInStrips(road);
+    }
+    for (const road of roads.values()) {
+      for (const vehicle of road.vehicles) decide(vehicle);
     }
 
     // Apply: all moves happen together.
     const timeS = (stepCount + 1) * STEP_SECONDS;
+    const movedOn: Vehicle[] = [];
+    let someLeftJunction = false;
     for (const road of roads.values()) {
       const remaining: Vehicle[] = [];
       for (const vehicle of road.vehicles) {
@@ -628,11 +1372,50 @@ export function createRun(input: RunInput): Run {
           vehicle.shiftStepsDone = 0;
           vehicle.reservedHigh = vehicle.reservedLow - 1;
         }
+        if (vehicle.place === REAR_IN_JUNCTION && rearM(vehicle) >= 0) {
+          // The rear bumper has left the junction.
+          vehicle.place = ON_ROAD;
+          vehicle.turning = undefined;
+          vehicle.curve = undefined;
+          vehicle.admitted = false;
+          someLeftJunction = true;
+        }
         if (vehicle.positionM < road.lengthM) {
           remaining.push(vehicle);
           continue;
         }
+        if (vehicle.ahead) {
+          // Into, or on through, the junction at the end of the road.
+          if (!vehicle.admitted || vehicle.place === REAR_IN_JUNCTION) {
+            throw new Error(`Vehicle ${vehicle.id} crossed a stop line without being let in`);
+          }
+          vehicle.place = FRONT_IN_JUNCTION;
+          const curve = vehicle.curve!;
+          const beyondM = vehicle.positionM - road.lengthM - curve.lengthM;
+          if (beyondM < 0) {
+            remaining.push(vehicle);
+            continue;
+          }
+          // The front bumper is on the next road of the route.
+          const connection = vehicle.ahead;
+          vehicle.freeTimeBeforeS += (road.lengthM - vehicle.entryPositionM + curve.lengthM) / vehicle.desiredSpeedMps;
+          vehicle.entryPositionM = 0;
+          vehicle.strip += connection.toShift - connection.fromShift;
+          vehicle.road = connection.to;
+          vehicle.routeIndex++;
+          const next = vehicle.route[vehicle.routeIndex + 1];
+          vehicle.ahead = next && connection.to.connections.get(next.road.id);
+          vehicle.desiredSpeedMps = Math.min(vehicle.assumptions.desiredSpeedMps, connection.to.road.speedLimitMps);
+          vehicle.positionM = beyondM;
+          vehicle.place = REAR_IN_JUNCTION;
+          movedOn.push(vehicle);
+          continue;
+        }
         vehiclesThrough++;
+        if (vehicle.admitted) {
+          vehicle.admitted = false;
+          someLeftJunction = true;
+        }
         // The moment within the step at which the front bumper reached the end of the road.
         const overshootS = vehicle.speedMps > 0 ? Math.min(STEP_SECONDS, (vehicle.positionM - road.lengthM) / vehicle.speedMps) : 0;
         const through = throughByClass.get(vehicle.vehicleClass)!;
@@ -641,8 +1424,15 @@ export function createRun(input: RunInput): Run {
       }
       road.vehicles = remaining;
     }
+    for (const vehicle of movedOn) vehicle.road.vehicles.push(vehicle);
+    if (someLeftJunction) {
+      for (const junction of junctions) junction.admitted = junction.admitted.filter((vehicle) => vehicle.admitted);
+    }
 
     stepCount++;
+    for (const junction of junctions) {
+      for (const approach of junction.approaches) measureQueue(approach);
+    }
 
     for (const flow of flows) {
       while (flow.nextArrivalS <= timeS) {
@@ -650,7 +1440,7 @@ export function createRun(input: RunInput): Run {
         flow.nextArrivalS += exponential(flow.random, flow.meanHeadwayS);
       }
       // First come, first in: a vehicle with no room holds back those that arrived after it.
-      while (flow.waiting.length > 0 && tryToEnter(flow.entryRoad, flow.waiting[0]!)) flow.waiting.shift();
+      while (flow.waiting.length > 0 && tryToEnter(flow.entryRoad, flow.route, flow.waiting[0]!)) flow.waiting.shift();
     }
   }
 
@@ -658,7 +1448,7 @@ export function createRun(input: RunInput): Run {
     const vehicles: VehicleState[] = [];
     for (const road of roads.values()) {
       for (const vehicle of road.vehicles) {
-        vehicles.push({
+        const state: VehicleState = {
           id: vehicle.id,
           vehicleClass: vehicle.vehicleClass,
           roadId: road.road.id,
@@ -667,7 +1457,18 @@ export function createRun(input: RunInput): Run {
           speedMps: vehicle.speedMps,
           lengthM: vehicle.assumptions.lengthM,
           widthM: vehicle.assumptions.widthM,
-        });
+        };
+        if (vehicle.place !== ON_ROAD) {
+          const connection = vehicle.turning!;
+          state.turn = {
+            junctionId: connection.junction.junction.id,
+            fromRoadId: connection.from.road.id,
+            toRoadId: connection.to.road.id,
+            fromLateralM: vehicle.curve!.fromLateralM,
+            toLateralM: vehicle.curve!.toLateralM,
+          };
+        }
+        vehicles.push(state);
       }
     }
     vehicles.sort((a, b) => a.id - b.id);
@@ -704,13 +1505,29 @@ export function createRun(input: RunInput): Run {
       const through = throughByClass.get(vehicleClass)!;
       const still = unfinished.get(vehicleClass)!;
       const vehicles = through.count + still.count;
+      const totalDelayS = through.delayS + still.delayS;
       delayByVehicleClass[vehicleClass] = {
         vehicles,
         vehiclesThrough: through.count,
-        meanDelayS: vehicles > 0 ? (through.delayS + still.delayS) / vehicles : null,
+        meanDelayS: vehicles > 0 ? totalDelayS / vehicles : null,
+        totalDelayS,
       };
     }
-    return { timeS, vehiclesEntered, vehiclesThrough, vehiclesOnNetwork, vehiclesWaitingToEnter, delayByVehicleClass };
+    const longestQueueByApproach: Record<string, ApproachQueue> = {};
+    for (const road of roads.values()) {
+      if (!road.endsAt) continue;
+      const { lengthM, vehicles, eachMinute } = road.longestQueue;
+      longestQueueByApproach[road.road.id] = { lengthM, vehicles, eachMinute: eachMinute.map((minute) => ({ ...minute })) };
+    }
+    return {
+      timeS,
+      vehiclesEntered,
+      vehiclesThrough,
+      vehiclesOnNetwork,
+      vehiclesWaitingToEnter,
+      delayByVehicleClass,
+      longestQueueByApproach,
+    };
   }
 
   return {

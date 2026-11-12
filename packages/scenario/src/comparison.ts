@@ -17,11 +17,6 @@ export interface Measure {
   value(results: Results): number | null;
 }
 
-/**
- * The fixed result set, in the order it is shown. A measure is added here for
- * every scenario, or not at all. Mean travel time, longest queue per approach
- * and stuck vehicles join as the engine comes to report them.
- */
 const VEHICLE_CLASS_PLURALS: Record<VehicleClass, string> = {
   "two-wheeler": "two-wheelers",
   car: "cars",
@@ -29,21 +24,23 @@ const VEHICLE_CLASS_PLURALS: Record<VehicleClass, string> = {
   bus: "buses",
 };
 
+/**
+ * The fixed result set (ADR 0005), in the order it is shown: vehicles through,
+ * mean travel time, mean delay per vehicle class, longest queue per approach,
+ * stuck vehicles. A measure is added here for every scenario, or not at all.
+ *
+ * Only what the engine reports so far is here. Mean travel time belongs after
+ * vehicles through; stuck vehicles belong at the end. Each joins as one more
+ * entry when the engine comes to report it. The engine's other counts
+ * (entered, on the network, waiting to enter) are not part of the set, so they
+ * are not results.
+ *
+ * These are the measures every network has. The longest queue per approach is
+ * one measure for each approach of the network, so it cannot be listed here:
+ * measuresFor() adds those after these.
+ */
 export const MEASURES: readonly Measure[] = [
   { id: "vehicles-through", name: "Vehicles through", unit: "vehicles", value: (results) => results.vehiclesThrough },
-  { id: "vehicles-entered", name: "Vehicles entered", unit: "vehicles", value: (results) => results.vehiclesEntered },
-  {
-    id: "vehicles-on-network",
-    name: "On the network",
-    unit: "vehicles",
-    value: (results) => results.vehiclesOnNetwork,
-  },
-  {
-    id: "vehicles-waiting-to-enter",
-    name: "Waiting to enter",
-    unit: "vehicles",
-    value: (results) => results.vehiclesWaitingToEnter,
-  },
   ...VEHICLE_CLASSES.map(
     (vehicleClass): Measure => ({
       id: `mean-delay-${vehicleClass}`,
@@ -53,6 +50,33 @@ export const MEASURES: readonly Measure[] = [
     }),
   ),
 ];
+
+/**
+ * The fixed result set for the network these results came from: MEASURES, then
+ * the longest queue on each approach, in metres, in the order the results give
+ * the approaches. Pass every set of results that will be compared (each seed
+ * of baseline and proposal); an approach that only some of them have is still
+ * a measure, with nothing to measure in the others.
+ */
+export function measuresFor(results: readonly Results[]): Measure[] {
+  const approaches: string[] = [];
+  for (const one of results) {
+    for (const roadId of Object.keys(one.longestQueueByApproach)) {
+      if (!approaches.includes(roadId)) approaches.push(roadId);
+    }
+  }
+  return [
+    ...MEASURES,
+    ...approaches.map(
+      (roadId): Measure => ({
+        id: `longest-queue:${roadId}`,
+        name: `Longest queue on ${roadId} (m)`,
+        unit: "m",
+        value: (one) => one.longestQueueByApproach[roadId]?.lengthM ?? null,
+      }),
+    ),
+  ];
+}
 
 /** One measure for both scenarios. */
 export interface ComparedMeasure {
@@ -86,6 +110,70 @@ export function compareResults(
       proposal: after,
       change,
       changePercent: change === null || before === null || before === 0 ? null : (100 * change) / before,
+      estimateLabel: ESTIMATE_LABEL,
+    };
+  });
+}
+
+/** One figure over the seeds a scenario ran with. */
+export interface AcrossSeeds {
+  /** Null when no seed has anything to measure. */
+  average: number | null;
+  /** The range: the lowest and the highest figure any one seed gave. */
+  lowest: number | null;
+  highest: number | null;
+  /** How many seeds the figures are over. */
+  seeds: number;
+}
+
+/** The average and range of one figure, given once per seed. A seed with nothing to measure (null) is left out. */
+export function acrossSeeds(values: readonly (number | null)[]): AcrossSeeds {
+  const measured = values.filter((value): value is number => value !== null);
+  if (measured.length === 0) return { average: null, lowest: null, highest: null, seeds: 0 };
+  return {
+    average: measured.reduce((sum, value) => sum + value, 0) / measured.length,
+    lowest: Math.min(...measured),
+    highest: Math.max(...measured),
+    seeds: measured.length,
+  };
+}
+
+/** One measure for both scenarios, over the seeds each ran with. */
+export interface ComparedMeasureAcrossSeeds {
+  id: string;
+  name: string;
+  unit: string;
+  baseline: AcrossSeeds;
+  proposal: AcrossSeeds;
+  /** The proposal's average minus the baseline's, in the measure's own unit; null when either is. */
+  change: number | null;
+  /** The change as a percentage of the baseline's average; null when that is zero or there is no change to give. */
+  changePercent: number | null;
+  estimateLabel: typeof ESTIMATE_LABEL;
+}
+
+/**
+ * Compare a proposal against the baseline from the results of each seed that
+ * has finished (one Results per seed, with the warm-up already left out).
+ * The change is between the two averages.
+ */
+export function compareAcrossSeeds(
+  baseline: readonly Results[],
+  proposal: readonly Results[],
+  measures: readonly Measure[] = MEASURES,
+): ComparedMeasureAcrossSeeds[] {
+  return measures.map((measure) => {
+    const before = acrossSeeds(baseline.map((results) => measure.value(results)));
+    const after = acrossSeeds(proposal.map((results) => measure.value(results)));
+    const change = before.average === null || after.average === null ? null : after.average - before.average;
+    return {
+      id: measure.id,
+      name: measure.name,
+      unit: measure.unit,
+      baseline: before,
+      proposal: after,
+      change,
+      changePercent: change === null || !before.average ? null : (100 * change) / before.average,
       estimateLabel: ESTIMATE_LABEL,
     };
   });

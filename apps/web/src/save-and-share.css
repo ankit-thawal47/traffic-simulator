@@ -1,0 +1,30 @@
+/* Save and share, and the message shown when a change or a saved scenario is refused. */
+.save-and-share {
+  display: grid;
+  gap: 6px;
+}
+
+.save-and-share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.save-and-share-link {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 4px 6px;
+  font: inherit;
+  font-size: 12px;
+  color: #1c2328;
+}
+
+.save-and-share-problem,
+.refused {
+  margin: 0;
+  padding: 6px 8px;
+  border-left: 3px solid #b3261e;
+  background: #fbeceb;
+  color: #7a1a15;
+  font-size: 12px;
+}
