@@ -4,11 +4,11 @@
 
 **Blocked by:** 02, 03, 09, 11, 12, 13, 14, 15, 16, 17, 19, 23
 
-**Status:** ready-for-agent
+**Status:** done (checked 2026-11-12; Tiers 0 and 1 condition not met, v2 started by the owner's decision; see docs/v1-gate.md)
 
-- [ ] The app is deployed on a public URL
-- [ ] The Hebbal corridor, the builder and the comparison all work on the deployed site
+- [x] The app is deployed on a public URL
+- [x] The Hebbal corridor, the builder and the comparison all work on the deployed site
 - [ ] Benchmark tiers 0 and 1 pass
-- [ ] Benchmark tiers 2 to 4 have been run and reported
-- [ ] The time of the check and the decision on v2 are recorded
+- [x] Benchmark tiers 2 to 4 have been run and reported
+- [x] The time of the check and the decision on v2 are recorded
 - [ ] The README describes what the product does, its limits, and how to run the tests and the benchmark

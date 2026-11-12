@@ -4,9 +4,9 @@
 
 **Blocked by:** 20
 
-**Status:** ready-for-agent
+**Status:** in progress (split: ticket 25 any-place import now; free-form drawing deferred past the 72 hours by the owner)
 
 - [ ] The v1 gate recorded a decision to start v2
-- [ ] This ticket has been split into separate tickets for any-place import and free-form drawing
+- [x] This ticket has been split into separate tickets for any-place import and free-form drawing
 - [ ] Any-place import reuses the Hebbal importer in the browser and marks every guessed lane count and width
 - [ ] Neither feature required a change to the engine
