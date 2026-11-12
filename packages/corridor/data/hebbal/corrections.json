@@ -1555,6 +1555,11 @@
         "roadId": "cbi-service-south-out",
         "fromRoadId": "ganganagar-flyover",
         "reason": "Where the Ganga Nagar flyover comes down, the service road beside it is drawn slightly closer than half of both widths."
+      },
+      {
+        "roadId": "krpuram-ramp",
+        "fromRoadId": "tumkur-loop",
+        "reason": "Where the ramp from K.R. Puram is bent across to end beside the loop from Tumkur Road (tumkur-loop-merge), its bend would cut into the loop; both are raised."
       }
     ]
   }

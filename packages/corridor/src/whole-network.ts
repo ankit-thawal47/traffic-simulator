@@ -39,9 +39,10 @@ interface Working {
   speedLimitMps: number;
 }
 
-/** How far the other road runs straight beside the main road where it starts, and how far on it is back on its own line. */
+/** How far past the place beside the main road the other road is back on its own line, and how finely the curve between is drawn. */
 const LEAD_IN_M = 5;
 const BLEND_M = 20;
+const CURVE_POINTS = 8;
 
 const stretch = (a: Point, b: Point): number => Math.hypot(b.x - a.x, b.y - a.y);
 
@@ -185,13 +186,25 @@ function divided(
     return undefined;
   }
   const rest = slice(other.line, backOnLineM, otherM);
-  const lead: Point = { x: first.x + start.direction.x * LEAD_IN_M, y: first.y + start.direction.y * LEAD_IN_M };
+  // From beside the main road back to its own line along a smooth curve (a cubic Bezier), leaving parallel to the main road.
+  const restStart = rest.points[0]!;
+  const restDirection = placeAt(rest.points, 0).direction;
+  const reach = stretch(first, restStart) / 3;
+  const c1 = { x: first.x + start.direction.x * reach, y: first.y + start.direction.y * reach };
+  const c2 = { x: restStart.x - restDirection.x * reach, y: restStart.y - restDirection.y * reach };
+  const curve: Point[] = [];
+  for (let k = 1; k < CURVE_POINTS; k++) {
+    const t = k / CURVE_POINTS;
+    const u = 1 - t;
+    const at = (a: number, b: number, c: number, d: number) => u * u * u * a + 3 * u * u * t * b + 3 * u * t * t * c + t * t * t * d;
+    curve.push({ x: at(first.x, c1.x, c2.x, restStart.x), y: at(first.y, c1.y, c2.y, restStart.y) });
+  }
   const sharedLine = slice(main.line, 0, sharedM);
   const bothRaised = main.line.raised[0]! && other.line.raised[0]!;
   return {
     shared: { points: movedLeft(sharedLine.points, (side * other.widthM) / 2), raised: sharedLine.raised.map(() => bothRaised) },
     main: slice(main.line, startM, mainM),
-    other: { points: [first, lead, ...rest.points], raised: [rest.raised[0]!, rest.raised[0]!, ...rest.raised] },
+    other: { points: [first, ...curve, ...rest.points], raised: [...curve.map(() => rest.raised[0]!), rest.raised[0]!, ...rest.raised] },
     sharedM,
     apartAfterM,
     movedM: nearestOn(other.line.points, first).distanceM,
