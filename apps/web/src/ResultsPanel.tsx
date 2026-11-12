@@ -1,4 +1,12 @@
-import { ESTIMATE_LABEL, acrossSeeds, compareAcrossSeeds, formatChange, measuresFor } from "@traffic-simulator/scenario";
+import {
+  ESTIMATE_LABEL,
+  SMALLEST_BASELINE_FOR_PERCENT,
+  acrossSeeds,
+  compareAcrossSeeds,
+  formatChange,
+  measuresFor,
+} from "@traffic-simulator/scenario";
+import type { Network } from "@traffic-simulator/engine";
 import { collectedResults, type FiveSeeds } from "./five-seeds";
 import { formatAcrossSeeds } from "./results-text";
 
@@ -7,11 +15,11 @@ import { formatAcrossSeeds } from "./results-text";
  * (ADR 0005) for baseline and proposal as the average and range across seeds,
  * with the change from the baseline.
  */
-export function ResultsPanel({ collected }: { collected: FiveSeeds }) {
+export function ResultsPanel({ collected, networks }: { collected: FiveSeeds; networks: readonly Network[] }) {
   const { plan } = collected;
   const results = collectedResults(collected);
-  // The longest queue per approach is one row for each approach the results have.
-  const measures = measuresFor([...results.baseline, ...results.proposal]);
+  // The longest queue per approach is one row for each approach of a signal junction, in either network.
+  const measures = measuresFor([...results.baseline, ...results.proposal], networks);
   const rows = compareAcrossSeeds(results.baseline, results.proposal, measures);
   const waiting = {
     baseline: acrossSeeds(results.baseline.map((seed) => seed.vehiclesWaitingToEnter)),
@@ -62,6 +70,13 @@ export function ResultsPanel({ collected }: { collected: FiveSeeds }) {
           ))}
         </tbody>
       </table>
+
+      <p className="note" data-testid="percent-note">
+        A change is also given as a percentage only when the baseline figure is at least{" "}
+        {SMALLEST_BASELINE_FOR_PERCENT.s} s, {SMALLEST_BASELINE_FOR_PERCENT.m} m or{" "}
+        {SMALLEST_BASELINE_FOR_PERCENT.vehicles} vehicles; against a smaller baseline a percentage misleads. Longest
+        queues are given for the approaches of signal junctions.
+      </p>
 
       {results.seedsFinished > 0 && (
         <p className="note" data-testid="waiting-to-enter">

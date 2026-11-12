@@ -4,11 +4,11 @@
 
 **Blocked by:** 05, 07, 10
 
-**Status:** ready-for-agent
+**Status:** done (merged to integration branch)
 
-- [ ] Each of the seven kinds of change can be made, and each alters the run in the expected direction
-- [ ] The control that scales all demand changes every entry-to-exit rate together
-- [ ] The proposal lists its changes in plain words
-- [ ] Undoing one change restores that part of the baseline and leaves the others
-- [ ] Changes are stored against stable identifiers of roads and junctions
-- [ ] The list of what is not modelled includes rerouting beyond the flyover choice and induced demand
+- [x] Each of the seven kinds of change can be made, and each alters the run in the expected direction
+- [x] The control that scales all demand changes every entry-to-exit rate together
+- [x] The proposal lists its changes in plain words
+- [x] Undoing one change restores that part of the baseline and leaves the others
+- [x] Changes are stored against stable identifiers of roads and junctions
+- [x] The list of what is not modelled includes rerouting beyond the flyover choice and induced demand

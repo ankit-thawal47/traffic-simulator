@@ -137,4 +137,18 @@ describe("the list of what is not modelled", () => {
     }
     for (const item of NOT_MODELLED) expect(item.meaning.length).toBeGreaterThan(20);
   });
+
+  it("names rerouting beyond the flyover choice, and says what a closed road does to traffic that used it", () => {
+    const rerouting = NOT_MODELLED.find((item) => item.name === "Rerouting beyond the flyover choice");
+
+    expect(rerouting?.meaning).toContain("flyover and the junction beneath it");
+    expect(rerouting?.meaning).toContain("closed");
+  });
+
+  it("names induced demand, and points to scaling all demand as the way to ask the question (ADR 0006)", () => {
+    const induced = NOT_MODELLED.find((item) => item.name === "Induced demand");
+
+    expect(induced?.meaning).toContain("does not attract new trips");
+    expect(induced?.meaning).toContain("scale all demand");
+  });
 });

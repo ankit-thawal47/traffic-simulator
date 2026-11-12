@@ -15,7 +15,8 @@ body {
 
 main {
   display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  /* The header, the watch controls, the two views, then the proposal and the results, which scroll on their own. */
+  grid-template-rows: auto auto minmax(0, 1fr) minmax(0, 45%);
   height: 100%;
 }
 
@@ -165,11 +166,19 @@ h3 {
 
 .panels {
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) minmax(0, 2fr);
+  grid-template-columns: minmax(340px, 2fr) minmax(0, 3fr);
   gap: 24px;
-  padding: 12px 16px 14px;
+  min-height: 0;
+  padding: 12px 16px 0;
   background: #fff;
   border-top: 1px solid #c9d2d6;
+}
+
+/* The proposal and the results each scroll on their own, so neither pushes the views off the page. */
+.panels > section {
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 14px;
 }
 
 .change-control {
@@ -196,6 +205,64 @@ h3 {
 
 .change-control input[aria-invalid="true"] {
   outline: 2px solid #b3261e;
+}
+
+.change-control select.wide {
+  width: 230px;
+}
+
+.change-control input[type="number"] {
+  width: 84px;
+}
+
+.change-control label.tick {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #1c2328;
+  font-size: 13px;
+}
+
+.change-control label.tick input {
+  width: auto;
+}
+
+.change-control .hint {
+  flex-basis: 100%;
+}
+
+.change-groups {
+  display: grid;
+  gap: 8px;
+}
+
+.change-group {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 6px 10px 10px;
+  border: 1px solid #c9d2d6;
+  border-radius: 6px;
+  min-width: 0;
+}
+
+.change-group legend {
+  padding: 0 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.scene-notice {
+  position: absolute;
+  z-index: 1;
+  left: 10px;
+  bottom: 10px;
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255, 244, 214, 0.95);
+  color: #5c3d00;
+  font-size: 12px;
 }
 
 .hint {

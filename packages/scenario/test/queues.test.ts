@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import type { Results, VehicleClassDelay } from "@traffic-simulator/engine";
+import type { Network, Results, VehicleClassDelay } from "@traffic-simulator/engine";
+import flyover from "@traffic-simulator/engine/examples/flyover.json";
 import { MEASURES, compareAcrossSeeds, compareResults, measuresFor } from "../src/index";
 
 const noVehicles: VehicleClassDelay = { vehicles: 0, vehiclesThrough: 0, meanDelayS: null, totalDelayS: 0 };
@@ -73,5 +74,51 @@ describe("the longest queue per approach in the fixed result set", () => {
   it("adds nothing for a network with no junction", () => {
     expect(measuresFor([results({})])).toEqual(MEASURES);
     expect(measuresFor([])).toEqual(MEASURES);
+  });
+
+  it("given the networks, is only for the approaches of signal junctions: not for roads that end where a road divides or roads join", () => {
+    // The flyover example reports a longest queue for every road that ends at any junction; most are 0.
+    const network = flyover.network as Network;
+    const everyRoadThatEndsAtAJunction = results({
+      "south-entry": 0,
+      "south-in": 43,
+      "flyover-north": 0,
+      "north-out": 0,
+      "north-entry": 0,
+      "north-in": 26,
+      "flyover-south": 0,
+      "south-out": 0,
+      "west-in": 50,
+      "east-in": 28,
+    });
+
+    const queueRows = measuresFor([everyRoadThatEndsAtAJunction], [network]).slice(MEASURES.length);
+
+    expect(queueRows.map((measure) => measure.id)).toEqual([
+      "longest-queue:south-in",
+      "longest-queue:north-in",
+      "longest-queue:west-in",
+      "longest-queue:east-in",
+    ]);
+  });
+
+  it("an approach that is at a signal junction in only one of the networks is still a measure", () => {
+    const sideRoadOnly: Network = {
+      formatVersion: 3,
+      roads: [],
+      junctions: [
+        {
+          id: "j",
+          control: "signal",
+          connections: [{ fromRoadId: "side-in", toRoadId: "out" }],
+          signalPlan: { phases: [{ greenRoadIds: ["side-in"], greenS: 10 }], amberS: 3, allRedS: 2 },
+        },
+      ],
+    };
+    const noJunctions: Network = { formatVersion: 3, roads: [] };
+
+    const measures = measuresFor([results({ "side-in": 5, elsewhere: 9 })], [noJunctions, sideRoadOnly]);
+
+    expect(measures.slice(MEASURES.length).map((measure) => measure.id)).toEqual(["longest-queue:side-in"]);
   });
 });

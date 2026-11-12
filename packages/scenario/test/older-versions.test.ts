@@ -46,6 +46,7 @@ describe("a scenario saved by version 1 of the scenario description", () => {
       formatVersion: SCENARIO_FORMAT_VERSION,
       name: "Proposal",
       network: { formatVersion: 2, roads: [mixedTrafficRoad] },
+      unbuiltRoadIds: [],
       changes: [{ kind: "road-width", roadId: "main", widthM: 7 }],
       demand: mixedTrafficDemand,
       laneDiscipline: false,
@@ -80,5 +81,38 @@ describe("a scenario saved by version 1 of the scenario description", () => {
       seed: 1,
       laneDiscipline: false,
     });
+  });
+});
+
+describe("a scenario saved by version 2 of the scenario description", () => {
+  it("loads as the current version, with every road of its network built, as version 2 always ran", () => {
+    expect(loaded("v2-mixed-traffic-lanes-and-width.json")).toEqual({
+      formatVersion: SCENARIO_FORMAT_VERSION,
+      name: "One road, widened to four lanes",
+      network: { formatVersion: 2, roads: [mixedTrafficRoad] },
+      unbuiltRoadIds: [],
+      changes: [
+        { kind: "road-width", roadId: "main", widthM: 14 },
+        { kind: "road-lanes", roadId: "main", lanes: 4 },
+      ],
+      demand: mixedTrafficDemand,
+      laneDiscipline: true,
+      seed: 5,
+    });
+  });
+
+  it("means the same thing: it runs exactly as the engine input version 2 resolved it to", () => {
+    // What version 2's resolveScenario() gave for this file.
+    const asVersion2RanIt: RunInput = {
+      network: { formatVersion: 2, roads: [{ ...mixedTrafficRoad, widthM: 14, lanes: 4 }] },
+      demand: mixedTrafficDemand,
+      seed: 5,
+      laneDiscipline: true,
+    };
+
+    const now = resolveScenario(loaded("v2-mixed-traffic-lanes-and-width.json"));
+
+    expect(now).toEqual(asVersion2RanIt);
+    expect(resultsAfter(now, 120)).toEqual(resultsAfter(asVersion2RanIt, 120));
   });
 });

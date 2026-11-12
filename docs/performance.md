@@ -121,7 +121,7 @@ The engine ran flat out in a worker and posted after every step (300 steps, thre
 **Protocol.** No change is needed to meet the target. Three changes are worth making when the worker is next touched, in this order:
 
 1. Runs that are not watched must not build or post snapshots at all. Building alone costs 40% on top of a step (249 → 178). The unseen-seeds worker added by ticket 11 already does this; keep it so.
-2. Raise or remove the 4,000-vehicle limit in the 3D view, or say on screen when vehicles are not drawn.
+2. Raise or remove the 4,000-vehicle limit in the 3D view, or say on screen when vehicles are not drawn. Done (ticket 12): the limit is 10,000 (`apps/web/src/vehicles-drawn.ts`) and a view that is not drawing some vehicles says how many on screen. The measurements above were made with the 4,000 limit.
 3. Move to a transferred typed array when a run exceeds about 5,000 vehicles or a slower machine is measured and found short. The prototype shows the gain: the page's cost per snapshot falls from 0.85 ms to 0.002 ms at 3,000 vehicles.
 
 **Drawing.** Keep the single instanced batch. Measure again after visual polish (shadows, vehicle shapes), which is the first thing likely to cost the graphics card real work.

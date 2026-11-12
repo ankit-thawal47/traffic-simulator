@@ -1,0 +1,532 @@
+{
+  "formatVersion": 3,
+  "name": "Flyover over a signal junction",
+  "network": {
+    "formatVersion": 4,
+    "roads": [
+      {
+        "id": "south-entry",
+        "points": [
+          {
+            "x": -7,
+            "y": -400
+          },
+          {
+            "x": -7,
+            "y": -215
+          }
+        ],
+        "widthM": 14,
+        "lanes": 4,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "south-in",
+        "points": [
+          {
+            "x": -10.5,
+            "y": -200
+          },
+          {
+            "x": -10.5,
+            "y": -20
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "flyover-north",
+        "points": [
+          {
+            "x": -3.5,
+            "y": -200
+          },
+          {
+            "x": -3.5,
+            "y": -100,
+            "z": 6
+          },
+          {
+            "x": -3.5,
+            "y": 100,
+            "z": 6
+          },
+          {
+            "x": -3.5,
+            "y": 200
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "north-out",
+        "points": [
+          {
+            "x": -10.5,
+            "y": 20
+          },
+          {
+            "x": -10.5,
+            "y": 200
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "north-exit",
+        "points": [
+          {
+            "x": -7,
+            "y": 215
+          },
+          {
+            "x": -7,
+            "y": 400
+          }
+        ],
+        "widthM": 14,
+        "lanes": 4,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "north-entry",
+        "points": [
+          {
+            "x": 7,
+            "y": 400
+          },
+          {
+            "x": 7,
+            "y": 215
+          }
+        ],
+        "widthM": 14,
+        "lanes": 4,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "north-in",
+        "points": [
+          {
+            "x": 10.5,
+            "y": 200
+          },
+          {
+            "x": 10.5,
+            "y": 20
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "flyover-south",
+        "points": [
+          {
+            "x": 3.5,
+            "y": 200
+          },
+          {
+            "x": 3.5,
+            "y": 100,
+            "z": 6
+          },
+          {
+            "x": 3.5,
+            "y": -100,
+            "z": 6
+          },
+          {
+            "x": 3.5,
+            "y": -200
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "south-out",
+        "points": [
+          {
+            "x": 10.5,
+            "y": -20
+          },
+          {
+            "x": 10.5,
+            "y": -200
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "south-exit",
+        "points": [
+          {
+            "x": 7,
+            "y": -215
+          },
+          {
+            "x": 7,
+            "y": -400
+          }
+        ],
+        "widthM": 14,
+        "lanes": 4,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "west-in",
+        "points": [
+          {
+            "x": -220,
+            "y": 3.5
+          },
+          {
+            "x": -20,
+            "y": 3.5
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "east-out",
+        "points": [
+          {
+            "x": 20,
+            "y": 3.5
+          },
+          {
+            "x": 220,
+            "y": 3.5
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "east-in",
+        "points": [
+          {
+            "x": 220,
+            "y": -3.5
+          },
+          {
+            "x": 20,
+            "y": -3.5
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      },
+      {
+        "id": "west-out",
+        "points": [
+          {
+            "x": -20,
+            "y": -3.5
+          },
+          {
+            "x": -220,
+            "y": -3.5
+          }
+        ],
+        "widthM": 7,
+        "lanes": 2,
+        "speedLimitMps": 13.9
+      }
+    ],
+    "junctions": [
+      {
+        "id": "diverge-northbound",
+        "control": "none",
+        "connections": [
+          {
+            "fromRoadId": "south-entry",
+            "toRoadId": "south-in"
+          },
+          {
+            "fromRoadId": "south-entry",
+            "toRoadId": "flyover-north"
+          }
+        ]
+      },
+      {
+        "id": "merge-northbound",
+        "control": "none",
+        "connections": [
+          {
+            "fromRoadId": "north-out",
+            "toRoadId": "north-exit"
+          },
+          {
+            "fromRoadId": "flyover-north",
+            "toRoadId": "north-exit"
+          }
+        ]
+      },
+      {
+        "id": "diverge-southbound",
+        "control": "none",
+        "connections": [
+          {
+            "fromRoadId": "north-entry",
+            "toRoadId": "north-in"
+          },
+          {
+            "fromRoadId": "north-entry",
+            "toRoadId": "flyover-south"
+          }
+        ]
+      },
+      {
+        "id": "merge-southbound",
+        "control": "none",
+        "connections": [
+          {
+            "fromRoadId": "south-out",
+            "toRoadId": "south-exit"
+          },
+          {
+            "fromRoadId": "flyover-south",
+            "toRoadId": "south-exit"
+          }
+        ]
+      },
+      {
+        "id": "cross",
+        "control": "signal",
+        "connections": [
+          {
+            "fromRoadId": "south-in",
+            "toRoadId": "west-out"
+          },
+          {
+            "fromRoadId": "south-in",
+            "toRoadId": "north-out"
+          },
+          {
+            "fromRoadId": "south-in",
+            "toRoadId": "east-out"
+          },
+          {
+            "fromRoadId": "north-in",
+            "toRoadId": "east-out"
+          },
+          {
+            "fromRoadId": "north-in",
+            "toRoadId": "south-out"
+          },
+          {
+            "fromRoadId": "north-in",
+            "toRoadId": "west-out"
+          },
+          {
+            "fromRoadId": "west-in",
+            "toRoadId": "north-out"
+          },
+          {
+            "fromRoadId": "west-in",
+            "toRoadId": "east-out"
+          },
+          {
+            "fromRoadId": "west-in",
+            "toRoadId": "south-out"
+          },
+          {
+            "fromRoadId": "east-in",
+            "toRoadId": "south-out"
+          },
+          {
+            "fromRoadId": "east-in",
+            "toRoadId": "west-out"
+          },
+          {
+            "fromRoadId": "east-in",
+            "toRoadId": "north-out"
+          }
+        ],
+        "signalPlan": {
+          "phases": [
+            {
+              "greenRoadIds": [
+                "south-in"
+              ],
+              "greenS": 20
+            },
+            {
+              "greenRoadIds": [
+                "north-in"
+              ],
+              "greenS": 20
+            },
+            {
+              "greenRoadIds": [
+                "west-in"
+              ],
+              "greenS": 20
+            },
+            {
+              "greenRoadIds": [
+                "east-in"
+              ],
+              "greenS": 20
+            }
+          ],
+          "amberS": 3,
+          "allRedS": 2
+        }
+      }
+    ]
+  },
+  "unbuiltRoadIds": [],
+  "changes": [
+    {
+      "kind": "road-width",
+      "roadId": "west-in",
+      "widthM": 10.5
+    },
+    {
+      "kind": "road-lanes",
+      "roadId": "west-in",
+      "lanes": 3
+    },
+    {
+      "kind": "lane-closure",
+      "roadId": "east-in",
+      "lanesClosed": 1
+    },
+    {
+      "kind": "lost-width",
+      "roadId": "east-out",
+      "widthM": 1.5,
+      "reason": "hawkers"
+    },
+    {
+      "kind": "road-closure",
+      "roadId": "flyover-south"
+    },
+    {
+      "kind": "flyover",
+      "roadId": "flyover-north",
+      "built": false
+    },
+    {
+      "kind": "signal-timing",
+      "junctionId": "cross",
+      "greenS": [
+        30,
+        30,
+        15,
+        15
+      ]
+    },
+    {
+      "kind": "flow-rate",
+      "entryRoadId": "west-in",
+      "exitRoadId": "east-out",
+      "vehiclesPerHour": 600
+    },
+    {
+      "kind": "vehicle-mix",
+      "vehicleMix": {
+        "two-wheeler": 0.5,
+        "car": 0.4,
+        "bus": 0.1
+      }
+    },
+    {
+      "kind": "demand-scale",
+      "factor": 1.2
+    },
+    {
+      "kind": "lane-discipline",
+      "on": true
+    }
+  ],
+  "demand": {
+    "flows": [
+      {
+        "entryRoadId": "south-entry",
+        "exitRoadId": "north-exit",
+        "vehiclesPerHour": 1500
+      },
+      {
+        "entryRoadId": "south-entry",
+        "exitRoadId": "west-out",
+        "vehiclesPerHour": 150
+      },
+      {
+        "entryRoadId": "south-entry",
+        "exitRoadId": "east-out",
+        "vehiclesPerHour": 150
+      },
+      {
+        "entryRoadId": "north-entry",
+        "exitRoadId": "south-exit",
+        "vehiclesPerHour": 1500
+      },
+      {
+        "entryRoadId": "north-entry",
+        "exitRoadId": "east-out",
+        "vehiclesPerHour": 150
+      },
+      {
+        "entryRoadId": "north-entry",
+        "exitRoadId": "west-out",
+        "vehiclesPerHour": 150
+      },
+      {
+        "entryRoadId": "west-in",
+        "exitRoadId": "east-out",
+        "vehiclesPerHour": 400
+      },
+      {
+        "entryRoadId": "west-in",
+        "exitRoadId": "north-exit",
+        "vehiclesPerHour": 100
+      },
+      {
+        "entryRoadId": "west-in",
+        "exitRoadId": "south-exit",
+        "vehiclesPerHour": 100
+      },
+      {
+        "entryRoadId": "east-in",
+        "exitRoadId": "west-out",
+        "vehiclesPerHour": 400
+      },
+      {
+        "entryRoadId": "east-in",
+        "exitRoadId": "south-exit",
+        "vehiclesPerHour": 100
+      },
+      {
+        "entryRoadId": "east-in",
+        "exitRoadId": "north-exit",
+        "vehiclesPerHour": 100
+      }
+    ],
+    "vehicleMix": {
+      "two-wheeler": 0.65,
+      "car": 0.22,
+      "auto-rickshaw": 0.055,
+      "bus": 0.04
+    }
+  },
+  "laneDiscipline": false,
+  "seed": 3
+}

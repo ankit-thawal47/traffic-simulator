@@ -1,30 +1,15 @@
-import {
-  STRIP_WIDTH_M,
-  stripsOccupied,
-  VEHICLE_CLASSES,
-  type Network,
-} from "@traffic-simulator/engine";
-import {
-  baselineOf,
-  lanesOf,
-  resolveScenario,
-  whyRefused,
-  withoutChange,
-  withRoadWidth,
-  type Change,
-  type Scenario,
-} from "@traffic-simulator/scenario";
+import { VEHICLE_CLASSES } from "@traffic-simulator/engine";
+import { baselineOf, resolveScenario, whyRefused, type Scenario } from "@traffic-simulator/scenario";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AssumptionsPanel } from "./AssumptionsPanel";
 import { angledPose, closeUpPose, networkBounds, straightDownPose } from "./camera-presets";
 import { EXAMPLES } from "./examples";
 import { clearSnapshots, newFrameStore, receiveSnapshot } from "./frame-store";
+import { ProposalPanel } from "./ProposalPanel";
 import { ResultsPanel } from "./ResultsPanel";
 import { formatClock } from "./results-text";
-import { RoadLanesControl } from "./RoadLanesControl";
 import { CAMERA_FOV_DEGREES, RoadScene } from "./RoadScene";
 import type { RunCommand, RunFrame } from "./run-protocol";
-import { SaveAndShare } from "./SaveAndShare";
 import { createBrowserStorage } from "./scenario-storage";
 import { createSharedCamera } from "./shared-camera";
 import { useFiveSeeds } from "./use-five-seeds";
@@ -34,95 +19,17 @@ import { WATCH_SPEEDS, fasterSpeed, formatSpeed, slowerSpeed } from "./watch-clo
 /** The scenario the page opens with, until the planner opens one from a link or a file. */
 const exampleScenario = EXAMPLES[0]!.scenario;
 
-/** A road cannot be made narrower than the strips the widest vehicle class occupies, or wider than this. */
-const NARROWEST_ROAD_M = Math.max(...VEHICLE_CLASSES.map(stripsOccupied)) * STRIP_WIDTH_M;
-const WIDEST_ROAD_M = 30;
-
-function describeChange(change: Change, network: Network): string {
-  switch (change.kind) {
-    case "road-width": {
-      const today = network.roads.find((road) => road.id === change.roadId)?.widthM;
-      return `Road "${change.roadId}": width ${today ?? "?"} m → ${change.widthM} m`;
-    }
-    case "road-lanes": {
-      const today = network.roads.find((road) => road.id === change.roadId);
-      return `Road "${change.roadId}": lanes ${today ? lanesOf(today) : "?"} → ${change.lanes}`;
-    }
-  }
-}
-
 const SLOWEST_SPEED = Math.min(...WATCH_SPEEDS);
 const FASTEST_SPEED = Math.max(...WATCH_SPEEDS);
-
-/** The control for the one kind of change so far: the width of a road in the proposal. */
-function RoadWidthControl({ proposal, onChange }: { proposal: Scenario; onChange: (proposal: Scenario) => void }) {
-  const roads = proposal.network.roads;
-  const [roadId, setRoadId] = useState(roads[0]?.id ?? "");
-  const today = roads.find((road) => road.id === roadId)?.widthM;
-  const proposed = resolveScenario(proposal).network.roads.find((road) => road.id === roadId)?.widthM;
-  // What is typed is kept as text, and becomes a change only once it is a width a road can have.
-  const [typed, setTyped] = useState<string>();
-  const text = typed ?? String(proposed ?? "");
-  const typedWidthM = Number(text);
-  const usable = text.trim() !== "" && typedWidthM >= NARROWEST_ROAD_M && typedWidthM <= WIDEST_ROAD_M;
-
-  return (
-    <div className="change-control">
-      <label>
-        Road
-        <select
-          data-testid="change-road"
-          value={roadId}
-          onChange={(event) => {
-            setRoadId(event.target.value);
-            setTyped(undefined);
-          }}
-        >
-          {roads.map((road) => (
-            <option key={road.id} value={road.id}>
-              {road.id}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label>
-        Width in the proposal (m)
-        <input
-          data-testid="change-road-width"
-          type="number"
-          min={NARROWEST_ROAD_M}
-          max={WIDEST_ROAD_M}
-          step={0.5}
-          value={text}
-          aria-invalid={!usable}
-          onChange={(event) => {
-            const next = event.target.value;
-            const widthM = Number(next);
-            if (next.trim() !== "" && widthM >= NARROWEST_ROAD_M && widthM <= WIDEST_ROAD_M) {
-              setTyped(undefined);
-              onChange(withRoadWidth(proposal, roadId, widthM));
-            } else {
-              setTyped(next);
-            }
-          }}
-          onBlur={() => setTyped(undefined)}
-        />
-      </label>
-      <span className="hint">
-        Baseline: {today ?? "?"} m. A width from {NARROWEST_ROAD_M} m to {WIDEST_ROAD_M} m.
-      </span>
-    </div>
-  );
-}
 
 export function App() {
   // One scenario description holds the whole comparison: it is the proposal, and the baseline is the same
   // description without its changes. It is what a link or a file saves.
   const [proposal, setProposal] = useState(exampleScenario);
-  const { name, network, demand, laneDiscipline, seed } = proposal;
+  const { name, network, unbuiltRoadIds, demand, laneDiscipline, seed } = proposal;
   const baseline = useMemo(
-    () => baselineOf({ ...exampleScenario, name, network, demand, laneDiscipline, seed }),
-    [name, network, demand, laneDiscipline, seed],
+    () => baselineOf({ ...exampleScenario, name, network, unbuiltRoadIds, demand, laneDiscipline, seed }),
+    [name, network, unbuiltRoadIds, demand, laneDiscipline, seed],
   );
   const baselineInput = useMemo(() => resolveScenario(baseline), [baseline]);
   const proposalInput = useMemo(() => resolveScenario(proposal), [proposal]);
@@ -136,6 +43,11 @@ export function App() {
     const why = whyRefused(next);
     setRefusal(why);
     if (!why) setProposal(next);
+  };
+  const open = (scenario: Scenario) => {
+    setProposal(scenario);
+    setRefusal(undefined);
+    setOpened((count) => count + 1);
   };
 
   const sharedCamera = useMemo(() => createSharedCamera(), []);
@@ -315,70 +227,16 @@ export function App() {
       </section>
 
       <section className="panels">
-        <section className="proposal" aria-label="Proposal">
-          <h2>Proposal</h2>
-          <div className="change-control">
-            <label>
-              Start from an example
-              <select
-                data-testid="example"
-                value={EXAMPLES.find((example) => example.scenario.name === proposal.name)?.id ?? ""}
-                onChange={(event) => {
-                  const example = EXAMPLES.find((one) => one.id === event.target.value);
-                  if (!example) return;
-                  setProposal(example.scenario);
-                  setRefusal(undefined);
-                  setOpened((count) => count + 1);
-                }}
-              >
-                <option value="" disabled>
-                  (a scenario of your own)
-                </option>
-                {EXAMPLES.map((example) => (
-                  <option key={example.id} value={example.id}>
-                    {example.scenario.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <RoadWidthControl key={`width-${opened}`} proposal={proposal} onChange={propose} />
-          <RoadLanesControl key={`lanes-${opened}`} proposal={proposal} onChange={propose} />
-          {refusal && (
-            <p className="refused" data-testid="change-refused" role="alert">
-              Not changed. {refusal}.
-            </p>
-          )}
-          <h3>Changes from the baseline</h3>
-          {proposal.changes.length === 0 ? (
-            <p className="hint" data-testid="no-changes">
-              None. The proposal is a copy of the baseline.
-            </p>
-          ) : (
-            <ol data-testid="changes">
-              {proposal.changes.map((change, index) => (
-                <li key={`${change.kind}:${change.roadId}`}>
-                  {describeChange(change, proposal.network)}{" "}
-                  <button type="button" onClick={() => propose(withoutChange(proposal, index))}>
-                    Remove
-                  </button>
-                </li>
-              ))}
-            </ol>
-          )}
-          <h3>Save and share</h3>
-          <SaveAndShare
-            scenario={proposal}
-            storage={storage}
-            onOpen={(scenario) => {
-              setProposal(scenario);
-              setRefusal(undefined);
-              setOpened((count) => count + 1);
-            }}
-          />
-        </section>
+        <ProposalPanel
+          proposal={proposal}
+          opened={opened}
+          refusal={refusal}
+          storage={storage}
+          onPropose={propose}
+          onOpen={open}
+        />
 
-        <ResultsPanel collected={collected} />
+        <ResultsPanel collected={collected} networks={[baselineInput.network, proposalInput.network]} />
       </section>
     </main>
   );
