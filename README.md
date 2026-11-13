@@ -4,13 +4,55 @@ A what-if tool for Indian roads: a planner describes a road and a change to it, 
 
 **Live:** https://traffic-simulator-omega.vercel.app (deployed by Vercel from the `main` branch on every push).
 
-So far: mixed traffic on one straight road. Two-wheelers, cars, auto-rickshaws and buses enter, share the road's width strip by strip, follow and pass one another, and leave, each drawn to its own size with a shape for its class (a two-wheeler with its rider, a car, an auto-rickshaw, a bus), generated in code. Roads have kerbs, and lane and edge lines only where traffic keeps to lanes; the sun casts soft shadows while the camera is near enough to see them, and a view that cannot keep 40 frames a second with them drops them. Lane discipline is a setting of the engine's input: on, vehicles keep to lanes. The planner changes the road's width or its number of lanes in a proposal, and shares the scenario as a link or saves it as a file; baseline and proposal run together in two 3D views that share one camera and one clock, with results for both (among them the mean delay per vehicle class) and the change from the baseline.
+QUEST Lab (IISc) Full Stack AI pre-doctoral application, Project 2: an agent-based traffic simulation of a road network with junctions, flyovers and roads of different widths, deployed as an application where users set up scenarios and see results. Built in one Claude Code session between 2026-11-11 14:37 IST and the final commit.
+
+## What it does
+
+A planner compares a **baseline** (the road as it is) with a **proposal** (the road with changes), run side by side in 3D, with the same fixed results for both: vehicles through, mean delay per vehicle class, longest queue per signal approach, and stuck vehicles, each as an average and range over five seeds, for one hour after a 10-minute warm-up. Every figure is labelled an uncalibrated estimate.
+
+- **Indian mixed traffic.** Two-wheelers, cars, auto-rickshaws and buses share the road's width in 0.5 m strips instead of lanes; each follows the vehicle ahead that overlaps it (Intelligent Driver Model, values from Chennai studies), moves sideways when that gains, and two-wheelers filter to the front of signal queues. Lane discipline is a switch, so the same road can be run both ways. Left-hand traffic.
+- **Networks.** Signal junctions (fixed-time plans), priority junctions (side road waits for a gap by vehicle class), flyovers with ramps where through traffic chooses flyover or junction from live travel times, and roads of any width and lane count.
+- **Where networks come from.** Ready examples; a prepared real corridor (Hebbal, Bengaluru, city-bound, from OpenStreetMap, checked by hand); a builder of four building blocks in a line; and import of any small area of an Indian city from OpenStreetMap, with every value the map lacks marked as guessed and correctable.
+- **Changes a planner can make.** Width, lanes, closing a lane or road, signal timing, building or removing a flyover, flow rates, vehicle mix, scaling all demand, width lost to roadside activity, lane discipline. Each listed in plain words and undoable.
+- **Honest by design.** An assumptions panel lists every value the engine uses with its source and state (confirmed in the source, from a secondary source, or our choice). Stuck vehicles are released, counted and shown, never hidden.
+- **No backend.** A static site; a scenario is shared as a link or saved as a file.
+
+Try it with the five test scenarios in [`docs/test-scenarios.md`](docs/test-scenarios.md), each with the figures the engine produced.
+
+## How well it agrees with SUMO and field data
+
+Measured against SUMO 1.28.0 and the Chennai Saidapet trajectories under a standard written before any engine code (`docs/benchmark-standard.md`). Failures are reported, not tuned away.
+
+| Area | Result |
+|---|---|
+| Car following, single-lane capacity, flow at every stable density (Tier 1) | Within tolerance of the reference equations (largest gap 0.86%) and equal to SUMO |
+| Consistency (Tier 0): no vehicle lost, no overlap, same seed same result | Passes over 6.3 million steps |
+| Merging out of a closed lane (T1.5) | **Fails**: 19.5% below SUMO (tolerance 10%); our lane changes take 5.8 s |
+| Leader that stops and restarts (T1.2) | **Not runnable**: no vehicle with a prescribed speed |
+| Saturated four-way junction (T2.4) | Passes, no stuck vehicles; carries 44% more than SUMO, cause not established |
+| Signal delay against Webster (T2.2), priority capacity against the gap formula (T2.3) | **Fail** for both engines; ours is nearer Webster |
+| Flyover network (Tier 3) | Cross traffic beneath the flyover matches SUMO; flows, travel times and queues **fail**; flyover share **fails** after the junction fix |
+| Chennai field data (Tier 4) | Car, auto and bus speeds and throughput within 11%; two-wheelers 41% too fast; the dataset's speed column and its positions disagree by about 2x (positions used, decided before any run) |
+| Speed (Tier 5) | Faster than SUMO on straight roads; SUMO has far more features |
+
+Details: `docs/benchmark-results-2026-11-12*.md`. The v1 gate (Tiers 0 and 1 passing) was not fully met; that and the decision to go on are in `docs/v1-gate.md`.
+
+## Known limits
+
+- Nothing is calibrated; results are estimates for comparing designs, not predictions.
+- Side friction (parking, hawkers, stopping buses) is lost road width only; pedestrians, wrong-side driving, forced entry at junctions, roundabouts, adaptive signals, rerouting beyond the flyover choice and induced demand are not modelled.
+- Hebbal: widths are assumed (lanes x 3.5 m), the signal plan dates from 2010, the model carries only 30% of the published 2019 volumes, and its flyover cannot be removed (no legal route beneath).
+- Imported areas: underpasses and roundabouts are refused; demand is a flat guess per lane.
+- Free-form drawing of networks was deferred.
 
 ## Layout
 
 - `packages/engine` — the engine. Plain TypeScript with no browser or Node dependencies. Given a network, a demand and a seed, it advances a run step by step and gives back snapshots and results as plain data.
-- `packages/scenario` — the scenario description (network, list of changes, demand, lane discipline, seed; versioned), `resolveScenario()` which applies the changes and gives the engine only its input, reading a scenario back from a link or a file (checked in full, older versions upgraded), and the comparison of results against the baseline. Plain TypeScript, no browser dependencies.
+- `packages/scenario` — the scenario description (network or corridor or builder layout or imported area, list of changes, demand, lane discipline, seed; versioned), `resolveScenario()` which applies the changes and gives the engine only its input, reading a scenario back from a link or a file (checked in full, older versions upgraded), the builder, and the comparison of results against the baseline. Plain TypeScript, no browser dependencies.
+- `packages/corridor` — the OpenStreetMap importer, the prepared Hebbal corridor with its sources (`data/hebbal/SOURCES.md`), and the guessing rules for importing any area.
+- `packages/benchmark` — the comparison with SUMO and the Chennai data (`pnpm --filter @traffic-simulator/benchmark bench` and `bench:tiers`; needs `packages/benchmark/scripts/install-sumo.sh`). Not part of `pnpm test`.
 - `apps/web` — the app (React, Vite, three.js). It resolves the baseline and the proposal, runs both in one background worker on one clock, and draws the two 3D views. A second worker runs the five seeds behind the figures.
+- `.scratch/traffic-simulator-v1/` — the spec and the 25 tickets the work was planned and tracked in; `docs/adr/` — the decisions; `indian-traffic-simulator-research/` — the research behind them.
 
 ## Install
 

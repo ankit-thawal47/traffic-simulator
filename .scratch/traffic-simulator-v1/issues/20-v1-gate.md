@@ -11,4 +11,4 @@
 - [ ] Benchmark tiers 0 and 1 pass
 - [x] Benchmark tiers 2 to 4 have been run and reported
 - [x] The time of the check and the decision on v2 are recorded
-- [ ] The README describes what the product does, its limits, and how to run the tests and the benchmark
+- [x] The README describes what the product does, its limits, and how to run the tests and the benchmark
